@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ic_home"
+        android:title="@string/title_home" />
+
+    <item
+        android:id="@+id/navigation_passwords"
+        android:icon="@drawable/ic_password"
+        android:title="@string/title_passwords" />
+
+    <item
+        android:id="@+id/navigation_password_checker"
+        android:icon="@drawable/ic_check_password"
+        android:title="@string/title_check_password" />
+
+</menu>

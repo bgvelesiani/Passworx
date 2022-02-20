@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.gvelesiani.passmanager.ui.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_passwords"
+            app:destination="@id/navigation_passwords" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_passwords"
+        android:name="com.gvelesiani.passmanager.ui.passwords.PasswordsFragment"
+        android:label="@string/title_passwords"
+        tools:layout="@layout/fragment_passwords" >
+        <action
+            android:id="@+id/action_navigation_passwords_to_navigation_password_checker"
+            app:destination="@id/navigation_password_checker" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_password_checker"
+        android:name="com.gvelesiani.passmanager.ui.checkPassword.CheckPasswordFragment"
+        android:label="@string/title_check_password"
+        tools:layout="@layout/fragment_check_password" >
+        <action
+            android:id="@+id/action_navigation_password_checker_to_navigation_home"
+            app:destination="@id/navigation_home" />
+    </fragment>
+</navigation>
