@@ -27,9 +27,9 @@
 
     <fragment
         android:id="@+id/navigation_password_checker"
-        android:name="com.gvelesiani.passmanager.ui.checkPassword.CheckPasswordFragment"
+        android:name="com.gvelesiani.passmanager.ui.checkPassword.ToolsFragment"
         android:label="@string/title_check_password"
-        tools:layout="@layout/fragment_check_password" >
+        tools:layout="@layout/fragment_tools" >
         <action
             android:id="@+id/action_navigation_password_checker_to_navigation_home"
             app:destination="@id/navigation_home" />
