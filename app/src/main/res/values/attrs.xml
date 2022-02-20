@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CustomToolsView">
+        <attr name="setImageDrawable" format="reference" />
+        <attr name="setTitle" format="string" />
+        <attr name="setSubTitle" format="string" />
+    </declare-styleable>
+</resources>

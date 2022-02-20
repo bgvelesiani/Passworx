@@ -2,5 +2,9 @@
     <string name="app_name">PassManager</string>
     <string name="title_home">Home</string>
     <string name="title_passwords">Passwords</string>
-    <string name="title_check_password">Check Password</string>
+    <string name="title_tools">Tools</string>
+    <string name="generate_tool_sub_title">Generate new secure password</string>
+    <string name="generate_tool_title">Password Generator</string>
+    <string name="check_tool_sub_title">Check the health of your password</string>
+    <string name="check_tool_title">Password Health</string>
 </resources>

@@ -13,8 +13,8 @@ class ToolsFragment :
         get() = FragmentToolsBinding::inflate
 
     override fun setupView(savedInstanceState: Bundle?) {
-        viewModel.text.observe(viewLifecycleOwner) {
-            binding.textNotifications.text = it
-        }
+//        viewModel.text.observe(viewLifecycleOwner) {
+//            binding.textNotifications.text = it
+//        }
     }
 }

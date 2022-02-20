@@ -22,16 +22,16 @@
         tools:layout="@layout/fragment_passwords" >
         <action
             android:id="@+id/action_navigation_passwords_to_navigation_password_checker"
-            app:destination="@id/navigation_password_checker" />
+            app:destination="@id/navigation_tools" />
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_password_checker"
+        android:id="@+id/navigation_tools"
         android:name="com.gvelesiani.passmanager.ui.checkPassword.ToolsFragment"
-        android:label="@string/title_check_password"
+        android:label="@string/title_tools"
         tools:layout="@layout/fragment_tools" >
         <action
-            android:id="@+id/action_navigation_password_checker_to_navigation_home"
+            android:id="@+id/action_navigation_tools_to_navigation_home"
             app:destination="@id/navigation_home" />
     </fragment>
 </navigation>
