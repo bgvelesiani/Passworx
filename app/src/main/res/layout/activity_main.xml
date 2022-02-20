@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -9,8 +8,8 @@
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_fragment_activity_main"
         android:name="androidx.navigation.fragment.NavHostFragment"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="@dimen/size_0dp"
+        android:layout_height="@dimen/size_0dp"
         app:defaultNavHost="true"
         app:layout_constraintBottom_toTopOf="@id/divider"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,21 +20,22 @@
     <View
         android:id="@+id/divider"
         android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="#AEAEAE"
+        android:layout_height="0.3dp"
+        android:background="@color/bottom_bar_divider_color"
         app:layout_constraintBottom_toTopOf="@+id/bottomBar" />
 
     <me.ibrahimsn.lib.SmoothBottomBar
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="@dimen/bottom_bar_height"
         app:backgroundColor="@color/white"
-        app:iconTint="#AEAEAE"
+        app:iconSize="@dimen/bottom_bar_icon_size"
+        app:textSize="15sp"
+        app:iconTint="@color/bottom_bar_icon_tint"
         app:iconTintActive="@color/white"
-        app:indicatorColor="#3780FF"
+        app:indicatorColor="@color/bottom_bar_indicator_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/bottom_nav_menu"
-        app:textColor="@color/white"
-        tools:layout_editor_absoluteX="0dp" />
+        app:textColor="@color/white" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

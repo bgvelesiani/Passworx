@@ -3,14 +3,26 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Apps/projects/PassManager/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.15" />
         <entry key="..\:/Apps/projects/PassManager/app/src/main/res/drawable/ic_add_password.xml" value="0.10925925925925926" />
+        <entry key="..\:/Apps/projects/PassManager/app/src/main/res/drawable/ic_check_password.xml" value="0.18981481481481483" />
         <entry key="..\:/Apps/projects/PassManager/app/src/main/res/drawable/ic_check_password_24.xml" value="0.2755208333333333" />
+        <entry key="..\:/Apps/projects/PassManager/app/src/main/res/drawable/ic_generate.xml" value="0.1" />
+        <entry key="..\:/Apps/projects/PassManager/app/src/main/res/drawable/ic_health.xml" value="0.15" />
+        <entry key="..\:/Apps/projects/PassManager/app/src/main/res/drawable/ic_home.xml" value="0.18981481481481483" />
         <entry key="..\:/Apps/projects/PassManager/app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.2755208333333333" />
-        <entry key="..\:/Apps/projects/PassManager/app/src/main/res/layout/activity_main.xml" value="0.259375" />
+        <entry key="..\:/Apps/projects/PassManager/app/src/main/res/drawable/ic_launcher_background.xml" value="0.15" />
+        <entry key="..\:/Apps/projects/PassManager/app/src/main/res/drawable/ic_password.xml" value="0.18981481481481483" />
+        <entry key="..\:/Apps/projects/PassManager/app/src/main/res/drawable/ic_password_health.xml" value="0.18981481481481483" />
+        <entry key="..\:/Apps/projects/PassManager/app/src/main/res/drawable/ic_passwords.xml" value="0.271875" />
+        <entry key="..\:/Apps/projects/PassManager/app/src/main/res/drawable/ic_tools.xml" value="0.1" />
+        <entry key="..\:/Apps/projects/PassManager/app/src/main/res/layout/activity_main.xml" value="0.2763440860215054" />
         <entry key="..\:/Apps/projects/PassManager/app/src/main/res/layout/fragment_add_password.xml" value="0.259375" />
         <entry key="..\:/Apps/projects/PassManager/app/src/main/res/layout/fragment_check_password.xml" value="0.13333333333333333" />
         <entry key="..\:/Apps/projects/PassManager/app/src/main/res/layout/fragment_home.xml" value="0.264" />
         <entry key="..\:/Apps/projects/PassManager/app/src/main/res/layout/fragment_passwords.xml" value="0.13333333333333333" />
+        <entry key="..\:/Apps/projects/PassManager/app/src/main/res/layout/fragment_tools.xml" value="0.1828793774319066" />
+        <entry key="..\:/Apps/projects/PassManager/app/src/main/res/layout/tools_item.xml" value="0.6" />
         <entry key="..\:/Apps/projects/PassManager/app/src/main/res/menu/bottom_nav_menu.xml" value="0.259375" />
       </map>
     </option>

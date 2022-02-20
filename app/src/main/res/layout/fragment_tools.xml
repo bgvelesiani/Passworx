@@ -4,19 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginStart="@dimen/fragment_tools_margin"
+    android:layout_marginEnd="@dimen/fragment_tools_margin"
     tools:context=".ui.checkPassword.ToolsFragment">
 
-    <TextView
-        android:id="@+id/text_notifications"
+    <com.gvelesiani.passmanager.customViews.CustomToolsView
+        android:id="@+id/toolGeneratePassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:setImageDrawable="@drawable/ic_generate"
+        app:setSubTitle="@string/generate_tool_sub_title"
+        app:setTitle="@string/generate_tool_title" />
+
+    <com.gvelesiani.passmanager.customViews.CustomToolsView
+        android:id="@+id/toolCheckPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolGeneratePassword"
+        app:setImageDrawable="@drawable/ic_health"
+        app:setSubTitle="@string/check_tool_sub_title"
+        app:setTitle="@string/check_tool_title" />
 </androidx.constraintlayout.widget.ConstraintLayout>
