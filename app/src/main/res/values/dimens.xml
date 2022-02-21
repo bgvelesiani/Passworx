@@ -12,4 +12,10 @@
     <dimen name="size_0dp">0dp</dimen>
     <dimen name="fragment_tools_margin">20dp</dimen>
     <dimen name="home_fab_margin">16dp</dimen>
+    <dimen name="size_30dp">30dp</dimen>
+    <dimen name="size_25dp">25dp</dimen>
+    <dimen name="size_10dp">10dp</dimen>
+    <dimen name="size_15dp">15dp</dimen>
+    <dimen name="size_7dp">7dp</dimen>
+    <dimen name="text_size_20sp">20sp</dimen>
 </resources>

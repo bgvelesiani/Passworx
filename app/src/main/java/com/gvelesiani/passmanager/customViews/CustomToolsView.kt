@@ -24,8 +24,8 @@ class CustomToolsView(context: Context, @Nullable attrs: AttributeSet) :
 
     init {
         imageView = view.findViewById(R.id.toolImage) as AppCompatImageView
-        titleTextView = view.findViewById(R.id.titleTextView) as AppCompatTextView
-        subtitleTextView = view.findViewById(R.id.subtitleTextView) as AppCompatTextView
+        titleTextView = view.findViewById(R.id.toolTitle) as AppCompatTextView
+        subtitleTextView = view.findViewById(R.id.toolSubTitle) as AppCompatTextView
 
         val typedArray =
             context.theme.obtainStyledAttributes(attrs, R.styleable.CustomToolsView, 0, 0)

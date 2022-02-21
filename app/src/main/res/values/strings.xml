@@ -7,4 +7,16 @@
     <string name="generate_tool_title">Password Generator</string>
     <string name="check_tool_sub_title">Check the health of your password</string>
     <string name="check_tool_title">Password Health</string>
+    <string name="title_password_generator">Password Generator</string>
+    <string name="copy_password_snackbar_text">Generated password copied to clipboard</string>
+    <string name="copy_password_button_text">Copy Password</string>
+    <string name="password_generator_slider_min_value">8</string>
+    <string name="password_generator_slider_max_value">32</string>
+
+    <string name="generate_password_error_Text">Couldn\'t generate password, sorry for the inconvenience :(</string>
+    <string name="generate_password_use_capital_letters_setting">Include Capital Letters</string>
+    <string name="generate_password_use_numbers_setting">Include Numbers</string>
+    <string name="generate_password_use_capital_symbols_setting">Include Symbols</string>
+    <string name="generate_password_error_dialog_title">Oops…</string>
+    <string name="generate_password_error_dialog_button_text">Try Again</string>
 </resources>

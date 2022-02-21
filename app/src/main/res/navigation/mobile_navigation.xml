@@ -27,11 +27,23 @@
 
     <fragment
         android:id="@+id/navigation_tools"
-        android:name="com.gvelesiani.passmanager.ui.checkPassword.ToolsFragment"
+        android:name="com.gvelesiani.passmanager.ui.tools.ToolsFragment"
         android:label="@string/title_tools"
         tools:layout="@layout/fragment_tools" >
         <action
             android:id="@+id/action_navigation_tools_to_navigation_home"
             app:destination="@id/navigation_home" />
+        <action
+            android:id="@+id/action_navigation_tools_to_passwordGeneratorFragment"
+            app:destination="@id/passwordGeneratorFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/passwordGeneratorFragment"
+        android:name="com.gvelesiani.passmanager.ui.passwordGenerator.PasswordGeneratorFragment"
+        android:label="@string/title_password_generator"
+        tools:layout="@layout/fragment_password_generator">
+        <action
+            android:id="@+id/action_passwordGeneratorFragment_to_navigation_tools"
+            app:destination="@id/navigation_tools" />
     </fragment>
 </navigation>

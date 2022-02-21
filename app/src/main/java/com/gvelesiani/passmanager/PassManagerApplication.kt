@@ -2,6 +2,7 @@ package com.gvelesiani.passmanager
 
 import android.app.Application
 import com.gvelesiani.passmanager.diModules.helpersModule
+import com.gvelesiani.passmanager.diModules.useCasesModule
 import com.gvelesiani.passmanager.diModules.viewModelsModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -18,7 +19,7 @@ class PassManagerApplication : Application() {
 
     private fun provideKoinModules(): List<Module> {
         return listOf(
-            viewModelsModule, helpersModule
+            viewModelsModule, helpersModule, useCasesModule
         )
     }
 }

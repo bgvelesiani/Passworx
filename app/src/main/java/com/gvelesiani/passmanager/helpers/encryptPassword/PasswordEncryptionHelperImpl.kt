@@ -1,4 +1,4 @@
-package com.gvelesiani.passmanager.helpers
+package com.gvelesiani.passmanager.helpers.encryptPassword
 
 import android.content.Context
 import android.preference.PreferenceManager
@@ -13,7 +13,7 @@ import javax.crypto.KeyGenerator
 import javax.crypto.SecretKey
 import javax.crypto.spec.IvParameterSpec
 
-class PasswordHashHelperImpl : PasswordHashHelper {
+class PasswordEncryptionHelperImpl : PasswordEncryptionHelper {
     override fun encryptPassword(context: Context, strToEncrypt: String): ByteArray {
         val plainText = strToEncrypt.toByteArray(Charsets.UTF_8)
         val keygen = KeyGenerator.getInstance("AES")
