@@ -1,4 +1,4 @@
-package com.gvelesiani.passmanager.ui.checkPassword
+package com.gvelesiani.passmanager.ui.tools
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

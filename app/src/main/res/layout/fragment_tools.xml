@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_marginStart="@dimen/fragment_tools_margin"
     android:layout_marginEnd="@dimen/fragment_tools_margin"
-    tools:context=".ui.checkPassword.ToolsFragment">
+    tools:context=".ui.tools.ToolsFragment">
 
     <com.gvelesiani.passmanager.customViews.CustomToolsView
         android:id="@+id/toolGeneratePassword"
