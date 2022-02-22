@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_navigation_home_to_navigation_passwords"
             app:destination="@id/navigation_passwords" />
+        <action
+            android:id="@+id/action_navigation_home_to_addPasswordFragment"
+            app:destination="@id/addPasswordFragment" />
     </fragment>
 
     <fragment
@@ -45,5 +48,14 @@
         <action
             android:id="@+id/action_passwordGeneratorFragment_to_navigation_tools"
             app:destination="@id/navigation_tools" />
+    </fragment>
+    <fragment
+        android:id="@+id/addPasswordFragment"
+        android:name="com.gvelesiani.passmanager.ui.addPassword.AddPasswordFragment"
+        android:label="@string/title_add_new_password"
+        tools:layout="@layout/fragment_add_password" >
+        <action
+            android:id="@+id/action_addPasswordFragment_to_navigation_home"
+            app:destination="@id/navigation_home" />
     </fragment>
 </navigation>

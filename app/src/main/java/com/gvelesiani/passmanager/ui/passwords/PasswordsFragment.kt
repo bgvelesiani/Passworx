@@ -18,4 +18,7 @@ class PasswordsFragment : BaseFragment<PasswordsViewModel, FragmentPasswordsBind
             binding.textDashboard.text = it
         }
     }
+
+    override fun setupObservers() {
+    }
 }

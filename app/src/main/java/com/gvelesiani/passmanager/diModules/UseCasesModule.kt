@@ -1,10 +1,15 @@
 package com.gvelesiani.passmanager.diModules
 
+import com.gvelesiani.passmanager.domain.useCases.AddNewPasswordUseCase
 import com.gvelesiani.passmanager.domain.useCases.GeneratePasswordUseCase
 import org.koin.dsl.module
 
 val useCasesModule = module {
-    single {
+    factory {
         GeneratePasswordUseCase(get())
+    }
+
+    factory {
+        AddNewPasswordUseCase(get())
     }
 }
