@@ -8,4 +8,8 @@ class RepositoryImpl(private val localDataProvider: LocalDataProvider) : Reposit
         localDataProvider.addNewPassword(pass)
     }
 
+    override fun getPasswords(): List<PasswordModel> {
+        return localDataProvider.getPasswords()
+    }
+
 }

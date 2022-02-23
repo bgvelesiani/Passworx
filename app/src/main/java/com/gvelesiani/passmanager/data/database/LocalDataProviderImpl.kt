@@ -9,4 +9,8 @@ class LocalDataProviderImpl constructor(
     override fun addNewPassword(pass: PasswordModel) {
         database.getPasswordDao.addNewPassword(pass)
     }
+
+    override fun getPasswords(): List<PasswordModel> {
+        return database.getPasswordDao.getPasswords()
+    }
 }

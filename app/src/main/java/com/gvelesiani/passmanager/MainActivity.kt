@@ -1,5 +1,6 @@
 package com.gvelesiani.passmanager
 
+import android.graphics.Color
 import android.os.Bundle
 import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
@@ -7,6 +8,9 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.gvelesiani.passmanager.databinding.ActivityMainBinding
+import android.graphics.drawable.ColorDrawable
+import androidx.appcompat.app.ActionBar
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController

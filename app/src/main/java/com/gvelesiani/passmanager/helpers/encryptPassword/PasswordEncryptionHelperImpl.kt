@@ -1,7 +1,7 @@
 package com.gvelesiani.passmanager.helpers.encryptPassword
 
 import android.content.Context
-import android.preference.PreferenceManager
+import androidx.preference.PreferenceManager
 import android.util.Base64
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream

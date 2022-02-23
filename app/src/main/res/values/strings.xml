@@ -2,12 +2,13 @@
     <string name="app_name">PassManager</string>
     <string name="title_home">Home</string>
     <string name="title_passwords">Passwords</string>
-    <string name="title_tools">Tools</string>
+    <string name="title_settings">Settings</string>
     <string name="generate_tool_sub_title">Generate new secure password</string>
     <string name="generate_tool_title">Password Generator</string>
     <string name="check_tool_sub_title">Check the health of your password</string>
     <string name="check_tool_title">Password Health</string>
     <string name="title_password_generator">Password Generator</string>
+    <string name="title_generate_menu">Generate</string>
     <string name="copy_password_snackbar_text">Generated password copied to clipboard</string>
     <string name="copy_password_button_text">Copy Password</string>
     <string name="add_password_button_text">Add Password</string>

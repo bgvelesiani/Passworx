@@ -3,19 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@id/navigation_passwords">
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.gvelesiani.passmanager.ui.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" >
+        android:id="@+id/navigation_generate"
+        android:name="com.gvelesiani.passmanager.ui.passwordGenerator.PasswordGeneratorFragment"
+        android:label="@string/title_password_generator"
+        tools:layout="@layout/fragment_password_generator" >
         <action
-            android:id="@+id/action_navigation_home_to_navigation_passwords"
+            android:id="@+id/action_navigation_generate_to_navigation_passwords"
             app:destination="@id/navigation_passwords" />
-        <action
-            android:id="@+id/action_navigation_home_to_addPasswordFragment"
-            app:destination="@id/addPasswordFragment" />
     </fragment>
 
     <fragment
@@ -25,37 +22,27 @@
         tools:layout="@layout/fragment_passwords" >
         <action
             android:id="@+id/action_navigation_passwords_to_navigation_password_checker"
-            app:destination="@id/navigation_tools" />
+            app:destination="@id/navigation_settings" />
+        <action
+            android:id="@+id/action_navigation_passwords_to_addPasswordFragment"
+            app:destination="@id/addPasswordFragment" />
+        <action
+            android:id="@+id/action_navigation_passwords_to_navigation_generate"
+            app:destination="@id/navigation_generate" />
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_tools"
-        android:name="com.gvelesiani.passmanager.ui.tools.ToolsFragment"
-        android:label="@string/title_tools"
-        tools:layout="@layout/fragment_tools" >
-        <action
-            android:id="@+id/action_navigation_tools_to_navigation_home"
-            app:destination="@id/navigation_home" />
-        <action
-            android:id="@+id/action_navigation_tools_to_passwordGeneratorFragment"
-            app:destination="@id/passwordGeneratorFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/passwordGeneratorFragment"
-        android:name="com.gvelesiani.passmanager.ui.passwordGenerator.PasswordGeneratorFragment"
-        android:label="@string/title_password_generator"
-        tools:layout="@layout/fragment_password_generator">
-        <action
-            android:id="@+id/action_passwordGeneratorFragment_to_navigation_tools"
-            app:destination="@id/navigation_tools" />
-    </fragment>
+        android:id="@+id/navigation_settings"
+        android:name="com.gvelesiani.passmanager.ui.tools.SettingsFragment"
+        android:label="@string/title_settings"
+        tools:layout="@layout/fragment_settings" />
     <fragment
         android:id="@+id/addPasswordFragment"
         android:name="com.gvelesiani.passmanager.ui.addPassword.AddPasswordFragment"
         android:label="@string/title_add_new_password"
         tools:layout="@layout/fragment_add_password" >
         <action
-            android:id="@+id/action_addPasswordFragment_to_navigation_home"
-            app:destination="@id/navigation_home" />
+            android:id="@+id/action_addPasswordFragment_to_navigation_passwords"
+            app:destination="@id/navigation_passwords" />
     </fragment>
 </navigation>

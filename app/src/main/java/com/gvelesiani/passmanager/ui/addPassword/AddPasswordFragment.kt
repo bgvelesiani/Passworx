@@ -2,7 +2,6 @@ package com.gvelesiani.passmanager.ui.addPassword
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -11,7 +10,6 @@ import com.gvelesiani.passmanager.base.BaseFragment
 import com.gvelesiani.passmanager.common.onTextChanged
 import com.gvelesiani.passmanager.data.models.PasswordModel
 import com.gvelesiani.passmanager.databinding.FragmentAddPasswordBinding
-import me.ibrahimsn.lib.SmoothBottomBar
 
 
 class AddPasswordFragment :
@@ -21,7 +19,6 @@ class AddPasswordFragment :
         get() = FragmentAddPasswordBinding::inflate
 
     override fun setupView(savedInstanceState: Bundle?) {
-        requireActivity().findViewById<SmoothBottomBar>(R.id.bottomBar).visibility = View.GONE
         setHasOptionsMenu(true)
         watchFields()
         setOnClickListeners()
@@ -58,7 +55,7 @@ class AddPasswordFragment :
     }
 
     private fun observeViewState(viewState: AddPasswordViewModel.ViewState) {
-        if(viewState.showAddNewPasswordError != null){
+        if (viewState.showAddNewPasswordError != null) {
             MaterialAlertDialogBuilder(requireContext())
                 .setTitle(resources.getString(R.string.generate_password_error_dialog_title))
                 .setMessage(viewState.showAddNewPasswordError)
@@ -77,17 +74,4 @@ class AddPasswordFragment :
             it?.let { observeViewState(it) }
         })
     }
-
-//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-//        inflater.inflate(R.menu.add_password_menu, menu)
-//        super.onCreateOptionsMenu(menu, inflater)
-//    }
-//
-//    override fun onPrepareOptionsMenu(menu: Menu) {
-//        menu.findItem(R.id.action_add_password).setOnMenuItemClickListener {
-//            addNewPassword()
-//            true
-//        }
-//        super.onPrepareOptionsMenu(menu)
-//    }
 }

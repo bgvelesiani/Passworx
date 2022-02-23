@@ -24,13 +24,12 @@ class PasswordGeneratorFragment :
         get() = FragmentPasswordGeneratorBinding::inflate
 
     override fun setupView(savedInstanceState: Bundle?) {
-        requireActivity().findViewById<SmoothBottomBar>(R.id.bottomBar).visibility = View.GONE
         setUpListeners()
     }
 
     override fun setupObservers() {
         viewModel.generatedPassword.observe(viewLifecycleOwner, {
-            binding.tvPassword.text = it
+            binding.tvGeneratedPassword.text = it
         })
 
         viewModel.generatePasswordError.observe(viewLifecycleOwner, {
@@ -50,7 +49,7 @@ class PasswordGeneratorFragment :
                 viewModel.generatePassword(value.toInt())
             }
             btCopyGeneratedPassword.setOnClickListener {
-                copyTextToClipboard(tvPassword.text.toString())
+                copyTextToClipboard(tvGeneratedPassword.text.toString())
             }
             smUseCapitalLetters.setOnCheckedChangeListener { _, isChecked ->
                 viewModel.useCapitalLetters(isChecked, sbPasswordGenerator.value.toInt())
