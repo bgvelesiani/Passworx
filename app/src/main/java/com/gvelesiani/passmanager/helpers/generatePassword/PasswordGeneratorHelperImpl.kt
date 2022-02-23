@@ -1,11 +1,10 @@
 package com.gvelesiani.passmanager.helpers.generatePassword
 
-import com.gvelesiani.passmanager.constants.PasswordProperties
 import java.security.SecureRandom
 import java.util.stream.Collectors
 import java.util.stream.IntStream
 
-class PasswordGeneratorHelperImpl: PasswordGeneratorHelper {
+class PasswordGeneratorHelperImpl : PasswordGeneratorHelper {
     override fun generatePassword(length: Int, properties: String): String {
         val random = SecureRandom()
         return IntStream.range(0, length)

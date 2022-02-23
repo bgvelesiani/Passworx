@@ -15,6 +15,7 @@ buildscript {
         smooth_bottom_bar_version = '1.7.9'
         koin_version = '3.1.2'
         coroutines_version = '1.6.0'
+        room_version = '2.4.1'
     }
     repositories {
         google()

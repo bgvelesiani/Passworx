@@ -6,9 +6,10 @@
     android:layout_height="match_parent"
     android:layout_marginStart="@dimen/fragment_tools_margin"
     android:layout_marginEnd="@dimen/fragment_tools_margin"
-    tools:context=".ui.tools.ToolsFragment">
+    tools:context=".ui.tools.SettingsFragment">
 
     <com.gvelesiani.passmanager.customViews.CustomToolsView
+        android:layout_marginTop="@dimen/dimen_15dp"
         android:id="@+id/toolGeneratePassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,13 +20,24 @@
         app:setSubTitle="@string/generate_tool_sub_title"
         app:setTitle="@string/generate_tool_title" />
 
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/materialDivider2"
+        android:layout_width="@dimen/dimen_0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_12dp"
+        app:dividerColor="@color/light_grey"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolGeneratePassword" />
+
     <com.gvelesiani.passmanager.customViews.CustomToolsView
         android:id="@+id/toolCheckPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolGeneratePassword"
+        app:layout_constraintTop_toBottomOf="@+id/materialDivider2"
         app:setImageDrawable="@drawable/ic_health"
         app:setSubTitle="@string/check_tool_sub_title"
         app:setTitle="@string/check_tool_title" />

@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.gvelesiani.passmanager.base.BaseViewModel
 
-class ToolsViewModel : BaseViewModel() {
+class SettingsViewModel : BaseViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
         value = "This is notifications Fragment"

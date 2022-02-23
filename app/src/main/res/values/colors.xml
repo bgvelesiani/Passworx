@@ -6,6 +6,8 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
+    <color name="light_grey">#EBEFF2</color>
+    <color name="grey">#808080</color>
     <color name="white">#FFFFFFFF</color>
     <color name="blue">#3780FF</color>
     <color name="dark_text_color">#08070D</color>
@@ -16,4 +18,5 @@
     <color name="bottom_bar_divider_color">#BFBFBF</color>
     <color name="home_fab_tint">#3780FF</color>
     <color name="light_blue">#B1C9F4</color>
+    <color name="label_info_text_color">#A308070D</color>
 </resources>

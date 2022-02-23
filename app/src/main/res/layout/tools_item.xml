@@ -9,7 +9,6 @@
         android:id="@+id/toolImage"
         android:layout_width="@dimen/tools_image_width_and_height"
         android:layout_height="@dimen/tools_image_width_and_height"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="ContentDescription" />

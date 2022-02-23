@@ -31,7 +31,10 @@ abstract class BaseFragment<VM : BaseViewModel, B : ViewBinding>(klass: KClass<V
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupView(savedInstanceState)
+        setupObservers()
     }
+
+    abstract fun setupObservers()
 
     override fun onDestroy() {
         super.onDestroy()

@@ -5,6 +5,7 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
@@ -12,6 +13,7 @@ import com.gvelesiani.passmanager.R
 import com.gvelesiani.passmanager.base.BaseFragment
 import com.gvelesiani.passmanager.constants.CLIP_DATA_PLAIN_TEXT_LABEL
 import com.gvelesiani.passmanager.databinding.FragmentPasswordGeneratorBinding
+import me.ibrahimsn.lib.SmoothBottomBar
 
 
 class PasswordGeneratorFragment :
@@ -22,13 +24,12 @@ class PasswordGeneratorFragment :
         get() = FragmentPasswordGeneratorBinding::inflate
 
     override fun setupView(savedInstanceState: Bundle?) {
-        setUpObservers()
         setUpListeners()
     }
 
-    private fun setUpObservers() {
+    override fun setupObservers() {
         viewModel.generatedPassword.observe(viewLifecycleOwner, {
-            binding.tvPassword.text = it
+            binding.tvGeneratedPassword.text = it
         })
 
         viewModel.generatePasswordError.observe(viewLifecycleOwner, {
@@ -48,7 +49,7 @@ class PasswordGeneratorFragment :
                 viewModel.generatePassword(value.toInt())
             }
             btCopyGeneratedPassword.setOnClickListener {
-                copyTextToClipboard(tvPassword.text.toString())
+                copyTextToClipboard(tvGeneratedPassword.text.toString())
             }
             smUseCapitalLetters.setOnCheckedChangeListener { _, isChecked ->
                 viewModel.useCapitalLetters(isChecked, sbPasswordGenerator.value.toInt())
