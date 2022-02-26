@@ -10,7 +10,7 @@
     <color name="grey">#808080</color>
     <color name="white">#FFFFFFFF</color>
     <color name="blue">#3780FF</color>
-    <color name="dark_text_color">#08070D</color>
+    <color name="dark_color">#08070D</color>
     <color name="tools_item_title_color">#08070D</color>
     <color name="tools_item_subtitle_color">#6E6E71</color>
     <color name="bottom_bar_icon_tint">#AEAEAE</color>

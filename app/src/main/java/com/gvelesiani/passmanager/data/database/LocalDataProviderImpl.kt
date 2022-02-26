@@ -10,7 +10,23 @@ class LocalDataProviderImpl constructor(
         database.getPasswordDao.addNewPassword(pass)
     }
 
-    override fun getPasswords(): List<PasswordModel> {
-        return database.getPasswordDao.getPasswords()
+    override fun getPasswords(isInTrash: Boolean): List<PasswordModel> {
+        return database.getPasswordDao.getPasswords(isInTrash)
+    }
+
+    override fun updateFavoriteState(isFavorite: Boolean, id: Int) {
+        database.getPasswordDao.updateFavoriteState(isFavorite, id)
+    }
+
+    override fun getFavoriteItems(isFavorite: Boolean): List<PasswordModel> {
+        return database.getPasswordDao.getFavorites(isFavorite)
+    }
+
+    override fun updateItemTrashState(isInTrash: Boolean, id: Int) {
+        database.getPasswordDao.updateItemTrashState(isInTrash, id)
+    }
+
+    override fun deletePassword(passwordId: Int) {
+        database.getPasswordDao.deletePassword(passwordId)
     }
 }

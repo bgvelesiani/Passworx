@@ -16,5 +16,7 @@ data class PasswordModel(
     val passwordTitle: String = "",
     val websiteOrAppName: String = "",
     val emailOrUserName: String = "",
-    val label: String = ""
+    val label: String = "",
+    val isFavorite: Boolean = false,
+    val isInTrash: Boolean = false
 ) : Parcelable

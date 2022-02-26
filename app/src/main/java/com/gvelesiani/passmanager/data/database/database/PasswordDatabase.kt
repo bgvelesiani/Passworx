@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 import com.gvelesiani.passmanager.data.database.dao.PasswordDao
 import com.gvelesiani.passmanager.data.models.PasswordModel
 
-@Database(entities = [PasswordModel::class], version = 1, exportSchema = false)
+@Database(entities = [PasswordModel::class], version = 4, exportSchema = false)
 abstract class PasswordDatabase : RoomDatabase() {
     abstract val getPasswordDao: PasswordDao
 }
