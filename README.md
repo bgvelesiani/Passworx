@@ -18,4 +18,4 @@ SecurePass has a lot of upcomming features and functionalities, which involves:
 - **Fingerprint authentication**, to make users vault more secure 🔒
 - Search functionality, to find passwords **Rapidly** 🚀
 
-**More info comming soon** 🚀 🤘
+**More info coming soon** 🚀 🤘
