@@ -14,7 +14,7 @@ import org.koin.dsl.module
 val localStorageModule = module {
     fun provideDataBase(application: Application): PasswordDatabase {
         return Room.databaseBuilder(application, PasswordDatabase::class.java, DATABASE_NAME)
-            .fallbackToDestructiveMigration()
+            .fallbackToDestructiveMigration() // TODO: 2/26/2022 Remove this and add manual migrations later
             .build()
     }
 

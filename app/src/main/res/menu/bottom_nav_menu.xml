@@ -6,6 +6,11 @@
         android:title="@string/title_passwords" />
 
     <item
+        android:id="@+id/navigation_browse"
+        android:icon="@drawable/ic_browse"
+        android:title="@string/title_browse" />
+
+    <item
         android:id="@+id/navigation_generate"
         android:icon="@drawable/ic_generate"
         android:title="@string/title_generate_menu" />
