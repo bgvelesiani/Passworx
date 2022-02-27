@@ -8,7 +8,7 @@
     android:layout_marginEnd="@dimen/fragment_tools_margin"
     tools:context=".ui.browse.BrowseFragment">
 
-    <com.gvelesiani.passmanager.customViews.CustomToolsView
+    <com.gvelesiani.passworx.customViews.CustomToolsView
         android:id="@+id/browseFavoritePasswords"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,7 +30,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/browseFavoritePasswords" />
 
-    <com.gvelesiani.passmanager.customViews.CustomToolsView
+    <com.gvelesiani.passworx.customViews.CustomToolsView
         android:id="@+id/browseTrashedPasswords"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

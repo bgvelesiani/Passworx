@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.gvelesiani.passmanager">
+    package="com.gvelesiani.passworx">
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:name=".PassManagerApplication"
+        android:name="com.gvelesiani.passworx.PassworxApplication"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.PassManager"
+        android:theme="@style/Theme.Passworx"
         tools:replace="android:theme">
         <activity
-            android:name=".MainActivity"
+            android:name="com.gvelesiani.passworx.MainActivity"
             android:exported="true"
             android:label="@string/app_name">
             <intent-filter>
