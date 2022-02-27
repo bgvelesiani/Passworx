@@ -7,13 +7,13 @@
 
     <fragment
         android:id="@+id/navigation_generate"
-        android:name="com.gvelesiani.passmanager.ui.passwordGenerator.PasswordGeneratorFragment"
+        android:name="com.gvelesiani.passworx.ui.passwordGenerator.PasswordGeneratorFragment"
         android:label="@string/title_password_generator"
         tools:layout="@layout/fragment_password_generator" />
 
     <fragment
         android:id="@+id/navigation_passwords"
-        android:name="com.gvelesiani.passmanager.ui.passwords.PasswordsFragment"
+        android:name="com.gvelesiani.passworx.ui.passwords.PasswordsFragment"
         android:label="@string/title_passwords"
         tools:layout="@layout/fragment_passwords" >
         <action
@@ -32,12 +32,12 @@
 
     <fragment
         android:id="@+id/navigation_settings"
-        android:name="com.gvelesiani.passmanager.ui.tools.SettingsFragment"
+        android:name="com.gvelesiani.passworx.ui.tools.SettingsFragment"
         android:label="@string/title_settings"
         tools:layout="@layout/fragment_settings" />
     <fragment
         android:id="@+id/addPasswordFragment"
-        android:name="com.gvelesiani.passmanager.ui.addPassword.AddPasswordFragment"
+        android:name="com.gvelesiani.passworx.ui.addPassword.AddPasswordFragment"
         android:label="@string/title_add_new_password"
         tools:layout="@layout/fragment_add_password" >
         <action
@@ -46,7 +46,7 @@
     </fragment>
     <fragment
         android:id="@+id/passwordTrashFragment"
-        android:name="com.gvelesiani.passmanager.ui.trash.PasswordTrashFragment"
+        android:name="com.gvelesiani.passworx.ui.trash.PasswordTrashFragment"
         android:label="PasswordTrashFragment" >
         <action
             android:id="@+id/action_passwordTrashFragment_to_navigation_browse"
@@ -54,7 +54,7 @@
     </fragment>
     <fragment
         android:id="@+id/navigation_browse"
-        android:name="com.gvelesiani.passmanager.ui.browse.BrowseFragment"
+        android:name="com.gvelesiani.passworx.ui.browse.BrowseFragment"
         android:label="fragment_browse"
         tools:layout="@layout/fragment_browse" >
         <action
