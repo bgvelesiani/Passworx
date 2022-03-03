@@ -9,11 +9,14 @@ import android.view.ViewGroup
 import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.annotation.MenuRes
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.base.BaseFragment
 import com.gvelesiani.passworx.data.models.PasswordModel
 import com.gvelesiani.passworx.databinding.FragmentPasswordsBinding
+import com.gvelesiani.passworx.ui.passwordDetails.PasswordDetailsBottomSheet
 import com.gvelesiani.passworx.ui.passwords.adapter.PasswordAdapter
 import me.ibrahimsn.lib.SmoothBottomBar
 
@@ -27,7 +30,7 @@ class PasswordTrashFragment :
     override fun setupView(savedInstanceState: Bundle?) {
         requireActivity().findViewById<SmoothBottomBar>(R.id.bottomBar).visibility = View.GONE
         binding.btAddPassword.visibility = View.GONE
-        viewModel.getPasswords(true)
+        viewModel.getPasswords()
         setupRecyclerViewAdapter()
     }
 
@@ -38,7 +41,16 @@ class PasswordTrashFragment :
     }
 
     private fun observeViewState(viewState: PasswordTrashViewModel.ViewState) {
-        adapter.submitData(viewState.passwords)
+        if(viewState.passwords.isEmpty()) {
+            binding.rvPasswords.isVisible = false
+            binding.groupNoData.isVisible = true
+            binding.tvNoData.text = getString(R.string.empty_trash_title)
+            binding.tvNoDataDesc.text = getString(R.string.empty_trash_message)
+        } else {
+            adapter.submitData(viewState.passwords)
+            binding.groupNoData.isVisible = false
+            binding.rvPasswords.isVisible = true
+        }
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -48,11 +60,26 @@ class PasswordTrashFragment :
 
         popup.setOnMenuItemClickListener { menuItem: MenuItem ->
             when (menuItem.itemId) {
-                R.id.menuEditAndRestore -> Toast.makeText(requireContext(), "Edit", Toast.LENGTH_SHORT).show()
+                R.id.menuEditAndRestore -> Toast.makeText(
+                    requireContext(),
+                    "Edit",
+                    Toast.LENGTH_SHORT
+                ).show()
                 R.id.menuDeletePermanently -> {
-                    viewModel.deletePassword(passwordId = password.passwordId)
-                    adapter.notifyItemChanged(position)
-                    adapter.notifyDataSetChanged()
+                    MaterialAlertDialogBuilder(
+                        requireContext(),
+                        R.style.MaterialAlertDialog_Material3_Body_Text
+                    )
+                        .setMessage("Are you sure you want to delete this password permanently?")
+                        .setNegativeButton("No") { _, _ ->
+                            // Respond to negative button press
+                        }
+                        .setPositiveButton("Yes") { _, _ ->
+                            viewModel.deletePassword(passwordId = password.passwordId)
+                            adapter.notifyItemChanged(position)
+                            adapter.notifyDataSetChanged()
+                        }
+                        .show()
                 }
             }
             true
@@ -65,8 +92,7 @@ class PasswordTrashFragment :
     private fun setupRecyclerViewAdapter() {
         adapter = PasswordAdapter(
             clickListener = { password: PasswordModel ->
-                Toast.makeText(requireContext(), password.emailOrUserName, Toast.LENGTH_SHORT)
-                    .show()
+                PasswordDetailsBottomSheet.show(password, childFragmentManager, PasswordDetailsBottomSheet.TAG)
             },
             menuClickListener = { password: PasswordModel, view: View, position: Int ->// it == PasswordModel
                 showMenu(

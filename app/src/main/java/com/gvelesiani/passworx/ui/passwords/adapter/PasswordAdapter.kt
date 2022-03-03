@@ -9,11 +9,15 @@ import com.gvelesiani.passworx.data.models.PasswordModel
 import com.gvelesiani.passworx.databinding.PasswordItemBinding
 import java.util.*
 
-class PasswordAdapter(private val clickListener: (PasswordModel) -> Unit, private val menuClickListener: (PasswordModel, View, Int) -> Unit) :
+class PasswordAdapter(
+    private val clickListener: (PasswordModel) -> Unit,
+    private val menuClickListener: (PasswordModel, View, Int) -> Unit
+) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var passwordList: List<PasswordModel> = emptyList()
 
     var binding: PasswordItemBinding? = null
+
     @SuppressLint("NotifyDataSetChanged")
     fun submitData(data: List<PasswordModel>) {
         passwordList = data
@@ -33,15 +37,27 @@ class PasswordAdapter(private val clickListener: (PasswordModel) -> Unit, privat
 
     inner class PasswordViewHolder(private val binding: PasswordItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(password: PasswordModel, clickListener: (PasswordModel) -> Unit, menuClickListener: (PasswordModel, View, Int) -> Unit, position: Int) {
+        fun bind(
+            password: PasswordModel,
+            clickListener: (PasswordModel) -> Unit,
+            menuClickListener: (PasswordModel, View, Int) -> Unit,
+            position: Int
+        ) {
             binding.tvEmailOrUsername.text = password.emailOrUserName
             binding.tvItemLogo.text = password.websiteOrAppName.subSequence(0, 2).toString()
                 .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
             binding.tvPasswordItemName.text = password.websiteOrAppName
                 .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
             binding.root.setOnClickListener { clickListener(password) }
-            binding.menuClickView.setOnClickListener { menuClickListener(password, binding.menuClickView, position) }
+            binding.menuClickView.setOnClickListener {
+                menuClickListener(
+                    password,
+                    binding.menuClickView,
+                    position
+                )
+            }
         }
     }
+
     override fun getItemCount() = passwordList.size
 }

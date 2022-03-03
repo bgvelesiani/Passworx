@@ -11,7 +11,7 @@ import org.koin.dsl.bind
 import org.koin.dsl.module
 
 val helpersModule = module {
-    single { PasswordEncryptionHelperImpl(get()) } bind PasswordEncryptionHelper::class
+    single { PasswordEncryptionHelperImpl() } bind PasswordEncryptionHelper::class
     single { PasswordGeneratorHelperImpl() } bind PasswordGeneratorHelper::class
     single { ResourceHelperImpl(androidContext()) } bind ResourceHelper::class
 }
