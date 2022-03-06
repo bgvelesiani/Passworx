@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.gvelesiani.passworx.R
@@ -24,7 +25,7 @@ class PasswordGeneratorFragment :
         get() = FragmentPasswordGeneratorBinding::inflate
 
     override fun setupView(savedInstanceState: Bundle?) {
-        requireActivity().findViewById<SmoothBottomBar>(R.id.bottomBar).visibility = View.VISIBLE
+        requireActivity().findViewById<BottomNavigationView>(R.id.bottomBar).visibility = View.VISIBLE
         setUpListeners()
     }
 

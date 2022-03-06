@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import com.gvelesiani.passworx.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -26,8 +27,7 @@ class MainActivity : AppCompatActivity() {
     private fun setupSmoothBottomMenu() {
         val popupMenu = PopupMenu(this, null)
         popupMenu.inflate(R.menu.bottom_nav_menu)
-        val menu = popupMenu.menu
-        binding.bottomBar.setupWithNavController(menu, navController)
+        binding.bottomBar.setupWithNavController(navController)
     }
 
     override fun onSupportNavigateUp(): Boolean {

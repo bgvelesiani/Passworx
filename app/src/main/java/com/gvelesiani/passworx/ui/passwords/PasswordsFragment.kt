@@ -12,6 +12,7 @@ import androidx.annotation.MenuRes
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.base.BaseFragment
@@ -30,7 +31,7 @@ class PasswordsFragment : BaseFragment<PasswordsViewModel, FragmentPasswordsBind
         get() = FragmentPasswordsBinding::inflate
 
     override fun setupView(savedInstanceState: Bundle?) {
-        requireActivity().findViewById<SmoothBottomBar>(R.id.bottomBar).visibility = View.VISIBLE
+        requireActivity().findViewById<BottomNavigationView>(R.id.bottomBar).visibility = View.VISIBLE
         binding.btAddPassword.visibility = View.VISIBLE
         viewModel.getPasswords()
         setupRecyclerViewAdapter()

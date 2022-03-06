@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="CustomSeekbar" parent="Widget.AppCompat.SeekBar">
-        <item name="android:progressBackgroundTint">@color/bottom_bar_indicator_color</item>
-        <item name="android:progressTint">@color/bottom_bar_indicator_color</item>
-        <item name="android:thumbTint">@color/bottom_bar_divider_color</item>
-    </style>
+<!--    <style name="CustomSeekbar" parent="Widget.AppCompat.SeekBar">-->
+<!--        <item name="android:progressBackgroundTint">@color/bottom_bar_indicator_color</item>-->
+<!--        <item name="android:progressTint">@color/bottom_bar_indicator_color</item>-->
+<!--        <item name="android:thumbTint">?attr/accent_color</item>-->
+<!--    </style>-->
 
     <style name="ModalBottomSheetDialog" parent="Widget.MaterialComponents.BottomSheet.Modal">
         <item name="shapeAppearance">@style/ShapeAppearance.App.LargeComponent</item>

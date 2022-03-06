@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.annotation.MenuRes
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.base.BaseFragment
@@ -28,7 +29,7 @@ class PasswordTrashFragment :
     private lateinit var adapter: PasswordAdapter
 
     override fun setupView(savedInstanceState: Bundle?) {
-        requireActivity().findViewById<SmoothBottomBar>(R.id.bottomBar).visibility = View.GONE
+        requireActivity().findViewById<BottomNavigationView>(R.id.bottomBar).visibility = View.GONE
         binding.btAddPassword.visibility = View.GONE
         viewModel.getPasswords()
         setupRecyclerViewAdapter()
