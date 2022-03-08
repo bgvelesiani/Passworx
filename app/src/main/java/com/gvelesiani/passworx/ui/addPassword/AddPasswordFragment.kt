@@ -12,7 +12,6 @@ import com.gvelesiani.passworx.base.BaseFragment
 import com.gvelesiani.passworx.common.onTextChanged
 import com.gvelesiani.passworx.data.models.PasswordModel
 import com.gvelesiani.passworx.databinding.FragmentAddPasswordBinding
-import me.ibrahimsn.lib.SmoothBottomBar
 
 
 class AddPasswordFragment :

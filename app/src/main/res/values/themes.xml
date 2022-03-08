@@ -2,12 +2,13 @@
     <!-- Base application theme. -->
     <style name="Theme.Passworx" parent="Theme.MaterialComponents.Light">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">?attr/bg_color</item>
+        <item name="colorPrimary">#161616</item>
         <item name="colorPrimaryVariant">?attr/bg_color</item>
         <item name="colorOnSurface">?attr/text_color</item>
         <item name="android:statusBarColor">?attr/bg_color</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:fontFamily">@font/medium</item>
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.App.MaterialAlertDialog</item>
         <item name="bottomSheetDialogTheme">@style/ThemeOverlay.App.BottomSheetDialog</item>
 
         <item name="accent_color">@color/accent_color</item>
@@ -20,9 +21,19 @@
         <item name="divider_color">@color/divider_light</item>
         <item name="bottom_bar_bg_color">@color/bottom_bar_bg_light</item>
         <item name="input_layout_stroke_color">@color/input_layout_stroke_light</item>
+        <item name="bg_secondary">@color/bg_secondary_light</item>
     </style>
 
     <style name="ThemeOverlay.App.BottomSheetDialog" parent="ThemeOverlay.MaterialComponents.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/ModalBottomSheetDialog</item>
+    </style>
+
+    <style name="ThemeOverlay.App.MaterialAlertDialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="colorPrimary">?attr/text_color</item>
+        <item name="colorSecondary">?attr/bg_color</item>
+        <item name="colorSurface">?attr/bg_secondary</item>
+        <item name="colorOnSurface">?attr/text_color</item>
+        <item name="materialAlertDialogTitleTextStyle">@style/MaterialAlertDialog.App.Title.Text</item>
+        <item name="alertDialogStyle">@style/MaterialAlertDialog.App</item>
     </style>
 </resources>

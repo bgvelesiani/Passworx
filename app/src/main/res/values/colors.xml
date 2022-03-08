@@ -27,6 +27,7 @@
     <color name="divider_light">#D7D7D7</color>
     <color name="bottom_bar_bg_light">#F8F8F8</color>
     <color name="input_layout_stroke_light">#61050507</color>
+    <color name="bg_secondary_light">#FFFFFF</color>
 
     <!-- Dark theme -->
     <color name="bg_dark">#050507</color>
@@ -36,4 +37,5 @@
     <color name="divider_dark">#F8F8F8</color>
     <color name="bottom_bar_bg_dark">#161616</color>
     <color name="input_layout_stroke_dark">#61FFFFFF</color>
+    <color name="bg_secondary_dark">#161616</color>
 </resources>

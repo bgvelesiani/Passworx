@@ -9,7 +9,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.base.BaseFragment
 import com.gvelesiani.passworx.databinding.FragmentBrowseBinding
-import me.ibrahimsn.lib.SmoothBottomBar
 
 class BrowseFragment :
     BaseFragment<BrowseViewModel, FragmentBrowseBinding>(BrowseViewModel::class) {
@@ -17,7 +16,8 @@ class BrowseFragment :
         get() = FragmentBrowseBinding::inflate
 
     override fun setupView(savedInstanceState: Bundle?) {
-        requireActivity().findViewById<BottomNavigationView>(R.id.bottomBar).visibility = View.VISIBLE
+        requireActivity().findViewById<BottomNavigationView>(R.id.bottomBar).visibility =
+            View.VISIBLE
         setUpOnClickListeners()
     }
 
