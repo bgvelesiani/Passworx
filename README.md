@@ -1,8 +1,5 @@
-# Untitled
-
-![logo.png](readme/logo.png)
-
-![passworx.svg](readme/passworx.svg)
+<p align="center"><img src="readme/logo.png"</img></p>
+<p align="center"><img src="readme/passworx.svg"</img></p>
 
 **Passworx** is a Password Manager application, which stores your passwords safely in your own phones locale storage. For now it has following functionalities and features:
 
