@@ -7,6 +7,16 @@
     </declare-styleable>
 
     <declare-styleable name="AppTheme">
+        <attr name="accent_color" format="color"/>
+        <attr name="gen_pass_bg_color" format="color"/>
+        <attr name="bg_color" format="color"/>
         <attr name="text_color" format="color"/>
+        <attr name="bt_nvb_ic_txt_color" format="color"/>
+        <attr name="accent_transparent_color" format="color"/>
+        <attr name="secondary_text_color" format="color"/>
+        <attr name="divider_color" format="color"/>
+        <attr name="bottom_bar_bg_color" format="color"/>
+        <attr name="input_layout_stroke_color" format="color"/>
+        <attr name="bg_secondary" format="color"/>
     </declare-styleable>
 </resources>

@@ -41,5 +41,6 @@
     <string name="empty_trash_message">Passwords will stay here until you delete them permanently</string>
     <string name="empty_trash_title">Trash is empty</string>
     <string name="empty_passwords_message">Store passwords in Passworx, Make them more secure</string>
-    <string name="empty_passwords_title">Nothing yet...</string>
+    <string name="empty_passwords_title">Nothing yet…</string>
+    <string name="bs_edit_password_bt_text">Edit Password</string>
 </resources>

@@ -1,19 +1,16 @@
 package com.gvelesiani.passworx.ui.passwordGenerator
 
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.base.BaseFragment
-import com.gvelesiani.passworx.constants.CLIP_DATA_PLAIN_TEXT_LABEL
+import com.gvelesiani.passworx.common.copyToClipboard
 import com.gvelesiani.passworx.databinding.FragmentPasswordGeneratorBinding
-import me.ibrahimsn.lib.SmoothBottomBar
 
 
 class PasswordGeneratorFragment :
@@ -24,7 +21,8 @@ class PasswordGeneratorFragment :
         get() = FragmentPasswordGeneratorBinding::inflate
 
     override fun setupView(savedInstanceState: Bundle?) {
-        requireActivity().findViewById<SmoothBottomBar>(R.id.bottomBar).visibility = View.VISIBLE
+        requireActivity().findViewById<BottomNavigationView>(R.id.bottomBar).visibility =
+            View.VISIBLE
         setUpListeners()
     }
 
@@ -34,7 +32,6 @@ class PasswordGeneratorFragment :
         })
 
         viewModel.generatePasswordError.observe(viewLifecycleOwner, {
-            // TODO: 2/22/2022 Research for more intuitive design
             MaterialAlertDialogBuilder(requireContext())
                 .setTitle(resources.getString(R.string.generate_password_error_dialog_title))
                 .setMessage(it)
@@ -50,7 +47,8 @@ class PasswordGeneratorFragment :
                 viewModel.generatePassword(value.toInt())
             }
             btCopyGeneratedPassword.setOnClickListener {
-                copyTextToClipboard(tvGeneratedPassword.text.toString())
+                tvGeneratedPassword.text.toString().copyToClipboard(requireContext())
+                setUpAndShowSnackBar()
             }
             smUseCapitalLetters.setOnCheckedChangeListener { _, isChecked ->
                 viewModel.useCapitalLetters(isChecked, sbPasswordGenerator.value.toInt())
@@ -62,15 +60,6 @@ class PasswordGeneratorFragment :
                 viewModel.useSymbols(isChecked, sbPasswordGenerator.value.toInt())
             }
         }
-    }
-
-
-    private fun copyTextToClipboard(generatedPassword: String) {
-        val clipboard =
-            requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-        val clip = ClipData.newPlainText(CLIP_DATA_PLAIN_TEXT_LABEL, generatedPassword)
-        clipboard.setPrimaryClip(clip)
-        setUpAndShowSnackBar()
     }
 
     private fun setUpAndShowSnackBar() {

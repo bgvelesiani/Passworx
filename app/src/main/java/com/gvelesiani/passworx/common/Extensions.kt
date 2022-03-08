@@ -1,8 +1,12 @@
 package com.gvelesiani.passworx.common
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
+import com.gvelesiani.passworx.constants.CLIP_DATA_PLAIN_TEXT_LABEL
 
 fun EditText.onTextChanged(onTextChanged: (String) -> Unit) {
     this.addTextChangedListener(object : TextWatcher {
@@ -16,4 +20,10 @@ fun EditText.onTextChanged(onTextChanged: (String) -> Unit) {
         override fun afterTextChanged(editable: Editable?) {
         }
     })
+}
+
+fun String.copyToClipboard(context: Context) {
+    val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+    val clip = ClipData.newPlainText(CLIP_DATA_PLAIN_TEXT_LABEL, this)
+    clipboard.setPrimaryClip(clip)
 }

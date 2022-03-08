@@ -12,6 +12,7 @@ import androidx.annotation.MenuRes
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.base.BaseFragment
@@ -19,7 +20,6 @@ import com.gvelesiani.passworx.data.models.PasswordModel
 import com.gvelesiani.passworx.databinding.FragmentPasswordsBinding
 import com.gvelesiani.passworx.ui.passwordDetails.PasswordDetailsBottomSheet
 import com.gvelesiani.passworx.ui.passwords.adapter.PasswordAdapter
-import me.ibrahimsn.lib.SmoothBottomBar
 
 class PasswordsFragment : BaseFragment<PasswordsViewModel, FragmentPasswordsBinding>(
     PasswordsViewModel::class
@@ -30,7 +30,8 @@ class PasswordsFragment : BaseFragment<PasswordsViewModel, FragmentPasswordsBind
         get() = FragmentPasswordsBinding::inflate
 
     override fun setupView(savedInstanceState: Bundle?) {
-        requireActivity().findViewById<SmoothBottomBar>(R.id.bottomBar).visibility = View.VISIBLE
+        requireActivity().findViewById<BottomNavigationView>(R.id.bottomBar).visibility =
+            View.VISIBLE
         binding.btAddPassword.visibility = View.VISIBLE
         viewModel.getPasswords()
         setupRecyclerViewAdapter()
@@ -50,7 +51,7 @@ class PasswordsFragment : BaseFragment<PasswordsViewModel, FragmentPasswordsBind
     }
 
     private fun observeViewState(viewState: PasswordsViewModel.ViewState) {
-        if(viewState.passwords.isEmpty()) {
+        if (viewState.passwords.isEmpty()) {
             binding.rvPasswords.isVisible = false
             binding.groupNoData.isVisible = true
             binding.tvNoDataDesc.text = getString(R.string.empty_passwords_message)
@@ -71,12 +72,10 @@ class PasswordsFragment : BaseFragment<PasswordsViewModel, FragmentPasswordsBind
                 R.id.menuEdit -> Toast.makeText(requireContext(), "Edit", Toast.LENGTH_SHORT).show()
                 R.id.menuDelete -> {
                     MaterialAlertDialogBuilder(
-                        requireContext(),
-                        R.style.MaterialAlertDialog_Material3_Body_Text
+                        requireContext()
                     )
                         .setMessage("Are you sure you want to move this password to trash?")
                         .setNegativeButton("No") { _, _ ->
-                            // Respond to negative button press
                         }
                         .setPositiveButton("Yes") { _, _ ->
                             viewModel.updateItemTrashState(!password.isInTrash, password.passwordId)

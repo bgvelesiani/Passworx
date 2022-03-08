@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="?attr/bg_color">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_fragment_activity_main"
@@ -11,32 +12,45 @@
         android:layout_width="@dimen/dimen_0dp"
         android:layout_height="@dimen/dimen_0dp"
         app:defaultNavHost="true"
-        app:layout_constraintBottom_toTopOf="@id/divider"
+        app:layout_constraintBottom_toTopOf="@id/bottomBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:navGraph="@navigation/mobile_navigation" />
 
-    <View
-        android:id="@+id/divider"
-        android:layout_width="match_parent"
-        android:layout_height="0.3dp"
-        android:background="@color/bottom_bar_divider_color"
-        app:layout_constraintBottom_toTopOf="@+id/bottomBar" />
+    <!--    <View-->
+    <!--        android:id="@+id/divider"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="0.3dp"-->
+    <!--        android:background="?attr/divider_color"-->
+    <!--        app:layout_constraintBottom_toTopOf="@+id/bottomBar" />-->
 
-    <me.ibrahimsn.lib.SmoothBottomBar
+    <!--    <me.ibrahimsn.lib.SmoothBottomBar-->
+    <!--        android:id="@+id/bottomBar"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="@dimen/bottom_bar_height"-->
+    <!--        app:backgroundColor="?attr/bg_color"-->
+    <!--        app:iconSize="@dimen/bottom_bar_icon_size"-->
+    <!--        app:itemFontFamily="@font/light"-->
+    <!--        app:textSize="@dimen/dimen_15sp"-->
+    <!--        app:iconTint="@color/bottom_bar_icon_tint"-->
+    <!--        app:iconTintActive="@color/white"-->
+    <!--        app:indicatorColor="@color/bottom_bar_indicator_color"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:menu="@menu/bottom_nav_menu"-->
+    <!--        app:textColor="@color/white" />-->
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/bottom_bar_height"
-        app:backgroundColor="@color/white"
-        app:iconSize="@dimen/bottom_bar_icon_size"
-        app:itemFontFamily="@font/light"
-        app:textSize="@dimen/dimen_15sp"
-        app:iconTint="@color/bottom_bar_icon_tint"
-        app:iconTintActive="@color/white"
-        app:indicatorColor="@color/bottom_bar_indicator_color"
+        android:layout_height="wrap_content"
+        android:background="?attr/bottom_bar_bg_color"
+        app:itemIconTint="@color/bottom_nav_icon_color"
+        app:itemTextColor="@color/bottom_nav_text_color"
+        app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/bottom_nav_menu"
-        app:textColor="@color/white" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_nav_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

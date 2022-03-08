@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.annotation.MenuRes
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.base.BaseFragment
@@ -18,7 +19,6 @@ import com.gvelesiani.passworx.data.models.PasswordModel
 import com.gvelesiani.passworx.databinding.FragmentPasswordsBinding
 import com.gvelesiani.passworx.ui.passwordDetails.PasswordDetailsBottomSheet
 import com.gvelesiani.passworx.ui.passwords.adapter.PasswordAdapter
-import me.ibrahimsn.lib.SmoothBottomBar
 
 class PasswordTrashFragment :
     BaseFragment<PasswordTrashViewModel, FragmentPasswordsBinding>(PasswordTrashViewModel::class) {
@@ -28,7 +28,7 @@ class PasswordTrashFragment :
     private lateinit var adapter: PasswordAdapter
 
     override fun setupView(savedInstanceState: Bundle?) {
-        requireActivity().findViewById<SmoothBottomBar>(R.id.bottomBar).visibility = View.GONE
+        requireActivity().findViewById<BottomNavigationView>(R.id.bottomBar).visibility = View.GONE
         binding.btAddPassword.visibility = View.GONE
         viewModel.getPasswords()
         setupRecyclerViewAdapter()
@@ -41,7 +41,7 @@ class PasswordTrashFragment :
     }
 
     private fun observeViewState(viewState: PasswordTrashViewModel.ViewState) {
-        if(viewState.passwords.isEmpty()) {
+        if (viewState.passwords.isEmpty()) {
             binding.rvPasswords.isVisible = false
             binding.groupNoData.isVisible = true
             binding.tvNoData.text = getString(R.string.empty_trash_title)
@@ -92,7 +92,11 @@ class PasswordTrashFragment :
     private fun setupRecyclerViewAdapter() {
         adapter = PasswordAdapter(
             clickListener = { password: PasswordModel ->
-                PasswordDetailsBottomSheet.show(password, childFragmentManager, PasswordDetailsBottomSheet.TAG)
+                PasswordDetailsBottomSheet.show(
+                    password,
+                    childFragmentManager,
+                    PasswordDetailsBottomSheet.TAG
+                )
             },
             menuClickListener = { password: PasswordModel, view: View, position: Int ->// it == PasswordModel
                 showMenu(
