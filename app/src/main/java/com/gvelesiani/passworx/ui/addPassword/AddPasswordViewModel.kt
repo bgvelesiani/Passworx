@@ -22,6 +22,7 @@ class AddPasswordViewModel(
     init {
         viewState.value = ViewState()
     }
+
     private fun currentViewState(): ViewState = viewState.value!!
 
     fun addNewPassword(password: PasswordModel) {
@@ -29,29 +30,43 @@ class AddPasswordViewModel(
             try {
                 addNewPasswordUseCase.run(password)
             } catch (e: Exception) {
-                 viewState.postValue(currentViewState().copy(showAddNewPasswordError = resourceHelper.getString(R.string.add_password_error_Text)))
+                viewState.postValue(
+                    currentViewState().copy(
+                        showAddNewPasswordError = resourceHelper.getString(
+                            R.string.add_password_error_Text
+                        )
+                    )
+                )
             }
         }
     }
 
-    fun onTitleChanged(title: String){
-        if(title.length > MAX_TITLE_LENGTH){
-            viewState.value = currentViewState().copy(showTitleErrorMessage = "Max character limit reached", addButtonEnabled = false)
+    fun onTitleChanged(title: String) {
+        if (title.length > MAX_TITLE_LENGTH) {
+            viewState.value = currentViewState().copy(
+                showTitleErrorMessage = "Max character limit reached",
+                addButtonEnabled = false
+            )
         } else {
-            viewState.value = currentViewState().copy(showTitleErrorMessage = null, addButtonEnabled = true)
+            viewState.value =
+                currentViewState().copy(showTitleErrorMessage = null, addButtonEnabled = true)
         }
     }
 
-    fun onLabelChanged(label: String){
-        if(label.length > MAX_TITLE_LENGTH){
-            viewState.value = currentViewState().copy(showLabelErrorMessage = "Max character limit reached", addButtonEnabled = false)
+    fun onLabelChanged(label: String) {
+        if (label.length > MAX_TITLE_LENGTH) {
+            viewState.value = currentViewState().copy(
+                showLabelErrorMessage = "Max character limit reached",
+                addButtonEnabled = false
+            )
         } else {
-            viewState.value = currentViewState().copy(showLabelErrorMessage = null, addButtonEnabled = true)
+            viewState.value =
+                currentViewState().copy(showLabelErrorMessage = null, addButtonEnabled = true)
         }
     }
 
     fun encryptPassword(password: String): String {
-        return encryptionHelper.encryptPassword(password).toString()
+        return encryptionHelper.encrypt(password).toString()
     }
 
     data class ViewState(

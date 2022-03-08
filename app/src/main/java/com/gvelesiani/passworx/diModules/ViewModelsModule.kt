@@ -1,6 +1,7 @@
 package com.gvelesiani.passworx.diModules
 
 import com.gvelesiani.passworx.ui.addPassword.AddPasswordViewModel
+import com.gvelesiani.passworx.ui.passwordDetails.PasswordDetailsViewModel
 import com.gvelesiani.passworx.ui.passwordGenerator.PasswordGeneratorViewModel
 import com.gvelesiani.passworx.ui.passwords.PasswordsViewModel
 import com.gvelesiani.passworx.ui.tools.SettingsViewModel
@@ -27,4 +28,7 @@ val viewModelsModule = module {
         PasswordTrashViewModel(get(), get())
     }
 
+    viewModel {
+        PasswordDetailsViewModel(get())
+    }
 }

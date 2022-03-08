@@ -24,7 +24,11 @@ class PasswordsViewModel(
 
     private fun currentViewState(): ViewState = viewState.value!!
 
-    fun getPasswords(isInTrash: Boolean) {
+    private fun makeNoDataInfoVisible(visible: Boolean) {
+        viewState.value = currentViewState().copy(isNoDataInfoVisible = visible)
+    }
+
+    fun getPasswords(isInTrash: Boolean = false) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val result = getPasswordsUseCase.run(params = isInTrash)
@@ -62,6 +66,7 @@ class PasswordsViewModel(
         val showGetPasswordsError: String? = null,
         val passwords: List<PasswordModel> = listOf(),
         val showUpdatePasswordError: String? = null,
-        val showTrashingItemError: String? = null
+        val showTrashingItemError: String? = null,
+        val isNoDataInfoVisible: Boolean = false
     )
 }

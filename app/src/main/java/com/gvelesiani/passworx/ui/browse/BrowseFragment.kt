@@ -10,7 +10,8 @@ import com.gvelesiani.passworx.base.BaseFragment
 import com.gvelesiani.passworx.databinding.FragmentBrowseBinding
 import me.ibrahimsn.lib.SmoothBottomBar
 
-class BrowseFragment: BaseFragment<BrowseViewModel, FragmentBrowseBinding>(BrowseViewModel::class) {
+class BrowseFragment :
+    BaseFragment<BrowseViewModel, FragmentBrowseBinding>(BrowseViewModel::class) {
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentBrowseBinding
         get() = FragmentBrowseBinding::inflate
 

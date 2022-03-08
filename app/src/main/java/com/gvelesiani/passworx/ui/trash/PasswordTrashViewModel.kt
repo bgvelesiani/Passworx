@@ -21,7 +21,7 @@ class PasswordTrashViewModel(
     }
 
     private fun currentViewState(): ViewState = viewState.value!!
-    fun getPasswords(isInTrash: Boolean) {
+    fun getPasswords(isInTrash: Boolean = true) {
         CoroutineScope(Dispatchers.IO).launch {
             viewState.postValue(currentViewState().copy(isLoading = true))
             try {
@@ -49,6 +49,6 @@ class PasswordTrashViewModel(
         val isLoading: Boolean = false,
         val showGetPasswordsError: String? = null,
         val showDeletePasswordsError: String? = null,
-        val passwords: List<PasswordModel> = listOf(),
+        val passwords: List<PasswordModel> = listOf()
     )
 }

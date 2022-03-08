@@ -5,4 +5,12 @@
         <item name="android:progressTint">@color/bottom_bar_indicator_color</item>
         <item name="android:thumbTint">@color/bottom_bar_divider_color</item>
     </style>
+
+    <style name="ModalBottomSheetDialog" parent="Widget.MaterialComponents.BottomSheet.Modal">
+        <item name="shapeAppearance">@style/ShapeAppearance.App.LargeComponent</item>
+    </style>
+
+    <style name="ShapeAppearance.App.LargeComponent" parent="ShapeAppearance.MaterialComponents.LargeComponent">
+        <item name="cornerSize">24dp</item>
+    </style>
 </resources>

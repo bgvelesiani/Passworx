@@ -1,87 +1,93 @@
 package com.gvelesiani.passworx.helpers.encryptPassword
 
-import android.content.Context
-import androidx.preference.PreferenceManager
-import android.util.Base64
-import java.io.ByteArrayInputStream
-import java.io.ByteArrayOutputStream
-import java.io.ObjectInputStream
-import java.io.ObjectOutputStream
+import android.annotation.SuppressLint
 import javax.crypto.Cipher
-import javax.crypto.KeyGenerator
 import javax.crypto.SecretKey
-import javax.crypto.spec.IvParameterSpec
+import javax.crypto.spec.SecretKeySpec
 
-class PasswordEncryptionHelperImpl(private val context: Context) : PasswordEncryptionHelper {
-    override fun encryptPassword(strToEncrypt: String): ByteArray {
-        val plainText = strToEncrypt.toByteArray(Charsets.UTF_8)
-        val keygen = KeyGenerator.getInstance("AES")
-        keygen.init(256)
-        val key = keygen.generateKey()
-        saveSecretKey(key)
-        val cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING")
-        cipher.init(Cipher.ENCRYPT_MODE, key)
-        val cipherText = cipher.doFinal(plainText)
-        saveInitializationVector(cipher.iv)
 
-        val sb = StringBuilder()
-        for (b in cipherText) {
-            sb.append(b.toInt().toChar())
+class PasswordEncryptionHelperImpl : PasswordEncryptionHelper {
+    private val keyValue = byteArrayOf(
+        'p'.code.toByte(),
+        'a'.code.toByte(),
+        's'.code.toByte(),
+        's'.code.toByte(),
+        'w'.code.toByte(),
+        'o'.code.toByte(),
+        'r'.code.toByte(),
+        'x'.code.toByte(),
+        'g'.code.toByte(),
+        'v'.code.toByte(),
+        'e'.code.toByte(),
+        'l'.code.toByte(),
+        'e'.code.toByte(),
+        's'.code.toByte(),
+        'i'.code.toByte(),
+        'a'.code.toByte()
+    )
+
+    @Throws(Exception::class)
+    override fun encrypt(cleartext: String): String {
+        val rawKey = rawKey
+        val result = encrypt(rawKey, cleartext.toByteArray())
+        return toHex(result)
+    }
+
+    @Throws(Exception::class)
+    override fun decrypt(encrypted: String): String {
+        val enc = toByte(encrypted)
+        val result = decrypt(enc)
+        return String(result)
+    }
+
+    @get:Throws(Exception::class)
+    private val rawKey: ByteArray
+        get() {
+            val key: SecretKey =
+                SecretKeySpec(keyValue, "AES")
+            return key.encoded
         }
 
-        return cipherText
+    @SuppressLint("GetInstance")
+    @Throws(Exception::class)
+    private fun encrypt(raw: ByteArray, clear: ByteArray): ByteArray {
+        val skeySpec: SecretKey = SecretKeySpec(raw, "AES")
+        val cipher = Cipher.getInstance("AES")
+        cipher.init(Cipher.ENCRYPT_MODE, skeySpec)
+        return cipher.doFinal(clear)
     }
 
-    override fun decryptPassword(dataToDecrypt: ByteArray): String {
-        val cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING")
-        val ivSpec = IvParameterSpec(getSavedInitializationVector())
-        cipher.init(Cipher.DECRYPT_MODE, getSavedSecretKey(), ivSpec)
-        val cipherText = cipher.doFinal(dataToDecrypt)
+    @SuppressLint("GetInstance")
+    @Throws(Exception::class)
+    private fun decrypt(encrypted: ByteArray): ByteArray {
+        val skeySpec: SecretKey =
+            SecretKeySpec(keyValue, "AES")
+        val cipher = Cipher.getInstance("AES")
+        cipher.init(Cipher.DECRYPT_MODE, skeySpec)
+        return cipher.doFinal(encrypted)
+    }
 
-        val sb = StringBuilder()
-        for (b in cipherText) {
-            sb.append(b.toInt().toChar())
+    private fun toByte(hexString: String): ByteArray {
+        val len = hexString.length / 2
+        val result = ByteArray(len)
+        for (i in 0 until len) result[i] = Integer.valueOf(
+            hexString.substring(2 * i, 2 * i + 2),
+            16
+        ).toByte()
+        return result
+    }
+
+    private fun toHex(buf: ByteArray?): String {
+        if (buf == null) return ""
+        val result = StringBuffer(2 * buf.size)
+        for (i in buf.indices) {
+            appendHex(result, buf[i].toInt())
         }
-
-        return sb.toString()
+        return result.toString()
     }
 
-    private fun saveSecretKey(secretKey: SecretKey) {
-        val baos = ByteArrayOutputStream()
-        val oos = ObjectOutputStream(baos)
-        oos.writeObject(secretKey)
-        val strToSave = String(Base64.encode(baos.toByteArray(), Base64.DEFAULT))
-        val sharedPref = PreferenceManager.getDefaultSharedPreferences(context)
-        val editor = sharedPref.edit()
-        editor.putString("secret_key", strToSave)
-        editor.apply()
+    private val HEX = "0123456789ABCDEF"
+    private fun appendHex(sb: StringBuffer, b: Int) {
+        sb.append(HEX[b shr 4 and 0x0f]).append(HEX[b and 0x0f])
     }
-
-    private fun getSavedSecretKey(): SecretKey {
-        val sharedPref = PreferenceManager.getDefaultSharedPreferences(context)
-        val strSecretKey = sharedPref.getString("secret_key", "")
-        val bytes = Base64.decode(strSecretKey, Base64.DEFAULT)
-        val ois = ObjectInputStream(ByteArrayInputStream(bytes))
-        return ois.readObject() as SecretKey
-    }
-
-    private fun saveInitializationVector(initializationVector: ByteArray) {
-        val baos = ByteArrayOutputStream()
-        val oos = ObjectOutputStream(baos)
-        oos.writeObject(initializationVector)
-        val strToSave = String(Base64.encode(baos.toByteArray(), Base64.DEFAULT))
-        val sharedPref = PreferenceManager.getDefaultSharedPreferences(context)
-        val editor = sharedPref.edit()
-        editor.putString("initialization_vector", strToSave)
-        editor.apply()
-    }
-
-    private fun getSavedInitializationVector(): ByteArray {
-        val sharedPref = PreferenceManager.getDefaultSharedPreferences(context)
-        val strInitializationVector = sharedPref.getString("initialization_vector", "")
-        val bytes = Base64.decode(strInitializationVector, Base64.DEFAULT)
-        val ois = ObjectInputStream(ByteArrayInputStream(bytes))
-        return ois.readObject() as ByteArray
-    }
-
 }
