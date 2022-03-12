@@ -1,0 +1,55 @@
+<resources>
+    <string name="app_name">Passworx</string>
+    <string name="title_home">Home</string>
+    <string name="title_passwords">პაროლები</string>
+    <string name="title_settings">პარამეტრები</string>
+    <string name="generate_tool_sub_title">ახალი პაროლის დაგენერირება</string>
+    <string name="generate_tool_title">პაროლის გენერატორი</string>
+    <string name="check_tool_sub_title">შეამოწმე შენი პაროლის სიცოცხლისუნარიანობა</string>
+    <string name="check_tool_title">პაროლის სიცოცხლისუნარიანობა</string>
+    <string name="title_password_generator">პაროლის გენერატორი</string>
+    <string name="title_generate_menu">გენერატორი</string>
+    <string name="copy_password_snackbar_text">დაგენერირებული პაროლი დაკოპირდა</string>
+    <string name="copy_password_button_text">დააკოპირე პაროლი</string>
+    <string name="add_password_button_text">დაამატე პაროლი</string>
+    <string name="password_generator_slider_min_value">8</string>
+    <string name="password_generator_slider_max_value">32</string>
+
+    <string name="generate_password_error_Text">სამწუხაროდ პაროლის დაგენერირება ვერ მოხერხდა, სცადეთ თავიდან</string>
+    <string name="generate_password_use_capital_letters_setting">დიდი ასოები</string>
+    <string name="generate_password_use_numbers_setting">რიცხვები</string>
+    <string name="generate_password_use_capital_symbols_setting">სიმბოლოები</string>
+    <string name="generate_password_error_dialog_title">Oops…</string>
+    <string name="generate_password_error_dialog_button_text">სცადე ახლიდან</string>
+    <string name="title_add_new_password">დაამატე ახალი პაროლი</string>
+
+    <string name="add_password_error_Text">Couldn\'t create password, please try again</string>
+    <string name="add_new_password_menu_item_title">დაამატე ახალი პაროლი</string>
+    <string name="label_info_text">This will help you to group your passwords later on…</string>
+    <string name="label_hint">Label</string>
+    <string name="others_text">Others</string>
+    <string name="website_or_app_name_hint">Website or App Name*</string>
+    <string name="password_hint">Password</string>
+    <string name="email_or_username_hint">Email or Username</string>
+    <string name="password_details_text">პაროლის დეტალები</string>
+    <string name="title_hint">სათაური</string>
+    <string name="title_browse">Browse</string>
+    <string name="menu_edit_and_restore_title">Edit and Restore</string>
+    <string name="menu_delete_permanently_title">Delete permanently</string>
+    <string name="menu_edit_title">რედაქტირება</string>
+    <string name="menu_move_to_trash_title">Move to Trash</string>
+    <string name="empty_trash_message">Passwords will stay here until you delete them permanently</string>
+    <string name="empty_trash_title">Trash is empty</string>
+    <string name="empty_passwords_message">Store passwords in Passworx, Make them more secure</string>
+    <string name="empty_passwords_title">Nothing yet…</string>
+    <string name="bs_edit_password_bt_text">Edit Password</string>
+    <string name="move_to_trash_dialog_message">Are you sure you want to move this password to trash?</string>
+    <string name="dialog_no">არა</string>
+    <string name="dialog_yes">დიახ</string>
+    <string name="title_trash">ურნა</string>
+    <string name="settings_language_header">ენა</string>
+    <string name="settings_preferences_header">Preferences</string>
+    <string name="settings_appearance_header">Appearance</string>
+    <string name="settings_take_screenshots">Take in-app screenshots</string>
+    <string name="settings_unlock_with_biometrics">Unlock with Biometrics</string>
+</resources>

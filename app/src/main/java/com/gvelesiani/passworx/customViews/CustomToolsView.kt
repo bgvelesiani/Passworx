@@ -1,7 +1,6 @@
 package com.gvelesiani.passworx.customViews
 
 import android.content.Context
-import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -15,55 +14,25 @@ class CustomToolsView(context: Context, @Nullable attrs: AttributeSet) :
     ConstraintLayout(context, attrs) {
 
     private var view: View = LayoutInflater.from(context).inflate(R.layout.tools_item, this, true)
-    private var imageView: AppCompatImageView
-    private var titleTextView: AppCompatTextView
-    private var subtitleTextView: AppCompatTextView
-    private var imageDrawable: Drawable?
-    private var title: String?
-    private var subtitle: String?
 
     init {
-        imageView = view.findViewById(R.id.toolImage) as AppCompatImageView
-        titleTextView = view.findViewById(R.id.toolTitle) as AppCompatTextView
-        subtitleTextView = view.findViewById(R.id.toolSubTitle) as AppCompatTextView
+        val imageView = view.findViewById(R.id.toolImage) as AppCompatImageView
+        val titleTextView = view.findViewById(R.id.toolTitle) as AppCompatTextView
+        val subtitleTextView = view.findViewById(R.id.toolSubTitle) as AppCompatTextView
 
         val typedArray =
             context.theme.obtainStyledAttributes(attrs, R.styleable.CustomToolsView, 0, 0)
 
         try {
-            imageDrawable = typedArray.getDrawable(R.styleable.CustomToolsView_setImageDrawable)
-            title = typedArray.getString(R.styleable.CustomToolsView_setTitle)
-            subtitle = typedArray.getString(R.styleable.CustomToolsView_setSubTitle)
+            val imageDrawable = typedArray.getDrawable(R.styleable.CustomToolsView_setImageDrawable)
+            val title = typedArray.getString(R.styleable.CustomToolsView_setTitle)
+            val subtitle = typedArray.getString(R.styleable.CustomToolsView_setSubTitle)
 
             imageView.setImageDrawable(imageDrawable)
             titleTextView.text = title
             subtitleTextView.text = subtitle
         } finally {
             typedArray.recycle()
-        }
-
-        fun setImageDrawable(drawable: Drawable?) {
-            imageView.setImageDrawable(drawable)
-        }
-
-        fun getImageDrawable(): Drawable? {
-            return imageDrawable
-        }
-
-        fun setTitle(text: String?) {
-            titleTextView.text = text
-        }
-
-        fun getTitle(): String? {
-            return title
-        }
-
-        fun setSubtitle(text: String?) {
-            subtitleTextView.text = text
-        }
-
-        fun getSubtitle(): String? {
-            return subtitle
         }
     }
 }

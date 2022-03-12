@@ -1,4 +1,4 @@
-package com.gvelesiani.passworx.ui.tools
+package com.gvelesiani.passworx.ui.settings
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

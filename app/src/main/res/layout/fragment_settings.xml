@@ -4,41 +4,102 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginStart="@dimen/fragment_tools_margin"
-    android:layout_marginEnd="@dimen/fragment_tools_margin"
-    tools:context=".ui.tools.SettingsFragment">
+    android:orientation="vertical"
+    tools:context=".ui.settings.SettingsFragment">
 
-    <com.gvelesiani.passworx.customViews.CustomToolsView
-        android:layout_marginTop="@dimen/dimen_15dp"
-        android:id="@+id/toolGeneratePassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:setImageDrawable="@drawable/ic_generate"
-        app:setSubTitle="@string/generate_tool_sub_title"
-        app:setTitle="@string/generate_tool_title" />
-
-    <com.google.android.material.divider.MaterialDivider
-        android:id="@+id/materialDivider2"
+    <com.gvelesiani.passworx.customViews.SettingsView
+        android:id="@+id/svChangeMasterPassword"
         android:layout_width="@dimen/dimen_0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_12dp"
-        app:dividerColor="@color/light_grey"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolGeneratePassword" />
+        android:layout_marginTop="@dimen/dimen_15dp"
+        app:layout_constraintEnd_toEndOf="@id/glSettingsEnd"
+        app:layout_constraintStart_toStartOf="@id/glSettingsStart"
+        app:layout_constraintTop_toTopOf="parent"
+        app:setSettingTitle="Change Master Password" />
 
-    <com.gvelesiani.passworx.customViews.CustomToolsView
-        android:id="@+id/toolCheckPassword"
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvLanguageHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_12dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/dimen_15dp"
+        android:background="?attr/bottom_bar_bg_color"
+        android:fontFamily="@font/medium"
+        android:paddingVertical="@dimen/dimen_8dp"
+        android:paddingStart="@dimen/dimen_15dp"
+        android:paddingEnd="@dimen/dimen_15dp"
+        android:text="@string/settings_language_header"
+        android:textColor="?attr/text_color"
+        android:textSize="@dimen/dimen_19sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/materialDivider2"
-        app:setImageDrawable="@drawable/ic_health"
-        app:setSubTitle="@string/check_tool_sub_title"
-        app:setTitle="@string/check_tool_title" />
+        app:layout_constraintTop_toBottomOf="@id/svChangeMasterPassword" />
+
+    <com.gvelesiani.passworx.customViews.SettingsView
+        android:id="@+id/svChangeLanguage"
+        android:layout_width="@dimen/dimen_0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_15dp"
+        app:layout_constraintEnd_toEndOf="@id/glSettingsEnd"
+        app:layout_constraintStart_toStartOf="@id/glSettingsStart"
+        app:layout_constraintTop_toBottomOf="@id/tvLanguageHeader"
+        app:setSettingTitle="Change Language" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvPreferencesHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_15dp"
+        android:background="?attr/bottom_bar_bg_color"
+        android:fontFamily="@font/medium"
+        android:paddingVertical="@dimen/dimen_8dp"
+        android:paddingStart="@dimen/dimen_15dp"
+        android:paddingEnd="@dimen/dimen_15dp"
+        android:text="@string/settings_preferences_header"
+        android:textColor="?attr/text_color"
+        android:textSize="@dimen/dimen_19sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/svChangeLanguage" />
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/svUnlockWithBiometrics"
+        android:layout_width="@dimen/dimen_0dp"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:fontFamily="@font/regular"
+        android:text="@string/settings_unlock_with_biometrics"
+        android:textColor="?attr/text_color"
+        android:textSize="@dimen/dimen_16sp"
+        app:layout_constraintEnd_toStartOf="@+id/glSettingsEnd"
+        app:layout_constraintStart_toStartOf="@+id/glSettingsStart"
+        app:layout_constraintTop_toBottomOf="@+id/svTakeScreenshots"
+        app:thumbTint="?attr/accent_color"
+        app:trackTint="?attr/accent_transparent_color" />
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/svTakeScreenshots"
+        android:layout_width="@dimen/dimen_0dp"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:fontFamily="@font/regular"
+        android:text="@string/settings_take_screenshots"
+        android:textColor="?attr/text_color"
+        android:textSize="@dimen/dimen_16sp"
+        app:layout_constraintEnd_toEndOf="@id/glSettingsEnd"
+        app:layout_constraintStart_toStartOf="@id/glSettingsStart"
+        app:layout_constraintTop_toBottomOf="@+id/tvPreferencesHeader"
+        app:thumbTint="?attr/accent_color"
+        app:trackTint="?attr/accent_transparent_color" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glSettingsStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.04" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glSettingsEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.96" />
 </androidx.constraintlayout.widget.ConstraintLayout>

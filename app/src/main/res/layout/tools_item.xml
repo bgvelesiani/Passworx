@@ -7,10 +7,10 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/toolImage"
-        android:layout_width="@dimen/tools_image_width_and_height"
-        android:layout_height="@dimen/tools_image_width_and_height"
+        android:layout_width="@dimen/dimen_25dp"
+        android:layout_height="@dimen/dimen_25dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/toolTitle"
         tools:ignore="ContentDescription" />
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -21,7 +21,7 @@
         android:textColor="?attr/text_color"
         android:textSize="@dimen/tools_item_title_text_size"
         app:layout_constraintStart_toEndOf="@+id/toolImage"
-        app:layout_constraintTop_toTopOf="@+id/toolImage" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/toolSubTitle"
@@ -30,6 +30,7 @@
         android:layout_marginTop="@dimen/tools_item_subtitle_margin_top"
         android:textColor="?attr/secondary_text_color"
         android:textSize="@dimen/tools_item_subtitle_text_size"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/toolTitle"
         app:layout_constraintTop_toBottomOf="@+id/toolTitle" />
 

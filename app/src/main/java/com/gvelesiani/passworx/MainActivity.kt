@@ -2,6 +2,7 @@ package com.gvelesiani.passworx
 
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.WindowManager
 import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
@@ -18,6 +19,14 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
+        /**
+         * With FLAG_SECURE, Users will be prevented from taking screenshots of the application,
+         * Because I don't want passwords to be captured by user or someone else.
+         * */
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_SECURE,
+            WindowManager.LayoutParams.FLAG_SECURE
+        )
         setContentView(binding.root)
         supportActionBar?.setBackgroundDrawable(
             ColorDrawable(

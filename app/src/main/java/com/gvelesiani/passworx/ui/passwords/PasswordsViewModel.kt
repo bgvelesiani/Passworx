@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import com.gvelesiani.passworx.base.BaseViewModel
 import com.gvelesiani.passworx.data.models.PasswordModel
 import com.gvelesiani.passworx.domain.useCases.GetPasswordsUseCase
+import com.gvelesiani.passworx.domain.useCases.SearchPasswordsUseCase
 import com.gvelesiani.passworx.domain.useCases.UpdateFavoriteStateUseCase
 import com.gvelesiani.passworx.domain.useCases.UpdateItemTrashStateUseCase
 import kotlinx.coroutines.CoroutineScope
@@ -14,7 +15,8 @@ import kotlinx.coroutines.launch
 class PasswordsViewModel(
     private val getPasswordsUseCase: GetPasswordsUseCase,
     private val updateFavoriteStateUseCase: UpdateFavoriteStateUseCase,
-    private val updateItemTrashStateUseCase: UpdateItemTrashStateUseCase
+    private val updateItemTrashStateUseCase: UpdateItemTrashStateUseCase,
+    private val searchPasswordsUseCase: SearchPasswordsUseCase
 ) : BaseViewModel() {
     val viewState: MutableLiveData<ViewState> = MutableLiveData()
 
@@ -23,10 +25,6 @@ class PasswordsViewModel(
     }
 
     private fun currentViewState(): ViewState = viewState.value!!
-
-    private fun makeNoDataInfoVisible(visible: Boolean) {
-        viewState.value = currentViewState().copy(isNoDataInfoVisible = visible)
-    }
 
     fun getPasswords(isInTrash: Boolean = false) {
         CoroutineScope(Dispatchers.IO).launch {
@@ -50,6 +48,17 @@ class PasswordsViewModel(
         }
     }
 
+    fun searchPasswords(query: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val passwords = searchPasswordsUseCase.run(query)
+                viewState.postValue(currentViewState().copy(passwords = passwords))
+            } catch (e: Exception) {
+
+            }
+        }
+    }
+
     fun updateItemTrashState(isInTrash: Boolean, passwordId: Int) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
@@ -66,7 +75,6 @@ class PasswordsViewModel(
         val showGetPasswordsError: String? = null,
         val passwords: List<PasswordModel> = listOf(),
         val showUpdatePasswordError: String? = null,
-        val showTrashingItemError: String? = null,
-        val isNoDataInfoVisible: Boolean = false
+        val showTrashingItemError: String? = null
     )
 }
