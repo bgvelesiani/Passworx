@@ -1,34 +1,34 @@
 package com.gvelesiani.passworx.diModules
 
-import com.gvelesiani.passworx.ui.addPassword.AddPasswordViewModel
-import com.gvelesiani.passworx.ui.passwordDetails.PasswordDetailsViewModel
-import com.gvelesiani.passworx.ui.passwordGenerator.PasswordGeneratorViewModel
-import com.gvelesiani.passworx.ui.passwords.PasswordsViewModel
-import com.gvelesiani.passworx.ui.settings.SettingsViewModel
-import com.gvelesiani.passworx.ui.trash.PasswordTrashViewModel
+import com.gvelesiani.passworx.ui.addPassword.AddPasswordVM
+import com.gvelesiani.passworx.ui.passwordDetails.PasswordDetailsVM
+import com.gvelesiani.passworx.ui.passwordGenerator.PasswordGeneratorVM
+import com.gvelesiani.passworx.ui.passwords.PasswordsVM
+import com.gvelesiani.passworx.ui.settings.SettingsVM
+import com.gvelesiani.passworx.ui.trash.PasswordTrashVM
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val viewModelsModule = module {
     viewModel {
-        AddPasswordViewModel(get(), get(), get())
+        AddPasswordVM(get(), get(), get())
     }
     viewModel {
-        SettingsViewModel()
+        SettingsVM()
     }
     viewModel {
-        PasswordsViewModel(get(), get(), get(), get())
-    }
-
-    viewModel {
-        PasswordGeneratorViewModel(get(), get())
+        PasswordsVM(get(), get(), get(), get())
     }
 
     viewModel {
-        PasswordTrashViewModel(get(), get())
+        PasswordGeneratorVM(get(), get())
     }
 
     viewModel {
-        PasswordDetailsViewModel(get())
+        PasswordTrashVM(get(), get())
+    }
+
+    viewModel {
+        PasswordDetailsVM(get())
     }
 }

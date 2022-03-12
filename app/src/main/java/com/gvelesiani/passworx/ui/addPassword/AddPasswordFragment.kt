@@ -15,7 +15,7 @@ import com.gvelesiani.passworx.databinding.FragmentAddPasswordBinding
 
 
 class AddPasswordFragment :
-    BaseFragment<AddPasswordViewModel, FragmentAddPasswordBinding>(AddPasswordViewModel::class) {
+    BaseFragment<AddPasswordVM, FragmentAddPasswordBinding>(AddPasswordVM::class) {
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentAddPasswordBinding
         get() = FragmentAddPasswordBinding::inflate
@@ -56,7 +56,7 @@ class AddPasswordFragment :
         }
     }
 
-    private fun observeViewState(viewState: AddPasswordViewModel.ViewState) {
+    private fun observeViewState(viewState: AddPasswordVM.ViewState) {
         if (viewState.showAddNewPasswordError != null) {
             MaterialAlertDialogBuilder(requireContext())
                 .setTitle(resources.getString(R.string.generate_password_error_dialog_title))

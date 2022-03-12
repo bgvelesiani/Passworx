@@ -20,7 +20,7 @@ import com.gvelesiani.passworx.ui.passwordDetails.PasswordDetailsBottomSheet
 import com.gvelesiani.passworx.ui.passwords.adapter.PasswordAdapter
 
 class PasswordsFragment :
-    BaseFragment<PasswordsViewModel, FragmentPasswordsBinding>(PasswordsViewModel::class),
+    BaseFragment<PasswordsVM, FragmentPasswordsBinding>(PasswordsVM::class),
     SearchView.OnQueryTextListener {
     private lateinit var adapter: PasswordAdapter
 
@@ -49,7 +49,7 @@ class PasswordsFragment :
         })
     }
 
-    private fun observeViewState(viewState: PasswordsViewModel.ViewState) {
+    private fun observeViewState(viewState: PasswordsVM.ViewState) {
         if (viewState.passwords.isEmpty()) {
             binding.rvPasswords.isVisible = false
             binding.groupNoData.isVisible = true

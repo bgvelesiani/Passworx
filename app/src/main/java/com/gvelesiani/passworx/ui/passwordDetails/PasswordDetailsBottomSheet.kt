@@ -13,7 +13,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PasswordDetailsBottomSheet : BottomSheetDialogFragment() {
 
-    private val viewModel: PasswordDetailsViewModel by viewModel()
+    private val viewModel: PasswordDetailsVM by viewModel()
     lateinit var binding: BottomSheetPasswordDetailsBinding
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,7 +44,7 @@ class PasswordDetailsBottomSheet : BottomSheetDialogFragment() {
         }
     }
 
-    private fun observeViewState(viewState: PasswordDetailsViewModel.ViewState) {
+    private fun observeViewState(viewState: PasswordDetailsVM.ViewState) {
         binding.tvPassword.editText?.setText(viewState.password)
     }
 

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/navigation_passwords">
+    app:startDestination="@id/masterPasswordFragment">
 
     <fragment
         android:id="@+id/navigation_generate"
@@ -60,5 +60,16 @@
         <action
             android:id="@+id/action_navigation_browse_to_passwordTrashFragment"
             app:destination="@id/passwordTrashFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/masterPasswordFragment"
+        tools:layout="@layout/fragment_master_password"
+        android:name="com.gvelesiani.passworx.ui.masterPassword.MasterPasswordFragment"
+        android:label="Master Password" >
+        <action
+            android:id="@+id/action_masterPasswordFragment_to_navigation_passwords"
+            app:popUpTo="@id/masterPasswordFragment"
+            app:popUpToInclusive="true"
+            app:destination="@id/navigation_passwords" />
     </fragment>
 </navigation>

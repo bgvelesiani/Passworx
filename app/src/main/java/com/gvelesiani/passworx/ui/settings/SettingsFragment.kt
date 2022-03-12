@@ -10,7 +10,7 @@ import com.gvelesiani.passworx.base.BaseFragment
 import com.gvelesiani.passworx.databinding.FragmentSettingsBinding
 
 class SettingsFragment :
-    BaseFragment<SettingsViewModel, FragmentSettingsBinding>(SettingsViewModel::class) {
+    BaseFragment<SettingsVM, FragmentSettingsBinding>(SettingsVM::class) {
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentSettingsBinding
         get() = FragmentSettingsBinding::inflate
