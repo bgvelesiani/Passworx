@@ -22,7 +22,6 @@ class AddPasswordFragment :
 
     override fun setupView(savedInstanceState: Bundle?) {
         requireActivity().findViewById<BottomNavigationView>(R.id.bottomBar).visibility = View.GONE
-        setHasOptionsMenu(true)
         watchFields()
         setOnClickListeners()
     }

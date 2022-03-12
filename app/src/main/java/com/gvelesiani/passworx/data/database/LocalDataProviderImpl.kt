@@ -29,4 +29,8 @@ class LocalDataProviderImpl constructor(
     override fun deletePassword(passwordId: Int) {
         database.getPasswordDao.deletePassword(passwordId)
     }
+
+    override fun searchPasswords(query: String): List<PasswordModel> {
+        return database.getPasswordDao.searchPasswords(query)
+    }
 }

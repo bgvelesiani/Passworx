@@ -15,7 +15,7 @@
         android:id="@+id/navigation_passwords"
         android:name="com.gvelesiani.passworx.ui.passwords.PasswordsFragment"
         android:label="@string/title_passwords"
-        tools:layout="@layout/fragment_passwords" >
+        tools:layout="@layout/fragment_passwords">
         <action
             android:id="@+id/action_navigation_passwords_to_navigation_password_checker"
             app:destination="@id/navigation_settings" />
@@ -32,14 +32,14 @@
 
     <fragment
         android:id="@+id/navigation_settings"
-        android:name="com.gvelesiani.passworx.ui.tools.SettingsFragment"
+        android:name="com.gvelesiani.passworx.ui.settings.SettingsFragment"
         android:label="@string/title_settings"
         tools:layout="@layout/fragment_settings" />
     <fragment
         android:id="@+id/addPasswordFragment"
         android:name="com.gvelesiani.passworx.ui.addPassword.AddPasswordFragment"
         android:label="@string/title_add_new_password"
-        tools:layout="@layout/fragment_add_password" >
+        tools:layout="@layout/fragment_add_password">
         <action
             android:id="@+id/action_addPasswordFragment_to_navigation_passwords"
             app:destination="@id/navigation_passwords" />
@@ -47,7 +47,7 @@
     <fragment
         android:id="@+id/passwordTrashFragment"
         android:name="com.gvelesiani.passworx.ui.trash.PasswordTrashFragment"
-        android:label="PasswordTrashFragment" >
+        android:label="@string/title_trash">
         <action
             android:id="@+id/action_passwordTrashFragment_to_navigation_browse"
             app:destination="@id/navigation_browse" />
@@ -55,8 +55,8 @@
     <fragment
         android:id="@+id/navigation_browse"
         android:name="com.gvelesiani.passworx.ui.browse.BrowseFragment"
-        android:label="fragment_browse"
-        tools:layout="@layout/fragment_browse" >
+        android:label="@string/title_browse"
+        tools:layout="@layout/fragment_browse">
         <action
             android:id="@+id/action_navigation_browse_to_passwordTrashFragment"
             app:destination="@id/passwordTrashFragment" />

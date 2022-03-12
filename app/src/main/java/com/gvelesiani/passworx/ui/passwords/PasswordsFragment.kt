@@ -2,13 +2,11 @@ package com.gvelesiani.passworx.ui.passwords
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.annotation.MenuRes
+import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,15 +19,16 @@ import com.gvelesiani.passworx.databinding.FragmentPasswordsBinding
 import com.gvelesiani.passworx.ui.passwordDetails.PasswordDetailsBottomSheet
 import com.gvelesiani.passworx.ui.passwords.adapter.PasswordAdapter
 
-class PasswordsFragment : BaseFragment<PasswordsViewModel, FragmentPasswordsBinding>(
-    PasswordsViewModel::class
-) {
+class PasswordsFragment :
+    BaseFragment<PasswordsViewModel, FragmentPasswordsBinding>(PasswordsViewModel::class),
+    SearchView.OnQueryTextListener {
     private lateinit var adapter: PasswordAdapter
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentPasswordsBinding
         get() = FragmentPasswordsBinding::inflate
 
     override fun setupView(savedInstanceState: Bundle?) {
+        setHasOptionsMenu(true)
         requireActivity().findViewById<BottomNavigationView>(R.id.bottomBar).visibility =
             View.VISIBLE
         binding.btAddPassword.visibility = View.VISIBLE
@@ -74,10 +73,10 @@ class PasswordsFragment : BaseFragment<PasswordsViewModel, FragmentPasswordsBind
                     MaterialAlertDialogBuilder(
                         requireContext()
                     )
-                        .setMessage("Are you sure you want to move this password to trash?")
-                        .setNegativeButton("No") { _, _ ->
+                        .setMessage(getString(R.string.move_to_trash_dialog_message))
+                        .setNegativeButton(getString(R.string.dialog_no)) { _, _ ->
                         }
-                        .setPositiveButton("Yes") { _, _ ->
+                        .setPositiveButton(getString(R.string.dialog_yes)) { _, _ ->
                             viewModel.updateItemTrashState(!password.isInTrash, password.passwordId)
                             adapter.notifyItemChanged(position)
                             adapter.notifyDataSetChanged()
@@ -111,5 +110,25 @@ class PasswordsFragment : BaseFragment<PasswordsViewModel, FragmentPasswordsBind
             })
         binding.rvPasswords.adapter = adapter
         binding.rvPasswords.layoutManager = LinearLayoutManager(requireContext())
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        requireActivity().menuInflater.inflate(R.menu.options_menu, menu)
+        val searchView = (menu.findItem(R.id.search).actionView as SearchView)
+        searchView.setOnQueryTextListener(this)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        return true
+    }
+
+    override fun onQueryTextChange(query: String?): Boolean {
+        if (query != null) {
+            viewModel.searchPasswords(query.toString())
+        } else {
+            viewModel.getPasswords(false)
+        }
+        return true
     }
 }

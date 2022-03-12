@@ -3,7 +3,9 @@ package com.gvelesiani.passworx.data.repository
 import com.gvelesiani.passworx.data.database.LocalDataProvider
 import com.gvelesiani.passworx.data.models.PasswordModel
 
-class RepositoryImpl(private val localDataProvider: LocalDataProvider) : Repository {
+class RepositoryImpl(
+    private val localDataProvider: LocalDataProvider
+) : Repository {
     override fun addNewPassword(pass: PasswordModel) {
         localDataProvider.addNewPassword(pass)
     }
@@ -28,4 +30,7 @@ class RepositoryImpl(private val localDataProvider: LocalDataProvider) : Reposit
         localDataProvider.deletePassword(passwordId)
     }
 
+    override fun searchPasswords(query: String): List<PasswordModel> {
+        return localDataProvider.searchPasswords(query)
+    }
 }

@@ -20,6 +20,7 @@
     <color name="gen_pass_bg">#ECECEC</color>
     <color name="secondary_txt_color">#848484</color>
     <!-- Light theme -->
+    <color name="color_primary_light">#161616</color>
     <color name="bg_light">#FFFFFF</color>
     <color name="text_light">@color/dark_text_color</color>
     <color name="bt_nvb_ic_txt_light">#848484</color>
@@ -28,8 +29,10 @@
     <color name="bottom_bar_bg_light">#F8F8F8</color>
     <color name="input_layout_stroke_light">#61050507</color>
     <color name="bg_secondary_light">#FFFFFF</color>
+    <color name="search_view_icon_color_light">#050507</color>
 
     <!-- Dark theme -->
+    <color name="color_primary_dark">#F8F8F8</color>
     <color name="bg_dark">#050507</color>
     <color name="text_dark">#FFFFFF</color>
     <color name="bt_nvb_ic_txt_dark">#FAFAFB</color>
@@ -38,4 +41,5 @@
     <color name="bottom_bar_bg_dark">#161616</color>
     <color name="input_layout_stroke_dark">#61FFFFFF</color>
     <color name="bg_secondary_dark">#161616</color>
+    <color name="search_view_icon_color_dark">@color/white</color>
 </resources>

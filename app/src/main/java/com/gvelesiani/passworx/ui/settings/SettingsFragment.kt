@@ -1,4 +1,4 @@
-package com.gvelesiani.passworx.ui.tools
+package com.gvelesiani.passworx.ui.settings
 
 import android.os.Bundle
 import android.view.LayoutInflater

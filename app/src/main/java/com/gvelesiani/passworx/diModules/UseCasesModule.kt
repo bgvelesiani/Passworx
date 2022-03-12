@@ -27,4 +27,8 @@ val useCasesModule = module {
     factory {
         DeletePasswordUseCase(get())
     }
+
+    factory {
+        SearchPasswordsUseCase(get())
+    }
 }

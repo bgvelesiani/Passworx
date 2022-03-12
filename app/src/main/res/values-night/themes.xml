@@ -1,9 +1,10 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="Theme.Passworx" parent="Theme.MaterialComponents.Light.DarkActionBar">
+    <style name="Theme.Passworx.Dark" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">#F8F8F8</item>
+        <item name="colorPrimary">@color/color_primary_dark</item>
         <item name="colorPrimaryVariant">?attr/bg_color</item>
+        <item name="colorSecondary">?attr/secondary_text_color</item>
         <item name="colorOnSurface">?attr/text_color</item>
         <item name="android:statusBarColor">?attr/bg_color</item>
         <item name="android:windowLightStatusBar">false</item>
@@ -22,5 +23,7 @@
         <item name="bottom_bar_bg_color">@color/bottom_bar_bg_dark</item>
         <item name="input_layout_stroke_color">@color/input_layout_stroke_dark</item>
         <item name="bg_secondary">@color/bg_secondary_dark</item>
+        <item name="search_view_icon_color">@color/search_view_icon_color_dark</item>
+        <item name="color_primary">@color/color_primary_dark</item>
     </style>
 </resources>

@@ -4,19 +4,20 @@
     package="com.gvelesiani.passworx">
 
     <application
+        android:name="com.gvelesiani.passworx.PassworxApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:name="com.gvelesiani.passworx.PassworxApplication"
         android:roundIcon="@drawable/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/Theme.Passworx"
         tools:replace="android:theme">
         <activity
             android:name="com.gvelesiani.passworx.MainActivity"
+            android:configChanges="uiMode"
             android:exported="true"
-            android:screenOrientation="portrait"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
