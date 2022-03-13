@@ -2,9 +2,8 @@ package com.gvelesiani.passworx.ui.settings
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import androidx.navigation.fragment.findNavController
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.base.BaseFragment
 import com.gvelesiani.passworx.databinding.FragmentSettingsBinding
@@ -16,8 +15,9 @@ class SettingsFragment :
         get() = FragmentSettingsBinding::inflate
 
     override fun setupView(savedInstanceState: Bundle?) {
-        requireActivity().findViewById<BottomNavigationView>(R.id.bottomBar).visibility =
-            View.VISIBLE
+        binding.svChangeMasterPassword.setOnClickListener {
+            findNavController().navigate(R.id.action_navigation_settings_to_createMasterPasswordFragment)
+        }
     }
 
     override fun setupObservers() {

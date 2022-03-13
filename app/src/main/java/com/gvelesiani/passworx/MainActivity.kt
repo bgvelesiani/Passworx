@@ -2,6 +2,7 @@ package com.gvelesiani.passworx
 
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.View
 import android.view.WindowManager
 import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
@@ -12,32 +13,42 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.color.MaterialColors
 import com.gvelesiani.passworx.databinding.ActivityMainBinding
-import androidx.activity.OnBackPressedCallback
-import java.lang.StringBuilder
-import java.security.MessageDigest
-import java.security.NoSuchAlgorithmException
-import java.security.SecureRandom
-import java.security.spec.InvalidKeySpecException
-import javax.crypto.SecretKeyFactory
-import javax.crypto.spec.PBEKeySpec
-
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
+    private val viewModel: MainVM by viewModel()
     private lateinit var navController: NavController
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        /**
-         * With FLAG_SECURE, Users will be prevented from taking screenshots of the application,
-         * Because I don't want passwords to be captured by user or someone else.
-         * */
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_SECURE,
-            WindowManager.LayoutParams.FLAG_SECURE
-        )
+        setWindowFlags()
         setContentView(binding.root)
+        setupActionBarWithNavController()
+
+        viewModel.getMasterPassword()
+        setupObservers()
+
+        onDestinationChanged()
+
+        setBackgroundToActionBar()
+
+        setupBottomMenu()
+    }
+
+    private fun setupObservers() {
+        viewModel.viewState.observe(this, {
+            val graph = navController.navInflater.inflate(R.navigation.mobile_navigation)
+            if (it.masterPassword == "") {
+                graph.setStartDestination(R.id.navigation_passwords)
+                navController.popBackStack()
+            }
+            navController.graph = graph
+        })
+    }
+
+    private fun setBackgroundToActionBar() {
         supportActionBar?.setBackgroundDrawable(
             ColorDrawable(
                 MaterialColors.getColor(
@@ -46,22 +57,42 @@ class MainActivity : AppCompatActivity() {
                 )
             )
         )
+    }
+
+    private fun setWindowFlags() {
+        /**
+         * With FLAG_SECURE, Users will be prevented from taking screenshots of the application,
+         * Because I don't want passwords to be captured by user or someone else.
+         * */
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_SECURE,
+            WindowManager.LayoutParams.FLAG_SECURE
+        )
+    }
+
+    private fun setupActionBarWithNavController() {
         val appBarConfiguration = AppBarConfiguration
-            .Builder(R.id.navigation_passwords)
+            .Builder(R.id.masterPasswordFragment, R.id.navigation_passwords)
             .build()
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main) as NavHostFragment
         navController = navHostFragment.navController
         setupActionBarWithNavController(navController, appBarConfiguration)
-        setupBottomMenu()
+    }
 
+    private fun onDestinationChanged() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.masterPasswordFragment -> {
-                    supportActionBar?.hide()
+                    supportActionBar?.elevation = 0F
+                    binding.bottomBar.visibility = View.GONE
+                }
+                R.id.createMasterPasswordFragment, R.id.addPasswordFragment, R.id.passwordTrashFragment -> {
+                    binding.bottomBar.visibility = View.GONE
                 }
                 else -> {
-                    supportActionBar?.show()
+                    supportActionBar?.elevation = 8F
+                    binding.bottomBar.visibility = View.VISIBLE
                 }
             }
         }
@@ -76,65 +107,4 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
-}
-
-//fun md5(s: String): String? {
-//    val MD5 = "MD5"
-//    try {
-//        // Create MD5 Hash
-//        val digest: MessageDigest = MessageDigest
-//            .getInstance(MD5)
-//        digest.update(s.toByteArray())
-//        val messageDigest: ByteArray = digest.digest()
-//
-//        // Create Hex String
-//        val hexString = StringBuilder()
-//        for (aMessageDigest in messageDigest) {
-//            var h = Integer.toHexString(0xFF and aMessageDigest.toInt())
-//            while (h.length < 2) h = "0$h"
-//            hexString.append(h)
-//        }
-//        return hexString.toString()
-//    } catch (e: NoSuchAlgorithmException) {
-//        e.printStackTrace()
-//    }
-//    return ""
-//}
-
-object PasswordUtils {
-    val random = SecureRandom()
-
-    fun generateSalt(): ByteArray {
-        val salt = ByteArray(16)
-        random.nextBytes(salt)
-        return salt
-    }
-
-    fun isExpectedPassword(password: String, salt: ByteArray, expectedHash: ByteArray): Boolean {
-        val pwdHash = hash(password, salt)
-        if (pwdHash.size != expectedHash.size) return false
-        return pwdHash.indices.all { pwdHash[it] == expectedHash[it] }
-    }
-
-    fun hash(password: String, salt: ByteArray): ByteArray {
-        val spec = PBEKeySpec(password.toCharArray(), salt, 1000, 256)
-        try {
-            val skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1")
-            return skf.generateSecret(spec).encoded
-        } catch (e: NoSuchAlgorithmException) {
-            throw AssertionError("Error while hashing a password: " + e.message, e)
-        } catch (e: InvalidKeySpecException) {
-            throw AssertionError("Error while hashing a password: " + e.message, e)
-        } finally {
-            spec.clearPassword()
-        }
-    }
-}
-
-
-fun main(){
-    val pass = "1234567"
-    val salt = PasswordUtils.generateSalt()
-    val hashed = PasswordUtils.hash(pass, salt)
-    print(PasswordUtils.isExpectedPassword(pass, salt, hashed))
 }

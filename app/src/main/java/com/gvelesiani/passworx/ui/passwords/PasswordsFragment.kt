@@ -10,7 +10,6 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.base.BaseFragment
@@ -29,8 +28,6 @@ class PasswordsFragment :
 
     override fun setupView(savedInstanceState: Bundle?) {
         setHasOptionsMenu(true)
-        requireActivity().findViewById<BottomNavigationView>(R.id.bottomBar).visibility =
-            View.VISIBLE
         binding.btAddPassword.visibility = View.VISIBLE
         viewModel.getPasswords()
         setupRecyclerViewAdapter()

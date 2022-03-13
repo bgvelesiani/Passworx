@@ -2,10 +2,8 @@ package com.gvelesiani.passworx.ui.addPassword
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.base.BaseFragment
@@ -21,7 +19,6 @@ class AddPasswordFragment :
         get() = FragmentAddPasswordBinding::inflate
 
     override fun setupView(savedInstanceState: Bundle?) {
-        requireActivity().findViewById<BottomNavigationView>(R.id.bottomBar).visibility = View.GONE
         watchFields()
         setOnClickListeners()
     }

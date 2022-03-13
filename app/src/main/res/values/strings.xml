@@ -52,4 +52,7 @@
     <string name="settings_appearance_header">Appearance</string>
     <string name="settings_take_screenshots">Take in-app screenshots</string>
     <string name="settings_unlock_with_biometrics">Unlock with Biometrics</string>
+    <string name="create_master_password_title_text">Create your master password</string>
+    <string name="create_master_password_hint">Master Password</string>
+    <string name="create_master_password_button_text">Create</string>
 </resources>

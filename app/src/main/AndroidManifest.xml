@@ -14,7 +14,6 @@
         tools:replace="android:theme">
         <activity
             android:name="com.gvelesiani.passworx.MainActivity"
-            android:configChanges="uiMode"
             android:exported="true"
             android:label="@string/app_name"
             android:screenOrientation="portrait"

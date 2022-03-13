@@ -66,7 +66,7 @@ class AddPasswordVM(
     }
 
     fun encryptPassword(password: String): String {
-        return encryptionHelper.encrypt(password).toString()
+        return encryptionHelper.encrypt(password)
     }
 
     data class ViewState(
