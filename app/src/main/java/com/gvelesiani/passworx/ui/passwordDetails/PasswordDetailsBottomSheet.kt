@@ -57,7 +57,6 @@ class PasswordDetailsBottomSheet : BottomSheetDialogFragment() {
     companion object {
         const val TAG = "PasswordDetailsBottomSheet"
         private const val PASSWORD = "PASSWORD"
-        private const val POSITION = "PARKING_FINE_POSITION"
         fun show(
             password: PasswordModel,
             fragmentManager: FragmentManager,

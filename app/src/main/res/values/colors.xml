@@ -19,6 +19,7 @@
     <color name="accent_color">#F04137</color>
     <color name="gen_pass_bg">#ECECEC</color>
     <color name="secondary_txt_color">#848484</color>
+
     <!-- Light theme -->
     <color name="color_primary_light">#161616</color>
     <color name="bg_light">#FFFFFF</color>
@@ -30,6 +31,10 @@
     <color name="input_layout_stroke_light">#61050507</color>
     <color name="bg_secondary_light">#FFFFFF</color>
     <color name="search_view_icon_color_light">#050507</color>
+    <color name="chip_bg_color_light">#ECECFF</color>
+    <color name="chip_bg_color_checked_light">#9FD4C1</color>
+    <color name="chip_text_color_light">#3F3F5E</color>
+    <color name="chip_text_color_checked_light">#01863A</color>
 
     <!-- Dark theme -->
     <color name="color_primary_dark">#F8F8F8</color>
@@ -42,4 +47,8 @@
     <color name="input_layout_stroke_dark">#61FFFFFF</color>
     <color name="bg_secondary_dark">#161616</color>
     <color name="search_view_icon_color_dark">@color/white</color>
+    <color name="chip_bg_color_dark">#3F3F5E</color>
+    <color name="chip_bg_color_checked_dark">#9FD4C1</color>
+    <color name="chip_text_color_dark">#ECECFF</color>
+    <color name="chip_text_color_checked_dark">#01863A</color>
 </resources>

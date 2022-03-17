@@ -79,6 +79,5 @@
     <fragment
         android:id="@+id/createMasterPasswordFragment"
         android:name="com.gvelesiani.passworx.ui.masterPassword.createMasterPassword.CreateMasterPasswordFragment"
-        android:label="CreateMasterPasswordFragment"
-        tools:layout="@layout/fragment_master_password"/>
+        android:label="" />
 </navigation>

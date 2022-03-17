@@ -1,4 +1,4 @@
-package com.gvelesiani.passworx.ui.passwords.adapter
+package com.gvelesiani.passworx.adapters
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater

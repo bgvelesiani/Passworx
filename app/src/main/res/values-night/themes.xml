@@ -25,5 +25,11 @@
         <item name="bg_secondary">@color/bg_secondary_dark</item>
         <item name="search_view_icon_color">@color/search_view_icon_color_dark</item>
         <item name="color_primary">@color/color_primary_dark</item>
+
+        <item name="chip_bg_color">@color/chip_bg_color_dark</item>
+        <item name="chip_checked_bg_color">@color/chip_bg_color_checked_dark</item>
+        <item name="chip_text_color">@color/chip_text_color_dark</item>
+        <item name="chip_checked_text_color">@color/chip_text_color_checked_dark</item>
+        <item name="chip_check_icon_color">@color/chip_text_color_checked_dark</item>
     </style>
 </resources>

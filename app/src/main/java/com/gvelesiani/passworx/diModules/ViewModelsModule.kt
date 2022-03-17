@@ -3,6 +3,8 @@ package com.gvelesiani.passworx.diModules
 import com.gvelesiani.passworx.MainVM
 import com.gvelesiani.passworx.ui.addPassword.AddPasswordVM
 import com.gvelesiani.passworx.ui.masterPassword.MasterPasswordVM
+import com.gvelesiani.passworx.ui.masterPassword.changeMasterPassword.ChangeMasterPasswordBottomSheet
+import com.gvelesiani.passworx.ui.masterPassword.changeMasterPassword.ChangeMasterPasswordVM
 import com.gvelesiani.passworx.ui.masterPassword.createMasterPassword.CreateMasterPasswordVM
 import com.gvelesiani.passworx.ui.passwordDetails.PasswordDetailsVM
 import com.gvelesiani.passworx.ui.passwordGenerator.PasswordGeneratorVM
@@ -10,6 +12,7 @@ import com.gvelesiani.passworx.ui.passwords.PasswordsVM
 import com.gvelesiani.passworx.ui.settings.SettingsVM
 import com.gvelesiani.passworx.ui.trash.PasswordTrashVM
 import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.scope.get
 import org.koin.dsl.module
 
 val viewModelsModule = module {
@@ -17,7 +20,7 @@ val viewModelsModule = module {
         AddPasswordVM(get(), get(), get())
     }
     viewModel {
-        SettingsVM()
+        SettingsVM(get())
     }
     viewModel {
         PasswordsVM(get(), get(), get(), get())
@@ -40,10 +43,14 @@ val viewModelsModule = module {
     }
 
     viewModel {
-        CreateMasterPasswordVM(get(), get())
+        CreateMasterPasswordVM(get(), get(), get())
     }
 
     viewModel {
         MasterPasswordVM(get(), get())
+    }
+
+    viewModel {
+        ChangeMasterPasswordVM(get(), get(), get())
     }
 }

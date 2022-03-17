@@ -34,7 +34,7 @@ class RepositoryImpl(
         return localDataProvider.searchPasswords(query)
     }
 
-    override fun saveMasterPassword(masterPassword: String) {
+    override fun createOrChangeMasterPassword(masterPassword: String) {
         localDataProvider.saveMasterPassword(masterPassword)
     }
 

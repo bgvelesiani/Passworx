@@ -29,7 +29,6 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.getMasterPassword()
         setupObservers()
-
         onDestinationChanged()
 
         setBackgroundToActionBar()
@@ -64,10 +63,10 @@ class MainActivity : AppCompatActivity() {
          * With FLAG_SECURE, Users will be prevented from taking screenshots of the application,
          * Because I don't want passwords to be captured by user or someone else.
          * */
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_SECURE,
-            WindowManager.LayoutParams.FLAG_SECURE
-        )
+//        window.setFlags(
+//            WindowManager.LayoutParams.FLAG_SECURE,
+//            WindowManager.LayoutParams.FLAG_SECURE
+//        )
     }
 
     private fun setupActionBarWithNavController() {
@@ -83,11 +82,11 @@ class MainActivity : AppCompatActivity() {
     private fun onDestinationChanged() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.masterPasswordFragment -> {
+                R.id.masterPasswordFragment, R.id.createMasterPasswordFragment -> {
                     supportActionBar?.elevation = 0F
                     binding.bottomBar.visibility = View.GONE
                 }
-                R.id.createMasterPasswordFragment, R.id.addPasswordFragment, R.id.passwordTrashFragment -> {
+                R.id.addPasswordFragment, R.id.passwordTrashFragment -> {
                     binding.bottomBar.visibility = View.GONE
                 }
                 else -> {

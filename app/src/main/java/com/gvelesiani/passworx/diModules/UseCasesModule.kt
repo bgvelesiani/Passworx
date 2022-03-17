@@ -33,7 +33,7 @@ val useCasesModule = module {
     }
 
     factory {
-        CreateMasterPasswordUseCase(get())
+        CreateOrChangeMasterPasswordUseCase(get())
     }
 
     factory {

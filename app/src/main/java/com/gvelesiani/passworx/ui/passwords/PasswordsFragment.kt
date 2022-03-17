@@ -16,7 +16,7 @@ import com.gvelesiani.passworx.base.BaseFragment
 import com.gvelesiani.passworx.data.models.PasswordModel
 import com.gvelesiani.passworx.databinding.FragmentPasswordsBinding
 import com.gvelesiani.passworx.ui.passwordDetails.PasswordDetailsBottomSheet
-import com.gvelesiani.passworx.ui.passwords.adapter.PasswordAdapter
+import com.gvelesiani.passworx.adapters.PasswordAdapter
 
 class PasswordsFragment :
     BaseFragment<PasswordsVM, FragmentPasswordsBinding>(PasswordsVM::class),
