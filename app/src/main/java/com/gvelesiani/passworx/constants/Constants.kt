@@ -13,3 +13,5 @@ object PasswordGeneratorProperties {
     const val NUMBERS = "0123456789"
     const val COMPLEX_PASSWORD = CAPITAL_LETTERS + LOWERCASE_LETTERS + NUMBERS + SYMBOLS
 }
+
+const val MASTER_PASSWORD = "MASTER_PASSWORD"

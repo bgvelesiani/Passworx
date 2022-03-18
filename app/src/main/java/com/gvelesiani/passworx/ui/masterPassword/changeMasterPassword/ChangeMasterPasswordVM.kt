@@ -28,7 +28,7 @@ class ChangeMasterPasswordVM(
                 val masterPasswordModel = passwordHashHelper.hash(masterPassword)
                 createOrChangeMasterPassword.run(masterPasswordModel)
             } catch (ignored: Exception) {
-//                viewState.postValue(currentViewState().copy(showCreateMasterPasswordError = "Couldn't create master password, please try again"))
+                viewState.postValue(currentViewState().copy(showCreateMasterPasswordError = "Couldn't create master password, please try again"))
             }
         }
     }
