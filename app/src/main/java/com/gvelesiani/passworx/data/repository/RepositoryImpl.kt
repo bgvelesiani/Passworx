@@ -35,7 +35,7 @@ class RepositoryImpl(
     }
 
     override fun createOrChangeMasterPassword(masterPassword: String) {
-        localDataProvider.saveMasterPassword(masterPassword)
+        localDataProvider.createOrChangeMasterPassword(masterPassword)
     }
 
     override fun getMasterPassword(): String {

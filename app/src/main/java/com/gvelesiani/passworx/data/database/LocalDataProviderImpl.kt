@@ -1,6 +1,7 @@
 package com.gvelesiani.passworx.data.database
 
 import android.content.SharedPreferences
+import com.gvelesiani.passworx.constants.MASTER_PASSWORD
 import com.gvelesiani.passworx.data.database.database.PasswordDatabase
 import com.gvelesiani.passworx.data.models.PasswordModel
 
@@ -36,12 +37,12 @@ class LocalDataProviderImpl constructor(
         return database.getPasswordDao.searchPasswords(query)
     }
 
-    override fun saveMasterPassword(masterPassword: String) {
-        preferences.edit().putString("MASTER_PASSWORD", masterPassword).apply()
+    override fun createOrChangeMasterPassword(masterPassword: String) {
+        preferences.edit().putString(MASTER_PASSWORD, masterPassword).apply()
     }
 
 
     override fun getMasterPassword(): String {
-        return preferences.getString("MASTER_PASSWORD", "").toString()
+        return preferences.getString(MASTER_PASSWORD, "").toString()
     }
 }
