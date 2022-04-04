@@ -25,6 +25,12 @@
         <item name="bg_secondary">@color/bg_secondary_light</item>
         <item name="search_view_icon_color">@color/search_view_icon_color_light</item>
         <item name="color_primary">@color/color_primary_light</item>
+
+        <item name="chip_bg_color">@color/chip_bg_color_light</item>
+        <item name="chip_checked_bg_color">@color/chip_bg_color_checked_light</item>
+        <item name="chip_text_color">@color/chip_text_color_light</item>
+        <item name="chip_checked_text_color">@color/chip_text_color_checked_light</item>
+        <item name="chip_check_icon_color">@color/chip_text_color_checked_light</item>
     </style>
 
     <style name="ThemeOverlay.App.BottomSheetDialog" parent="ThemeOverlay.MaterialComponents.BottomSheetDialog">

@@ -31,4 +31,12 @@ val useCasesModule = module {
     factory {
         SearchPasswordsUseCase(get())
     }
+
+    factory {
+        CreateOrChangeMasterPasswordUseCase(get())
+    }
+
+    factory {
+        GetMasterPasswordUseCase(get())
+    }
 }

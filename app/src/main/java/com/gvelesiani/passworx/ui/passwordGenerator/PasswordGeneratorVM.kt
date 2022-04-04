@@ -12,7 +12,7 @@ import com.gvelesiani.passworx.domain.useCases.Password
 import com.gvelesiani.passworx.helpers.resourceProvider.ResourceHelper
 import kotlinx.coroutines.launch
 
-class PasswordGeneratorViewModel(
+class PasswordGeneratorVM(
     private val generatePasswordUseCase: GeneratePasswordUseCase,
     private val resourceHelper: ResourceHelper
 ) :

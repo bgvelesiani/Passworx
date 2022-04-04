@@ -25,5 +25,11 @@
         <attr name="bg_secondary" format="color" />
         <attr name="search_view_icon_color" format="color" />
         <attr name="color_primary" format="color" />
+
+        <attr name="chip_bg_color" format="color" />
+        <attr name="chip_checked_bg_color" format="color" />
+        <attr name="chip_text_color" format="color" />
+        <attr name="chip_checked_text_color" format="color" />
+        <attr name="chip_check_icon_color" format="color" />
     </declare-styleable>
 </resources>

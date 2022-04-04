@@ -11,7 +11,7 @@ import com.gvelesiani.passworx.base.BaseFragment
 import com.gvelesiani.passworx.databinding.FragmentBrowseBinding
 
 class BrowseFragment :
-    BaseFragment<BrowseViewModel, FragmentBrowseBinding>(BrowseViewModel::class) {
+    BaseFragment<BrowseVM, FragmentBrowseBinding>(BrowseVM::class) {
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentBrowseBinding
         get() = FragmentBrowseBinding::inflate
 

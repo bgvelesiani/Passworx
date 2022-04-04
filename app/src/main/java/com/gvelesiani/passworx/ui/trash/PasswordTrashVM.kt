@@ -9,7 +9,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class PasswordTrashViewModel(
+class PasswordTrashVM(
     private val getPasswordsUseCase: GetPasswordsUseCase,
     private val deletePasswordUseCase: DeletePasswordUseCase
 ) :

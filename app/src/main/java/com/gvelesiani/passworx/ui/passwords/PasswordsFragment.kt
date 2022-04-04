@@ -10,17 +10,16 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.base.BaseFragment
 import com.gvelesiani.passworx.data.models.PasswordModel
 import com.gvelesiani.passworx.databinding.FragmentPasswordsBinding
 import com.gvelesiani.passworx.ui.passwordDetails.PasswordDetailsBottomSheet
-import com.gvelesiani.passworx.ui.passwords.adapter.PasswordAdapter
+import com.gvelesiani.passworx.adapters.PasswordAdapter
 
 class PasswordsFragment :
-    BaseFragment<PasswordsViewModel, FragmentPasswordsBinding>(PasswordsViewModel::class),
+    BaseFragment<PasswordsVM, FragmentPasswordsBinding>(PasswordsVM::class),
     SearchView.OnQueryTextListener {
     private lateinit var adapter: PasswordAdapter
 
@@ -29,8 +28,6 @@ class PasswordsFragment :
 
     override fun setupView(savedInstanceState: Bundle?) {
         setHasOptionsMenu(true)
-        requireActivity().findViewById<BottomNavigationView>(R.id.bottomBar).visibility =
-            View.VISIBLE
         binding.btAddPassword.visibility = View.VISIBLE
         viewModel.getPasswords()
         setupRecyclerViewAdapter()
@@ -49,7 +46,7 @@ class PasswordsFragment :
         })
     }
 
-    private fun observeViewState(viewState: PasswordsViewModel.ViewState) {
+    private fun observeViewState(viewState: PasswordsVM.ViewState) {
         if (viewState.passwords.isEmpty()) {
             binding.rvPasswords.isVisible = false
             binding.groupNoData.isVisible = true

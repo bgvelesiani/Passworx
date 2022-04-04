@@ -18,10 +18,10 @@ import com.gvelesiani.passworx.base.BaseFragment
 import com.gvelesiani.passworx.data.models.PasswordModel
 import com.gvelesiani.passworx.databinding.FragmentPasswordsBinding
 import com.gvelesiani.passworx.ui.passwordDetails.PasswordDetailsBottomSheet
-import com.gvelesiani.passworx.ui.passwords.adapter.PasswordAdapter
+import com.gvelesiani.passworx.adapters.PasswordAdapter
 
 class PasswordTrashFragment :
-    BaseFragment<PasswordTrashViewModel, FragmentPasswordsBinding>(PasswordTrashViewModel::class) {
+    BaseFragment<PasswordTrashVM, FragmentPasswordsBinding>(PasswordTrashVM::class) {
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentPasswordsBinding =
         FragmentPasswordsBinding::inflate
 
@@ -40,7 +40,7 @@ class PasswordTrashFragment :
         })
     }
 
-    private fun observeViewState(viewState: PasswordTrashViewModel.ViewState) {
+    private fun observeViewState(viewState: PasswordTrashVM.ViewState) {
         if (viewState.passwords.isEmpty()) {
             binding.rvPasswords.isVisible = false
             binding.groupNoData.isVisible = true

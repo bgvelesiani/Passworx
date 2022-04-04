@@ -52,4 +52,19 @@
     <string name="settings_appearance_header">Appearance</string>
     <string name="settings_take_screenshots">Take in-app screenshots</string>
     <string name="settings_unlock_with_biometrics">Unlock with Biometrics</string>
+
+    <string name="create_master_password_title_text">Create your master password</string>
+    <string name="master_password_hint">Master Password</string>
+    <string name="create_master_password_button_text">Create</string>
+    <string name="repeat_master_password_hint">Repeat Master Password</string>
+
+    <string name="change_master_password_title_text">Change your master password</string>
+    <string name="change_master_password_new_password_hint">New Master Password</string>
+    <string name="change_master_password_current_password_hint">Current Master Password</string>
+    <string name="change_master_password_repeat_new_password_hint">Repeat new Master Password</string>
+    <string name="change_master_password_button_text">Change</string>
+    <string name="master_password_screen_title">Access vault with your Master Password</string>
+    <string name="go_to_vault_bt_text">Go to Vault</string>
+    <string name="forgot_master_password_text">Forgot master password?</string>
+    <string name="master_password_creation_success_message">Master password has been successfully created</string>
 </resources>

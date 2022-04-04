@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/navigation_passwords">
+    app:startDestination="@id/masterPasswordFragment">
 
     <fragment
         android:id="@+id/navigation_generate"
@@ -34,7 +34,11 @@
         android:id="@+id/navigation_settings"
         android:name="com.gvelesiani.passworx.ui.settings.SettingsFragment"
         android:label="@string/title_settings"
-        tools:layout="@layout/fragment_settings" />
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/action_navigation_settings_to_createMasterPasswordFragment"
+            app:destination="@id/createMasterPasswordFragment" />
+    </fragment>
     <fragment
         android:id="@+id/addPasswordFragment"
         android:name="com.gvelesiani.passworx.ui.addPassword.AddPasswordFragment"
@@ -61,4 +65,19 @@
             android:id="@+id/action_navigation_browse_to_passwordTrashFragment"
             app:destination="@id/passwordTrashFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/masterPasswordFragment"
+        tools:layout="@layout/fragment_master_password"
+        android:name="com.gvelesiani.passworx.ui.masterPassword.MasterPasswordFragment"
+        android:label="" >
+        <action
+            android:id="@+id/action_masterPasswordFragment_to_navigation_passwords"
+            app:popUpTo="@id/mobile_navigation"
+            app:popUpToInclusive="true"
+            app:destination="@id/navigation_passwords" />
+    </fragment>
+    <fragment
+        android:id="@+id/createMasterPasswordFragment"
+        android:name="com.gvelesiani.passworx.ui.masterPassword.createMasterPassword.CreateMasterPasswordFragment"
+        android:label="" />
 </navigation>

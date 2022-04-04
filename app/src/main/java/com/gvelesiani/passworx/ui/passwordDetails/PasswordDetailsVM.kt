@@ -7,7 +7,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class PasswordDetailsViewModel(private val encryptionHelper: PasswordEncryptionHelper) :
+class PasswordDetailsVM(private val encryptionHelper: PasswordEncryptionHelper) :
     BaseViewModel() {
     val viewState: MutableLiveData<ViewState> = MutableLiveData()
 

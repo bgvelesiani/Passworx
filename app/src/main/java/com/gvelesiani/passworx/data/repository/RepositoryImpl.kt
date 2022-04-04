@@ -33,4 +33,12 @@ class RepositoryImpl(
     override fun searchPasswords(query: String): List<PasswordModel> {
         return localDataProvider.searchPasswords(query)
     }
+
+    override fun createOrChangeMasterPassword(masterPassword: String) {
+        localDataProvider.createOrChangeMasterPassword(masterPassword)
+    }
+
+    override fun getMasterPassword(): String {
+        return localDataProvider.getMasterPassword()
+    }
 }

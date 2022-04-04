@@ -12,7 +12,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class AddPasswordViewModel(
+class AddPasswordVM(
     private val addNewPasswordUseCase: AddNewPasswordUseCase,
     private val resourceHelper: ResourceHelper,
     private val encryptionHelper: PasswordEncryptionHelper
@@ -66,7 +66,7 @@ class AddPasswordViewModel(
     }
 
     fun encryptPassword(password: String): String {
-        return encryptionHelper.encrypt(password).toString()
+        return encryptionHelper.encrypt(password)
     }
 
     data class ViewState(

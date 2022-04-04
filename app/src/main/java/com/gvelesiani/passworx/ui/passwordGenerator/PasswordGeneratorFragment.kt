@@ -14,8 +14,8 @@ import com.gvelesiani.passworx.databinding.FragmentPasswordGeneratorBinding
 
 
 class PasswordGeneratorFragment :
-    BaseFragment<PasswordGeneratorViewModel, FragmentPasswordGeneratorBinding>(
-        PasswordGeneratorViewModel::class
+    BaseFragment<PasswordGeneratorVM, FragmentPasswordGeneratorBinding>(
+        PasswordGeneratorVM::class
     ) {
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentPasswordGeneratorBinding
         get() = FragmentPasswordGeneratorBinding::inflate

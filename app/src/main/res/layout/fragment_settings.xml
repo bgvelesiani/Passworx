@@ -15,7 +15,7 @@
         app:layout_constraintEnd_toEndOf="@id/glSettingsEnd"
         app:layout_constraintStart_toStartOf="@id/glSettingsStart"
         app:layout_constraintTop_toTopOf="parent"
-        app:setSettingTitle="Change Master Password" />
+        app:setSettingTitle="Change or Create Master Password" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvLanguageHeader"

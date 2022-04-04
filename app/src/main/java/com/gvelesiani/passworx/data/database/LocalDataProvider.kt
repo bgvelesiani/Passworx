@@ -10,4 +10,6 @@ interface LocalDataProvider {
     fun updateItemTrashState(isInTrash: Boolean, id: Int)
     fun deletePassword(passwordId: Int)
     fun searchPasswords(query: String): List<PasswordModel>
+    fun createOrChangeMasterPassword(masterPassword: String)
+    fun getMasterPassword(): String
 }
