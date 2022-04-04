@@ -1,6 +1,5 @@
 package com.gvelesiani.passworx.helpers.validateMasterPassword
 
-import android.util.Log.d
 import java.util.regex.Pattern
 
 class MasterPasswordValidatorHelperImpl : MasterPasswordValidatorHelper {
