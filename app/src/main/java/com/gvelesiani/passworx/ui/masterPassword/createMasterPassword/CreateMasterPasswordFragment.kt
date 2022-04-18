@@ -3,7 +3,6 @@ package com.gvelesiani.passworx.ui.masterPassword.createMasterPassword
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -39,7 +38,7 @@ class CreateMasterPasswordFragment :
 
     override fun setupObservers() {
         with(binding) {
-            viewModel.viewState.observe(viewLifecycleOwner, {
+            viewModel.viewState.observe(viewLifecycleOwner) {
                 if (it.showCreateMasterPasswordError != null) {
                     MaterialAlertDialogBuilder(requireContext())
                         .setTitle(resources.getString(R.string.generate_password_error_dialog_title))
@@ -66,7 +65,7 @@ class CreateMasterPasswordFragment :
                         activity?.findViewById<BottomNavigationView>(R.id.bottomBar)
                     snackbar.show()
                 }
-            })
+            }
         }
     }
 

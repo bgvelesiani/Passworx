@@ -20,7 +20,8 @@ class CreateMasterPasswordVM(
 
     init {
         viewState.value = ViewState()
-        viewState.value = currentViewState().copy(validationErrors = masterPasswordValidatorHelper.getMasterPasswordErrors())
+        viewState.value =
+            currentViewState().copy(validationErrors = masterPasswordValidatorHelper.getMasterPasswordErrors())
     }
 
     private fun currentViewState(): ViewState = viewState.value!!
@@ -44,7 +45,13 @@ class CreateMasterPasswordVM(
     }
 
     fun validate(masterPassword: String) {
-        viewState.postValue(currentViewState().copy(isValid = masterPasswordValidatorHelper.isValidPassword(masterPassword)))
+        viewState.postValue(
+            currentViewState().copy(
+                isValid = masterPasswordValidatorHelper.isValidPassword(
+                    masterPassword
+                )
+            )
+        )
     }
 
     data class ViewState(

@@ -26,7 +26,12 @@ class MasterPasswordVM(
                 if (!passwordHashHelper.verify(password, result)) {
                     viewState.postValue(currentViewState().copy(passwordMatchError = "Master password is incorrect, please try again"))
                 } else {
-                    viewState.postValue(currentViewState().copy(passwordMatches = true))
+                    viewState.postValue(
+                        currentViewState().copy(
+                            passwordMatches = true,
+                            passwordMatchError = null
+                        )
+                    )
                 }
             } catch (ignored: Exception) {
             }

@@ -7,7 +7,6 @@ import androidx.navigation.fragment.findNavController
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.base.BaseFragment
 import com.gvelesiani.passworx.databinding.FragmentSettingsBinding
-import com.gvelesiani.passworx.ui.masterPassword.changeMasterPassword.ChangeMasterPasswordBottomSheet
 
 class SettingsFragment :
     BaseFragment<SettingsVM, FragmentSettingsBinding>(SettingsVM::class) {
@@ -20,17 +19,14 @@ class SettingsFragment :
     }
 
     override fun setupObservers() {
-        viewModel.viewState.observe(this, { viewState ->
+        viewModel.viewState.observe(this) { viewState ->
             binding.svChangeMasterPassword.setOnClickListener {
                 if (viewState.masterPasswordExists == true) {
-                    ChangeMasterPasswordBottomSheet().show(
-                        childFragmentManager,
-                        ChangeMasterPasswordBottomSheet.TAG
-                    )
+                    findNavController().navigate(R.id.action_navigation_settings_to_changeMasterPasswordFragment)
                 } else {
                     findNavController().navigate(R.id.action_navigation_settings_to_createMasterPasswordFragment)
                 }
             }
-        })
+        }
     }
 }

@@ -3,7 +3,14 @@ package com.gvelesiani.passworx.helpers.validateMasterPassword
 import java.util.regex.Pattern
 
 class MasterPasswordValidatorHelperImpl : MasterPasswordValidatorHelper {
-    private val errors: MutableList<MasterPasswordError> = mutableListOf(LengthError(), NumberError(), CapitalLetterError(), SmallLetterError(), SpecCharError())
+    private val errors: MutableList<MasterPasswordError> = mutableListOf(
+        LengthError(),
+        NumberError(),
+        CapitalLetterError(),
+        SmallLetterError(),
+        SpecCharError()
+    )
+
     override fun isValidPassword(data: String): Boolean {
         var valid = true
         // Password should be minimum minimum 8 characters long
@@ -63,10 +70,29 @@ class MasterPasswordValidatorHelperImpl : MasterPasswordValidatorHelper {
     override fun getMasterPasswordErrors(): MutableList<MasterPasswordError> = errors
 
     sealed class MasterPasswordError(open var error: String, open var isValid: Boolean)
-    data class NumberError(override var error: String = "Number", override var isValid: Boolean = false): MasterPasswordError(error, isValid)
-    data class CapitalLetterError(override var error: String = "Capital letter", override var isValid: Boolean = false): MasterPasswordError(error, isValid)
-    data class SmallLetterError(override var error: String = "Lowercase letter", override var isValid: Boolean = false): MasterPasswordError(error, isValid)
-    data class LengthError(override var error: String = "8 characters", override var isValid: Boolean = false): MasterPasswordError(error, isValid)
-    data class SpecCharError(override var error: String = "Special character", override var isValid: Boolean = false): MasterPasswordError(error, isValid)
+    data class NumberError(
+        override var error: String = "Number",
+        override var isValid: Boolean = false
+    ) : MasterPasswordError(error, isValid)
+
+    data class CapitalLetterError(
+        override var error: String = "Capital letter",
+        override var isValid: Boolean = false
+    ) : MasterPasswordError(error, isValid)
+
+    data class SmallLetterError(
+        override var error: String = "Lowercase letter",
+        override var isValid: Boolean = false
+    ) : MasterPasswordError(error, isValid)
+
+    data class LengthError(
+        override var error: String = "8 characters",
+        override var isValid: Boolean = false
+    ) : MasterPasswordError(error, isValid)
+
+    data class SpecCharError(
+        override var error: String = "Special character",
+        override var isValid: Boolean = false
+    ) : MasterPasswordError(error, isValid)
 
 }

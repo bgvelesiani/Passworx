@@ -27,18 +27,18 @@ class PasswordGeneratorFragment :
     }
 
     override fun setupObservers() {
-        viewModel.generatedPassword.observe(viewLifecycleOwner, {
+        viewModel.generatedPassword.observe(viewLifecycleOwner) {
             binding.tvGeneratedPassword.text = it
-        })
+        }
 
-        viewModel.generatePasswordError.observe(viewLifecycleOwner, {
+        viewModel.generatePasswordError.observe(viewLifecycleOwner) {
             MaterialAlertDialogBuilder(requireContext())
                 .setTitle(resources.getString(R.string.generate_password_error_dialog_title))
                 .setMessage(it)
                 .setPositiveButton(resources.getString(R.string.generate_password_error_dialog_button_text)) { _, _ ->
                 }
                 .show()
-        })
+        }
     }
 
     private fun setUpListeners() {
