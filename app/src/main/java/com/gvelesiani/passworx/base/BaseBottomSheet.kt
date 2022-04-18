@@ -9,7 +9,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.reflect.KClass
 
-abstract class BaseBottomSheet<VM : BaseViewModel, B : ViewBinding>(klass: KClass<VM>) : BottomSheetDialogFragment() {
+abstract class BaseBottomSheet<VM : BaseViewModel, B : ViewBinding>(klass: KClass<VM>) :
+    BottomSheetDialogFragment() {
     val viewModel: VM by viewModel(clazz = klass)
 
     private var _binding: B? = null

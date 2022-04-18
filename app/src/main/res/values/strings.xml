@@ -66,5 +66,6 @@
     <string name="master_password_screen_title">Access vault with your Master Password</string>
     <string name="go_to_vault_bt_text">Go to Vault</string>
     <string name="forgot_master_password_text">Forgot master password?</string>
-    <string name="master_password_creation_success_message">Master password has been successfully created</string>
+    <string name="master_password_creation_success_message">Master password has been created successfully</string>
+    <string name="master_password_change_success_message">Master password has been changed</string>
 </resources>

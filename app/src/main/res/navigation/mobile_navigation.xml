@@ -38,6 +38,9 @@
         <action
             android:id="@+id/action_navigation_settings_to_createMasterPasswordFragment"
             app:destination="@id/createMasterPasswordFragment" />
+        <action
+            android:id="@+id/action_navigation_settings_to_changeMasterPasswordFragment"
+            app:destination="@id/changeMasterPasswordFragment" />
     </fragment>
     <fragment
         android:id="@+id/addPasswordFragment"
@@ -79,5 +82,9 @@
     <fragment
         android:id="@+id/createMasterPasswordFragment"
         android:name="com.gvelesiani.passworx.ui.masterPassword.createMasterPassword.CreateMasterPasswordFragment"
-        android:label="" />
+        android:label="Change Master Password" />
+    <fragment
+        android:id="@+id/changeMasterPasswordFragment"
+        android:name="com.gvelesiani.passworx.ui.masterPassword.changeMasterPassword.ChangeMasterPasswordFragment"
+        android:label="Change Master Password" />
 </navigation>

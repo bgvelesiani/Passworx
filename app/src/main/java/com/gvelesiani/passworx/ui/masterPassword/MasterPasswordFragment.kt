@@ -25,7 +25,7 @@ class MasterPasswordFragment :
     }
 
     override fun setupObservers() {
-        viewModel.viewState.observe(this, {
+        viewModel.viewState.observe(this) {
             if (it.passwordMatchError != null) {
                 MaterialAlertDialogBuilder(requireContext())
                     .setTitle(resources.getString(R.string.generate_password_error_dialog_title))
@@ -37,6 +37,6 @@ class MasterPasswordFragment :
             if (it.passwordMatches) {
                 findNavController().navigate(R.id.action_masterPasswordFragment_to_navigation_passwords)
             }
-        })
+        }
     }
 }

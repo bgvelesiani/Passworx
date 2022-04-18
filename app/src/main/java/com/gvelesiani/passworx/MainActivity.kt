@@ -3,7 +3,6 @@ package com.gvelesiani.passworx
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.View
-import android.view.WindowManager
 import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController

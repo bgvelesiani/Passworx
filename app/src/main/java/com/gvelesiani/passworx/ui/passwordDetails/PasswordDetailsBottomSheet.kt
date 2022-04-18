@@ -49,9 +49,9 @@ class PasswordDetailsBottomSheet : BottomSheetDialogFragment() {
     }
 
     private fun setupObservers() {
-        viewModel.viewState.observe(this, {
+        viewModel.viewState.observe(this) {
             it?.let { observeViewState(it) }
-        })
+        }
     }
 
     companion object {
