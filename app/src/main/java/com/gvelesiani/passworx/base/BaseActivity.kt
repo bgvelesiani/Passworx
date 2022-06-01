@@ -10,7 +10,7 @@ import kotlin.reflect.KClass
 abstract class BaseActivity<VM : BaseViewModel, B : ViewBinding>(klass: KClass<VM>) :
     AppCompatActivity() {
 
-    private lateinit var binding: B
+    lateinit var binding: B
 
     val viewModel: VM by viewModel(clazz = klass)
 

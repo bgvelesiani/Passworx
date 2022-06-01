@@ -26,13 +26,25 @@ class PasswordsVM(
 
     private fun currentViewState(): ViewState = viewState.value!!
 
-    fun getPasswords(isInTrash: Boolean = false) {
+    fun getPasswords() {
+        viewState.value = currentViewState().copy(isLoading = true)
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val result = getPasswordsUseCase.run(params = isInTrash)
-                viewState.postValue(currentViewState().copy(passwords = result))
+                delay(100)
+                val result = getPasswordsUseCase.run(params = false)
+                viewState.postValue(
+                    currentViewState().copy(
+                        passwords = result,
+                        isLoading = false
+                    )
+                )
             } catch (e: Exception) {
-                viewState.postValue(currentViewState().copy(showGetPasswordsError = "Couldn't get passwords"))
+                viewState.postValue(
+                    currentViewState().copy(
+                        isLoading = false,
+                        showGetPasswordsError = "Couldn't get passwords"
+                    )
+                )
             }
         }
     }
@@ -40,7 +52,6 @@ class PasswordsVM(
     fun updateFavoriteState(isFavorite: Boolean, passwordId: Int) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                delay(1000)
                 updateFavoriteStateUseCase.run(Pair(!isFavorite, passwordId))
             } catch (e: Exception) {
                 viewState.postValue(currentViewState().copy(showUpdatePasswordError = "Couldn't update password... please try again"))
@@ -63,7 +74,6 @@ class PasswordsVM(
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 updateItemTrashStateUseCase.run(Pair(isInTrash, passwordId))
-                getPasswords(isInTrash = false)
             } catch (e: Exception) {
                 viewState.postValue(currentViewState().copy(showTrashingItemError = "Couldn't move item to trash"))
             }

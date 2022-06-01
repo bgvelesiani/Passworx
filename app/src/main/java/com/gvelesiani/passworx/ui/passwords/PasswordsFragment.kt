@@ -36,7 +36,7 @@ class PasswordsFragment :
 
     private fun setOnClickListeners() {
         binding.btAddPassword.setOnClickListener {
-            findNavController().navigate(R.id.action_navigation_passwords_to_addPasswordFragment)
+            findNavController().navigate(R.id.addNewPasswordActivity)
         }
     }
 
@@ -47,14 +47,22 @@ class PasswordsFragment :
     }
 
     private fun observeViewState(viewState: PasswordsVM.ViewState) {
-        if (viewState.passwords.isEmpty()) {
-            binding.rvPasswords.isVisible = false
-            binding.groupNoData.isVisible = true
-            binding.tvNoDataDesc.text = getString(R.string.empty_passwords_message)
-        } else {
-            adapter.submitData(viewState.passwords)
-            binding.groupNoData.isVisible = false
-            binding.rvPasswords.isVisible = true
+        binding.progressBar.isVisible = viewState.isLoading
+        when (viewState.isLoading) {
+            true -> {
+                binding.rvPasswords.isVisible = false
+                binding.groupNoData.isVisible = false
+            }
+            else -> {
+                if (viewState.passwords.isEmpty()) {
+                    binding.groupNoData.isVisible = true
+                    binding.rvPasswords.isVisible = false
+                } else {
+                    adapter.submitData(viewState.passwords)
+                    binding.groupNoData.isVisible = false
+                    binding.rvPasswords.isVisible = true
+                }
+            }
         }
     }
 
@@ -75,6 +83,7 @@ class PasswordsFragment :
                         }
                         .setPositiveButton(getString(R.string.dialog_yes)) { _, _ ->
                             viewModel.updateItemTrashState(!password.isInTrash, password.passwordId)
+                            viewModel.getPasswords()
                             adapter.notifyItemChanged(position)
                             adapter.notifyDataSetChanged()
                         }
@@ -97,7 +106,7 @@ class PasswordsFragment :
                     PasswordDetailsBottomSheet.TAG
                 )
             },
-            menuClickListener = { password: PasswordModel, view: View, position: Int ->// it == PasswordModel
+            menuClickListener = { password: PasswordModel, view: View, position: Int ->
                 showMenu(
                     view,
                     R.menu.password_item_menu,
@@ -124,7 +133,7 @@ class PasswordsFragment :
         if (query != null) {
             viewModel.searchPasswords(query.toString())
         } else {
-            viewModel.getPasswords(false)
+            viewModel.getPasswords()
         }
         return true
     }

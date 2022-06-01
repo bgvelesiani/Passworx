@@ -18,32 +18,6 @@
         app:setSettingTitle="Change or Create Master Password" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvLanguageHeader"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_15dp"
-        android:background="?attr/bottom_bar_bg_color"
-        android:fontFamily="@font/medium"
-        android:paddingVertical="@dimen/dimen_8dp"
-        android:paddingStart="@dimen/dimen_15dp"
-        android:paddingEnd="@dimen/dimen_15dp"
-        android:text="@string/settings_language_header"
-        android:textColor="?attr/text_color"
-        android:textSize="@dimen/dimen_19sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/svChangeMasterPassword" />
-
-    <com.gvelesiani.passworx.customViews.SettingsView
-        android:id="@+id/svChangeLanguage"
-        android:layout_width="@dimen/dimen_0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_15dp"
-        app:layout_constraintEnd_toEndOf="@id/glSettingsEnd"
-        app:layout_constraintStart_toStartOf="@id/glSettingsStart"
-        app:layout_constraintTop_toBottomOf="@id/tvLanguageHeader"
-        app:setSettingTitle="Change Language" />
-
-    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvPreferencesHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -57,7 +31,7 @@
         android:textColor="?attr/text_color"
         android:textSize="@dimen/dimen_19sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/svChangeLanguage" />
+        app:layout_constraintTop_toBottomOf="@id/svChangeMasterPassword" />
 
     <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/svUnlockWithBiometrics"

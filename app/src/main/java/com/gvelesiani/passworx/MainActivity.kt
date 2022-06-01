@@ -3,6 +3,7 @@ package com.gvelesiani.passworx
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
 import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
@@ -36,14 +37,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupObservers() {
-        viewModel.viewState.observe(this, {
+        viewModel.viewState.observe(this) {
             val graph = navController.navInflater.inflate(R.navigation.mobile_navigation)
             if (it.masterPassword == "") {
                 graph.setStartDestination(R.id.navigation_passwords)
                 navController.popBackStack()
             }
             navController.graph = graph
-        })
+        }
     }
 
     private fun setBackgroundToActionBar() {
@@ -60,12 +61,11 @@ class MainActivity : AppCompatActivity() {
     private fun setWindowFlags() {
         /**
          * With FLAG_SECURE, Users will be prevented from taking screenshots of the application,
-         * Because I don't want passwords to be captured by user or someone else.
          * */
-//        window.setFlags(
-//            WindowManager.LayoutParams.FLAG_SECURE,
-//            WindowManager.LayoutParams.FLAG_SECURE
-//        )
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_SECURE,
+            WindowManager.LayoutParams.FLAG_SECURE
+        )
     }
 
     private fun setupActionBarWithNavController() {
@@ -85,7 +85,7 @@ class MainActivity : AppCompatActivity() {
                     supportActionBar?.elevation = 0F
                     binding.bottomBar.visibility = View.GONE
                 }
-                R.id.addPasswordFragment, R.id.passwordTrashFragment -> {
+                R.id.passwordTrashFragment -> {
                     binding.bottomBar.visibility = View.GONE
                 }
                 else -> {

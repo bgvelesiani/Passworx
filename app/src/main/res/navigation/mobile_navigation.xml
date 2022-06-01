@@ -20,14 +20,14 @@
             android:id="@+id/action_navigation_passwords_to_navigation_password_checker"
             app:destination="@id/navigation_settings" />
         <action
-            android:id="@+id/action_navigation_passwords_to_addPasswordFragment"
-            app:destination="@id/addPasswordFragment" />
-        <action
             android:id="@+id/action_navigation_passwords_to_navigation_generate"
             app:destination="@id/navigation_generate" />
         <action
             android:id="@+id/action_navigation_passwords_to_browseFragment"
             app:destination="@id/navigation_browse" />
+        <action
+            android:id="@+id/action_navigation_passwords_to_addNewPasswordActivity"
+            app:destination="@id/addNewPasswordActivity" />
     </fragment>
 
     <fragment
@@ -41,15 +41,6 @@
         <action
             android:id="@+id/action_navigation_settings_to_changeMasterPasswordFragment"
             app:destination="@id/changeMasterPasswordFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/addPasswordFragment"
-        android:name="com.gvelesiani.passworx.ui.addPassword.AddPasswordFragment"
-        android:label="@string/title_add_new_password"
-        tools:layout="@layout/fragment_add_password">
-        <action
-            android:id="@+id/action_addPasswordFragment_to_navigation_passwords"
-            app:destination="@id/navigation_passwords" />
     </fragment>
     <fragment
         android:id="@+id/passwordTrashFragment"
@@ -87,4 +78,7 @@
         android:id="@+id/changeMasterPasswordFragment"
         android:name="com.gvelesiani.passworx.ui.masterPassword.changeMasterPassword.ChangeMasterPasswordFragment"
         android:label="Change Master Password" />
+    <activity
+        android:id="@+id/addNewPasswordActivity"
+        android:name="com.gvelesiani.passworx.ui.addPassword.AddPasswordActivity"/>
 </navigation>
