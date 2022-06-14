@@ -19,8 +19,8 @@ import com.gvelesiani.passworx.databinding.FragmentPasswordsBinding
 import com.gvelesiani.passworx.ui.passwordDetails.PasswordDetailsBottomSheet
 
 class PasswordsFragment :
-    BaseFragment<PasswordsVM, FragmentPasswordsBinding>(PasswordsVM::class),
-    SearchView.OnQueryTextListener {
+    BaseFragment<PasswordsVM, FragmentPasswordsBinding>(PasswordsVM::class) {
+//    SearchView.OnQueryTextListener {
     private lateinit var adapter: PasswordAdapter
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentPasswordsBinding
@@ -30,13 +30,14 @@ class PasswordsFragment :
         setHasOptionsMenu(true)
         binding.btAddPassword.visibility = View.VISIBLE
         viewModel.getPasswords()
+        setupSearch()
         setupRecyclerViewAdapter()
         setOnClickListeners()
     }
 
     private fun setOnClickListeners() {
         binding.btAddPassword.setOnClickListener {
-            findNavController().navigate(R.id.addNewPasswordActivity)
+            findNavController().navigate(R.id.addNewPasswordFragment)
         }
     }
 
@@ -118,23 +119,40 @@ class PasswordsFragment :
         binding.rvPasswords.layoutManager = LinearLayoutManager(requireContext())
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        requireActivity().menuInflater.inflate(R.menu.options_menu, menu)
-        val searchView = (menu.findItem(R.id.search).actionView as SearchView)
-        searchView.setOnQueryTextListener(this)
-        super.onCreateOptionsMenu(menu, inflater)
+    private fun setupSearch(){
+        binding.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if (newText != null) {
+                    viewModel.searchPasswords(newText.toString())
+                } else {
+                    viewModel.getPasswords()
+                }
+                return true
+            }
+        })
     }
 
-    override fun onQueryTextSubmit(query: String?): Boolean {
-        return true
-    }
+//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+//        requireActivity().menuInflater.inflate(R.menu.options_menu, menu)
+//        val searchView = (menu.findItem(R.id.search).actionView as SearchView)
+//        searchView.setOnQueryTextListener(this)
+//        super.onCreateOptionsMenu(menu, inflater)
+//    }
 
-    override fun onQueryTextChange(query: String?): Boolean {
-        if (query != null) {
-            viewModel.searchPasswords(query.toString())
-        } else {
-            viewModel.getPasswords()
-        }
-        return true
-    }
+//    override fun onQueryTextSubmit(query: String?): Boolean {
+//        return true
+//    }
+//
+//    override fun onQueryTextChange(query: String?): Boolean {
+//        if (query != null) {
+//            viewModel.searchPasswords(query.toString())
+//        } else {
+//            viewModel.getPasswords()
+//        }
+//        return true
+//    }
 }

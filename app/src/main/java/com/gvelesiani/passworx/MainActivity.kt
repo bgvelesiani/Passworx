@@ -33,14 +33,14 @@ class MainActivity : AppCompatActivity() {
 
         setBackgroundToActionBar()
 
-        setupBottomMenu()
+//        setupBottomMenu()
     }
 
     private fun setupObservers() {
         viewModel.viewState.observe(this) {
             val graph = navController.navInflater.inflate(R.navigation.mobile_navigation)
             if (it.masterPassword == "") {
-                graph.setStartDestination(R.id.navigation_passwords)
+                graph.setStartDestination(R.id.viewPagerContainer)
                 navController.popBackStack()
             }
             navController.graph = graph
@@ -70,7 +70,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupActionBarWithNavController() {
         val appBarConfiguration = AppBarConfiguration
-            .Builder(R.id.masterPasswordFragment, R.id.navigation_passwords)
+            .Builder(R.id.masterPasswordFragment, R.id.viewPagerContainer)
             .build()
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main) as NavHostFragment
@@ -81,26 +81,21 @@ class MainActivity : AppCompatActivity() {
     private fun onDestinationChanged() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.masterPasswordFragment, R.id.createMasterPasswordFragment -> {
+                R.id.masterPasswordFragment, R.id.viewPagerContainer -> {
                     supportActionBar?.elevation = 0F
-                    binding.bottomBar.visibility = View.GONE
-                }
-                R.id.passwordTrashFragment -> {
-                    binding.bottomBar.visibility = View.GONE
                 }
                 else -> {
                     supportActionBar?.elevation = 8F
-                    binding.bottomBar.visibility = View.VISIBLE
                 }
             }
         }
     }
 
-    private fun setupBottomMenu() {
-        val popupMenu = PopupMenu(this, null)
-        popupMenu.inflate(R.menu.bottom_nav_menu)
-        binding.bottomBar.setupWithNavController(navController)
-    }
+//    private fun setupBottomMenu() {
+//        val popupMenu = PopupMenu(this, null)
+//        popupMenu.inflate(R.menu.bottom_nav_menu)
+//        binding.bottomBar.setupWithNavController(navController)
+//    }
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()
