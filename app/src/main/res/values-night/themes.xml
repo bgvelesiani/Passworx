@@ -1,6 +1,6 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="Theme.Passworx" parent="Theme.MaterialComponents.Light.DarkActionBar">
+    <style name="Theme.Passworx" parent="Theme.MaterialComponents.DayNight">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/color_primary_dark</item>
         <item name="colorPrimaryVariant">?attr/bg_color</item>
@@ -26,6 +26,7 @@
         <item name="search_view_icon_color">@color/search_view_icon_color_dark</item>
         <item name="color_primary">@color/color_primary_dark</item>
 
+        <item name="search_view_bg_color">@color/search_view_bg_color_dark</item>
         <item name="chip_bg_color">@color/chip_bg_color_dark</item>
         <item name="chip_checked_bg_color">@color/chip_bg_color_checked_dark</item>
         <item name="chip_text_color">@color/chip_text_color_dark</item>

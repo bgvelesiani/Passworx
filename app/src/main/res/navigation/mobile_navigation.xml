@@ -15,7 +15,7 @@
         android:id="@+id/navigation_passwords"
         android:name="com.gvelesiani.passworx.ui.passwords.PasswordsFragment"
         android:label="@string/title_passwords"
-        tools:layout="@layout/fragment_passwords"/>
+        tools:layout="@layout/fragment_passwords" />
 
     <fragment
         android:id="@+id/navigation_settings"
@@ -25,17 +25,17 @@
     <fragment
         android:id="@+id/passwordTrashFragment"
         android:name="com.gvelesiani.passworx.ui.trash.PasswordTrashFragment"
-        android:label="@string/title_trash"/>
+        android:label="@string/title_trash" />
     <fragment
         android:id="@+id/navigation_browse"
         android:name="com.gvelesiani.passworx.ui.browse.BrowseFragment"
         android:label="@string/title_browse"
-        tools:layout="@layout/fragment_browse"/>
+        tools:layout="@layout/fragment_browse" />
     <fragment
         android:id="@+id/masterPasswordFragment"
         tools:layout="@layout/fragment_master_password"
         android:name="com.gvelesiani.passworx.ui.masterPassword.MasterPasswordFragment"
-        android:label="" >
+        android:label="">
         <action
             app:popUpTo="@id/mobile_navigation"
             app:popUpToInclusive="true"
@@ -63,7 +63,7 @@
     <fragment
         android:id="@+id/viewPagerContainer"
         android:name="com.gvelesiani.passworx.ui.ViewPagerContainer"
-        android:label="@string/app_name" >
+        android:label="@string/app_name">
         <action
             android:id="@+id/action_viewPagerContainer_to_createMasterPasswordFragment"
             app:destination="@id/createMasterPasswordFragment" />

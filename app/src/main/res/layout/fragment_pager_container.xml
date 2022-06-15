@@ -13,18 +13,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@id/bottomBar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_0dp"/>
+        android:layout_height="@dimen/dimen_0dp" />
 
     <com.google.android.material.divider.MaterialDivider
         android:layout_width="match_parent"
         app:layout_constraintBottom_toTopOf="@id/bottomBar"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
+        android:background="?attr/bottom_bar_bg_color"
         app:itemIconTint="@color/bottom_nav_icon_color"
         app:itemTextColor="@color/bottom_nav_text_color"
         app:labelVisibilityMode="labeled"

@@ -2,15 +2,11 @@ package com.gvelesiani.passworx
 
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.View
-import android.view.WindowManager
-import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.color.MaterialColors
 import com.gvelesiani.passworx.databinding.ActivityMainBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -32,8 +28,6 @@ class MainActivity : AppCompatActivity() {
         onDestinationChanged()
 
         setBackgroundToActionBar()
-
-//        setupBottomMenu()
     }
 
     private fun setupObservers() {
@@ -62,10 +56,10 @@ class MainActivity : AppCompatActivity() {
         /**
          * With FLAG_SECURE, Users will be prevented from taking screenshots of the application,
          * */
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_SECURE,
-            WindowManager.LayoutParams.FLAG_SECURE
-        )
+//        window.setFlags(
+//            WindowManager.LayoutParams.FLAG_SECURE,
+//            WindowManager.LayoutParams.FLAG_SECURE
+//        )
     }
 
     private fun setupActionBarWithNavController() {
@@ -81,7 +75,9 @@ class MainActivity : AppCompatActivity() {
     private fun onDestinationChanged() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.masterPasswordFragment, R.id.viewPagerContainer -> {
+                R.id.masterPasswordFragment, R.id.viewPagerContainer,
+                R.id.createMasterPasswordFragment, R.id.changeMasterPasswordFragment,
+                R.id.passwordTrashFragment, R.id.addNewPasswordFragment -> {
                     supportActionBar?.elevation = 0F
                 }
                 else -> {
@@ -90,12 +86,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
-//    private fun setupBottomMenu() {
-//        val popupMenu = PopupMenu(this, null)
-//        popupMenu.inflate(R.menu.bottom_nav_menu)
-//        binding.bottomBar.setupWithNavController(navController)
-//    }
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()

@@ -47,9 +47,6 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:$navigation_version"
     implementation "com.github.ibrahimsn98:SmoothBottomBar:$smooth_bottom_bar_version"
 
-//    api "com.squareup.retrofit2:retrofit:2.9.0"
-//    api "com.squareup.retrofit2:converter-gson:2.9.0"
-
     implementation "io.insert-koin:koin-android:$koin_version"
     implementation "io.insert-koin:koin-android-compat:$koin_version"
 
@@ -62,9 +59,6 @@ dependencies {
     kapt "androidx.room:room-compiler:2.4.2"
 
     implementation "androidx.preference:preference-ktx:1.2.0"
-    implementation 'com.airbnb.android:lottie:5.0.1'
-
-    testImplementation "androidx.arch.core:core-testing:2.1.0"
 
     implementation 'com.google.code.gson:gson:2.9.0'
 
