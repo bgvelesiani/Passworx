@@ -1,8 +1,8 @@
 package com.gvelesiani.passworx.ui.masterPassword
 
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.gvelesiani.passworx.base.BaseViewModel
 import com.gvelesiani.passworx.domain.useCases.GetMasterPasswordUseCase
 import com.gvelesiani.passworx.helpers.hashPassword.PasswordHashHelper
 import kotlinx.coroutines.launch
@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 class MasterPasswordVM(
     private val getMasterPasswordUseCase: GetMasterPasswordUseCase,
     private val passwordHashHelper: PasswordHashHelper
-) : BaseViewModel() {
+) : ViewModel() {
     val viewState: MutableLiveData<ViewState> = MutableLiveData()
 
     init {

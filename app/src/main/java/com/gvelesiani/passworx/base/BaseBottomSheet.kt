@@ -4,12 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModel
 import androidx.viewbinding.ViewBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.reflect.KClass
 
-abstract class BaseBottomSheet<VM : BaseViewModel, B : ViewBinding>(klass: KClass<VM>) :
+abstract class BaseBottomSheet<VM : ViewModel, B : ViewBinding>(klass: KClass<VM>) :
     BottomSheetDialogFragment() {
     val viewModel: VM by viewModel(clazz = klass)
 

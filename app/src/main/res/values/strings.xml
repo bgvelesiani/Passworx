@@ -68,4 +68,5 @@
     <string name="forgot_master_password_text">Forgot master password?</string>
     <string name="master_password_creation_success_message">Master password has been created successfully</string>
     <string name="master_password_change_success_message">Master password has been changed</string>
+    <string name="search_hint">Search Passwords</string>
 </resources>

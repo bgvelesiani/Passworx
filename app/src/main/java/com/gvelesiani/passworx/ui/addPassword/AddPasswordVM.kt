@@ -1,8 +1,8 @@
 package com.gvelesiani.passworx.ui.addPassword
 
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.gvelesiani.passworx.R
-import com.gvelesiani.passworx.base.BaseViewModel
 import com.gvelesiani.passworx.constants.MAX_TITLE_LENGTH
 import com.gvelesiani.passworx.data.models.PasswordModel
 import com.gvelesiani.passworx.domain.useCases.AddNewPasswordUseCase
@@ -16,7 +16,7 @@ class AddPasswordVM(
     private val addNewPasswordUseCase: AddNewPasswordUseCase,
     private val resourceHelper: ResourceHelper,
     private val encryptionHelper: PasswordEncryptionHelper
-) : BaseViewModel() {
+) : ViewModel() {
     val viewState: MutableLiveData<ViewState> = MutableLiveData()
 
     init {

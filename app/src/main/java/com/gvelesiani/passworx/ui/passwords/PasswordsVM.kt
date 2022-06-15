@@ -1,7 +1,7 @@
 package com.gvelesiani.passworx.ui.passwords
 
 import androidx.lifecycle.MutableLiveData
-import com.gvelesiani.passworx.base.BaseViewModel
+import androidx.lifecycle.ViewModel
 import com.gvelesiani.passworx.data.models.PasswordModel
 import com.gvelesiani.passworx.domain.useCases.GetPasswordsUseCase
 import com.gvelesiani.passworx.domain.useCases.SearchPasswordsUseCase
@@ -17,7 +17,7 @@ class PasswordsVM(
     private val updateFavoriteStateUseCase: UpdateFavoriteStateUseCase,
     private val updateItemTrashStateUseCase: UpdateItemTrashStateUseCase,
     private val searchPasswordsUseCase: SearchPasswordsUseCase
-) : BaseViewModel() {
+) : ViewModel() {
     val viewState: MutableLiveData<ViewState> = MutableLiveData()
 
     init {

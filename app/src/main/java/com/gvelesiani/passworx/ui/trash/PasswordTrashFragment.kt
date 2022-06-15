@@ -35,9 +35,9 @@ class PasswordTrashFragment :
     }
 
     override fun setupObservers() {
-        viewModel.viewState.observe(viewLifecycleOwner, {
+        viewModel.viewState.observe(viewLifecycleOwner) {
             observeViewState(it)
-        })
+        }
     }
 
     private fun observeViewState(viewState: PasswordTrashVM.ViewState) {

@@ -1,5 +1,5 @@
 package com.gvelesiani.passworx.ui.browse
 
-import com.gvelesiani.passworx.base.BaseViewModel
+import androidx.lifecycle.ViewModel
 
-class BrowseVM : BaseViewModel()
+class BrowseVM : ViewModel()

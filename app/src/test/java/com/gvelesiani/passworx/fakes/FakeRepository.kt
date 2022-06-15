@@ -32,6 +32,13 @@ class FakeRepository(private val passwords: MutableList<PasswordModel>) : Reposi
     }
 
     override fun searchPasswords(query: String): List<PasswordModel> {
-        TODO("Not yet implemented")
+        return emptyList()
+    }
+
+    override fun createOrChangeMasterPassword(masterPassword: String) {
+    }
+
+    override fun getMasterPassword(): String {
+        return ""
     }
 }

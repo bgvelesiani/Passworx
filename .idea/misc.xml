@@ -67,6 +67,7 @@
         <entry key="..\:/Apps/projects/passworx/app/src/main/res/drawable/button_background_disabled.xml" value="0.2755208333333333" />
         <entry key="..\:/Apps/projects/passworx/app/src/main/res/drawable/button_background_selector.xml" value="0.2755208333333333" />
         <entry key="..\:/Apps/projects/passworx/app/src/main/res/drawable/generated_password_background.xml" value="0.2755208333333333" />
+        <entry key="..\:/Apps/projects/passworx/app/src/main/res/drawable/ic_add_new_password.xml" value="0.1" />
         <entry key="..\:/Apps/projects/passworx/app/src/main/res/drawable/ic_add_password.xml" value="0.2755208333333333" />
         <entry key="..\:/Apps/projects/passworx/app/src/main/res/drawable/ic_browse.xml" value="0.15" />
         <entry key="..\:/Apps/projects/passworx/app/src/main/res/drawable/ic_checked.xml" value="0.15" />
@@ -98,7 +99,7 @@
         <entry key="..\:/Apps/projects/passworx/app/src/main/res/layout/fragment_master_password.xml" value="0.259375" />
         <entry key="..\:/Apps/projects/passworx/app/src/main/res/layout/fragment_pager_container.xml" value="0.259375" />
         <entry key="..\:/Apps/projects/passworx/app/src/main/res/layout/fragment_password_generator.xml" value="0.264" />
-        <entry key="..\:/Apps/projects/passworx/app/src/main/res/layout/fragment_passwords.xml" value="0.17304347826086958" />
+        <entry key="..\:/Apps/projects/passworx/app/src/main/res/layout/fragment_passwords.xml" value="0.3333333333333333" />
         <entry key="..\:/Apps/projects/passworx/app/src/main/res/layout/fragment_settings.xml" value="0.264" />
         <entry key="..\:/Apps/projects/passworx/app/src/main/res/layout/master_password_error_item.xml" value="0.6" />
         <entry key="..\:/Apps/projects/passworx/app/src/main/res/layout/password_item.xml" value="0.259375" />
