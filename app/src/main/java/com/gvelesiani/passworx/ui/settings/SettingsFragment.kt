@@ -22,9 +22,9 @@ class SettingsFragment :
         viewModel.viewState.observe(this) { viewState ->
             binding.svChangeMasterPassword.setOnClickListener {
                 if (viewState.masterPasswordExists == true) {
-                    findNavController().navigate(R.id.action_navigation_settings_to_changeMasterPasswordFragment)
+                    findNavController().navigate(R.id.changeMasterPasswordFragment)
                 } else {
-                    findNavController().navigate(R.id.action_navigation_settings_to_createMasterPasswordFragment)
+                    findNavController().navigate(R.id.createMasterPasswordFragment)
                 }
             }
         }

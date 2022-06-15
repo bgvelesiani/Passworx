@@ -35,7 +35,7 @@ class MasterPasswordFragment :
                     .show()
             }
             if (it.passwordMatches) {
-                findNavController().navigate(R.id.action_masterPasswordFragment_to_navigation_passwords)
+                findNavController().navigate(R.id.action_masterPasswordFragment_to_viewPagerContainer)
             }
         }
     }

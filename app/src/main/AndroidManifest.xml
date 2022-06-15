@@ -24,13 +24,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.addPassword.AddPasswordActivity"
-            android:exported="true"
-            android:label="Add New Password"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|adjustResize"
-            tools:ignore="LockedOrientationActivity" />
     </application>
 
 </manifest>

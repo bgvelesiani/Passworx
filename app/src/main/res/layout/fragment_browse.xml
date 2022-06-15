@@ -4,17 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginStart="@dimen/fragment_tools_margin"
-    android:layout_marginEnd="@dimen/fragment_tools_margin"
     tools:context=".ui.browse.BrowseFragment">
 
     <com.gvelesiani.passworx.customViews.CustomToolsView
         android:id="@+id/browseFavoritePasswords"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/dimen_0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen_15dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/glVerticalRight"
+        app:layout_constraintStart_toStartOf="@+id/glVerticalLeft"
         app:layout_constraintTop_toTopOf="parent"
         app:setImageDrawable="@drawable/ic_favorite"
         app:setSubTitle="Manage your favorite passwords"
@@ -32,13 +30,27 @@
 
     <com.gvelesiani.passworx.customViews.CustomToolsView
         android:id="@+id/browseTrashedPasswords"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/dimen_0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen_12dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/glVerticalRight"
+        app:layout_constraintStart_toStartOf="@+id/glVerticalLeft"
         app:layout_constraintTop_toBottomOf="@+id/materialDivider2"
         app:setImageDrawable="@drawable/ic_trash"
         app:setSubTitle="Restore or Delete your trashed passwords permamently"
         app:setTitle="Trash" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glVerticalLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glVerticalRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
 </androidx.constraintlayout.widget.ConstraintLayout>

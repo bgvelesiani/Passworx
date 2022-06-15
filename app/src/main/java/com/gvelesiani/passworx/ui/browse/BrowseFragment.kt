@@ -23,7 +23,7 @@ class BrowseFragment :
 
     private fun setUpOnClickListeners() {
         binding.browseTrashedPasswords.setOnClickListener {
-            findNavController().navigate(R.id.action_navigation_browse_to_passwordTrashFragment)
+            findNavController().navigate(R.id.passwordTrashFragment)
         }
     }
 

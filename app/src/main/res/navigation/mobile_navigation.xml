@@ -15,60 +15,32 @@
         android:id="@+id/navigation_passwords"
         android:name="com.gvelesiani.passworx.ui.passwords.PasswordsFragment"
         android:label="@string/title_passwords"
-        tools:layout="@layout/fragment_passwords">
-        <action
-            android:id="@+id/action_navigation_passwords_to_navigation_password_checker"
-            app:destination="@id/navigation_settings" />
-        <action
-            android:id="@+id/action_navigation_passwords_to_navigation_generate"
-            app:destination="@id/navigation_generate" />
-        <action
-            android:id="@+id/action_navigation_passwords_to_browseFragment"
-            app:destination="@id/navigation_browse" />
-        <action
-            android:id="@+id/action_navigation_passwords_to_addNewPasswordActivity"
-            app:destination="@id/addNewPasswordActivity" />
-    </fragment>
+        tools:layout="@layout/fragment_passwords" />
 
     <fragment
         android:id="@+id/navigation_settings"
         android:name="com.gvelesiani.passworx.ui.settings.SettingsFragment"
         android:label="@string/title_settings"
-        tools:layout="@layout/fragment_settings" >
-        <action
-            android:id="@+id/action_navigation_settings_to_createMasterPasswordFragment"
-            app:destination="@id/createMasterPasswordFragment" />
-        <action
-            android:id="@+id/action_navigation_settings_to_changeMasterPasswordFragment"
-            app:destination="@id/changeMasterPasswordFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_settings" />
     <fragment
         android:id="@+id/passwordTrashFragment"
         android:name="com.gvelesiani.passworx.ui.trash.PasswordTrashFragment"
-        android:label="@string/title_trash">
-        <action
-            android:id="@+id/action_passwordTrashFragment_to_navigation_browse"
-            app:destination="@id/navigation_browse" />
-    </fragment>
+        android:label="@string/title_trash" />
     <fragment
         android:id="@+id/navigation_browse"
         android:name="com.gvelesiani.passworx.ui.browse.BrowseFragment"
         android:label="@string/title_browse"
-        tools:layout="@layout/fragment_browse">
-        <action
-            android:id="@+id/action_navigation_browse_to_passwordTrashFragment"
-            app:destination="@id/passwordTrashFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_browse" />
     <fragment
         android:id="@+id/masterPasswordFragment"
         tools:layout="@layout/fragment_master_password"
         android:name="com.gvelesiani.passworx.ui.masterPassword.MasterPasswordFragment"
-        android:label="" >
+        android:label="">
         <action
-            android:id="@+id/action_masterPasswordFragment_to_navigation_passwords"
             app:popUpTo="@id/mobile_navigation"
             app:popUpToInclusive="true"
-            app:destination="@id/navigation_passwords" />
+            android:id="@+id/action_masterPasswordFragment_to_viewPagerContainer"
+            app:destination="@id/viewPagerContainer" />
     </fragment>
     <fragment
         android:id="@+id/createMasterPasswordFragment"
@@ -78,7 +50,28 @@
         android:id="@+id/changeMasterPasswordFragment"
         android:name="com.gvelesiani.passworx.ui.masterPassword.changeMasterPassword.ChangeMasterPasswordFragment"
         android:label="Change Master Password" />
-    <activity
-        android:id="@+id/addNewPasswordActivity"
-        android:name="com.gvelesiani.passworx.ui.addPassword.AddPasswordActivity"/>
+    <fragment
+        android:label="Add new password"
+        android:id="@+id/addNewPasswordFragment"
+        android:name="com.gvelesiani.passworx.ui.addPassword.AddPasswordFragment">
+        <action
+            app:popUpTo="@id/viewPagerContainer"
+            app:popUpToInclusive="true"
+            android:id="@+id/action_addNewPasswordFragment_to_viewPagerContainer"
+            app:destination="@id/viewPagerContainer" />
+    </fragment>
+    <fragment
+        android:id="@+id/viewPagerContainer"
+        android:name="com.gvelesiani.passworx.ui.ViewPagerContainer"
+        android:label="@string/app_name">
+        <action
+            android:id="@+id/action_viewPagerContainer_to_createMasterPasswordFragment"
+            app:destination="@id/createMasterPasswordFragment" />
+        <action
+            android:id="@+id/action_viewPagerContainer_to_changeMasterPasswordFragment"
+            app:destination="@id/changeMasterPasswordFragment" />
+        <action
+            android:id="@+id/action_viewPagerContainer_to_passwordTrashFragment"
+            app:destination="@id/passwordTrashFragment" />
+    </fragment>
 </navigation>
