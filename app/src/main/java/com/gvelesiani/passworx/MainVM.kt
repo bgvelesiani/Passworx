@@ -1,13 +1,13 @@
 package com.gvelesiani.passworx
 
 import androidx.lifecycle.MutableLiveData
-import com.gvelesiani.passworx.base.BaseViewModel
+import androidx.lifecycle.ViewModel
 import com.gvelesiani.passworx.domain.useCases.GetMasterPasswordUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class MainVM(private val getMasterPasswordUseCase: GetMasterPasswordUseCase) : BaseViewModel() {
+class MainVM(private val getMasterPasswordUseCase: GetMasterPasswordUseCase) : ViewModel() {
     val viewState: MutableLiveData<ViewState> = MutableLiveData()
 
     init {

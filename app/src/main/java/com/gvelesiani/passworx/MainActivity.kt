@@ -2,6 +2,7 @@ package com.gvelesiani.passworx
 
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -56,10 +57,10 @@ class MainActivity : AppCompatActivity() {
         /**
          * With FLAG_SECURE, Users will be prevented from taking screenshots of the application,
          * */
-//        window.setFlags(
-//            WindowManager.LayoutParams.FLAG_SECURE,
-//            WindowManager.LayoutParams.FLAG_SECURE
-//        )
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_SECURE,
+            WindowManager.LayoutParams.FLAG_SECURE
+        )
     }
 
     private fun setupActionBarWithNavController() {

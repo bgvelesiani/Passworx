@@ -1,7 +1,7 @@
 package com.gvelesiani.passworx.ui.masterPassword.changeMasterPassword
 
 import androidx.lifecycle.MutableLiveData
-import com.gvelesiani.passworx.base.BaseViewModel
+import androidx.lifecycle.ViewModel
 import com.gvelesiani.passworx.domain.useCases.CreateOrChangeMasterPasswordUseCase
 import com.gvelesiani.passworx.domain.useCases.GetMasterPasswordUseCase
 import com.gvelesiani.passworx.helpers.hashPassword.PasswordHashHelper
@@ -16,7 +16,7 @@ class ChangeMasterPasswordVM(
     private val passwordHashHelper: PasswordHashHelper,
     private val getMasterPasswordUseCase: GetMasterPasswordUseCase,
     private val masterPasswordValidatorHelper: MasterPasswordValidatorHelper
-) : BaseViewModel() {
+) : ViewModel() {
     val viewState: MutableLiveData<ViewState> = MutableLiveData()
 
     init {

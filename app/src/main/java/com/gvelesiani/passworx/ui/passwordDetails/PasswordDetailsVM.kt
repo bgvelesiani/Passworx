@@ -1,14 +1,14 @@
 package com.gvelesiani.passworx.ui.passwordDetails
 
 import androidx.lifecycle.MutableLiveData
-import com.gvelesiani.passworx.base.BaseViewModel
+import androidx.lifecycle.ViewModel
 import com.gvelesiani.passworx.helpers.encryptPassword.PasswordEncryptionHelper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class PasswordDetailsVM(private val encryptionHelper: PasswordEncryptionHelper) :
-    BaseViewModel() {
+    ViewModel() {
     val viewState: MutableLiveData<ViewState> = MutableLiveData()
 
     init {

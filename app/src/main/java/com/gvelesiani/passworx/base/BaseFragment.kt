@@ -5,11 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
 import androidx.viewbinding.ViewBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.reflect.KClass
 
-abstract class BaseFragment<VM : BaseViewModel, B : ViewBinding>(klass: KClass<VM>) : Fragment() {
+abstract class BaseFragment<VM : ViewModel, B : ViewBinding>(klass: KClass<VM>) : Fragment() {
     val viewModel: VM by viewModel(clazz = klass)
 
     private var _binding: B? = null

@@ -2,9 +2,9 @@ package com.gvelesiani.passworx.ui.passwordGenerator
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gvelesiani.passworx.R
-import com.gvelesiani.passworx.base.BaseViewModel
 import com.gvelesiani.passworx.constants.INITIAL_GENERATED_PASSWORD_LENGTH
 import com.gvelesiani.passworx.constants.PasswordGeneratorProperties
 import com.gvelesiani.passworx.domain.useCases.GeneratePasswordUseCase
@@ -15,8 +15,7 @@ import kotlinx.coroutines.launch
 class PasswordGeneratorVM(
     private val generatePasswordUseCase: GeneratePasswordUseCase,
     private val resourceHelper: ResourceHelper
-) :
-    BaseViewModel() {
+) : ViewModel() {
     private var _generatePasswordError: MutableLiveData<String> = MutableLiveData()
     val generatePasswordError: LiveData<String> = _generatePasswordError
 

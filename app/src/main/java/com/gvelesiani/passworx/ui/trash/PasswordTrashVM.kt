@@ -1,7 +1,7 @@
 package com.gvelesiani.passworx.ui.trash
 
 import androidx.lifecycle.MutableLiveData
-import com.gvelesiani.passworx.base.BaseViewModel
+import androidx.lifecycle.ViewModel
 import com.gvelesiani.passworx.data.models.PasswordModel
 import com.gvelesiani.passworx.domain.useCases.DeletePasswordUseCase
 import com.gvelesiani.passworx.domain.useCases.GetPasswordsUseCase
@@ -12,8 +12,7 @@ import kotlinx.coroutines.launch
 class PasswordTrashVM(
     private val getPasswordsUseCase: GetPasswordsUseCase,
     private val deletePasswordUseCase: DeletePasswordUseCase
-) :
-    BaseViewModel() {
+) : ViewModel() {
     val viewState: MutableLiveData<ViewState> = MutableLiveData()
 
     init {
