@@ -10,10 +10,8 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.google.android.material.color.MaterialColors
 import com.gvelesiani.passworx.databinding.ActivityMainBinding
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
-    private val viewModel: MainVM by viewModel()
     private lateinit var navController: NavController
     private lateinit var binding: ActivityMainBinding
 
@@ -23,23 +21,9 @@ class MainActivity : AppCompatActivity() {
         setWindowFlags()
         setContentView(binding.root)
         setupActionBarWithNavController()
-
-        viewModel.getMasterPassword()
-        setupObservers()
         onDestinationChanged()
 
         setBackgroundToActionBar()
-    }
-
-    private fun setupObservers() {
-        viewModel.viewState.observe(this) {
-            val graph = navController.navInflater.inflate(R.navigation.mobile_navigation)
-            if (it.masterPassword == "") {
-                graph.setStartDestination(R.id.viewPagerContainer)
-                navController.popBackStack()
-            }
-            navController.graph = graph
-        }
     }
 
     private fun setBackgroundToActionBar() {
@@ -65,7 +49,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupActionBarWithNavController() {
         val appBarConfiguration = AppBarConfiguration
-            .Builder(R.id.masterPasswordFragment, R.id.viewPagerContainer)
+            .Builder(R.id.viewPagerContainer)
             .build()
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main) as NavHostFragment
@@ -76,8 +60,7 @@ class MainActivity : AppCompatActivity() {
     private fun onDestinationChanged() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.masterPasswordFragment, R.id.viewPagerContainer,
-                R.id.createMasterPasswordFragment, R.id.changeMasterPasswordFragment,
+                R.id.viewPagerContainer, R.id.changeMasterPasswordFragment,
                 R.id.passwordTrashFragment, R.id.addNewPasswordFragment -> {
                     supportActionBar?.elevation = 0F
                 }

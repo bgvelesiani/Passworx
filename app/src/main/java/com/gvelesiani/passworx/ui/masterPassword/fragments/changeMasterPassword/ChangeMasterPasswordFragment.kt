@@ -1,4 +1,4 @@
-package com.gvelesiani.passworx.ui.masterPassword.changeMasterPassword
+package com.gvelesiani.passworx.ui.masterPassword.fragments.changeMasterPassword
 
 import android.os.Bundle
 import android.view.LayoutInflater

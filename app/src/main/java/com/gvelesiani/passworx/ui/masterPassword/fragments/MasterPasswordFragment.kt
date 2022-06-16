@@ -1,10 +1,11 @@
-package com.gvelesiani.passworx.ui.masterPassword
+package com.gvelesiani.passworx.ui.masterPassword.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.gvelesiani.passworx.MainActivity
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.base.BaseFragment
 import com.gvelesiani.passworx.databinding.FragmentMasterPasswordBinding
@@ -35,7 +36,8 @@ class MasterPasswordFragment :
                     .show()
             }
             if (it.passwordMatches) {
-                findNavController().navigate(R.id.action_masterPasswordFragment_to_viewPagerContainer)
+                requireActivity().finish()
+                startActivity(Intent(requireActivity(), MainActivity::class.java))
             }
         }
     }

@@ -15,18 +15,11 @@ class SettingsFragment :
         get() = FragmentSettingsBinding::inflate
 
     override fun setupView(savedInstanceState: Bundle?) {
-        viewModel.getMasterPassword()
+        binding.svChangeMasterPassword.setOnClickListener {
+            findNavController().navigate(R.id.changeMasterPasswordFragment)
+        }
     }
 
     override fun setupObservers() {
-        viewModel.viewState.observe(this) { viewState ->
-            binding.svChangeMasterPassword.setOnClickListener {
-                if (viewState.masterPasswordExists == true) {
-                    findNavController().navigate(R.id.changeMasterPasswordFragment)
-                } else {
-                    findNavController().navigate(R.id.createMasterPasswordFragment)
-                }
-            }
-        }
     }
 }

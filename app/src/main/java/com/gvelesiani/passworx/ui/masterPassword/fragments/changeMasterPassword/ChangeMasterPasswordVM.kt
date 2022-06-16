@@ -1,19 +1,20 @@
-package com.gvelesiani.passworx.ui.masterPassword.createMasterPassword
+package com.gvelesiani.passworx.ui.masterPassword.fragments.changeMasterPassword
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.gvelesiani.passworx.domain.useCases.CreateOrChangeMasterPasswordUseCase
+import com.gvelesiani.passworx.domain.useCases.GetMasterPasswordUseCase
 import com.gvelesiani.passworx.helpers.hashPassword.PasswordHashHelper
 import com.gvelesiani.passworx.helpers.validateMasterPassword.MasterPasswordValidatorHelper
 import com.gvelesiani.passworx.helpers.validateMasterPassword.MasterPasswordValidatorHelperImpl
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class CreateMasterPasswordVM(
+class ChangeMasterPasswordVM(
     private val createOrChangeMasterPassword: CreateOrChangeMasterPasswordUseCase,
     private val passwordHashHelper: PasswordHashHelper,
+    private val getMasterPasswordUseCase: GetMasterPasswordUseCase,
     private val masterPasswordValidatorHelper: MasterPasswordValidatorHelper
 ) : ViewModel() {
     val viewState: MutableLiveData<ViewState> = MutableLiveData()
@@ -26,38 +27,58 @@ class CreateMasterPasswordVM(
 
     private fun currentViewState(): ViewState = viewState.value!!
 
-    fun createMasterPassword(masterPassword: String) {
+    private fun changeMasterPassword(newMasterPassword: String) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                delay(1500L)
-                val masterPasswordModel = passwordHashHelper.hash(masterPassword)
+                val masterPasswordModel = passwordHashHelper.hash(newMasterPassword)
                 createOrChangeMasterPassword.run(masterPasswordModel)
                 viewState.postValue(
                     currentViewState().copy(
                         validationErrors = null,
-                        validationSuccess = true
+                        changeSuccess = true
                     )
                 )
             } catch (ignored: Exception) {
-                viewState.postValue(currentViewState().copy(showCreateMasterPasswordError = "Couldn't create master password, please try again"))
+                viewState.postValue(currentViewState().copy(showChangeMasterPasswordError = "Couldn't change master password, please try again"))
             }
         }
     }
 
-    fun validate(masterPassword: String) {
-        viewState.postValue(
+    fun validate(
+        masterPassword: String, newMasterPassword: String
+    ) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val masterPass = getMasterPasswordUseCase.run(Unit)
+            if (!passwordHashHelper.verify(masterPassword, masterPass)) {
+                viewState.postValue(currentViewState().copy(showPasswordVerifyError = "Please enter correct master password"))
+            } else {
+                viewState.postValue(currentViewState().copy(showPasswordVerifyError = null))
+            }
+
+            val isValid = passwordHashHelper.verify(
+                masterPassword,
+                masterPass
+            ) && newMasterPassword.isNotEmpty()
+            if (isValid) {
+                changeMasterPassword(newMasterPassword = newMasterPassword)
+            }
+        }
+    }
+
+    fun validateNewPassword(newPassword: String) {
+        viewState.value =
             currentViewState().copy(
                 isValid = masterPasswordValidatorHelper.isValidPassword(
-                    masterPassword
+                    newPassword
                 )
             )
-        )
     }
 
     data class ViewState(
-        val showCreateMasterPasswordError: String? = null,
+        val showPasswordVerifyError: String? = null,
+        val showChangeMasterPasswordError: String? = null,
         val validationErrors: MutableList<MasterPasswordValidatorHelperImpl.MasterPasswordError>? = null,
-        val validationSuccess: Boolean = false,
+        val changeSuccess: Boolean = false,
         val isValid: Boolean = false
     )
 }
