@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/masterPasswordFragment">
+    app:startDestination="@id/viewPagerContainer">
 
     <fragment
         android:id="@+id/navigation_generate"
@@ -32,23 +32,8 @@
         android:label="@string/title_browse"
         tools:layout="@layout/fragment_browse" />
     <fragment
-        android:id="@+id/masterPasswordFragment"
-        tools:layout="@layout/fragment_master_password"
-        android:name="com.gvelesiani.passworx.ui.masterPassword.MasterPasswordFragment"
-        android:label="">
-        <action
-            app:popUpTo="@id/mobile_navigation"
-            app:popUpToInclusive="true"
-            android:id="@+id/action_masterPasswordFragment_to_viewPagerContainer"
-            app:destination="@id/viewPagerContainer" />
-    </fragment>
-    <fragment
-        android:id="@+id/createMasterPasswordFragment"
-        android:name="com.gvelesiani.passworx.ui.masterPassword.createMasterPassword.CreateMasterPasswordFragment"
-        android:label="Change Master Password" />
-    <fragment
         android:id="@+id/changeMasterPasswordFragment"
-        android:name="com.gvelesiani.passworx.ui.masterPassword.changeMasterPassword.ChangeMasterPasswordFragment"
+        android:name="com.gvelesiani.passworx.ui.masterPassword.fragments.changeMasterPassword.ChangeMasterPasswordFragment"
         android:label="Change Master Password" />
     <fragment
         android:label="Add new password"
@@ -64,9 +49,6 @@
         android:id="@+id/viewPagerContainer"
         android:name="com.gvelesiani.passworx.ui.ViewPagerContainer"
         android:label="@string/app_name">
-        <action
-            android:id="@+id/action_viewPagerContainer_to_createMasterPasswordFragment"
-            app:destination="@id/createMasterPasswordFragment" />
         <action
             android:id="@+id/action_viewPagerContainer_to_changeMasterPasswordFragment"
             app:destination="@id/changeMasterPasswordFragment" />

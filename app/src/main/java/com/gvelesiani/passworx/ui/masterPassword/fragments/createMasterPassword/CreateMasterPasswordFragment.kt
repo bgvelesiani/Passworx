@@ -1,10 +1,8 @@
-package com.gvelesiani.passworx.ui.masterPassword.createMasterPassword
+package com.gvelesiani.passworx.ui.masterPassword.fragments.createMasterPassword
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.gvelesiani.passworx.R
@@ -12,6 +10,7 @@ import com.gvelesiani.passworx.base.BaseFragment
 import com.gvelesiani.passworx.common.onTextChanged
 import com.gvelesiani.passworx.databinding.FragmentCreateMasterPasswordBinding
 import com.gvelesiani.passworx.helpers.validateMasterPassword.MasterPasswordValidatorHelperImpl
+import com.gvelesiani.passworx.ui.masterPassword.fragments.MasterPasswordFragment
 
 class CreateMasterPasswordFragment :
     BaseFragment<CreateMasterPasswordVM, FragmentCreateMasterPasswordBinding>(
@@ -55,14 +54,13 @@ class CreateMasterPasswordFragment :
                 btCreateMasterPassword.isEnabled = it.isValid
 
                 if (it.validationSuccess) {
-                    findNavController().navigateUp()
+                    parentFragmentManager.beginTransaction()
+                        .replace(R.id.fContainer, MasterPasswordFragment()).commit()
                     val snackbar = Snackbar.make(
                         requireView(),
                         getString(R.string.master_password_creation_success_message),
                         Snackbar.LENGTH_SHORT
                     )
-                    snackbar.anchorView =
-                        activity?.findViewById<BottomNavigationView>(R.id.bottomBar)
                     snackbar.show()
                 }
             }

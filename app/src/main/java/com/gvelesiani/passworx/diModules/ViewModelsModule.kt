@@ -1,10 +1,10 @@
 package com.gvelesiani.passworx.diModules
 
-import com.gvelesiani.passworx.MainVM
 import com.gvelesiani.passworx.ui.addPassword.AddPasswordVM
-import com.gvelesiani.passworx.ui.masterPassword.MasterPasswordVM
-import com.gvelesiani.passworx.ui.masterPassword.changeMasterPassword.ChangeMasterPasswordVM
-import com.gvelesiani.passworx.ui.masterPassword.createMasterPassword.CreateMasterPasswordVM
+import com.gvelesiani.passworx.ui.masterPassword.MasterPasswordAVM
+import com.gvelesiani.passworx.ui.masterPassword.fragments.MasterPasswordVM
+import com.gvelesiani.passworx.ui.masterPassword.fragments.changeMasterPassword.ChangeMasterPasswordVM
+import com.gvelesiani.passworx.ui.masterPassword.fragments.createMasterPassword.CreateMasterPasswordVM
 import com.gvelesiani.passworx.ui.passwordDetails.PasswordDetailsVM
 import com.gvelesiani.passworx.ui.passwordGenerator.PasswordGeneratorVM
 import com.gvelesiani.passworx.ui.passwords.PasswordsVM
@@ -18,7 +18,7 @@ val viewModelsModule = module {
         AddPasswordVM(get(), get(), get())
     }
     viewModel {
-        SettingsVM(get())
+        SettingsVM()
     }
     viewModel {
         PasswordsVM(get(), get(), get(), get())
@@ -37,10 +37,6 @@ val viewModelsModule = module {
     }
 
     viewModel {
-        MainVM(get())
-    }
-
-    viewModel {
         CreateMasterPasswordVM(get(), get(), get())
     }
 
@@ -50,5 +46,9 @@ val viewModelsModule = module {
 
     viewModel {
         ChangeMasterPasswordVM(get(), get(), get(), get())
+    }
+
+    viewModel {
+        MasterPasswordAVM(get())
     }
 }
