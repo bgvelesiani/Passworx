@@ -5,13 +5,15 @@ import androidx.lifecycle.ViewModel
 import com.gvelesiani.passworx.data.models.PasswordModel
 import com.gvelesiani.passworx.domain.useCases.DeletePasswordUseCase
 import com.gvelesiani.passworx.domain.useCases.GetPasswordsUseCase
+import com.gvelesiani.passworx.domain.useCases.SearchPasswordsUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class PasswordTrashVM(
     private val getPasswordsUseCase: GetPasswordsUseCase,
-    private val deletePasswordUseCase: DeletePasswordUseCase
+    private val deletePasswordUseCase: DeletePasswordUseCase,
+    private val searchPasswordsUseCase: SearchPasswordsUseCase
 ) : ViewModel() {
     val viewState: MutableLiveData<ViewState> = MutableLiveData()
 
@@ -28,6 +30,17 @@ class PasswordTrashVM(
                 viewState.postValue(currentViewState().copy(passwords = result, isLoading = false))
             } catch (e: Exception) {
                 viewState.postValue(currentViewState().copy(showGetPasswordsError = "Couldn't get passwords"))
+            }
+        }
+    }
+
+    fun searchPasswords(query: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val passwords = searchPasswordsUseCase.invoke(Pair(query, true))
+                viewState.postValue(currentViewState().copy(passwords = passwords))
+            } catch (e: Exception) {
+
             }
         }
     }

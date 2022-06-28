@@ -30,8 +30,8 @@ class RepositoryImpl(
         localDataProvider.deletePassword(passwordId)
     }
 
-    override fun searchPasswords(query: String): List<PasswordModel> {
-        return localDataProvider.searchPasswords(query)
+    override fun searchPasswords(query: String, isInTrash: Boolean): List<PasswordModel> {
+        return localDataProvider.searchPasswords(query, isInTrash)
     }
 
     override fun createOrChangeMasterPassword(masterPassword: String) {

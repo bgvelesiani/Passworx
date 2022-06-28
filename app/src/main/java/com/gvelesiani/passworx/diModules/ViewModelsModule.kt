@@ -29,7 +29,7 @@ val viewModelsModule = module {
     }
 
     viewModel {
-        PasswordTrashVM(get(), get())
+        PasswordTrashVM(get(), get(), get())
     }
 
     viewModel {

@@ -9,7 +9,7 @@ interface Repository {
     fun getFavoriteItems(isFavorite: Boolean): List<PasswordModel>
     fun updateItemTrashState(isInTrash: Boolean, id: Int)
     fun deletePassword(passwordId: Int)
-    fun searchPasswords(query: String): List<PasswordModel>
+    fun searchPasswords(query: String, isInTrash: Boolean): List<PasswordModel>
     fun createOrChangeMasterPassword(masterPassword: String)
     fun getMasterPassword(): String
 }

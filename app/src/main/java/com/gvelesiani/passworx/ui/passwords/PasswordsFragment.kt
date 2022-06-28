@@ -1,7 +1,6 @@
 package com.gvelesiani.passworx.ui.passwords
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -143,9 +142,8 @@ class PasswordsFragment :
             if (it == "") {
                 viewModel.getPasswords()
             } else {
-                if (it.length > 1) {
-                    viewModel.searchPasswords(it)
-                }
+                viewModel.searchPasswords(it)
+
             }
         }
     }

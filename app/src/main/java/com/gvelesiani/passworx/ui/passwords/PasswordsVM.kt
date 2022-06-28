@@ -31,7 +31,7 @@ class PasswordsVM(
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 delay(100)
-                val result = getPasswordsUseCase.invoke(params = false)
+                val result = getPasswordsUseCase(params = false)
                 viewState.postValue(
                     currentViewState().copy(
                         passwords = result,
@@ -52,7 +52,7 @@ class PasswordsVM(
     fun updateFavoriteState(isFavorite: Boolean, passwordId: Int) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                updateFavoriteStateUseCase.invoke(Pair(!isFavorite, passwordId))
+                updateFavoriteStateUseCase(Pair(!isFavorite, passwordId))
             } catch (e: Exception) {
                 viewState.postValue(currentViewState().copy(showUpdatePasswordError = "Couldn't update password... please try again"))
             }
@@ -62,7 +62,7 @@ class PasswordsVM(
     fun searchPasswords(query: String) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val passwords = searchPasswordsUseCase.invoke(query)
+                val passwords = searchPasswordsUseCase(Pair(query, false))
                 viewState.postValue(currentViewState().copy(passwords = passwords))
             } catch (e: Exception) {
 
