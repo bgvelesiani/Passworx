@@ -31,7 +31,7 @@ class CreateMasterPasswordVM(
             try {
                 delay(1500L)
                 val masterPasswordModel = passwordHashHelper.hash(masterPassword)
-                createOrChangeMasterPassword.run(masterPasswordModel)
+                createOrChangeMasterPassword.invoke(masterPasswordModel)
                 viewState.postValue(
                     currentViewState().copy(
                         validationErrors = null,

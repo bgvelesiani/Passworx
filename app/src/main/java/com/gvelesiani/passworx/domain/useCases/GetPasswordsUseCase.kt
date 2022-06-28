@@ -6,7 +6,7 @@ import com.gvelesiani.passworx.data.repository.Repository
 
 class GetPasswordsUseCase(private val repository: Repository) :
     BaseUseCase<Boolean, List<PasswordModel>>() {
-    override suspend fun run(params: Boolean): List<PasswordModel> {
+    override suspend operator fun invoke(params: Boolean): List<PasswordModel> {
         return repository.getPasswords(params)
     }
 }

@@ -31,7 +31,7 @@ class ChangeMasterPasswordVM(
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val masterPasswordModel = passwordHashHelper.hash(newMasterPassword)
-                createOrChangeMasterPassword.run(masterPasswordModel)
+                createOrChangeMasterPassword(masterPasswordModel)
                 viewState.postValue(
                     currentViewState().copy(
                         validationErrors = null,
@@ -48,7 +48,7 @@ class ChangeMasterPasswordVM(
         masterPassword: String, newMasterPassword: String
     ) {
         CoroutineScope(Dispatchers.IO).launch {
-            val masterPass = getMasterPasswordUseCase.run(Unit)
+            val masterPass = getMasterPasswordUseCase.invoke(Unit)
             if (!passwordHashHelper.verify(masterPassword, masterPass)) {
                 viewState.postValue(currentViewState().copy(showPasswordVerifyError = "Please enter correct master password"))
             } else {

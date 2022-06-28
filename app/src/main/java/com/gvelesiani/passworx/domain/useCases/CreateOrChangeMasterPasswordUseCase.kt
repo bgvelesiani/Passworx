@@ -5,7 +5,7 @@ import com.gvelesiani.passworx.data.repository.Repository
 
 class CreateOrChangeMasterPasswordUseCase(private val repository: Repository) :
     BaseUseCase<String, Unit>() {
-    override suspend fun run(params: String) {
+    override suspend operator fun invoke(params: String) {
         repository.createOrChangeMasterPassword(params)
     }
 }

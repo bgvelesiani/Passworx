@@ -17,7 +17,7 @@ class MasterPasswordAVM(private val getMasterPasswordUseCase: GetMasterPasswordU
             try {
                 delay(1000)
                 isLoading.postValue(false)
-                val result = getMasterPasswordUseCase.run(Unit)
+                val result = getMasterPasswordUseCase.invoke(Unit)
                 masterPassword.value = result
             } catch (e: Exception) {
                 isLoading.postValue(false)

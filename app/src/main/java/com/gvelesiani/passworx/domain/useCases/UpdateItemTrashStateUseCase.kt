@@ -5,7 +5,8 @@ import com.gvelesiani.passworx.data.repository.Repository
 
 class UpdateItemTrashStateUseCase(private val repository: Repository) :
     BaseUseCase<Pair<Boolean, Int>, Unit>() {
-    override suspend fun run(params: Pair<Boolean, Int>) {
+    override suspend operator fun invoke(params: Pair<Boolean, Int>) {
         repository.updateItemTrashState(params.first, params.second)
     }
+
 }

@@ -22,7 +22,7 @@ class MasterPasswordVM(
     fun doesPasswordMatch(password: String) {
         viewModelScope.launch {
             try {
-                val result = getMasterPasswordUseCase.run(Unit)
+                val result = getMasterPasswordUseCase.invoke(Unit)
                 if (!passwordHashHelper.verify(password, result)) {
                     viewState.postValue(currentViewState().copy(passwordMatchError = "Master password is incorrect, please try again"))
                 } else {

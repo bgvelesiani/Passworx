@@ -24,7 +24,7 @@ class PasswordTrashVM(
         CoroutineScope(Dispatchers.IO).launch {
             viewState.postValue(currentViewState().copy(isLoading = true))
             try {
-                val result = getPasswordsUseCase.run(isInTrash)
+                val result = getPasswordsUseCase.invoke(isInTrash)
                 viewState.postValue(currentViewState().copy(passwords = result, isLoading = false))
             } catch (e: Exception) {
                 viewState.postValue(currentViewState().copy(showGetPasswordsError = "Couldn't get passwords"))
@@ -36,7 +36,7 @@ class PasswordTrashVM(
         CoroutineScope(Dispatchers.IO).launch {
             viewState.postValue(currentViewState().copy(isLoading = true))
             try {
-                deletePasswordUseCase.run(passwordId)
+                deletePasswordUseCase.invoke(passwordId)
                 getPasswords(isInTrash = true)
             } catch (e: Exception) {
                 viewState.postValue(currentViewState().copy(showDeletePasswordsError = "Couldn't delete passwords"))

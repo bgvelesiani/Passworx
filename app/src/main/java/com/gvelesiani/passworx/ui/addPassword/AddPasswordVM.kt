@@ -28,7 +28,7 @@ class AddPasswordVM(
     fun addNewPassword(password: PasswordModel) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                addNewPasswordUseCase.run(password)
+                addNewPasswordUseCase(password)
             } catch (e: Exception) {
                 viewState.postValue(
                     currentViewState().copy(

@@ -6,7 +6,7 @@ import com.gvelesiani.passworx.data.repository.Repository
 
 class AddNewPasswordUseCase(private val repository: Repository) :
     BaseUseCase<PasswordModel, Unit>() {
-    override suspend fun run(params: PasswordModel) {
+    override suspend operator fun invoke(params: PasswordModel) {
         repository.addNewPassword(params)
     }
 }

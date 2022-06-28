@@ -31,7 +31,7 @@ class PasswordsVM(
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 delay(100)
-                val result = getPasswordsUseCase.run(params = false)
+                val result = getPasswordsUseCase.invoke(params = false)
                 viewState.postValue(
                     currentViewState().copy(
                         passwords = result,
@@ -52,7 +52,7 @@ class PasswordsVM(
     fun updateFavoriteState(isFavorite: Boolean, passwordId: Int) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                updateFavoriteStateUseCase.run(Pair(!isFavorite, passwordId))
+                updateFavoriteStateUseCase.invoke(Pair(!isFavorite, passwordId))
             } catch (e: Exception) {
                 viewState.postValue(currentViewState().copy(showUpdatePasswordError = "Couldn't update password... please try again"))
             }
@@ -62,7 +62,7 @@ class PasswordsVM(
     fun searchPasswords(query: String) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val passwords = searchPasswordsUseCase.run(query)
+                val passwords = searchPasswordsUseCase.invoke(query)
                 viewState.postValue(currentViewState().copy(passwords = passwords))
             } catch (e: Exception) {
 
@@ -73,7 +73,7 @@ class PasswordsVM(
     fun updateItemTrashState(isInTrash: Boolean, passwordId: Int) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                updateItemTrashStateUseCase.run(Pair(isInTrash, passwordId))
+                updateItemTrashStateUseCase.invoke(Pair(isInTrash, passwordId))
             } catch (e: Exception) {
                 viewState.postValue(currentViewState().copy(showTrashingItemError = "Couldn't move item to trash"))
             }

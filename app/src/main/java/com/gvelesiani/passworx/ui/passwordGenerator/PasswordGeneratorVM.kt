@@ -32,7 +32,7 @@ class PasswordGeneratorVM(
     fun generatePassword(length: Int) {
         viewModelScope.launch {
             try {
-                val result = generatePasswordUseCase.run(
+                val result = generatePasswordUseCase.invoke(
                     Password(
                         length,
                         _passwordProperties.value!!

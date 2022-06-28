@@ -6,7 +6,7 @@ import com.gvelesiani.passworx.helpers.generatePassword.PasswordGeneratorHelper
 class Password(val passLength: Int, val passwordProperties: String)
 class GeneratePasswordUseCase(private val passwordGeneratorHelper: PasswordGeneratorHelper) :
     BaseUseCase<Password, String>() {
-    override suspend fun run(params: Password): String {
+    override suspend operator fun invoke(params: Password): String {
         return passwordGeneratorHelper.generatePassword(
             params.passLength,
             params.passwordProperties
