@@ -1,8 +1,8 @@
-package com.gvelesiani.passworx.data.database
+package com.gvelesiani.passworx.data.providers.local
 
 import android.content.SharedPreferences
 import com.gvelesiani.passworx.constants.MASTER_PASSWORD
-import com.gvelesiani.passworx.data.database.database.PasswordDatabase
+import com.gvelesiani.passworx.data.providers.local.database.PasswordDatabase
 import com.gvelesiani.passworx.data.models.PasswordModel
 
 class LocalDataProviderImpl constructor(

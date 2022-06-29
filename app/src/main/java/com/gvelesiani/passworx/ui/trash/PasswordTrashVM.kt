@@ -49,7 +49,7 @@ class PasswordTrashVM(
         CoroutineScope(Dispatchers.IO).launch {
             viewState.postValue(currentViewState().copy(isLoading = true))
             try {
-                deletePasswordUseCase.invoke(passwordId)
+                deletePasswordUseCase(passwordId)
                 getPasswords(isInTrash = true)
             } catch (e: Exception) {
                 viewState.postValue(currentViewState().copy(showDeletePasswordsError = "Couldn't delete passwords"))

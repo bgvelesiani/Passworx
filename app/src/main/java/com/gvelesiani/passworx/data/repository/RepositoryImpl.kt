@@ -1,6 +1,6 @@
 package com.gvelesiani.passworx.data.repository
 
-import com.gvelesiani.passworx.data.database.LocalDataProvider
+import com.gvelesiani.passworx.data.providers.local.LocalDataProvider
 import com.gvelesiani.passworx.data.models.PasswordModel
 
 class RepositoryImpl(
