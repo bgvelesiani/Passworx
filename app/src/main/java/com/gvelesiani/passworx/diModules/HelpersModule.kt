@@ -1,5 +1,7 @@
 package com.gvelesiani.passworx.diModules
 
+import com.gvelesiani.passworx.helpers.biometrics.BiometricsHelper
+import com.gvelesiani.passworx.helpers.biometrics.BiometricsHelperImpl
 import com.gvelesiani.passworx.helpers.encryptPassword.PasswordEncryptionHelper
 import com.gvelesiani.passworx.helpers.encryptPassword.PasswordEncryptionHelperImpl
 import com.gvelesiani.passworx.helpers.generatePassword.PasswordGeneratorHelper
@@ -20,4 +22,5 @@ val helpersModule = module {
     single { ResourceHelperImpl(androidContext()) } bind ResourceHelper::class
     single { PasswordHashHelperImpl() } bind PasswordHashHelper::class
     single { MasterPasswordValidatorHelperImpl() } bind MasterPasswordValidatorHelper::class
+    single { BiometricsHelperImpl(get()) } bind BiometricsHelper::class
 }

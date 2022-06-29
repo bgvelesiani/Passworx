@@ -4,12 +4,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gvelesiani.passworx.domain.useCases.GetMasterPasswordUseCase
+import com.gvelesiani.passworx.helpers.biometrics.BiometricsHelper
 import com.gvelesiani.passworx.helpers.hashPassword.PasswordHashHelper
 import kotlinx.coroutines.launch
 
 class MasterPasswordVM(
     private val getMasterPasswordUseCase: GetMasterPasswordUseCase,
-    private val passwordHashHelper: PasswordHashHelper
+    private val passwordHashHelper: PasswordHashHelper,
+    private val biometricsHelper: BiometricsHelper
 ) : ViewModel() {
     val viewState: MutableLiveData<ViewState> = MutableLiveData()
 
@@ -37,6 +39,8 @@ class MasterPasswordVM(
             }
         }
     }
+
+    fun getBiometrics(): BiometricsHelper = biometricsHelper
 
     data class ViewState(
         val passwordMatchError: String? = null,

@@ -41,7 +41,7 @@ val viewModelsModule = module {
     }
 
     viewModel {
-        MasterPasswordVM(get(), get())
+        MasterPasswordVM(get(), get(), get())
     }
 
     viewModel {

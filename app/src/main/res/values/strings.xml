@@ -69,4 +69,8 @@
     <string name="master_password_creation_success_message">Master password has been created successfully</string>
     <string name="master_password_change_success_message">Master password has been changed</string>
     <string name="search_hint">Search Passwords</string>
+
+    <string name="biometric_auth_subtitle">Log in using your biometric credentials</string>
+    <string name="biometric_auth_negative_button_text">Use master password</string>
+    <string name="biometric_auth_title">PassworX BiometriX</string>
 </resources>
