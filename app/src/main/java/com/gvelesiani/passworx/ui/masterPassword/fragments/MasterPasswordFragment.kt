@@ -32,7 +32,7 @@ class MasterPasswordFragment :
     private fun setupBiometrics() {
         with(viewModel.getBiometrics()) {
             setupBiometricPrompt(this@MasterPasswordFragment, requireContext()) {
-                if(it) {
+                if (it) {
                     requireActivity().finish()
                     startActivity(Intent(requireActivity(), MainActivity::class.java))
                 }

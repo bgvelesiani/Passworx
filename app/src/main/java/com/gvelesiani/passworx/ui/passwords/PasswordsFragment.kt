@@ -15,9 +15,11 @@ import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.adapters.PasswordAdapter
 import com.gvelesiani.passworx.base.BaseFragment
+import com.gvelesiani.passworx.common.copyToClipboard
 import com.gvelesiani.passworx.common.onTextChanged
 import com.gvelesiani.passworx.data.models.PasswordModel
 import com.gvelesiani.passworx.databinding.FragmentPasswordsBinding
@@ -69,6 +71,16 @@ class PasswordsFragment :
                 }
             }
         }
+        viewState.decryptedPassword?.let {
+            it.copyToClipboard(requireContext())
+            val snackbar = Snackbar.make(
+                requireView(),
+                getString(R.string.password_copying_success),
+                Snackbar.LENGTH_SHORT
+            )
+            snackbar.anchorView = binding.btAddPassword
+            snackbar.show()
+        }
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -118,6 +130,9 @@ class PasswordsFragment :
                     password,
                     position
                 )
+            },
+            copyClickListener = { passwordModel ->
+                viewModel.decryptPassword(passwordModel.password)
             })
         binding.rvPasswords.adapter = adapter
         binding.rvPasswords.layoutManager = LinearLayoutManager(requireContext())

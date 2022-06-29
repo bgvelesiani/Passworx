@@ -11,7 +11,8 @@ import java.util.*
 
 class PasswordAdapter(
     private val clickListener: (PasswordModel) -> Unit,
-    private val menuClickListener: (PasswordModel, View, Int) -> Unit
+    private val menuClickListener: (PasswordModel, View, Int) -> Unit,
+    private val copyClickListener: (PasswordModel) -> Unit
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var passwordList: List<PasswordModel> = emptyList()
@@ -32,7 +33,13 @@ class PasswordAdapter(
 
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
         val item = passwordList[position]
-        (viewHolder as PasswordViewHolder).bind(item, clickListener, menuClickListener, position)
+        (viewHolder as PasswordViewHolder).bind(
+            item,
+            clickListener,
+            menuClickListener,
+            copyClickListener,
+            position
+        )
     }
 
     inner class PasswordViewHolder(private val binding: PasswordItemBinding) :
@@ -41,6 +48,7 @@ class PasswordAdapter(
             password: PasswordModel,
             clickListener: (PasswordModel) -> Unit,
             menuClickListener: (PasswordModel, View, Int) -> Unit,
+            copyClickListener: (PasswordModel) -> Unit,
             position: Int
         ) {
             binding.tvEmailOrUsername.text = password.emailOrUserName
@@ -49,13 +57,8 @@ class PasswordAdapter(
             binding.tvPasswordItemName.text = password.websiteOrAppName
                 .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
             binding.root.setOnClickListener { clickListener(password) }
-            binding.menuClickView.setOnClickListener {
-                menuClickListener(
-                    password,
-                    binding.menuClickView,
-                    position
-                )
-            }
+            binding.copyClickView.setOnClickListener { copyClickListener(password) }
+            binding.menuClickView.setOnClickListener { menuClickListener(password, it, position) }
         }
     }
 

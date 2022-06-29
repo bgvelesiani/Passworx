@@ -1,7 +1,7 @@
 package com.gvelesiani.passworx.data.repository
 
-import com.gvelesiani.passworx.data.providers.local.LocalDataProvider
 import com.gvelesiani.passworx.data.models.PasswordModel
+import com.gvelesiani.passworx.data.providers.local.LocalDataProvider
 
 class RepositoryImpl(
     private val localDataProvider: LocalDataProvider

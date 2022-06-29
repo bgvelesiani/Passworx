@@ -3,10 +3,7 @@ package com.gvelesiani.passworx.ui.passwords
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.gvelesiani.passworx.data.models.PasswordModel
-import com.gvelesiani.passworx.domain.useCases.GetPasswordsUseCase
-import com.gvelesiani.passworx.domain.useCases.SearchPasswordsUseCase
-import com.gvelesiani.passworx.domain.useCases.UpdateFavoriteStateUseCase
-import com.gvelesiani.passworx.domain.useCases.UpdateItemTrashStateUseCase
+import com.gvelesiani.passworx.domain.useCases.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -16,7 +13,8 @@ class PasswordsVM(
     private val getPasswordsUseCase: GetPasswordsUseCase,
     private val updateFavoriteStateUseCase: UpdateFavoriteStateUseCase,
     private val updateItemTrashStateUseCase: UpdateItemTrashStateUseCase,
-    private val searchPasswordsUseCase: SearchPasswordsUseCase
+    private val searchPasswordsUseCase: SearchPasswordsUseCase,
+    private val decryptPasswordUseCase: DecryptPasswordUseCase
 ) : ViewModel() {
     val viewState: MutableLiveData<ViewState> = MutableLiveData()
 
@@ -80,7 +78,20 @@ class PasswordsVM(
         }
     }
 
+    fun decryptPassword(encryptedPassword: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val decryptedPassword = decryptPasswordUseCase(encryptedPassword)
+                viewState.postValue(currentViewState().copy(decryptedPassword = decryptedPassword))
+            } catch (e: Exception) {
+                viewState.postValue(currentViewState().copy(showDecryptionError = "Couldn't decrypt password"))
+            }
+        }
+    }
+
     data class ViewState(
+        val showDecryptionError: String? = null,
+        val decryptedPassword: String? = null,
         val isLoading: Boolean = false,
         val showGetPasswordsError: String? = null,
         val passwords: List<PasswordModel> = listOf(),
