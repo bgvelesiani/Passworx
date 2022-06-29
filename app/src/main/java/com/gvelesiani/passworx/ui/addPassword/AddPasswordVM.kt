@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.constants.MAX_TITLE_LENGTH
 import com.gvelesiani.passworx.data.models.PasswordModel
+import com.gvelesiani.passworx.data.repository.Repository
 import com.gvelesiani.passworx.domain.useCases.AddNewPasswordUseCase
 import com.gvelesiani.passworx.helpers.encryptPassword.PasswordEncryptionHelper
 import com.gvelesiani.passworx.helpers.resourceProvider.ResourceHelper
@@ -28,7 +29,7 @@ class AddPasswordVM(
     fun addNewPassword(password: PasswordModel) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                addNewPasswordUseCase(password)
+                addNewPasswordUseCase.invoke(password)
             } catch (e: Exception) {
                 viewState.postValue(
                     currentViewState().copy(

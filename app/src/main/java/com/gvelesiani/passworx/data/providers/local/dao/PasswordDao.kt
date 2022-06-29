@@ -1,4 +1,4 @@
-package com.gvelesiani.passworx.data.database.dao
+package com.gvelesiani.passworx.data.providers.local.dao
 
 import androidx.room.*
 import com.gvelesiani.passworx.constants.TABLE_NAME

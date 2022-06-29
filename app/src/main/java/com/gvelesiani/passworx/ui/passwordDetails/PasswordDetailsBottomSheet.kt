@@ -2,37 +2,31 @@ package com.gvelesiani.passworx.ui.passwordDetails
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.FragmentManager
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.gvelesiani.passworx.base.BaseBottomSheet
 import com.gvelesiani.passworx.data.models.PasswordModel
 import com.gvelesiani.passworx.databinding.BottomSheetPasswordDetailsBinding
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class PasswordDetailsBottomSheet : BottomSheetDialogFragment() {
+class PasswordDetailsBottomSheet :
+    BaseBottomSheet<PasswordDetailsVM, BottomSheetPasswordDetailsBinding>(PasswordDetailsVM::class) {
 
-    private val viewModel: PasswordDetailsVM by viewModel()
-    lateinit var binding: BottomSheetPasswordDetailsBinding
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = BottomSheetPasswordDetailsBinding.inflate(layoutInflater)
-        return binding.root
-    }
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> BottomSheetPasswordDetailsBinding
+        get() = BottomSheetPasswordDetailsBinding::inflate
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+    override fun setupView(savedInstanceState: Bundle?) {
         val password = arguments?.getParcelable<PasswordModel>(PASSWORD)
         if (password != null) {
             setData(password)
             viewModel.decryptPassword(password = password.password)
         }
-        setupObservers()
+    }
+
+    override fun setupObservers() {
+        viewModel.viewState.observe(this) {
+            it?.let { observeViewState(it) }
+        }
     }
 
     private fun setData(password: PasswordModel) {
@@ -46,12 +40,6 @@ class PasswordDetailsBottomSheet : BottomSheetDialogFragment() {
 
     private fun observeViewState(viewState: PasswordDetailsVM.ViewState) {
         binding.tvPassword.editText?.setText(viewState.password)
-    }
-
-    private fun setupObservers() {
-        viewModel.viewState.observe(this) {
-            it?.let { observeViewState(it) }
-        }
     }
 
     companion object {

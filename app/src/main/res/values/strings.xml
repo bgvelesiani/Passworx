@@ -73,4 +73,5 @@
     <string name="biometric_auth_subtitle">Log in using your biometric credentials</string>
     <string name="biometric_auth_negative_button_text">Use master password</string>
     <string name="biometric_auth_title">PassworX BiometriX</string>
+    <string name="settings_change_master_password_text">Change Master Password</string>
 </resources>

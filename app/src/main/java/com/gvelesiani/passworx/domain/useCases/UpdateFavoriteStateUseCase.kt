@@ -5,7 +5,7 @@ import com.gvelesiani.passworx.data.repository.Repository
 
 class UpdateFavoriteStateUseCase(private val repository: Repository) :
     BaseUseCase<Pair<Boolean, Int>, Unit>() {
-    override suspend operator fun invoke(params: Pair<Boolean, Int>) {
+    override suspend fun invoke(params: Pair<Boolean, Int>) {
         repository.updateFavoriteState(params.first, params.second)
     }
 }

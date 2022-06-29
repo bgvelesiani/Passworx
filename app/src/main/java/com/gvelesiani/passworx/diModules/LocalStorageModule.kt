@@ -5,10 +5,10 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.room.Room
 import com.gvelesiani.passworx.constants.DATABASE_NAME
-import com.gvelesiani.passworx.data.database.LocalDataProvider
-import com.gvelesiani.passworx.data.database.LocalDataProviderImpl
-import com.gvelesiani.passworx.data.database.dao.PasswordDao
-import com.gvelesiani.passworx.data.database.database.PasswordDatabase
+import com.gvelesiani.passworx.data.providers.local.LocalDataProvider
+import com.gvelesiani.passworx.data.providers.local.LocalDataProviderImpl
+import com.gvelesiani.passworx.data.providers.local.dao.PasswordDao
+import com.gvelesiani.passworx.data.providers.local.database.PasswordDatabase
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.bind
 import org.koin.dsl.module

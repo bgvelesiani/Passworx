@@ -1,4 +1,4 @@
-package com.gvelesiani.passworx.data.database
+package com.gvelesiani.passworx.data.providers.local
 
 import com.gvelesiani.passworx.data.models.PasswordModel
 
