@@ -39,4 +39,8 @@ val useCasesModule = module {
     factory {
         GetMasterPasswordUseCase(get())
     }
+
+    factory {
+        DecryptPasswordUseCase(get())
+    }
 }

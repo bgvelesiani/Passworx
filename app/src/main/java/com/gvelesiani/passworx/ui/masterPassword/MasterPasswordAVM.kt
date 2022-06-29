@@ -7,7 +7,8 @@ import com.gvelesiani.passworx.domain.useCases.GetMasterPasswordUseCase
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class MasterPasswordAVM(private val getMasterPasswordUseCase: GetMasterPasswordUseCase) : ViewModel() {
+class MasterPasswordAVM(private val getMasterPasswordUseCase: GetMasterPasswordUseCase) :
+    ViewModel() {
     val masterPassword: MutableLiveData<String> = MutableLiveData()
     val isLoading: MutableLiveData<Boolean> = MutableLiveData()
 

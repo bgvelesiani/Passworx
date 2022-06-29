@@ -132,7 +132,7 @@ class PasswordTrashFragment :
                     password,
                     position
                 )
-            })
+            }, {})
         binding.rvPasswords.adapter = adapter
         binding.rvPasswords.layoutManager = LinearLayoutManager(requireContext())
     }
