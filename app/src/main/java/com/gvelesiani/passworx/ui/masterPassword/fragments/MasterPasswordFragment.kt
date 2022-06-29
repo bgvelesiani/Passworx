@@ -12,6 +12,7 @@ import com.gvelesiani.passworx.databinding.FragmentMasterPasswordBinding
 
 class MasterPasswordFragment :
     BaseFragment<MasterPasswordVM, FragmentMasterPasswordBinding>(MasterPasswordVM::class) {
+
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentMasterPasswordBinding =
         FragmentMasterPasswordBinding::inflate
 
@@ -23,6 +24,22 @@ class MasterPasswordFragment :
         binding.btGoToVault.setOnClickListener {
             viewModel.doesPasswordMatch(binding.etMasterPassword.editText?.text.toString())
         }
+        binding.btFingerprintAuth.setOnClickListener {
+            setupBiometrics()
+        }
+    }
+
+    private fun setupBiometrics() {
+        with(viewModel.getBiometrics()) {
+            setupBiometricPrompt(this@MasterPasswordFragment, requireContext()) {
+                if(it) {
+                    requireActivity().finish()
+                    startActivity(Intent(requireActivity(), MainActivity::class.java))
+                }
+            }
+            authenticate()
+        }
+
     }
 
     override fun setupObservers() {
