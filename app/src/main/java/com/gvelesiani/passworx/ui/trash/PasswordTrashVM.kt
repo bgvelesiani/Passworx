@@ -25,7 +25,7 @@ class PasswordTrashVM(
 
     private fun currentViewState(): ViewState = viewState.value!!
     fun getPasswords(isInTrash: Boolean = true) {
-        viewState.postValue(currentViewState().copy(isLoading = true))
+        viewState.value = currentViewState().copy(isLoading = true)
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 delay(100)
@@ -57,7 +57,8 @@ class PasswordTrashVM(
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 deletePasswordUseCase(passwordId)
-                getPasswords(isInTrash = true)
+                val result = getPasswordsUseCase(params = true)
+                viewState.postValue(currentViewState().copy(passwords = result, isLoading = false))
             } catch (e: Exception) {
                 viewState.postValue(
                     currentViewState().copy(
