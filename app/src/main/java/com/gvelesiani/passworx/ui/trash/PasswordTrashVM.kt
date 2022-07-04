@@ -20,11 +20,12 @@ class PasswordTrashVM(
 
     init {
         viewState.value = ViewState()
+        getPasswords()
     }
 
     private fun currentViewState(): ViewState = viewState.value!!
     fun getPasswords(isInTrash: Boolean = true) {
-        viewState.value = currentViewState().copy(isLoading = true)
+        viewState.postValue(currentViewState().copy(isLoading = true))
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 delay(100)
@@ -52,12 +53,18 @@ class PasswordTrashVM(
     }
 
     fun deletePassword(passwordId: Int) {
+        viewState.value = currentViewState().copy(isLoading = true)
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 deletePasswordUseCase(passwordId)
                 getPasswords(isInTrash = true)
             } catch (e: Exception) {
-                viewState.postValue(currentViewState().copy(showDeletePasswordsError = "Couldn't delete passwords"))
+                viewState.postValue(
+                    currentViewState().copy(
+                        showDeletePasswordsError = "Couldn't delete passwords",
+                        isLoading = false
+                    )
+                )
             }
         }
     }

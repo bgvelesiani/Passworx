@@ -33,7 +33,6 @@ class PasswordTrashFragment :
     override fun setupView(savedInstanceState: Bundle?) {
         requireActivity().findViewById<BottomNavigationView>(R.id.bottomBar).visibility = View.GONE
         binding.btAddPassword.visibility = View.GONE
-        viewModel.getPasswords()
         setupSearch()
         setupRecyclerViewAdapter()
     }
