@@ -1,14 +1,14 @@
 package com.gvelesiani.passworx.fakes
 
-import com.gvelesiani.passworx.data.models.PasswordModel
+import com.gvelesiani.passworx.data.dto.PasswordDto
 import com.gvelesiani.passworx.data.repository.Repository
 
-class FakeRepository(private val passwords: MutableList<PasswordModel>) : Repository {
-    override fun addNewPassword(pass: PasswordModel) {
+class FakeRepository(private val passwords: MutableList<PasswordDto>) : Repository {
+    override fun addNewPassword(pass: PasswordDto) {
         passwords.add(pass)
     }
 
-    override fun getPasswords(isInTrash: Boolean): List<PasswordModel> {
+    override fun getPasswords(isInTrash: Boolean): List<PasswordDto> {
         return passwords.filter {
             it.isInTrash == isInTrash
         }
@@ -17,7 +17,7 @@ class FakeRepository(private val passwords: MutableList<PasswordModel>) : Reposi
     override fun updateFavoriteState(isFavorite: Boolean, id: Int) {
     }
 
-    override fun getFavoriteItems(isFavorite: Boolean): List<PasswordModel> {
+    override fun getFavoriteItems(isFavorite: Boolean): List<PasswordDto> {
         return passwords.filter {
             it.isFavorite == isFavorite
         }
@@ -31,7 +31,7 @@ class FakeRepository(private val passwords: MutableList<PasswordModel>) : Reposi
         passwords.remove(passwords.find { it.passwordId == passwordId })
     }
 
-    override fun searchPasswords(query: String): List<PasswordModel> {
+    override fun searchPasswords(query: String, isInTrash: Boolean): List<PasswordDto> {
         return emptyList()
     }
 

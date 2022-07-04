@@ -2,18 +2,18 @@ package com.gvelesiani.passworx.data.providers.local
 
 import android.content.SharedPreferences
 import com.gvelesiani.passworx.constants.MASTER_PASSWORD
-import com.gvelesiani.passworx.data.models.PasswordModel
+import com.gvelesiani.passworx.data.dto.PasswordDto
 import com.gvelesiani.passworx.data.providers.local.database.PasswordDatabase
 
 class LocalDataProviderImpl constructor(
     private val database: PasswordDatabase,
     private val preferences: SharedPreferences
 ) : LocalDataProvider {
-    override fun addNewPassword(pass: PasswordModel) {
+    override fun addNewPassword(pass: PasswordDto) {
         database.getPasswordDao.addNewPassword(pass)
     }
 
-    override fun getPasswords(isInTrash: Boolean): List<PasswordModel> {
+    override fun getPasswords(isInTrash: Boolean): List<PasswordDto> {
         return database.getPasswordDao.getPasswords(isInTrash)
     }
 
@@ -21,7 +21,7 @@ class LocalDataProviderImpl constructor(
         database.getPasswordDao.updateFavoriteState(isFavorite, id)
     }
 
-    override fun getFavoriteItems(isFavorite: Boolean): List<PasswordModel> {
+    override fun getFavoriteItems(isFavorite: Boolean): List<PasswordDto> {
         return database.getPasswordDao.getFavorites(isFavorite)
     }
 
@@ -33,7 +33,7 @@ class LocalDataProviderImpl constructor(
         database.getPasswordDao.deletePassword(passwordId)
     }
 
-    override fun searchPasswords(query: String, isInTrash: Boolean): List<PasswordModel> {
+    override fun searchPasswords(query: String, isInTrash: Boolean): List<PasswordDto> {
         return database.getPasswordDao.searchPasswords(query, isInTrash)
     }
 

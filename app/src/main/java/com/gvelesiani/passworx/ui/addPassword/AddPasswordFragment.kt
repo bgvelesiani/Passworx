@@ -8,8 +8,8 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.base.BaseFragment
 import com.gvelesiani.passworx.common.onTextChanged
-import com.gvelesiani.passworx.data.models.PasswordModel
 import com.gvelesiani.passworx.databinding.ActivityAddPasswordBinding
+import com.gvelesiani.passworx.domain.model.PasswordModel
 
 
 class AddPasswordFragment :

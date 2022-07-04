@@ -1,16 +1,16 @@
 package com.gvelesiani.passworx.data.repository
 
-import com.gvelesiani.passworx.data.models.PasswordModel
+import com.gvelesiani.passworx.data.dto.PasswordDto
 import com.gvelesiani.passworx.data.providers.local.LocalDataProvider
 
 class RepositoryImpl(
     private val localDataProvider: LocalDataProvider
 ) : Repository {
-    override fun addNewPassword(pass: PasswordModel) {
+    override fun addNewPassword(pass: PasswordDto) {
         localDataProvider.addNewPassword(pass)
     }
 
-    override fun getPasswords(isInTrash: Boolean): List<PasswordModel> {
+    override fun getPasswords(isInTrash: Boolean): List<PasswordDto> {
         return localDataProvider.getPasswords(isInTrash)
     }
 
@@ -18,7 +18,7 @@ class RepositoryImpl(
         localDataProvider.updateFavoriteState(isFavorite, id)
     }
 
-    override fun getFavoriteItems(isFavorite: Boolean): List<PasswordModel> {
+    override fun getFavoriteItems(isFavorite: Boolean): List<PasswordDto> {
         return localDataProvider.getFavoriteItems(isFavorite)
     }
 
@@ -30,7 +30,7 @@ class RepositoryImpl(
         localDataProvider.deletePassword(passwordId)
     }
 
-    override fun searchPasswords(query: String, isInTrash: Boolean): List<PasswordModel> {
+    override fun searchPasswords(query: String, isInTrash: Boolean): List<PasswordDto> {
         return localDataProvider.searchPasswords(query, isInTrash)
     }
 

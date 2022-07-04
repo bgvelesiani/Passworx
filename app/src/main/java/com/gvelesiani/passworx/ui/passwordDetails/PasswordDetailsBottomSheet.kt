@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.FragmentManager
 import com.gvelesiani.passworx.base.BaseBottomSheet
-import com.gvelesiani.passworx.data.models.PasswordModel
 import com.gvelesiani.passworx.databinding.BottomSheetPasswordDetailsBinding
+import com.gvelesiani.passworx.domain.model.PasswordModel
 
 class PasswordDetailsBottomSheet :
     BaseBottomSheet<PasswordDetailsVM, BottomSheetPasswordDetailsBinding>(PasswordDetailsVM::class) {

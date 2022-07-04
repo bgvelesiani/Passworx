@@ -14,12 +14,13 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.adapters.PasswordAdapter
 import com.gvelesiani.passworx.base.BaseFragment
 import com.gvelesiani.passworx.common.onTextChanged
-import com.gvelesiani.passworx.data.models.PasswordModel
 import com.gvelesiani.passworx.databinding.FragmentPasswordsBinding
+import com.gvelesiani.passworx.domain.model.PasswordModel
 import com.gvelesiani.passworx.ui.passwordDetails.PasswordDetailsBottomSheet
 
 class PasswordTrashFragment :
@@ -59,24 +60,27 @@ class PasswordTrashFragment :
             }
         }
         binding.search.onTextChanged {
-            if (it == "") {
-                viewModel.getPasswords()
-            } else {
-                viewModel.searchPasswords(it)
-            }
+            viewModel.searchPasswords(it)
         }
     }
 
     private fun observeViewState(viewState: PasswordTrashVM.ViewState) {
-        if (viewState.passwords.isEmpty()) {
-            binding.rvPasswords.isVisible = false
-            binding.groupNoData.isVisible = true
-            binding.tvNoData.text = getString(R.string.empty_trash_title)
-            binding.tvNoDataDesc.text = getString(R.string.empty_trash_message)
-        } else {
-            adapter.submitData(viewState.passwords)
-            binding.groupNoData.isVisible = false
-            binding.rvPasswords.isVisible = true
+        binding.progressBar.isVisible = viewState.isLoading
+        when (viewState.isLoading) {
+            true -> {
+                binding.rvPasswords.isVisible = false
+                binding.groupNoData.isVisible = false
+            }
+            else -> {
+                if (viewState.passwords.isEmpty()) {
+                    binding.groupNoData.isVisible = true
+                    binding.rvPasswords.isVisible = false
+                } else {
+                    adapter.submitData(viewState.passwords)
+                    binding.groupNoData.isVisible = false
+                    binding.rvPasswords.isVisible = true
+                }
+            }
         }
     }
 
@@ -125,14 +129,23 @@ class PasswordTrashFragment :
                     PasswordDetailsBottomSheet.TAG
                 )
             },
-            menuClickListener = { password: PasswordModel, view: View, position: Int ->// it == PasswordModel
+            menuClickListener = { password: PasswordModel, view: View, position: Int ->
                 showMenu(
                     view,
                     R.menu.trashed_passwords_menu,
                     password,
                     position
                 )
-            }, {})
+            },
+            copyClickListener = {
+                val snackbar = Snackbar.make(
+                    requireView(),
+                    getString(R.string.password_copying_error),
+                    Snackbar.LENGTH_SHORT
+                )
+                snackbar.anchorView = binding.btAddPassword
+                snackbar.show()
+            })
         binding.rvPasswords.adapter = adapter
         binding.rvPasswords.layoutManager = LinearLayoutManager(requireContext())
     }

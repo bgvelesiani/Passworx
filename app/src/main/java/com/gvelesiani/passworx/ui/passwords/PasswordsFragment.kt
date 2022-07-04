@@ -21,8 +21,8 @@ import com.gvelesiani.passworx.adapters.PasswordAdapter
 import com.gvelesiani.passworx.base.BaseFragment
 import com.gvelesiani.passworx.common.copyToClipboard
 import com.gvelesiani.passworx.common.onTextChanged
-import com.gvelesiani.passworx.data.models.PasswordModel
 import com.gvelesiani.passworx.databinding.FragmentPasswordsBinding
+import com.gvelesiani.passworx.domain.model.PasswordModel
 import com.gvelesiani.passworx.ui.passwordDetails.PasswordDetailsBottomSheet
 
 
@@ -154,12 +154,7 @@ class PasswordsFragment :
             }
         }
         binding.search.onTextChanged {
-            if (it == "") {
-                viewModel.getPasswords()
-            } else {
-                viewModel.searchPasswords(it)
-
-            }
+            viewModel.searchPasswords(it)
         }
     }
 }
