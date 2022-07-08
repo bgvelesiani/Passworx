@@ -5,6 +5,7 @@ const val TABLE_NAME = "PASSWORD_TABLE"
 const val INITIAL_GENERATED_PASSWORD_LENGTH = 8
 const val CLIP_DATA_PLAIN_TEXT_LABEL = "GENERATED_PASSWORD"
 const val MAX_TITLE_LENGTH = 20
+const val PREFERENCES_KEY = "com.gvelesiani.passworx_preferences"
 
 object PasswordGeneratorProperties {
     const val CAPITAL_LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"

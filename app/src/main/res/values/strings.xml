@@ -29,10 +29,10 @@
     <string name="label_hint">Label</string>
     <string name="others_text">Others</string>
     <string name="website_or_app_name_hint">Website or App Name*</string>
-    <string name="password_hint">Password</string>
-    <string name="email_or_username_hint">Email or Username</string>
+    <string name="password_hint">Password*</string>
+    <string name="email_or_username_hint">Email or Username*</string>
     <string name="password_details_text">Password Details</string>
-    <string name="title_hint">Title</string>
+    <string name="title_hint">Title*</string>
     <string name="title_browse">Browse</string>
     <string name="menu_edit_and_restore_title">Edit and Restore</string>
     <string name="menu_delete_permanently_title">Delete permanently</string>

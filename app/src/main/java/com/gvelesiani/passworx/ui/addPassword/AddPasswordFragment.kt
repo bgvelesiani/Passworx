@@ -8,12 +8,15 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.base.BaseFragment
 import com.gvelesiani.passworx.common.onTextChanged
-import com.gvelesiani.passworx.databinding.ActivityAddPasswordBinding
+import com.gvelesiani.passworx.databinding.FragmentAddPasswordBinding
 import com.gvelesiani.passworx.domain.model.PasswordModel
 
 
 class AddPasswordFragment :
-    BaseFragment<AddPasswordVM, ActivityAddPasswordBinding>(AddPasswordVM::class) {
+    BaseFragment<AddPasswordVM, FragmentAddPasswordBinding>(AddPasswordVM::class) {
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentAddPasswordBinding =
+        FragmentAddPasswordBinding::inflate
 
     override fun setupView(savedInstanceState: Bundle?) {
         watchFields()
@@ -35,7 +38,7 @@ class AddPasswordFragment :
                     passwordTitle = etTitle.editText?.text.toString(),
                     websiteOrAppName = etWebsiteOrAppName.editText?.text.toString(),
                     emailOrUserName = etEmailOrUserName.editText?.text.toString(),
-                    label = etGroup.editText?.text.toString()
+                    label = etLabel.editText?.text.toString()
                 )
             )
         }
@@ -46,7 +49,7 @@ class AddPasswordFragment :
         binding.etTitle.editText?.onTextChanged {
             viewModel.onTitleChanged(it)
         }
-        binding.etGroup.editText?.onTextChanged {
+        binding.etLabel.editText?.onTextChanged {
             viewModel.onLabelChanged(it)
         }
     }
@@ -62,7 +65,7 @@ class AddPasswordFragment :
         }
 
         binding.etTitle.error = viewState.showTitleErrorMessage
-        binding.etGroup.error = viewState.showLabelErrorMessage
+        binding.etLabel.error = viewState.showLabelErrorMessage
         binding.btAddNewPassword.isEnabled = viewState.addButtonEnabled
     }
 
@@ -71,7 +74,4 @@ class AddPasswordFragment :
             it?.let { observeViewState(it) }
         }
     }
-
-    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> ActivityAddPasswordBinding =
-        ActivityAddPasswordBinding::inflate
 }

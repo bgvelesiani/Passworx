@@ -7,15 +7,18 @@
     android:orientation="vertical"
     tools:context=".ui.settings.SettingsFragment">
 
-    <com.gvelesiani.passworx.customViews.SettingsView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/svChangeMasterPassword"
         android:layout_width="@dimen/dimen_0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen_15dp"
+        android:fontFamily="@font/regular"
+        android:text="@string/settings_change_master_password_text"
+        android:textColor="?attr/text_color"
+        android:textSize="@dimen/dimen_16sp"
         app:layout_constraintEnd_toEndOf="@id/glSettingsEnd"
         app:layout_constraintStart_toStartOf="@id/glSettingsStart"
-        app:layout_constraintTop_toTopOf="parent"
-        app:setSettingTitle="@string/settings_change_master_password_text" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvPreferencesHeader"

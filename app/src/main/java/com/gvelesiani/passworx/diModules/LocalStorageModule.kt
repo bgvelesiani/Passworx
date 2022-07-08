@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.room.Room
 import com.gvelesiani.passworx.constants.DATABASE_NAME
+import com.gvelesiani.passworx.constants.PREFERENCES_KEY
 import com.gvelesiani.passworx.data.providers.local.LocalDataProvider
 import com.gvelesiani.passworx.data.providers.local.LocalDataProviderImpl
 import com.gvelesiani.passworx.data.providers.local.dao.PasswordDao
@@ -16,7 +17,7 @@ import org.koin.dsl.module
 val localStorageModule = module {
     fun provideDataBase(application: Application): PasswordDatabase {
         return Room.databaseBuilder(application, PasswordDatabase::class.java, DATABASE_NAME)
-            .fallbackToDestructiveMigration() // TODO: 2/26/2022 Remove this and add manual migrations later
+            .fallbackToDestructiveMigration() // TODO: Remove this and add manual migrations later
             .build()
     }
 
@@ -25,9 +26,8 @@ val localStorageModule = module {
     }
 
 
-    val preferencesKey = "com.gvelesiani.passworx_preferences"
     fun provideSettingsPreferences(app: Application): SharedPreferences =
-        app.getSharedPreferences(preferencesKey, Context.MODE_PRIVATE)
+        app.getSharedPreferences(PREFERENCES_KEY, Context.MODE_PRIVATE)
 
     single { provideSettingsPreferences(androidApplication()) }
 
