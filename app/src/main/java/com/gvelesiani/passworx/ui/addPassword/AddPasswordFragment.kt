@@ -28,6 +28,9 @@ class AddPasswordFragment :
         binding.btAddNewPassword.setOnClickListener {
             addNewPassword()
         }
+        binding.backClickArea.setOnClickListener {
+            findNavController().navigateUp()
+        }
     }
 
     private fun addNewPassword() {
@@ -42,7 +45,7 @@ class AddPasswordFragment :
                 )
             )
         }
-        findNavController().navigate(R.id.action_addNewPasswordFragment_to_viewPagerContainer)
+        findNavController().navigate(R.id.action_addNewPasswordFragment_to_navigation_passwords)
     }
 
     private fun watchFields() {

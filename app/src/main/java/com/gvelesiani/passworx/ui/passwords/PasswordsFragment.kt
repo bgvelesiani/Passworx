@@ -43,7 +43,10 @@ class PasswordsFragment :
 
     private fun setOnClickListeners() {
         binding.btAddPassword.setOnClickListener {
-            findNavController().navigate(R.id.addNewPasswordFragment)
+            findNavController().navigate(R.id.action_navigation_passwords_to_addNewPasswordFragment)
+        }
+        binding.backClickArea.setOnClickListener {
+            findNavController().navigateUp()
         }
     }
 

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.base.BaseFragment
@@ -21,6 +20,13 @@ class ChangeMasterPasswordFragment :
 
     override fun setupView(savedInstanceState: Bundle?) {
         watchField()
+        setOnClickListeners()
+    }
+
+    private fun setOnClickListeners() {
+        binding.backClickArea.setOnClickListener {
+            findNavController().navigateUp()
+        }
         binding.btChangeMasterPassword.setOnClickListener {
             viewModel.validate(
                 binding.etCurrentMasterPassword.editText?.text.toString(),
@@ -53,8 +59,6 @@ class ChangeMasterPasswordFragment :
                     getString(R.string.master_password_change_success_message),
                     Snackbar.LENGTH_SHORT
                 )
-                snackbar.anchorView =
-                    activity?.findViewById<BottomNavigationView>(R.id.bottomBar)
                 snackbar.show()
             }
 

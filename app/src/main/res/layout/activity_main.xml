@@ -18,26 +18,4 @@
         app:layout_constraintTop_toTopOf="parent"
         app:navGraph="@navigation/mobile_navigation" />
 
-    <!--    <View-->
-    <!--        android:id="@+id/divider"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="0.3dp"-->
-    <!--        android:background="?attr/divider_color"-->
-    <!--        app:layout_constraintBottom_toTopOf="@+id/bottomBar" />-->
-
-    <!--    <me.ibrahimsn.lib.SmoothBottomBar-->
-    <!--        android:id="@+id/bottomBar"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="@dimen/bottom_bar_height"-->
-    <!--        app:backgroundColor="?attr/bg_color"-->
-    <!--        app:iconSize="@dimen/bottom_bar_icon_size"-->
-    <!--        app:itemFontFamily="@font/light"-->
-    <!--        app:textSize="@dimen/dimen_15sp"-->
-    <!--        app:iconTint="@color/bottom_bar_icon_tint"-->
-    <!--        app:iconTintActive="@color/white"-->
-    <!--        app:indicatorColor="@color/bottom_bar_indicator_color"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:menu="@menu/bottom_nav_menu"-->
-    <!--        app:textColor="@color/white" />-->
-
 </androidx.constraintlayout.widget.ConstraintLayout>

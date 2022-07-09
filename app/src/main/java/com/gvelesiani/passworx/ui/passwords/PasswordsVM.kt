@@ -1,12 +1,9 @@
 package com.gvelesiani.passworx.ui.passwords
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.gvelesiani.passworx.domain.model.PasswordModel
 import com.gvelesiani.passworx.domain.useCases.*
-import com.gvelesiani.passworx.helpers.resourceProvider.ResourceHelper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay

@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.gvelesiani.passworx.data.dto.PasswordDto
 import com.gvelesiani.passworx.databinding.PasswordItemBinding
 import com.gvelesiani.passworx.domain.model.PasswordModel
 import java.util.*
