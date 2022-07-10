@@ -1,19 +1,19 @@
-package com.gvelesiani.passworx.ui.trash
+package com.gvelesiani.passworx.ui.favourites
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.gvelesiani.passworx.domain.model.PasswordModel
-import com.gvelesiani.passworx.domain.useCases.DeletePasswordUseCase
-import com.gvelesiani.passworx.domain.useCases.GetPasswordsUseCase
-import com.gvelesiani.passworx.domain.useCases.SearchPasswordsUseCase
+import com.gvelesiani.passworx.domain.useCases.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class PasswordTrashVM(
+class PasswordFavouritesVM(
     private val getPasswordsUseCase: GetPasswordsUseCase,
-    private val deletePasswordUseCase: DeletePasswordUseCase,
+    private val updateItemTrashStateUseCase: UpdateItemTrashStateUseCase,
+    private val updateFavoriteStateUseCase: UpdateFavoriteStateUseCase,
+    private val decryptPasswordUseCase: DecryptPasswordUseCase,
     private val searchPasswordsUseCase: SearchPasswordsUseCase
 ) : ViewModel() {
     val viewState: MutableLiveData<ViewState> = MutableLiveData()
@@ -24,12 +24,12 @@ class PasswordTrashVM(
     }
 
     private fun currentViewState(): ViewState = viewState.value!!
-    fun getPasswords(isInTrash: Boolean = true) {
+    fun getPasswords(isInTrash: Boolean = false,isInFavourites: Boolean = true) {
         viewState.value = currentViewState().copy(isLoading = true)
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 delay(100)
-                val result = getPasswordsUseCase(Pair(isInTrash, false))
+                val result = getPasswordsUseCase(Pair(isInTrash, isInFavourites))
                 viewState.postValue(currentViewState().copy(passwords = result, isLoading = false))
             } catch (e: Exception) {
                 viewState.postValue(
@@ -52,25 +52,32 @@ class PasswordTrashVM(
         }
     }
 
-    fun deletePassword(passwordId: Int) {
-        viewState.value = currentViewState().copy(isLoading = true)
+    fun updateItemTrashState(isInTrash: Boolean, isInFavourites: Boolean, passwordId: Int) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                deletePasswordUseCase(passwordId)
-                val result = getPasswordsUseCase(params = Pair(true,false))
-                viewState.postValue(currentViewState().copy(passwords = result, isLoading = false))
+                updateItemTrashStateUseCase.invoke(Pair(isInTrash, passwordId))
+                updateFavoriteStateUseCase.invoke(Pair(isInFavourites, passwordId))
             } catch (e: Exception) {
-                viewState.postValue(
-                    currentViewState().copy(
-                        showDeletePasswordsError = "Couldn't delete passwords",
-                        isLoading = false
-                    )
-                )
+                viewState.postValue(currentViewState().copy(showTrashingItemError = "Couldn't move item to trash"))
+            }
+        }
+    }
+
+    fun decryptPassword(encryptedPassword: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val decryptedPassword = decryptPasswordUseCase(encryptedPassword)
+                viewState.postValue(currentViewState().copy(decryptedPassword = decryptedPassword))
+            } catch (e: Exception) {
+                viewState.postValue(currentViewState().copy(showDecryptionError = "Couldn't decrypt password"))
             }
         }
     }
 
     data class ViewState(
+        val showDecryptionError: String? = null,
+        val decryptedPassword: String? = null,
+        val showTrashingItemError: String? = null,
         val isLoading: Boolean = false,
         val showGetPasswordsError: String? = null,
         val showDeletePasswordsError: String? = null,

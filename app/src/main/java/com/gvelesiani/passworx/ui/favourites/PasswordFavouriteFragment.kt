@@ -1,9 +1,11 @@
-package com.gvelesiani.passworx.ui.passwords
+package com.gvelesiani.passworx.ui.favourites
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.*
-import android.view.View.OnFocusChangeListener
+import android.view.LayoutInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.PopupMenu
 import android.widget.Toast
@@ -22,27 +24,21 @@ import com.gvelesiani.passworx.databinding.FragmentPasswordsBinding
 import com.gvelesiani.passworx.domain.model.PasswordModel
 import com.gvelesiani.passworx.ui.passwordDetails.PasswordDetailsBottomSheet
 
+class PasswordFavouriteFragment :
+    BaseFragment<PasswordFavouritesVM, FragmentPasswordsBinding>(PasswordFavouritesVM::class) {
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentPasswordsBinding =
+        FragmentPasswordsBinding::inflate
 
-class PasswordsFragment :
-    BaseFragment<PasswordsVM, FragmentPasswordsBinding>(PasswordsVM::class) {
     private lateinit var adapter: PasswordAdapter
 
-    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentPasswordsBinding
-        get() = FragmentPasswordsBinding::inflate
-
     override fun setupView(savedInstanceState: Bundle?) {
-        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
-        binding.btAddPassword.visibility = View.VISIBLE
-        viewModel.getPasswords()
+        binding.btAddPassword.visibility = View.GONE
         setupSearch()
         setupRecyclerViewAdapter()
         setOnClickListeners()
     }
 
     private fun setOnClickListeners() {
-        binding.btAddPassword.setOnClickListener {
-            findNavController().navigate(R.id.action_navigation_passwords_to_addNewPasswordFragment)
-        }
         binding.backClickArea.setOnClickListener {
             findNavController().navigateUp()
         }
@@ -54,7 +50,27 @@ class PasswordsFragment :
         }
     }
 
-    private fun observeViewState(viewState: PasswordsVM.ViewState) {
+    private fun setupSearch() {
+        binding.btClearSearch.setOnClickListener {
+            binding.search.text?.clear()
+        }
+        binding.search.onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
+            if (hasFocus) {
+                binding.btSearch.visibility = View.GONE
+                binding.btClearSearch.animation =
+                    AnimationUtils.loadAnimation(requireContext(), R.anim.rotate_animation)
+                binding.btClearSearch.visibility = View.VISIBLE
+            } else {
+                binding.btSearch.visibility = View.VISIBLE
+                binding.btClearSearch.visibility = View.GONE
+            }
+        }
+        binding.search.onTextChanged {
+            viewModel.searchPasswords(it)
+        }
+    }
+
+    private fun observeViewState(viewState: PasswordFavouritesVM.ViewState) {
         binding.progressBar.isVisible = viewState.isLoading
         when (viewState.isLoading) {
             true -> {
@@ -91,31 +107,25 @@ class PasswordsFragment :
 
         popup.setOnMenuItemClickListener { menuItem: MenuItem ->
             when (menuItem.itemId) {
-                R.id.menuEdit -> Toast.makeText(requireContext(), "Edit", Toast.LENGTH_SHORT).show()
-                R.id.menuDelete -> {
+                R.id.menuEditInFavourites -> Toast.makeText(
+                    requireContext(),
+                    "Edit",
+                    Toast.LENGTH_SHORT
+                ).show()
+                R.id.menuDeleteFromFavourites -> {
                     MaterialAlertDialogBuilder(
-                        requireContext()
+                        requireContext(),
+                        R.style.MaterialAlertDialog_Material3_Body_Text
                     )
                         .setMessage(getString(R.string.move_to_trash_dialog_message))
                         .setNegativeButton(getString(R.string.dialog_no)) { _, _ ->
                         }
                         .setPositiveButton(getString(R.string.dialog_yes)) { _, _ ->
-                            viewModel.updateItemTrashState(!password.isInTrash, password.passwordId)
-                            viewModel.getPasswords()
-                            adapter.notifyItemChanged(position)
-                            adapter.notifyDataSetChanged()
-                        }
-                        .show()
-                }
-                R.id.menuAddToFavourites -> {
-                    MaterialAlertDialogBuilder(
-                        requireContext()
-                    )
-                        .setMessage(getString(R.string.move_to_favourites_dialog_message))
-                        .setNegativeButton(getString(R.string.dialog_no)) { _, _ ->
-                        }
-                        .setPositiveButton(getString(R.string.dialog_yes)) { _, _ ->
-                            viewModel.updateFavoriteState(!password.isFavorite, password.passwordId)
+                            viewModel.updateItemTrashState(
+                                !password.isInTrash,
+                                !password.isFavorite,
+                                password.passwordId
+                            )
                             viewModel.getPasswords()
                             adapter.notifyItemChanged(position)
                             adapter.notifyDataSetChanged()
@@ -142,7 +152,7 @@ class PasswordsFragment :
             menuClickListener = { password: PasswordModel, view: View, position: Int ->
                 showMenu(
                     view,
-                    R.menu.password_item_menu,
+                    R.menu.favourites_passwords_menu,
                     password,
                     position
                 )
@@ -154,23 +164,4 @@ class PasswordsFragment :
         binding.rvPasswords.layoutManager = LinearLayoutManager(requireContext())
     }
 
-    private fun setupSearch() {
-        binding.btClearSearch.setOnClickListener {
-            binding.search.text?.clear()
-        }
-        binding.search.onFocusChangeListener = OnFocusChangeListener { v, hasFocus ->
-            if (hasFocus) {
-                binding.btSearch.visibility = View.GONE
-                binding.btClearSearch.animation =
-                    AnimationUtils.loadAnimation(requireContext(), R.anim.rotate_animation)
-                binding.btClearSearch.visibility = View.VISIBLE
-            } else {
-                binding.btSearch.visibility = View.VISIBLE
-                binding.btClearSearch.visibility = View.GONE
-            }
-        }
-        binding.search.onTextChanged {
-            viewModel.searchPasswords(it)
-        }
-    }
 }

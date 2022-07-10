@@ -24,8 +24,8 @@ interface PasswordDao {
     @Query("UPDATE $TABLE_NAME SET isInTrash=:isInTrash WHERE passwordId=:id")
     fun updateItemTrashState(isInTrash: Boolean, id: Int)
 
-    @Query("SELECT * FROM $TABLE_NAME WHERE isInTrash=:isInTrash")
-    fun getPasswords(isInTrash: Boolean): List<PasswordDto>
+    @Query("SELECT * FROM $TABLE_NAME WHERE isInTrash=:isInTrash AND isFavorite=:isInFavourites")
+    fun getPasswords(isInTrash: Boolean, isInFavourites: Boolean): List<PasswordDto>
 
     @Query("SELECT * FROM $TABLE_NAME WHERE isFavorite=:isFavorite AND isInTrash=0")
     fun getFavorites(isFavorite: Boolean): List<PasswordDto>

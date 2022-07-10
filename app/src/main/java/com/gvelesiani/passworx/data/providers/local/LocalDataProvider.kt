@@ -4,7 +4,7 @@ import com.gvelesiani.passworx.data.dto.PasswordDto
 
 interface LocalDataProvider {
     fun addNewPassword(pass: PasswordDto)
-    fun getPasswords(isInTrash: Boolean): List<PasswordDto>
+    fun getPasswords(isInTrash: Boolean, isInFavourites: Boolean): List<PasswordDto>
     fun updateFavoriteState(isFavorite: Boolean, id: Int)
     fun getFavoriteItems(isFavorite: Boolean): List<PasswordDto>
     fun updateItemTrashState(isInTrash: Boolean, id: Int)

@@ -24,6 +24,9 @@ class BrowseFragment :
         binding.backClickArea.setOnClickListener {
             findNavController().navigateUp()
         }
+        binding.browseFavoritePasswords.setOnClickListener {
+            findNavController().navigate(R.id.action_navigation_browse_to_passwordFavouritesFragment)
+        }
     }
 
     override fun setupObservers() {

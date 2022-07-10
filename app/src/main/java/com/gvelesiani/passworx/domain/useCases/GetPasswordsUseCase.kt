@@ -6,9 +6,9 @@ import com.gvelesiani.passworx.domain.model.PasswordModel
 import com.gvelesiani.passworx.domain.transformers.transformToModel
 
 class GetPasswordsUseCase(private val repository: Repository) :
-    BaseUseCase<Boolean, List<PasswordModel>>() {
-    override suspend fun invoke(params: Boolean): List<PasswordModel> {
-        return repository.getPasswords(params).map {
+    BaseUseCase<Pair<Boolean,Boolean>, List<PasswordModel>>() {
+    override suspend fun invoke(params: Pair<Boolean,Boolean>): List<PasswordModel> {
+        return repository.getPasswords(params.first, params.second).map {
             it.transformToModel()
         }
     }
