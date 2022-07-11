@@ -17,9 +17,9 @@ class FakeRepository(private val passwords: MutableList<PasswordDto>) : Reposito
     override fun updateFavoriteState(isFavorite: Boolean, id: Int) {
     }
 
-    override fun getFavoriteItems(isFavorite: Boolean): List<PasswordDto> {
+    override fun getFavoritePasswords(): List<PasswordDto> {
         return passwords.filter {
-            it.isFavorite == isFavorite
+            it.isFavorite
         }
     }
 

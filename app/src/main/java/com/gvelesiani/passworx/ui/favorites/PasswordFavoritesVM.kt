@@ -1,4 +1,4 @@
-package com.gvelesiani.passworx.ui.favourites
+package com.gvelesiani.passworx.ui.favorites
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,8 +9,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class PasswordFavouritesVM(
-    private val getPasswordsUseCase: GetPasswordsUseCase,
+class PasswordFavoritesVM(
+    private val getFavoritePasswordsUseCase: GetFavoritePasswordsUseCase,
     private val updateItemTrashStateUseCase: UpdateItemTrashStateUseCase,
     private val updateFavoriteStateUseCase: UpdateFavoriteStateUseCase,
     private val decryptPasswordUseCase: DecryptPasswordUseCase,
@@ -24,12 +24,12 @@ class PasswordFavouritesVM(
     }
 
     private fun currentViewState(): ViewState = viewState.value!!
-    fun getPasswords(isInTrash: Boolean = false,isInFavourites: Boolean = true) {
+    fun getPasswords() {
         viewState.value = currentViewState().copy(isLoading = true)
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 delay(100)
-                val result = getPasswordsUseCase(Pair(isInTrash, isInFavourites))
+                val result = getFavoritePasswordsUseCase(Unit)
                 viewState.postValue(currentViewState().copy(passwords = result, isLoading = false))
             } catch (e: Exception) {
                 viewState.postValue(

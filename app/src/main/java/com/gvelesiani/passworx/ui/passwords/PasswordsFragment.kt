@@ -149,6 +149,11 @@ class PasswordsFragment :
             },
             copyClickListener = { passwordModel ->
                 viewModel.decryptPassword(passwordModel.password)
+            },
+            favoriteClickListener = { passwordModel, position ->
+                viewModel.updateFavoriteState(!passwordModel.isFavorite, passwordModel.passwordId)
+                adapter.notifyItemChanged(position)
+                !passwordModel.isFavorite
             })
         binding.rvPasswords.adapter = adapter
         binding.rvPasswords.layoutManager = LinearLayoutManager(requireContext())

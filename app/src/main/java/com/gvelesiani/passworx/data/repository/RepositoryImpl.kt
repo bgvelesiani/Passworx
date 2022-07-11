@@ -10,16 +10,16 @@ class RepositoryImpl(
         localDataProvider.addNewPassword(pass)
     }
 
-    override fun getPasswords(isInTrash: Boolean, isInFavourites: Boolean): List<PasswordDto> {
-        return localDataProvider.getPasswords(isInTrash, isInFavourites)
+    override fun getPasswords(isInTrash: Boolean): List<PasswordDto> {
+        return localDataProvider.getPasswords(isInTrash)
     }
 
     override fun updateFavoriteState(isFavorite: Boolean, id: Int) {
         localDataProvider.updateFavoriteState(isFavorite, id)
     }
 
-    override fun getFavoriteItems(isFavorite: Boolean): List<PasswordDto> {
-        return localDataProvider.getFavoriteItems(isFavorite)
+    override fun getFavoritePasswords(): List<PasswordDto> {
+        return localDataProvider.getFavoritePasswords()
     }
 
     override fun updateItemTrashState(isInTrash: Boolean, id: Int) {

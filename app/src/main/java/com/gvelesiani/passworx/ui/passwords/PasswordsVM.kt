@@ -29,7 +29,7 @@ class PasswordsVM(
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 delay(100)
-                val result = getPasswordsUseCase(params = Pair(false,false))
+                val result = getPasswordsUseCase(params = false)
                 viewState.postValue(
                     currentViewState().copy(
                         passwords = result,

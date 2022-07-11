@@ -71,7 +71,7 @@
         android:label="@string/title_trash" />
     <fragment
         android:id="@+id/passwordFavouritesFragment"
-        android:name="com.gvelesiani.passworx.ui.favourites.PasswordFavouriteFragment"
+        android:name="com.gvelesiani.passworx.ui.favorites.PasswordFavoriteFragment"
         android:label="@string/title_favourites" />
     <fragment
         android:id="@+id/navigation_browse"

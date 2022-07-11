@@ -1,4 +1,4 @@
-package com.gvelesiani.passworx.ui.favourites
+package com.gvelesiani.passworx.ui.favorites
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -24,8 +24,8 @@ import com.gvelesiani.passworx.databinding.FragmentPasswordsBinding
 import com.gvelesiani.passworx.domain.model.PasswordModel
 import com.gvelesiani.passworx.ui.passwordDetails.PasswordDetailsBottomSheet
 
-class PasswordFavouriteFragment :
-    BaseFragment<PasswordFavouritesVM, FragmentPasswordsBinding>(PasswordFavouritesVM::class) {
+class PasswordFavoriteFragment :
+    BaseFragment<PasswordFavoritesVM, FragmentPasswordsBinding>(PasswordFavoritesVM::class) {
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentPasswordsBinding =
         FragmentPasswordsBinding::inflate
 
@@ -70,7 +70,7 @@ class PasswordFavouriteFragment :
         }
     }
 
-    private fun observeViewState(viewState: PasswordFavouritesVM.ViewState) {
+    private fun observeViewState(viewState: PasswordFavoritesVM.ViewState) {
         binding.progressBar.isVisible = viewState.isLoading
         when (viewState.isLoading) {
             true -> {
@@ -159,6 +159,8 @@ class PasswordFavouriteFragment :
             },
             copyClickListener = { passwordModel ->
                 viewModel.decryptPassword(passwordModel.password)
+            }, { _, _ ->
+                true
             })
         binding.rvPasswords.adapter = adapter
         binding.rvPasswords.layoutManager = LinearLayoutManager(requireContext())
