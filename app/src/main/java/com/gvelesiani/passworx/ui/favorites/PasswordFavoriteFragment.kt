@@ -123,7 +123,6 @@ class PasswordFavoriteFragment :
                         .setPositiveButton(getString(R.string.dialog_yes)) { _, _ ->
                             viewModel.updateItemTrashState(
                                 !password.isInTrash,
-                                !password.isFavorite,
                                 password.passwordId
                             )
                             viewModel.getPasswords()
@@ -159,11 +158,13 @@ class PasswordFavoriteFragment :
             },
             copyClickListener = { passwordModel ->
                 viewModel.decryptPassword(passwordModel.password)
-            }, { _, _ ->
-                true
+            },
+            favoriteClickListener = { passwordModel ->
+                viewModel.updateFavoriteState(!passwordModel.isFavorite, passwordModel.passwordId)
             })
         binding.rvPasswords.adapter = adapter
         binding.rvPasswords.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvPasswords.itemAnimator = null
     }
 
 }

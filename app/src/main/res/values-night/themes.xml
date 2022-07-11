@@ -32,5 +32,7 @@
         <item name="chip_text_color">@color/chip_text_color_dark</item>
         <item name="chip_checked_text_color">@color/chip_text_color_checked_dark</item>
         <item name="chip_check_icon_color">@color/chip_text_color_checked_dark</item>
+
+        <item name="password_bg_color">@color/password_bg_color_dark</item>
     </style>
 </resources>

@@ -43,4 +43,8 @@ val useCasesModule = module {
     factory {
         DecryptPasswordUseCase(get())
     }
+
+    factory {
+        GetFavoritePasswordsUseCase(get())
+    }
 }

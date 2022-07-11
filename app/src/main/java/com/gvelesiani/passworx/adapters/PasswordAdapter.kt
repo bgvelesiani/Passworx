@@ -14,7 +14,7 @@ class PasswordAdapter(
     private val clickListener: (PasswordModel) -> Unit,
     private val menuClickListener: (PasswordModel, View, Int) -> Unit,
     private val copyClickListener: (PasswordModel) -> Unit,
-    private val favoriteClickListener: (PasswordModel, Int) -> Boolean
+    private val favoriteClickListener: (PasswordModel) -> Unit
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var passwordList: List<PasswordModel> = emptyList()
@@ -65,17 +65,7 @@ class PasswordAdapter(
             binding.root.setOnClickListener { clickListener(password) }
             binding.copyClickView.setOnClickListener { copyClickListener(password) }
             binding.menuClickView.setOnClickListener { menuClickListener(password, it, position) }
-
-            binding.favoriteClickView.setOnClickListener {
-                favoriteClickListener(password, position)
-                if (favoriteClickListener(password, position)) {
-                    binding.btAddToFavorites.isVisible = false
-                    binding.btRemoveFromFavorites.isVisible = true
-                } else {
-                    binding.btAddToFavorites.isVisible = true
-                    binding.btRemoveFromFavorites.isVisible = false
-                }
-            }
+            binding.favoriteClickView.setOnClickListener { favoriteClickListener(password) }
 
             if (password.isFavorite) {
                 binding.btAddToFavorites.isVisible = false

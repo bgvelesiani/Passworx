@@ -38,7 +38,7 @@ val viewModelsModule = module {
     }
 
     viewModel {
-        PasswordFavoritesVM(get(),get(),get(),get(),get())
+        PasswordFavoritesVM(get(), get(), get(), get(), get())
     }
 
     viewModel {

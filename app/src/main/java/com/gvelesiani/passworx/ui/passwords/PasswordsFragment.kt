@@ -100,23 +100,11 @@ class PasswordsFragment :
                         .setNegativeButton(getString(R.string.dialog_no)) { _, _ ->
                         }
                         .setPositiveButton(getString(R.string.dialog_yes)) { _, _ ->
-                            viewModel.updateItemTrashState(!password.isInTrash, password.passwordId)
-                            viewModel.getPasswords()
-                            adapter.notifyItemChanged(position)
-                            adapter.notifyDataSetChanged()
-                        }
-                        .show()
-                }
-                R.id.menuAddToFavourites -> {
-                    MaterialAlertDialogBuilder(
-                        requireContext()
-                    )
-                        .setMessage(getString(R.string.move_to_favourites_dialog_message))
-                        .setNegativeButton(getString(R.string.dialog_no)) { _, _ ->
-                        }
-                        .setPositiveButton(getString(R.string.dialog_yes)) { _, _ ->
-                            viewModel.updateFavoriteState(!password.isFavorite, password.passwordId)
-                            viewModel.getPasswords()
+                            viewModel.updateItemTrashState(
+                                !password.isInTrash,
+                                password.isFavorite,
+                                password.passwordId
+                            )
                             adapter.notifyItemChanged(position)
                             adapter.notifyDataSetChanged()
                         }
@@ -150,10 +138,8 @@ class PasswordsFragment :
             copyClickListener = { passwordModel ->
                 viewModel.decryptPassword(passwordModel.password)
             },
-            favoriteClickListener = { passwordModel, position ->
+            favoriteClickListener = { passwordModel ->
                 viewModel.updateFavoriteState(!passwordModel.isFavorite, passwordModel.passwordId)
-                adapter.notifyItemChanged(position)
-                !passwordModel.isFavorite
             })
         binding.rvPasswords.adapter = adapter
         binding.rvPasswords.layoutManager = LinearLayoutManager(requireContext())

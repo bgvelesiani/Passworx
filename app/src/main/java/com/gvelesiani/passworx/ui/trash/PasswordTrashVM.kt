@@ -53,17 +53,15 @@ class PasswordTrashVM(
     }
 
     fun deletePassword(passwordId: Int) {
-        viewState.value = currentViewState().copy(isLoading = true)
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 deletePasswordUseCase(passwordId)
                 val result = getPasswordsUseCase(params = true)
-                viewState.postValue(currentViewState().copy(passwords = result, isLoading = false))
+                viewState.postValue(currentViewState().copy(passwords = result))
             } catch (e: Exception) {
                 viewState.postValue(
                     currentViewState().copy(
                         showDeletePasswordsError = "Couldn't delete passwords",
-                        isLoading = false
                     )
                 )
             }

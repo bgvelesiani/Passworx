@@ -32,5 +32,7 @@
         <attr name="chip_text_color" format="color" />
         <attr name="chip_checked_text_color" format="color" />
         <attr name="chip_check_icon_color" format="color" />
+
+        <attr name="password_bg_color" format="color" />
     </declare-styleable>
 </resources>

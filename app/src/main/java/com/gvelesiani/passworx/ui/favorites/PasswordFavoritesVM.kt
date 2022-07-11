@@ -52,13 +52,29 @@ class PasswordFavoritesVM(
         }
     }
 
-    fun updateItemTrashState(isInTrash: Boolean, isInFavourites: Boolean, passwordId: Int) {
+    fun updateItemTrashState(isInTrash: Boolean, passwordId: Int) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 updateItemTrashStateUseCase.invoke(Pair(isInTrash, passwordId))
-                updateFavoriteStateUseCase.invoke(Pair(isInFavourites, passwordId))
+                updateFavoriteStateUseCase.invoke(Pair(false, passwordId))
             } catch (e: Exception) {
                 viewState.postValue(currentViewState().copy(showTrashingItemError = "Couldn't move item to trash"))
+            }
+        }
+    }
+
+    fun updateFavoriteState(isFavorite: Boolean, passwordId: Int) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                delay(100)
+                updateFavoriteStateUseCase(Pair(isFavorite, passwordId))
+                val passwords = getFavoritePasswordsUseCase(Unit)
+                viewState.postValue(
+                    currentViewState().copy(
+                        passwords = passwords
+                    )
+                )
+            } catch (e: Exception) {
             }
         }
     }
