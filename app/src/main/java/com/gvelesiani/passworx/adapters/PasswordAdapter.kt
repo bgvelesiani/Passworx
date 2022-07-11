@@ -60,7 +60,7 @@ class PasswordAdapter(
                 tvEmailOrUsername.text = password.emailOrUserName
 
                 val logoResource = tvItemLogo.context.resources.getIdentifier(
-                    password.websiteOrAppName.lowercase(),
+                    password.websiteOrAppName.lowercase().replace("\\s".toRegex(), ""),
                     "drawable",
                     "com.gvelesiani.passworx"
                 )
