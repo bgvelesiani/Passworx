@@ -36,6 +36,7 @@
     <color name="chip_text_color_light">#3F3F5E</color>
     <color name="chip_text_color_checked_light">#01863A</color>
     <color name="search_view_bg_color_light">#f7f6f9</color>
+    <color name="password_bg_color_light">#F9FAFC</color>
 
     <!-- Dark theme -->
     <color name="color_primary_dark">#F8F8F8</color>
@@ -53,4 +54,5 @@
     <color name="chip_text_color_dark">#ECECFF</color>
     <color name="chip_text_color_checked_dark">#01863A</color>
     <color name="search_view_bg_color_dark">#222222</color>
+    <color name="password_bg_color_dark">#141414</color>
 </resources>

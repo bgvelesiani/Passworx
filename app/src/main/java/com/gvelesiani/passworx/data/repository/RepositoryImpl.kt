@@ -18,8 +18,8 @@ class RepositoryImpl(
         localDataProvider.updateFavoriteState(isFavorite, id)
     }
 
-    override fun getFavoriteItems(isFavorite: Boolean): List<PasswordDto> {
-        return localDataProvider.getFavoriteItems(isFavorite)
+    override fun getFavoritePasswords(): List<PasswordDto> {
+        return localDataProvider.getFavoritePasswords()
     }
 
     override fun updateItemTrashState(isInTrash: Boolean, id: Int) {

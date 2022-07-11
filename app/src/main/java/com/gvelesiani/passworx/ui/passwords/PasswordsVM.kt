@@ -1,12 +1,9 @@
 package com.gvelesiani.passworx.ui.passwords
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.gvelesiani.passworx.domain.model.PasswordModel
 import com.gvelesiani.passworx.domain.useCases.*
-import com.gvelesiani.passworx.helpers.resourceProvider.ResourceHelper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -50,16 +47,6 @@ class PasswordsVM(
         }
     }
 
-    fun updateFavoriteState(isFavorite: Boolean, passwordId: Int) {
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                updateFavoriteStateUseCase(Pair(!isFavorite, passwordId))
-            } catch (e: Exception) {
-                viewState.postValue(currentViewState().copy(showUpdatePasswordError = "Couldn't update password... please try again"))
-            }
-        }
-    }
-
     fun searchPasswords(query: String) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
@@ -70,10 +57,37 @@ class PasswordsVM(
         }
     }
 
-    fun updateItemTrashState(isInTrash: Boolean, passwordId: Int) {
+    fun updateFavoriteState(isFavorite: Boolean, passwordId: Int) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                updateItemTrashStateUseCase.invoke(Pair(isInTrash, passwordId))
+                delay(100)
+                updateFavoriteStateUseCase(Pair(isFavorite, passwordId))
+                val passwords = getPasswordsUseCase(false)
+                viewState.postValue(
+                    currentViewState().copy(
+                        passwords = passwords
+                    )
+                )
+            } catch (e: Exception) {
+                viewState.postValue(currentViewState().copy(showUpdatePasswordError = "Couldn't update password... please try again"))
+            }
+        }
+    }
+
+    fun updateItemTrashState(isInTrash: Boolean, isFavorite: Boolean, passwordId: Int) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                delay(100)
+                updateItemTrashStateUseCase(Pair(isInTrash, passwordId))
+                if (isFavorite) {
+                    updateFavoriteStateUseCase(Pair(false, passwordId))
+                }
+                val passwords = getPasswordsUseCase(false)
+                viewState.postValue(
+                    currentViewState().copy(
+                        passwords = passwords
+                    )
+                )
             } catch (e: Exception) {
                 viewState.postValue(currentViewState().copy(showTrashingItemError = "Couldn't move item to trash"))
             }

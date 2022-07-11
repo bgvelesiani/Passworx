@@ -27,8 +27,8 @@ interface PasswordDao {
     @Query("SELECT * FROM $TABLE_NAME WHERE isInTrash=:isInTrash")
     fun getPasswords(isInTrash: Boolean): List<PasswordDto>
 
-    @Query("SELECT * FROM $TABLE_NAME WHERE isFavorite=:isFavorite AND isInTrash=0")
-    fun getFavorites(isFavorite: Boolean): List<PasswordDto>
+    @Query("SELECT * FROM $TABLE_NAME WHERE isFavorite=1 AND isInTrash=0")
+    fun getFavorites(): List<PasswordDto>
 
     @Query("SELECT * FROM $TABLE_NAME WHERE websiteOrAppName LIKE '%' || :query || '%' AND isInTrash=:isInTrash")
     fun searchPasswords(query: String, isInTrash: Boolean): List<PasswordDto>

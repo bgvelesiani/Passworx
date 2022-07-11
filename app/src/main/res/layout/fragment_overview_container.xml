@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarBrowse"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/bg_color"
+        android:stateListAnimator="@null"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize">
+
+            <FrameLayout
+                android:id="@+id/backClickArea"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="start|center_vertical"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="20dp"
+                android:background="?attr/actionBarItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_gravity="center"
+                    android:id="@+id/ivAppIcon"
+                    android:layout_width="@dimen/dimen_24dp"
+                    android:src="@drawable/ic_app_icon"
+                    android:layout_height="@dimen/dimen_24dp"
+                    android:importantForAccessibility="no" />
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/frame_overview_logo"
+                android:layout_width="@dimen/dimen_48dp"
+                android:layout_height="@dimen/dimen_48dp"
+                android:layout_gravity="start|center_vertical"
+                android:layout_marginStart="@dimen/dimen_4dp"
+                android:layout_marginEnd="@dimen/dimen_20dp"
+                android:gravity="center"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/image_overview_logo"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_arrow_back" />
+
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/medium"
+                android:text="@string/app_name"
+                android:textAlignment="center"
+                android:textColor="?attr/text_color"
+                android:textSize="@dimen/dimen_21sp" />
+
+        </FrameLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.gvelesiani.passworx.customViews.OverviewItemView
+        android:id="@+id/ctVault"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/appBarBrowse"
+        app:setImageDrawable="@drawable/ic_passwords"
+        app:setSubTitle="Passwords of your favorite websites &amp; apps"
+        app:setTitle="Vault" />
+
+    <com.gvelesiani.passworx.customViews.OverviewItemView
+        android:id="@+id/ctBrowse"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/ctVault"
+        app:setImageDrawable="@drawable/ic_browse"
+        app:setSubTitle="Browse favorites, trash..."
+        app:setTitle="@string/title_browse" />
+
+    <com.gvelesiani.passworx.customViews.OverviewItemView
+        android:id="@+id/ctGenerate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/ctBrowse"
+        app:setImageDrawable="@drawable/ic_generate"
+        app:setSubTitle="Generate strong passwords..."
+        app:setTitle="@string/title_password_generator" />
+
+    <com.gvelesiani.passworx.customViews.OverviewItemView
+        android:id="@+id/ctSettings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/ctGenerate"
+        app:setImageDrawable="@drawable/ic_settings"
+        app:setSubTitle="Master Password, screenshots, biometriX"
+        app:setTitle="@string/title_settings" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

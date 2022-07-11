@@ -6,32 +6,32 @@
     android:layout_height="wrap_content">
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/toolImage"
+        android:id="@+id/overviewImage"
         android:layout_width="@dimen/dimen_25dp"
         android:layout_height="@dimen/dimen_25dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/toolTitle"
+        app:layout_constraintTop_toTopOf="@+id/overviewItemTitle"
         tools:ignore="ContentDescription" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/toolTitle"
+        android:id="@+id/overviewItemTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/tools_item_title_margin_start"
         android:textColor="?attr/text_color"
         android:textSize="@dimen/tools_item_title_text_size"
-        app:layout_constraintStart_toEndOf="@+id/toolImage"
+        app:layout_constraintStart_toEndOf="@+id/overviewImage"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/toolSubTitle"
+        android:id="@+id/overviewItemSubTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/tools_item_subtitle_margin_top"
         android:textColor="?attr/secondary_text_color"
         android:textSize="@dimen/tools_item_subtitle_text_size"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/toolTitle"
-        app:layout_constraintTop_toBottomOf="@+id/toolTitle" />
+        app:layout_constraintStart_toStartOf="@+id/overviewItemTitle"
+        app:layout_constraintTop_toBottomOf="@+id/overviewItemTitle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

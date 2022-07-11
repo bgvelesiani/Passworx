@@ -1,6 +1,6 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="Theme.Passworx" parent="Theme.MaterialComponents.DayNight">
+    <style name="Theme.Passworx" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/color_primary_light</item>
         <item name="colorPrimaryVariant">?attr/bg_color</item>
@@ -32,6 +32,8 @@
         <item name="chip_text_color">@color/chip_text_color_light</item>
         <item name="chip_checked_text_color">@color/chip_text_color_checked_light</item>
         <item name="chip_check_icon_color">@color/chip_text_color_checked_light</item>
+
+        <item name="password_bg_color">@color/password_bg_color_light</item>
     </style>
 
     <style name="ThemeOverlay.App.BottomSheetDialog" parent="ThemeOverlay.MaterialComponents.BottomSheetDialog">

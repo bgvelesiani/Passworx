@@ -11,8 +11,8 @@ import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.annotation.MenuRes
 import androidx.core.view.isVisible
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.gvelesiani.passworx.R
@@ -31,10 +31,16 @@ class PasswordTrashFragment :
     private lateinit var adapter: PasswordAdapter
 
     override fun setupView(savedInstanceState: Bundle?) {
-        requireActivity().findViewById<BottomNavigationView>(R.id.bottomBar).visibility = View.GONE
         binding.btAddPassword.visibility = View.GONE
         setupSearch()
         setupRecyclerViewAdapter()
+        setOnClickListeners()
+    }
+
+    private fun setOnClickListeners() {
+        binding.backClickArea.setOnClickListener {
+            findNavController().navigateUp()
+        }
     }
 
     override fun setupObservers() {
@@ -144,7 +150,7 @@ class PasswordTrashFragment :
                 )
                 snackbar.anchorView = binding.btAddPassword
                 snackbar.show()
-            })
+            }, {})
         binding.rvPasswords.adapter = adapter
         binding.rvPasswords.layoutManager = LinearLayoutManager(requireContext())
     }

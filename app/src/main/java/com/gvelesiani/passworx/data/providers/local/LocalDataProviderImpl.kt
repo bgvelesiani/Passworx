@@ -21,8 +21,8 @@ class LocalDataProviderImpl constructor(
         database.getPasswordDao.updateFavoriteState(isFavorite, id)
     }
 
-    override fun getFavoriteItems(isFavorite: Boolean): List<PasswordDto> {
-        return database.getPasswordDao.getFavorites(isFavorite)
+    override fun getFavoritePasswords(): List<PasswordDto> {
+        return database.getPasswordDao.getFavorites()
     }
 
     override fun updateItemTrashState(isInTrash: Boolean, id: Int) {

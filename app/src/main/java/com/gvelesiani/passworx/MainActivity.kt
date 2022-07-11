@@ -6,8 +6,6 @@ import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
 import com.google.android.material.color.MaterialColors
 import com.gvelesiani.passworx.databinding.ActivityMainBinding
 
@@ -20,21 +18,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setWindowFlags()
         setContentView(binding.root)
-        setupActionBarWithNavController()
-        onDestinationChanged()
-
-        setBackgroundToActionBar()
-    }
-
-    private fun setBackgroundToActionBar() {
-        supportActionBar?.setBackgroundDrawable(
-            ColorDrawable(
-                MaterialColors.getColor(
-                    binding.root,
-                    R.attr.bg_color
-                )
-            )
-        )
+        setupNavController()
     }
 
     private fun setWindowFlags() {
@@ -47,28 +31,10 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
-    private fun setupActionBarWithNavController() {
-        val appBarConfiguration = AppBarConfiguration
-            .Builder(R.id.viewPagerContainer)
-            .build()
+    private fun setupNavController() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main) as NavHostFragment
         navController = navHostFragment.navController
-        setupActionBarWithNavController(navController, appBarConfiguration)
-    }
-
-    private fun onDestinationChanged() {
-        navController.addOnDestinationChangedListener { _, destination, _ ->
-            when (destination.id) {
-                R.id.viewPagerContainer, R.id.changeMasterPasswordFragment,
-                R.id.passwordTrashFragment, R.id.addNewPasswordFragment -> {
-                    supportActionBar?.elevation = 0F
-                }
-                else -> {
-                    supportActionBar?.elevation = 8F
-                }
-            }
-        }
     }
 
     override fun onSupportNavigateUp(): Boolean {

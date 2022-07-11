@@ -3,57 +3,179 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/viewPagerContainer">
+    app:startDestination="@id/overviewFragment">
 
     <fragment
         android:id="@+id/navigation_generate"
         android:name="com.gvelesiani.passworx.ui.passwordGenerator.PasswordGeneratorFragment"
         android:label="@string/title_password_generator"
-        tools:layout="@layout/fragment_password_generator" />
+        tools:layout="@layout/fragment_password_generator">
+        <action
+            android:id="@+id/action_navigation_generate_to_overviewFragment"
+            app:destination="@id/overviewFragment"
+            app:enterAnim="@anim/enter_end"
+            app:exitAnim="@anim/exit_start"
+            app:popEnterAnim="@anim/enter_start"
+            app:popExitAnim="@anim/exit_end" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_passwords"
         android:name="com.gvelesiani.passworx.ui.passwords.PasswordsFragment"
         android:label="@string/title_passwords"
-        tools:layout="@layout/fragment_passwords" />
+        tools:layout="@layout/fragment_passwords">
+        <action
+            android:id="@+id/action_navigation_passwords_to_addNewPasswordFragment"
+            app:destination="@id/addNewPasswordFragment"
+            app:enterAnim="@anim/enter_end"
+            app:exitAnim="@anim/exit_start"
+            app:popEnterAnim="@anim/enter_start"
+            app:popExitAnim="@anim/exit_end"
+            app:popUpTo="@id/navigation_passwords"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_navigation_passwords_to_overviewFragment"
+            app:destination="@id/overviewFragment"
+            app:enterAnim="@anim/enter_end"
+            app:exitAnim="@anim/exit_start"
+            app:popEnterAnim="@anim/enter_start"
+            app:popExitAnim="@anim/exit_end" />
+        <action
+            android:id="@+id/action_navigation_passwords_self"
+            app:destination="@id/navigation_passwords" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_settings"
         android:name="com.gvelesiani.passworx.ui.settings.SettingsFragment"
         android:label="@string/title_settings"
-        tools:layout="@layout/fragment_settings" />
+        tools:layout="@layout/fragment_settings">
+        <action
+            android:id="@+id/action_navigation_settings_to_overviewFragment"
+            app:destination="@id/overviewFragment"
+            app:enterAnim="@anim/enter_end"
+            app:exitAnim="@anim/exit_start"
+            app:popEnterAnim="@anim/enter_start"
+            app:popExitAnim="@anim/exit_end" />
+        <action
+            android:id="@+id/action_navigation_settings_to_changeMasterPasswordFragment"
+            app:destination="@id/changeMasterPasswordFragment"
+            app:enterAnim="@anim/enter_end"
+            app:exitAnim="@anim/exit_start"
+            app:popEnterAnim="@anim/enter_start"
+            app:popExitAnim="@anim/exit_end" />
+    </fragment>
     <fragment
         android:id="@+id/passwordTrashFragment"
         android:name="com.gvelesiani.passworx.ui.trash.PasswordTrashFragment"
         android:label="@string/title_trash" />
     <fragment
+        android:id="@+id/passwordFavouritesFragment"
+        android:name="com.gvelesiani.passworx.ui.favorites.PasswordFavoriteFragment"
+        android:label="@string/title_favourites" />
+    <fragment
         android:id="@+id/navigation_browse"
         android:name="com.gvelesiani.passworx.ui.browse.BrowseFragment"
         android:label="@string/title_browse"
-        tools:layout="@layout/fragment_browse" />
+        tools:layout="@layout/fragment_browse">
+        <action
+            android:id="@+id/action_navigation_browse_to_overviewFragment"
+            app:destination="@id/overviewFragment"
+            app:enterAnim="@anim/enter_end"
+            app:exitAnim="@anim/exit_start"
+            app:popEnterAnim="@anim/enter_start"
+            app:popExitAnim="@anim/exit_end" />
+        <action
+            android:id="@+id/action_navigation_browse_to_passwordTrashFragment"
+            app:destination="@id/passwordTrashFragment"
+            app:enterAnim="@anim/enter_end"
+            app:exitAnim="@anim/exit_start"
+            app:popEnterAnim="@anim/enter_start"
+            app:popExitAnim="@anim/exit_end" />
+        <action
+            android:id="@+id/action_navigation_browse_to_passwordFavouritesFragment"
+            app:destination="@id/passwordFavouritesFragment"
+            app:enterAnim="@anim/enter_end"
+            app:exitAnim="@anim/exit_start"
+            app:popEnterAnim="@anim/enter_start"
+            app:popExitAnim="@anim/exit_end" />
+    </fragment>
     <fragment
         android:id="@+id/changeMasterPasswordFragment"
         android:name="com.gvelesiani.passworx.ui.masterPassword.fragments.changeMasterPassword.ChangeMasterPasswordFragment"
-        android:label="Change Master Password" />
+        android:label="Change Master Password">
+        <action
+            android:id="@+id/action_changeMasterPasswordFragment_to_navigation_settings"
+            app:destination="@id/navigation_settings"
+            app:enterAnim="@anim/enter_end"
+            app:exitAnim="@anim/exit_start"
+            app:popEnterAnim="@anim/enter_start"
+            app:popExitAnim="@anim/exit_end" />
+    </fragment>
     <fragment
-        android:label="Add new password"
         android:id="@+id/addNewPasswordFragment"
-        android:name="com.gvelesiani.passworx.ui.addPassword.AddPasswordFragment">
+        android:name="com.gvelesiani.passworx.ui.addPassword.AddPasswordFragment"
+        android:label="Add new password">
         <action
-            app:popUpTo="@id/viewPagerContainer"
-            app:popUpToInclusive="true"
-            android:id="@+id/action_addNewPasswordFragment_to_viewPagerContainer"
-            app:destination="@id/viewPagerContainer" />
+            android:id="@+id/action_addNewPasswordFragment_to_navigation_passwords"
+            app:destination="@id/navigation_passwords"
+            app:enterAnim="@anim/enter_end"
+            app:exitAnim="@anim/exit_start"
+            app:popEnterAnim="@anim/enter_start"
+            app:popExitAnim="@anim/exit_end"
+            app:popUpTo="@id/addNewPasswordFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
-        android:id="@+id/viewPagerContainer"
-        android:name="com.gvelesiani.passworx.ui.ViewPagerContainer"
-        android:label="@string/app_name">
+        android:id="@+id/overviewFragment"
+        android:name="com.gvelesiani.passworx.ui.overview.OverviewFragment"
+        android:label="OverviewFragment">
         <action
-            android:id="@+id/action_viewPagerContainer_to_changeMasterPasswordFragment"
-            app:destination="@id/changeMasterPasswordFragment" />
+            android:id="@+id/action_overviewFragment_to_navigation_passwords"
+            app:destination="@id/navigation_passwords"
+            app:enterAnim="@anim/enter_end"
+            app:exitAnim="@anim/exit_start"
+            app:popEnterAnim="@anim/enter_start"
+            app:popExitAnim="@anim/exit_end" />
         <action
-            android:id="@+id/action_viewPagerContainer_to_passwordTrashFragment"
-            app:destination="@id/passwordTrashFragment" />
+            android:id="@+id/action_overviewFragment_to_navigation_generate"
+            app:destination="@id/navigation_generate"
+            app:enterAnim="@anim/enter_end"
+            app:exitAnim="@anim/exit_start"
+            app:popEnterAnim="@anim/enter_start"
+            app:popExitAnim="@anim/exit_end" />
+        <action
+            android:id="@+id/action_overviewFragment_to_navigation_browse"
+            app:destination="@id/navigation_browse"
+            app:enterAnim="@anim/enter_end"
+            app:exitAnim="@anim/exit_start"
+            app:popEnterAnim="@anim/enter_start"
+            app:popExitAnim="@anim/exit_end" />
+        <action
+            android:id="@+id/action_overviewFragment_to_navigation_settings"
+            app:destination="@id/navigation_settings"
+            app:enterAnim="@anim/enter_end"
+            app:exitAnim="@anim/exit_start"
+            app:popEnterAnim="@anim/enter_start"
+            app:popExitAnim="@anim/exit_end" />
     </fragment>
+    <!--    <fragment-->
+    <!--        android:id="@+id/viewPagerContainer"-->
+    <!--        android:name="com.gvelesiani.passworx.ui.ViewPagerContainer"-->
+    <!--        android:label="@string/app_name">-->
+    <!--        <action-->
+    <!--            android:id="@+id/action_viewPagerContainer_to_changeMasterPasswordFragment"-->
+    <!--            app:destination="@id/changeMasterPasswordFragment" />-->
+    <!--        <action-->
+    <!--            android:id="@+id/action_viewPagerContainer_to_passwordTrashFragment"-->
+    <!--            app:destination="@id/passwordTrashFragment" />-->
+    <!--        <action-->
+    <!--            android:id="@+id/action_viewPagerContainer_to_addNewPasswordFragment"-->
+    <!--            app:destination="@id/addNewPasswordFragment"-->
+    <!--            app:enterAnim="@anim/enter_end"-->
+    <!--            app:exitAnim="@anim/exit_start"-->
+    <!--            app:popEnterAnim="@anim/enter_start"-->
+    <!--            app:popExitAnim="@anim/exit_end"-->
+    <!--            />-->
+    <!--    </fragment>-->
 </navigation>

@@ -2,9 +2,8 @@ package com.gvelesiani.passworx.ui.passwordGenerator
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.gvelesiani.passworx.R
@@ -21,8 +20,6 @@ class PasswordGeneratorFragment :
         get() = FragmentPasswordGeneratorBinding::inflate
 
     override fun setupView(savedInstanceState: Bundle?) {
-        requireActivity().findViewById<BottomNavigationView>(R.id.bottomBar).visibility =
-            View.VISIBLE
         setUpListeners()
     }
 
@@ -58,6 +55,9 @@ class PasswordGeneratorFragment :
             }
             smUseSymbols.setOnCheckedChangeListener { _, isChecked ->
                 viewModel.useSymbols(isChecked, sbPasswordGenerator.value.toInt())
+            }
+            binding.backClickArea.setOnClickListener {
+                findNavController().navigateUp()
             }
         }
     }
