@@ -25,7 +25,8 @@ class OverviewItemView(context: Context, @Nullable attrs: AttributeSet) :
             context.theme.obtainStyledAttributes(attrs, R.styleable.OverviewItemView, 0, 0)
 
         try {
-            val imageDrawable = typedArray.getDrawable(R.styleable.OverviewItemView_setImageDrawable)
+            val imageDrawable =
+                typedArray.getDrawable(R.styleable.OverviewItemView_setImageDrawable)
             val title = typedArray.getString(R.styleable.OverviewItemView_setTitle)
             val subtitle = typedArray.getString(R.styleable.OverviewItemView_setSubTitle)
 

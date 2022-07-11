@@ -150,7 +150,7 @@ class PasswordTrashFragment :
                 )
                 snackbar.anchorView = binding.btAddPassword
                 snackbar.show()
-            })
+            }, {})
         binding.rvPasswords.adapter = adapter
         binding.rvPasswords.layoutManager = LinearLayoutManager(requireContext())
     }

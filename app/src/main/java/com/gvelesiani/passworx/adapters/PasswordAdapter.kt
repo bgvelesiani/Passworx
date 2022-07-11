@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.gvelesiani.passworx.databinding.PasswordItemBinding
 import com.gvelesiani.passworx.domain.model.PasswordModel
@@ -12,7 +13,8 @@ import java.util.*
 class PasswordAdapter(
     private val clickListener: (PasswordModel) -> Unit,
     private val menuClickListener: (PasswordModel, View, Int) -> Unit,
-    private val copyClickListener: (PasswordModel) -> Unit
+    private val copyClickListener: (PasswordModel) -> Unit,
+    private val favoriteClickListener: (PasswordModel) -> Unit
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var passwordList: List<PasswordModel> = emptyList()
@@ -52,13 +54,22 @@ class PasswordAdapter(
             position: Int
         ) {
             binding.tvEmailOrUsername.text = password.emailOrUserName
-            binding.tvItemLogo.text = password.websiteOrAppName.subSequence(0, 2).toString()
+            password.websiteOrAppName.subSequence(0, 2).toString()
                 .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
             binding.tvPasswordItemName.text = password.websiteOrAppName
                 .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
             binding.root.setOnClickListener { clickListener(password) }
             binding.copyClickView.setOnClickListener { copyClickListener(password) }
             binding.menuClickView.setOnClickListener { menuClickListener(password, it, position) }
+            binding.favoriteClickView.setOnClickListener { favoriteClickListener(password) }
+
+            if (password.isFavorite) {
+                binding.btAddToFavorites.isVisible = false
+                binding.btRemoveFromFavorites.isVisible = true
+            } else {
+                binding.btAddToFavorites.isVisible = true
+                binding.btRemoveFromFavorites.isVisible = false
+            }
         }
     }
 
