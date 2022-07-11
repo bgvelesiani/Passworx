@@ -45,7 +45,7 @@ class AddPasswordFragment :
                 )
             )
         }
-        findNavController().navigate(R.id.action_addNewPasswordFragment_to_navigation_passwords)
+        findNavController().navigateUp()
     }
 
     private fun watchFields() {

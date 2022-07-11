@@ -10,7 +10,9 @@ import android.widget.Toast
 import androidx.annotation.MenuRes
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.gvelesiani.passworx.R
@@ -85,7 +87,7 @@ class PasswordsFragment :
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private fun showMenu(v: View, @MenuRes menuRes: Int, password: PasswordModel, position: Int) {
+    private fun showMenu(v: View, @MenuRes menuRes: Int, password: PasswordModel) {
         val popup = PopupMenu(requireContext(), v)
         popup.menuInflater.inflate(menuRes, popup.menu)
 
@@ -105,8 +107,7 @@ class PasswordsFragment :
                                 password.isFavorite,
                                 password.passwordId
                             )
-                            adapter.notifyItemChanged(position)
-                            adapter.notifyDataSetChanged()
+                            binding.rvPasswords.itemAnimator = DefaultItemAnimator()
                         }
                         .show()
                 }
@@ -127,22 +128,22 @@ class PasswordsFragment :
                     PasswordDetailsBottomSheet.TAG
                 )
             },
-            menuClickListener = { password: PasswordModel, view: View, position: Int ->
+            menuClickListener = { password: PasswordModel, view: View ->
                 showMenu(
                     view,
                     R.menu.password_item_menu,
-                    password,
-                    position
+                    password
                 )
             },
             copyClickListener = { passwordModel ->
                 viewModel.decryptPassword(passwordModel.password)
             },
-            favoriteClickListener = { passwordModel ->
+            favoriteClickListener = { passwordModel, position ->
                 viewModel.updateFavoriteState(!passwordModel.isFavorite, passwordModel.passwordId)
             })
         binding.rvPasswords.adapter = adapter
         binding.rvPasswords.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvPasswords.itemAnimator = null
     }
 
     private fun setupSearch() {

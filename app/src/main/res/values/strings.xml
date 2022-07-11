@@ -78,4 +78,5 @@
     <string name="settings_change_master_password_text">Change Master Password</string>
     <string name="password_copying_success">Password has been copied successfully</string>
     <string name="password_copying_error">Please restore password in order to copy it</string>
+    <string name="website_or_app_name_info_text">For example: Facebook, Snapchat, Pinterest...</string>
 </resources>
