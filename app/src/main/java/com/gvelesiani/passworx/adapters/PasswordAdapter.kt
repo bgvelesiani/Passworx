@@ -54,12 +54,8 @@ class PasswordAdapter(
             position: Int
         ) {
             binding.tvEmailOrUsername.text = password.emailOrUserName
-            binding.tvItemLogo.text = if (password.websiteOrAppName.length > 3) {
-                password.websiteOrAppName.subSequence(0, 2).toString()
-                    .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
-            } else {
-                ""
-            }
+            password.websiteOrAppName.subSequence(0, 2).toString()
+                .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
             binding.tvPasswordItemName.text = password.websiteOrAppName
                 .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
             binding.root.setOnClickListener { clickListener(password) }
