@@ -10,12 +10,12 @@
 - All-time favorite **Dark Mode** 🌑
 - Search functionality, to find passwords **Rapidly** 🚀
 - Master password, to make passwords accessible only by the **User**
+- Adding passwords to **Favorites** 💗
+- **Fingerprint authentication**, to make users vault more secure 🔒
 
 **Passworx** has a lot of upcoming features and functionalities, which involves:
 
 - Editing password **Details**
 - Checking passwords **Health** 🧑‍⚕️
-- Adding passwords to **Favorites** 💗
-- **Fingerprint authentication**, to make users vault more secure 🔒
 
 **More info coming soon** 🚀 🤘
