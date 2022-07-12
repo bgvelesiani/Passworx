@@ -3,6 +3,7 @@ package com.gvelesiani.passworx.ui.settings
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.navigation.fragment.findNavController
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.base.BaseFragment
@@ -15,7 +16,6 @@ class SettingsFragment :
         get() = FragmentSettingsBinding::inflate
 
     override fun setupView(savedInstanceState: Bundle?) {
-
         setOnClickListeners()
     }
 
@@ -26,8 +26,27 @@ class SettingsFragment :
         binding.svChangeMasterPassword.setOnClickListener {
             findNavController().navigate(R.id.action_navigation_settings_to_changeMasterPasswordFragment)
         }
+        binding.svTakeScreenshots.setOnCheckedChangeListener { _, allow ->
+            viewModel.allowTakingScreenshots(allow)
+        }
     }
 
     override fun setupObservers() {
+        viewModel.takingScreenshotsAreAllowed.observe(viewLifecycleOwner) { allowed ->
+            binding.svTakeScreenshots.isChecked = allowed
+            if (allowed == true) {
+                requireActivity().window.clearFlags(
+                    WindowManager.LayoutParams.FLAG_SECURE
+                )
+            } else {
+                /**
+                 * With FLAG_SECURE, Users will be prevented from taking screenshots of the application,
+                 * */
+                requireActivity().window.setFlags(
+                    WindowManager.LayoutParams.FLAG_SECURE,
+                    WindowManager.LayoutParams.FLAG_SECURE
+                )
+            }
+        }
     }
 }

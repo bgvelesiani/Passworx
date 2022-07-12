@@ -13,7 +13,7 @@
         android:theme="@style/Theme.Passworx"
         tools:replace="android:theme">
         <activity
-            android:name="com.gvelesiani.passworx.MainActivity"
+            android:name="com.gvelesiani.passworx.ui.MainActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|adjustResize"

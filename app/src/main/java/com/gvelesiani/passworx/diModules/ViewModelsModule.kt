@@ -1,5 +1,6 @@
 package com.gvelesiani.passworx.diModules
 
+import com.gvelesiani.passworx.ui.MainVM
 import com.gvelesiani.passworx.ui.addPassword.AddPasswordVM
 import com.gvelesiani.passworx.ui.favorites.PasswordFavoritesVM
 import com.gvelesiani.passworx.ui.masterPassword.MasterPasswordAVM
@@ -19,7 +20,7 @@ val viewModelsModule = module {
         AddPasswordVM(get(), get(), get())
     }
     viewModel {
-        SettingsVM()
+        SettingsVM(get(), get())
     }
     viewModel {
         PasswordsVM(get(), get(), get(), get(), get())
@@ -55,5 +56,9 @@ val viewModelsModule = module {
 
     viewModel {
         MasterPasswordAVM(get())
+    }
+
+    viewModel {
+        MainVM(get())
     }
 }

@@ -33,10 +33,10 @@
                 <ImageView
                     android:id="@+id/image_overview_close"
                     android:layout_width="wrap_content"
-                    android:src="@drawable/ic_arrow_back"
-                    android:layout_gravity="center"
                     android:layout_height="wrap_content"
-                    android:importantForAccessibility="no" />
+                    android:layout_gravity="center"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_arrow_back" />
 
             </FrameLayout>
 
@@ -57,8 +57,8 @@
         android:id="@+id/browseFavoritePasswords"
         android:layout_width="@dimen/dimen_0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appBarBrowse"
         app:setImageDrawable="@drawable/ic_not_favorite"
         app:setSubTitle="Manage your favorite passwords"

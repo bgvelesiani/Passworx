@@ -2,6 +2,7 @@ package com.gvelesiani.passworx.data.providers.local
 
 import android.content.SharedPreferences
 import com.gvelesiani.passworx.constants.MASTER_PASSWORD
+import com.gvelesiani.passworx.constants.TAKING_SCREENSHOTS_ALLOWED
 import com.gvelesiani.passworx.data.dto.PasswordDto
 import com.gvelesiani.passworx.data.providers.local.database.PasswordDatabase
 
@@ -44,5 +45,13 @@ class LocalDataProviderImpl constructor(
 
     override fun getMasterPassword(): String {
         return preferences.getString(MASTER_PASSWORD, "").toString()
+    }
+
+    override fun allowTakingScreenshots(allow: Boolean) {
+        preferences.edit().putBoolean(TAKING_SCREENSHOTS_ALLOWED, allow).apply()
+    }
+
+    override fun getTakingScreenshotsStatus(): Boolean {
+        return preferences.getBoolean(TAKING_SCREENSHOTS_ALLOWED, false)
     }
 }
