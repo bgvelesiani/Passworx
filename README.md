@@ -1,5 +1,4 @@
-<p align="center"><img src="readme/logo.png"</img></p>
-<p align="center"><img src="readme/app_banner.png"</img></p>
+<p align="center"><img src="readme/banner.png"</img></p>
 
 **Passworx** is a Password Manager application, which stores your passwords safely in your own phones locale storage. For now it has following functionalities and features:
 
