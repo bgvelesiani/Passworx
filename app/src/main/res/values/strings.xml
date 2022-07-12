@@ -34,7 +34,7 @@
     <string name="password_details_text">Password Details</string>
     <string name="title_hint">Title*</string>
     <string name="title_browse">Browse</string>
-    <string name="menu_edit_and_restore_title">Edit and Restore</string>
+    <string name="menu_restore_title">Restore password</string>
     <string name="menu_delete_permanently_title">Delete permanently</string>
     <string name="menu_edit_title">Edit</string>
     <string name="menu_move_to_trash_title">Move to Trash</string>
@@ -78,4 +78,5 @@
     <string name="settings_change_master_password_text">Change Master Password</string>
     <string name="password_copying_success">Password has been copied successfully</string>
     <string name="password_copying_error">Please restore password in order to copy it</string>
+    <string name="website_or_app_name_info_text">For example: Facebook, Snapchat, Pinterest…</string>
 </resources>

@@ -6,6 +6,7 @@ import com.gvelesiani.passworx.domain.model.PasswordModel
 import com.gvelesiani.passworx.domain.useCases.DeletePasswordUseCase
 import com.gvelesiani.passworx.domain.useCases.GetPasswordsUseCase
 import com.gvelesiani.passworx.domain.useCases.SearchPasswordsUseCase
+import com.gvelesiani.passworx.domain.useCases.UpdateItemTrashStateUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -14,7 +15,8 @@ import kotlinx.coroutines.launch
 class PasswordTrashVM(
     private val getPasswordsUseCase: GetPasswordsUseCase,
     private val deletePasswordUseCase: DeletePasswordUseCase,
-    private val searchPasswordsUseCase: SearchPasswordsUseCase
+    private val searchPasswordsUseCase: SearchPasswordsUseCase,
+    private val updateItemTrashStateUseCase: UpdateItemTrashStateUseCase
 ) : ViewModel() {
     val viewState: MutableLiveData<ViewState> = MutableLiveData()
 
@@ -56,6 +58,22 @@ class PasswordTrashVM(
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 deletePasswordUseCase(passwordId)
+                val result = getPasswordsUseCase(params = true)
+                viewState.postValue(currentViewState().copy(passwords = result))
+            } catch (e: Exception) {
+                viewState.postValue(
+                    currentViewState().copy(
+                        showDeletePasswordsError = "Couldn't delete passwords",
+                    )
+                )
+            }
+        }
+    }
+
+    fun restorePassword(passwordId: Int) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                updateItemTrashStateUseCase(Pair(false, passwordId))
                 val result = getPasswordsUseCase(params = true)
                 viewState.postValue(currentViewState().copy(passwords = result))
             } catch (e: Exception) {

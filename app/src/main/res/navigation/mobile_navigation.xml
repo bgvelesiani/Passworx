@@ -30,9 +30,7 @@
             app:enterAnim="@anim/enter_end"
             app:exitAnim="@anim/exit_start"
             app:popEnterAnim="@anim/enter_start"
-            app:popExitAnim="@anim/exit_end"
-            app:popUpTo="@id/navigation_passwords"
-            app:popUpToInclusive="true" />
+            app:popExitAnim="@anim/exit_end" />
         <action
             android:id="@+id/action_navigation_passwords_to_overviewFragment"
             app:destination="@id/overviewFragment"
@@ -122,9 +120,7 @@
             app:enterAnim="@anim/enter_end"
             app:exitAnim="@anim/exit_start"
             app:popEnterAnim="@anim/enter_start"
-            app:popExitAnim="@anim/exit_end"
-            app:popUpTo="@id/addNewPasswordFragment"
-            app:popUpToInclusive="true" />
+            app:popExitAnim="@anim/exit_end" />
     </fragment>
     <fragment
         android:id="@+id/overviewFragment"

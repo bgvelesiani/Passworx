@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.annotation.MenuRes
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
@@ -19,6 +20,7 @@ import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.adapters.PasswordAdapter
 import com.gvelesiani.passworx.base.BaseFragment
 import com.gvelesiani.passworx.common.copyToClipboard
+import com.gvelesiani.passworx.common.hideKeyboard
 import com.gvelesiani.passworx.common.onTextChanged
 import com.gvelesiani.passworx.databinding.FragmentPasswordsBinding
 import com.gvelesiani.passworx.domain.model.PasswordModel
@@ -52,7 +54,7 @@ class PasswordFavoriteFragment :
 
     private fun setupSearch() {
         binding.btClearSearch.setOnClickListener {
-            binding.search.text?.clear()
+            resetSearch(reset = true)
         }
         binding.search.onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
             if (hasFocus) {
@@ -66,7 +68,7 @@ class PasswordFavoriteFragment :
             }
         }
         binding.search.onTextChanged {
-            viewModel.searchPasswords(it)
+            adapter.filter.filter(it)
         }
     }
 
@@ -101,7 +103,7 @@ class PasswordFavoriteFragment :
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private fun showMenu(v: View, @MenuRes menuRes: Int, password: PasswordModel, position: Int) {
+    private fun showMenu(v: View, @MenuRes menuRes: Int, password: PasswordModel) {
         val popup = PopupMenu(requireContext(), v)
         popup.menuInflater.inflate(menuRes, popup.menu)
 
@@ -125,9 +127,8 @@ class PasswordFavoriteFragment :
                                 !password.isInTrash,
                                 password.passwordId
                             )
-                            viewModel.getPasswords()
-                            adapter.notifyItemChanged(position)
-                            adapter.notifyDataSetChanged()
+                            binding.search.text?.isNotEmpty()?.let { resetSearch(it) }
+                            binding.rvPasswords.itemAnimator = DefaultItemAnimator()
                         }
                         .show()
                 }
@@ -148,23 +149,32 @@ class PasswordFavoriteFragment :
                     PasswordDetailsBottomSheet.TAG
                 )
             },
-            menuClickListener = { password: PasswordModel, view: View, position: Int ->
+            menuClickListener = { password: PasswordModel, view: View ->
                 showMenu(
                     view,
                     R.menu.favourites_passwords_menu,
-                    password,
-                    position
+                    password
                 )
             },
             copyClickListener = { passwordModel ->
                 viewModel.decryptPassword(passwordModel.password)
             },
-            favoriteClickListener = { passwordModel ->
+            favoriteClickListener = { passwordModel, position ->
+                binding.search.text?.isNotEmpty()?.let { resetSearch(it) }
                 viewModel.updateFavoriteState(!passwordModel.isFavorite, passwordModel.passwordId)
+                adapter.notifyItemChanged(position)
             })
         binding.rvPasswords.adapter = adapter
         binding.rvPasswords.layoutManager = LinearLayoutManager(requireContext())
         binding.rvPasswords.itemAnimator = null
+    }
+
+    private fun resetSearch(reset: Boolean) {
+        if (reset) {
+            binding.search.setText("")
+            hideKeyboard()
+            binding.search.clearFocus()
+        }
     }
 
 }

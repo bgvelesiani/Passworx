@@ -57,6 +57,8 @@ class PasswordFavoritesVM(
             try {
                 updateItemTrashStateUseCase.invoke(Pair(isInTrash, passwordId))
                 updateFavoriteStateUseCase.invoke(Pair(false, passwordId))
+                val result = getFavoritePasswordsUseCase(Unit)
+                viewState.postValue(currentViewState().copy(passwords = result, isLoading = false))
             } catch (e: Exception) {
                 viewState.postValue(currentViewState().copy(showTrashingItemError = "Couldn't move item to trash"))
             }
