@@ -3,25 +3,25 @@
     android:height="48dp"
     android:viewportWidth="48"
     android:viewportHeight="48">
-  <path
-      android:pathData="M24,48C37.255,48 48,37.255 48,24C48,10.745 37.255,0 24,0C10.745,0 0,10.745 0,24C0,37.255 10.745,48 24,48Z"
-      android:fillColor="#000000"/>
-  <path
-      android:pathData="M9.6,29.6H16.8V16H14.031V19.965H9.6V29.6ZM14.03,27.334H12.369V22.233H14.03V27.334Z"
-      android:fillColor="#ffffff"
-      android:fillType="evenOdd"/>
-  <path
-      android:pathData="M18.4,29.6H21.6V20H18.4V29.6Z"
-      android:fillColor="#ffffff"/>
-  <path
-      android:pathData="M22.4,32.8H29.6V20H22.4V29.46H26.833V30.573H22.4V32.8ZM26.833,27.235H25.17V22.226H26.833V27.235Z"
-      android:fillColor="#ffffff"
-      android:fillType="evenOdd"/>
-  <path
-      android:pathData="M18.4,19.2H21.6V16H18.4V19.2Z"
-      android:fillColor="#ffffff"/>
-  <path
-      android:pathData="M31.2,32.8H38.4V20H31.2V29.46H35.632V30.573H31.2V32.8ZM35.632,27.235H33.968V22.226H35.632V27.235Z"
-      android:fillColor="#ffffff"
-      android:fillType="evenOdd"/>
+    <path
+        android:fillColor="#000000"
+        android:pathData="M24,48C37.255,48 48,37.255 48,24C48,10.745 37.255,0 24,0C10.745,0 0,10.745 0,24C0,37.255 10.745,48 24,48Z" />
+    <path
+        android:fillColor="#ffffff"
+        android:fillType="evenOdd"
+        android:pathData="M9.6,29.6H16.8V16H14.031V19.965H9.6V29.6ZM14.03,27.334H12.369V22.233H14.03V27.334Z" />
+    <path
+        android:fillColor="#ffffff"
+        android:pathData="M18.4,29.6H21.6V20H18.4V29.6Z" />
+    <path
+        android:fillColor="#ffffff"
+        android:fillType="evenOdd"
+        android:pathData="M22.4,32.8H29.6V20H22.4V29.46H26.833V30.573H22.4V32.8ZM26.833,27.235H25.17V22.226H26.833V27.235Z" />
+    <path
+        android:fillColor="#ffffff"
+        android:pathData="M18.4,19.2H21.6V16H18.4V19.2Z" />
+    <path
+        android:fillColor="#ffffff"
+        android:fillType="evenOdd"
+        android:pathData="M31.2,32.8H38.4V20H31.2V29.46H35.632V30.573H31.2V32.8ZM35.632,27.235H33.968V22.226H35.632V27.235Z" />
 </vector>

@@ -16,3 +16,4 @@ object PasswordGeneratorProperties {
 }
 
 const val MASTER_PASSWORD = "MASTER_PASSWORD"
+const val TAKING_SCREENSHOTS_ALLOWED = "TAKING_SCREENSHOTS_ALLOWED"

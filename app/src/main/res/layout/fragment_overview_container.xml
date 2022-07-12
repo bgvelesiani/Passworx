@@ -29,12 +29,12 @@
                 android:gravity="center">
 
                 <ImageView
-                    android:layout_gravity="center"
                     android:id="@+id/ivAppIcon"
                     android:layout_width="@dimen/dimen_24dp"
-                    android:src="@drawable/ic_app_icon"
                     android:layout_height="@dimen/dimen_24dp"
-                    android:importantForAccessibility="no" />
+                    android:layout_gravity="center"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_app_icon" />
 
             </FrameLayout>
 

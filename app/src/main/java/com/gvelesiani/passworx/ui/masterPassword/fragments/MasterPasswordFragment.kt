@@ -5,10 +5,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.gvelesiani.passworx.MainActivity
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.base.BaseFragment
 import com.gvelesiani.passworx.databinding.FragmentMasterPasswordBinding
+import com.gvelesiani.passworx.ui.MainActivity
 
 class MasterPasswordFragment :
     BaseFragment<MasterPasswordVM, FragmentMasterPasswordBinding>(MasterPasswordVM::class) {
@@ -39,7 +39,6 @@ class MasterPasswordFragment :
             }
             authenticate()
         }
-
     }
 
     override fun setupObservers() {

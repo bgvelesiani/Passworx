@@ -47,4 +47,12 @@ val useCasesModule = module {
     factory {
         GetFavoritePasswordsUseCase(get())
     }
+
+    factory {
+        GetTakingScreenshotsStatusUseCase(get())
+    }
+
+    factory {
+        AllowTakingScreenshotsUseCase(get())
+    }
 }

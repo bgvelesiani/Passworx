@@ -12,4 +12,6 @@ interface LocalDataProvider {
     fun searchPasswords(query: String, isInTrash: Boolean): List<PasswordDto>
     fun createOrChangeMasterPassword(masterPassword: String)
     fun getMasterPassword(): String
+    fun allowTakingScreenshots(allow: Boolean)
+    fun getTakingScreenshotsStatus(): Boolean
 }
