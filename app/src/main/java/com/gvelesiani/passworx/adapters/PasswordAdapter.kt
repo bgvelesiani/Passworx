@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -17,8 +19,9 @@ class PasswordAdapter(
     private val copyClickListener: (PasswordModel) -> Unit,
     private val favoriteClickListener: (PasswordModel, Int) -> Unit
 ) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private var passwordList: List<PasswordModel> = emptyList()
+    RecyclerView.Adapter<RecyclerView.ViewHolder>(), Filterable {
+    private var passwordList: List<PasswordModel> = arrayListOf()
+    var filteredList = ArrayList<PasswordModel>()
 
     var binding: PasswordItemBinding? = null
 
@@ -27,6 +30,7 @@ class PasswordAdapter(
         val diffUtil = PassworxDiffUtil(passwordList, data)
         val result = DiffUtil.calculateDiff(diffUtil)
         passwordList = data
+        filteredList = data as ArrayList<PasswordModel>
         result.dispatchUpdatesTo(this)
     }
 
@@ -37,7 +41,7 @@ class PasswordAdapter(
     }
 
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
-        val item = passwordList[position]
+        val item = filteredList[position]
         (viewHolder as PasswordViewHolder).bind(
             item,
             clickListener,
@@ -84,8 +88,7 @@ class PasswordAdapter(
                 }
                 binding.favoriteClickView.setOnClickListener {
                     favoriteClickListener(
-                        password,
-                        position
+                        password, position
                     )
                 }
 
@@ -106,5 +109,35 @@ class PasswordAdapter(
         }
     }
 
-    override fun getItemCount() = passwordList.size
+    override fun getItemCount() = filteredList.size
+
+    override fun getFilter(): Filter {
+        return object : Filter() {
+            override fun performFiltering(constraint: CharSequence?): FilterResults {
+                val query = constraint.toString()
+                filteredList = if (query.isEmpty()) {
+                    passwordList as ArrayList<PasswordModel>
+                } else {
+                    val resultList = ArrayList<PasswordModel>()
+                    for (password in passwordList) {
+                        if (password.passwordTitle.lowercase()
+                                .contains(constraint.toString().lowercase())
+                        ) {
+                            resultList.add(password)
+                        }
+                    }
+                    resultList
+                }
+                val filterResults = FilterResults()
+                filterResults.values = filteredList
+                return filterResults
+            }
+
+            @SuppressLint("NotifyDataSetChanged")
+            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+                filteredList = results?.values as ArrayList<PasswordModel>
+                notifyDataSetChanged()
+            }
+        }
+    }
 }

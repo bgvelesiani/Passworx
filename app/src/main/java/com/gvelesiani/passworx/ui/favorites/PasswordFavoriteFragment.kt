@@ -20,6 +20,7 @@ import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.adapters.PasswordAdapter
 import com.gvelesiani.passworx.base.BaseFragment
 import com.gvelesiani.passworx.common.copyToClipboard
+import com.gvelesiani.passworx.common.hideKeyboard
 import com.gvelesiani.passworx.common.onTextChanged
 import com.gvelesiani.passworx.databinding.FragmentPasswordsBinding
 import com.gvelesiani.passworx.domain.model.PasswordModel
@@ -53,7 +54,7 @@ class PasswordFavoriteFragment :
 
     private fun setupSearch() {
         binding.btClearSearch.setOnClickListener {
-            binding.search.text?.clear()
+            resetSearch(reset = true)
         }
         binding.search.onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
             if (hasFocus) {
@@ -67,7 +68,7 @@ class PasswordFavoriteFragment :
             }
         }
         binding.search.onTextChanged {
-            viewModel.searchPasswords(it)
+            adapter.filter.filter(it)
         }
     }
 
@@ -126,6 +127,7 @@ class PasswordFavoriteFragment :
                                 !password.isInTrash,
                                 password.passwordId
                             )
+                            binding.search.text?.isNotEmpty()?.let { resetSearch(it) }
                             binding.rvPasswords.itemAnimator = DefaultItemAnimator()
                         }
                         .show()
@@ -158,11 +160,21 @@ class PasswordFavoriteFragment :
                 viewModel.decryptPassword(passwordModel.password)
             },
             favoriteClickListener = { passwordModel, position ->
+                binding.search.text?.isNotEmpty()?.let { resetSearch(it) }
                 viewModel.updateFavoriteState(!passwordModel.isFavorite, passwordModel.passwordId)
+                adapter.notifyItemChanged(position)
             })
         binding.rvPasswords.adapter = adapter
         binding.rvPasswords.layoutManager = LinearLayoutManager(requireContext())
         binding.rvPasswords.itemAnimator = null
+    }
+
+    private fun resetSearch(reset: Boolean) {
+        if (reset) {
+            binding.search.setText("")
+            hideKeyboard()
+            binding.search.clearFocus()
+        }
     }
 
 }

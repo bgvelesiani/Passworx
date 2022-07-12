@@ -1,12 +1,10 @@
 package com.gvelesiani.passworx
 
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import com.google.android.material.color.MaterialColors
 import com.gvelesiani.passworx.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

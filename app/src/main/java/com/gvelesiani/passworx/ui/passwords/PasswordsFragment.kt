@@ -12,13 +12,13 @@ import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.adapters.PasswordAdapter
 import com.gvelesiani.passworx.base.BaseFragment
 import com.gvelesiani.passworx.common.copyToClipboard
+import com.gvelesiani.passworx.common.hideKeyboard
 import com.gvelesiani.passworx.common.onTextChanged
 import com.gvelesiani.passworx.databinding.FragmentPasswordsBinding
 import com.gvelesiani.passworx.domain.model.PasswordModel
@@ -107,6 +107,7 @@ class PasswordsFragment :
                                 password.isFavorite,
                                 password.passwordId
                             )
+                            binding.search.text?.isNotEmpty()?.let { resetSearch(it) }
                             binding.rvPasswords.itemAnimator = DefaultItemAnimator()
                         }
                         .show()
@@ -117,6 +118,14 @@ class PasswordsFragment :
         popup.setOnDismissListener {
         }
         popup.show()
+    }
+
+    private fun resetSearch(reset: Boolean) {
+        if (reset) {
+            binding.search.setText("")
+            hideKeyboard()
+            binding.search.clearFocus()
+        }
     }
 
     private fun setupRecyclerViewAdapter() {
@@ -139,7 +148,9 @@ class PasswordsFragment :
                 viewModel.decryptPassword(passwordModel.password)
             },
             favoriteClickListener = { passwordModel, position ->
+                binding.search.text?.isNotEmpty()?.let { resetSearch(it) }
                 viewModel.updateFavoriteState(!passwordModel.isFavorite, passwordModel.passwordId)
+                adapter.notifyItemChanged(position)
             })
         binding.rvPasswords.adapter = adapter
         binding.rvPasswords.layoutManager = LinearLayoutManager(requireContext())
@@ -148,7 +159,7 @@ class PasswordsFragment :
 
     private fun setupSearch() {
         binding.btClearSearch.setOnClickListener {
-            binding.search.text?.clear()
+            resetSearch(reset = true)
         }
         binding.search.onFocusChangeListener = OnFocusChangeListener { v, hasFocus ->
             if (hasFocus) {
@@ -162,7 +173,7 @@ class PasswordsFragment :
             }
         }
         binding.search.onTextChanged {
-            viewModel.searchPasswords(it)
+            adapter.filter.filter(it)
         }
     }
 }
