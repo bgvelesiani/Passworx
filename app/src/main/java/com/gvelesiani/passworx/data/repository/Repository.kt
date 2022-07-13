@@ -14,4 +14,6 @@ interface Repository {
     fun getMasterPassword(): String
     fun allowTakingScreenshots(allow: Boolean)
     fun getTakingScreenshotsStatus(): Boolean
+    fun finishIntro()
+    fun isIntroFinished(): Boolean
 }

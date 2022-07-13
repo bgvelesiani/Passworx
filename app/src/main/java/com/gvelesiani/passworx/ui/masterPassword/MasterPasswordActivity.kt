@@ -4,12 +4,13 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.core.view.isVisible
-import androidx.fragment.app.add
 import androidx.fragment.app.commit
+import androidx.fragment.app.replace
 import com.google.android.material.color.MaterialColors
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.base.BaseActivity
 import com.gvelesiani.passworx.databinding.ActivityMasterPasswordBinding
+import com.gvelesiani.passworx.ui.intro.IntroFragment
 import com.gvelesiani.passworx.ui.masterPassword.fragments.MasterPasswordFragment
 import com.gvelesiani.passworx.ui.masterPassword.fragments.createMasterPassword.CreateMasterPasswordFragment
 
@@ -20,8 +21,6 @@ class MasterPasswordActivity :
 
     override fun setupView(savedInstanceState: Bundle?) {
         setupActionBar()
-        viewModel.getMasterPassword()
-
         setupObservers()
     }
 
@@ -29,16 +28,28 @@ class MasterPasswordActivity :
         viewModel.isLoading.observe(this) {
             binding.progressBar.isVisible = it
         }
+
+        viewModel.isIntroFinished.observe(this) {
+            if (!it) {
+                supportFragmentManager.commit {
+                    setReorderingAllowed(true)
+                    replace<IntroFragment>(R.id.fContainer)
+                }
+            } else {
+                viewModel.getMasterPassword()
+            }
+        }
+
         viewModel.masterPassword.observe(this) {
             if (it == "") {
                 supportFragmentManager.commit {
                     setReorderingAllowed(true)
-                    add<CreateMasterPasswordFragment>(R.id.fContainer)
+                    replace<CreateMasterPasswordFragment>(R.id.fContainer)
                 }
             } else {
                 supportFragmentManager.commit {
                     setReorderingAllowed(true)
-                    add<MasterPasswordFragment>(R.id.fContainer)
+                    replace<MasterPasswordFragment>(R.id.fContainer)
                 }
             }
         }

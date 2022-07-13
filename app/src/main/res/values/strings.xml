@@ -79,4 +79,10 @@
     <string name="password_copying_success">Password has been copied successfully</string>
     <string name="password_copying_error">Please restore password in order to copy it</string>
     <string name="website_or_app_name_info_text">For example: Facebook, Snapchat, Pinterest…</string>
+
+    <string name="intro_first_step_info">Do you ever find yourself forgetting important passwords?</string>
+    <string name="intro_second_step_info">Passworx is here to help! We save your passwords with care, safely in the storage of your device</string>
+    <string name="intro_third_step_info">With Passworx, You will never forget a password anymore</string>
+    <string name="skip_intro_button_text">Skip</string>
+    <string name="intro_get_started_button_text">Get Started</string>
 </resources>
