@@ -55,4 +55,12 @@ val useCasesModule = module {
     factory {
         AllowTakingScreenshotsUseCase(get())
     }
+
+    factory {
+        FinishIntroUseCase(get())
+    }
+
+    factory {
+        CheckIfIntroIsFinishedUseCase(get())
+    }
 }

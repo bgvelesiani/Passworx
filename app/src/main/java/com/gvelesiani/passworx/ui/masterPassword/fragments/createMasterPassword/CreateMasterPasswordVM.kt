@@ -27,15 +27,17 @@ class CreateMasterPasswordVM(
     private fun currentViewState(): ViewState = viewState.value!!
 
     fun createMasterPassword(masterPassword: String) {
+        viewState.value = currentViewState().copy(isLoading = true)
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                delay(1500L)
+                delay(500L)
                 val masterPasswordModel = passwordHashHelper.hash(masterPassword)
                 createOrChangeMasterPassword.invoke(masterPasswordModel)
                 viewState.postValue(
                     currentViewState().copy(
                         validationErrors = null,
-                        validationSuccess = true
+                        validationSuccess = true,
+                        isLoading = false
                     )
                 )
             } catch (ignored: Exception) {
@@ -58,6 +60,7 @@ class CreateMasterPasswordVM(
         val showCreateMasterPasswordError: String? = null,
         val validationErrors: MutableList<MasterPasswordValidatorHelperImpl.MasterPasswordError>? = null,
         val validationSuccess: Boolean = false,
-        val isValid: Boolean = false
+        val isValid: Boolean = false,
+        val isLoading: Boolean = false
     )
 }

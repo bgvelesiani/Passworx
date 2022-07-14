@@ -3,6 +3,7 @@ package com.gvelesiani.passworx.ui.masterPassword.fragments.createMasterPassword
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.gvelesiani.passworx.R
@@ -63,6 +64,8 @@ class CreateMasterPasswordFragment :
                     )
                     snackbar.show()
                 }
+
+                createMasterPasswordLoader.isVisible = it.isLoading
             }
         }
     }

@@ -1,6 +1,7 @@
 package com.gvelesiani.passworx.data.providers.local
 
 import android.content.SharedPreferences
+import com.gvelesiani.passworx.constants.IS_INTRO_FINISHED
 import com.gvelesiani.passworx.constants.MASTER_PASSWORD
 import com.gvelesiani.passworx.constants.TAKING_SCREENSHOTS_ALLOWED
 import com.gvelesiani.passworx.data.dto.PasswordDto
@@ -53,5 +54,13 @@ class LocalDataProviderImpl constructor(
 
     override fun getTakingScreenshotsStatus(): Boolean {
         return preferences.getBoolean(TAKING_SCREENSHOTS_ALLOWED, false)
+    }
+
+    override fun finishIntro() {
+        preferences.edit().putBoolean(IS_INTRO_FINISHED, true).apply()
+    }
+
+    override fun isIntroFinished(): Boolean {
+        return preferences.getBoolean(IS_INTRO_FINISHED, false)
     }
 }

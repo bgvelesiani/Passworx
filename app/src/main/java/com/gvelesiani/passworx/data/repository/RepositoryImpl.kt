@@ -49,4 +49,12 @@ class RepositoryImpl(
     override fun getTakingScreenshotsStatus(): Boolean {
         return localDataProvider.getTakingScreenshotsStatus()
     }
+
+    override fun finishIntro() {
+        localDataProvider.finishIntro()
+    }
+
+    override fun isIntroFinished(): Boolean {
+        return localDataProvider.isIntroFinished()
+    }
 }
