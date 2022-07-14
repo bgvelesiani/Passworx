@@ -56,27 +56,32 @@ class IntroFragment : BaseFragment<IntroVM, FragmentIntroBinding>(IntroVM::class
             ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-                when (position) {
-                    0 -> {
-                        binding.btPreviousStep.isVisible = false
-                        binding.obView.viewState.step = FIRST
-                        binding.btNextStep.isVisible = true
-                        binding.btFinish.isVisible = false
-                        currentItem = FIRST
-                    }
-                    1 -> {
-                        binding.btPreviousStep.isVisible = true
-                        binding.obView.viewState.step = SECOND
-                        binding.btNextStep.isVisible = true
-                        binding.btFinish.isVisible = false
-                        currentItem = SECOND
-                    }
-                    else -> {
-                        binding.btPreviousStep.isVisible = true
-                        binding.obView.viewState.step = THIRD
-                        binding.btNextStep.isVisible = false
-                        binding.btFinish.isVisible = true
-                        currentItem = THIRD
+                with(binding){
+                    when (position) {
+                        0 -> {
+                            btPreviousStep.isVisible = false
+                            obView.viewState.step = FIRST
+                            btNextStep.isVisible = true
+                            btFinish.isVisible = false
+                            btSkipIntro.isVisible = true
+                            currentItem = FIRST
+                        }
+                        1 -> {
+                            btPreviousStep.isVisible = true
+                            obView.viewState.step = SECOND
+                            btNextStep.isVisible = true
+                            btFinish.isVisible = false
+                            btSkipIntro.isVisible = true
+                            currentItem = SECOND
+                        }
+                        else -> {
+                            btPreviousStep.isVisible = true
+                            obView.viewState.step = THIRD
+                            btNextStep.isVisible = false
+                            btFinish.isVisible = true
+                            btSkipIntro.isVisible = false
+                            currentItem = THIRD
+                        }
                     }
                 }
             }
