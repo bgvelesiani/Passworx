@@ -80,9 +80,17 @@
     <string name="password_copying_error">Please restore password in order to copy it</string>
     <string name="website_or_app_name_info_text">For example: Facebook, Snapchat, Pinterest…</string>
 
-    <string name="intro_first_step_info">Do you ever find yourself forgetting important passwords?</string>
-    <string name="intro_second_step_info">Passworx is here to help! We save your passwords with care, safely in the storage of your device</string>
-    <string name="intro_third_step_info">With Passworx, You will never forget a password anymore</string>
+    <string name="intro_first_step_title">Do you ever find yourself forgetting important passwords?</string>
+    <string name="intro_first_step_subtitle">Passworx is here to help! We save your passwords with care, safely in the storage of your device</string>
+
     <string name="skip_intro_button_text">Skip</string>
-    <string name="intro_get_started_button_text">Get Started</string>
+    <string name="intro_get_started_button_text">Let\'s get started!</string>
+
+    <string name="intro_second_step_title">Passworx is Free and Open-Source</string>
+    <string name="intro_second_step_subtitle">This means that all the features you might need, you\'ll get for a lifetime</string>
+
+    <string name="intro_third_step_title">With us you\'ll never forget a password anymore</string>
+    <string name="intro_third_step_subtitle">Don\'t worry, You can always change these settings later</string>
+    <string name="take_in_app_screenshots_info">With this turned on you can prevent system from taking screenshots or recording a video of your passwords</string>
+    <string name="unlock_with_biometrics_info">With this turned on, you can unlock application with your fingerprint or face ID</string>
 </resources>
