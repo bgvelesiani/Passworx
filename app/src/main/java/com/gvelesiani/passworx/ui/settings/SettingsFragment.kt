@@ -27,13 +27,13 @@ class SettingsFragment :
             findNavController().navigate(R.id.action_navigation_settings_to_changeMasterPasswordFragment)
         }
         binding.svTakeScreenshots.setOnCheckedChangeListener { _, allow ->
-            viewModel.allowTakingScreenshots(allow)
+            viewModel.allowTakingScreenshots(!allow)
         }
     }
 
     override fun setupObservers() {
         viewModel.takingScreenshotsAreAllowed.observe(viewLifecycleOwner) { allowed ->
-            binding.svTakeScreenshots.isChecked = allowed
+            binding.svTakeScreenshots.isChecked = !allowed
             if (allowed == true) {
                 requireActivity().window.clearFlags(
                     WindowManager.LayoutParams.FLAG_SECURE
