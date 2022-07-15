@@ -6,17 +6,6 @@
     android:layout_height="match_parent"
     android:background="?bg_color">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/btPreviousStep"
-        android:layout_width="@dimen/dimen_32dp"
-        android:layout_height="@dimen/dimen_32dp"
-        android:layout_marginStart="@dimen/dimen_15dp"
-        android:src="@drawable/ic_arrow_back"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/btSkipIntro"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btSkipIntro" />
-
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/btSkipIntro"
         android:layout_width="wrap_content"
@@ -41,12 +30,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btSkipIntro" />
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/btPreviousStep"
+        android:layout_width="@dimen/dimen_32dp"
+        android:layout_height="@dimen/dimen_32dp"
+        android:layout_marginStart="@dimen/dimen_15dp"
+        android:layout_marginTop="@dimen/dimen_10dp"
+        android:src="@drawable/ic_arrow_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <com.gvelesiani.passworx.customViews.OnboardingView
         android:id="@+id/obView"
         android:layout_width="wrap_content"
-        android:layout_marginBottom="@dimen/dimen_40dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dimen_15dp"
+        android:layout_marginBottom="@dimen/dimen_40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
