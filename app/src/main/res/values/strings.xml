@@ -52,7 +52,7 @@
     <string name="settings_language_header">Language</string>
     <string name="settings_preferences_header">Preferences</string>
     <string name="settings_appearance_header">Appearance</string>
-    <string name="settings_take_screenshots">Take in-app screenshots</string>
+    <string name="settings_take_screenshots">Prevent in-app screenshots</string>
     <string name="settings_unlock_with_biometrics">Unlock with Biometrics</string>
 
     <string name="create_master_password_title_text">Create your master password</string>
@@ -91,6 +91,6 @@
 
     <string name="intro_third_step_title">With us you\'ll never forget a password anymore</string>
     <string name="intro_third_step_subtitle">Don\'t worry, You can always change these settings later</string>
-    <string name="take_in_app_screenshots_info">With this turned on you can prevent system from taking screenshots or recording a video of your passwords</string>
+    <string name="take_in_app_screenshots_info">With this turned on app can prevent system from taking screenshots or recording a video of your passwords</string>
     <string name="unlock_with_biometrics_info">With this turned on, you can unlock application with your fingerprint or face ID</string>
 </resources>

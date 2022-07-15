@@ -85,21 +85,6 @@
         app:layout_constraintTop_toBottomOf="@id/svChangeMasterPassword" />
 
     <com.google.android.material.switchmaterial.SwitchMaterial
-        android:id="@+id/svUnlockWithBiometrics"
-        android:layout_width="@dimen/dimen_0dp"
-        android:layout_height="wrap_content"
-        android:checked="true"
-        android:fontFamily="@font/regular"
-        android:text="@string/settings_unlock_with_biometrics"
-        android:textColor="?attr/text_color"
-        android:textSize="@dimen/dimen_16sp"
-        app:layout_constraintEnd_toStartOf="@+id/glSettingsEnd"
-        app:layout_constraintStart_toStartOf="@+id/glSettingsStart"
-        app:layout_constraintTop_toBottomOf="@+id/svTakeScreenshots"
-        app:thumbTint="?attr/accent_color"
-        app:trackTint="?attr/accent_transparent_color" />
-
-    <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/svTakeScreenshots"
         android:layout_width="@dimen/dimen_0dp"
         android:layout_height="wrap_content"
@@ -113,6 +98,40 @@
         app:layout_constraintTop_toBottomOf="@+id/tvPreferencesHeader"
         app:thumbTint="?attr/accent_color"
         app:trackTint="?attr/accent_transparent_color" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/takeInAppScreenshotsInfo"
+        android:layout_width="@dimen/dimen_0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/take_in_app_screenshots_info"
+        app:layout_constraintEnd_toEndOf="@+id/svTakeScreenshots"
+        app:layout_constraintStart_toStartOf="@+id/svTakeScreenshots"
+        app:layout_constraintTop_toBottomOf="@id/svTakeScreenshots" />
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/svUnlockWithBiometrics"
+        android:layout_width="@dimen/dimen_0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_5dp"
+        android:checked="true"
+        android:fontFamily="@font/regular"
+        android:text="@string/settings_unlock_with_biometrics"
+        android:textColor="?attr/text_color"
+        android:textSize="@dimen/dimen_16sp"
+        app:layout_constraintEnd_toStartOf="@+id/glSettingsEnd"
+        app:layout_constraintStart_toStartOf="@+id/glSettingsStart"
+        app:layout_constraintTop_toBottomOf="@+id/takeInAppScreenshotsInfo"
+        app:thumbTint="?attr/accent_color"
+        app:trackTint="?attr/accent_transparent_color" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/unlockWithBiometricsInfo"
+        android:layout_width="@dimen/dimen_0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/unlock_with_biometrics_info"
+        app:layout_constraintEnd_toEndOf="@id/svUnlockWithBiometrics"
+        app:layout_constraintStart_toStartOf="@+id/svUnlockWithBiometrics"
+        app:layout_constraintTop_toBottomOf="@+id/svUnlockWithBiometrics" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/glSettingsStart"
