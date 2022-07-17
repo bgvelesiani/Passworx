@@ -42,51 +42,55 @@ class IntroFragment : BaseFragment<IntroVM, FragmentIntroBinding>(IntroVM::class
     }
 
     private fun setupViewPagerAdapter() {
-        binding.introViewPager.adapter = IntroAdapter(requireActivity())
-        var currentItem = 0
-        binding.introViewPager.currentItem = currentItem
+        with(binding) {
+            introViewPager.adapter = IntroAdapter(requireActivity())
+            var currentItem = 0
+            introViewPager.currentItem = currentItem
 
-        binding.btNextStep.setOnClickListener {
-            if (currentItem != 2)
-                currentItem += 1
-            binding.introViewPager.currentItem = currentItem
-        }
+            btNextStep.setOnClickListener {
+                if (currentItem != 2)
+                    currentItem += 1
+                introViewPager.currentItem = currentItem
+            }
 
-        binding.introViewPager.registerOnPageChangeCallback(object :
-            ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-                when (position) {
-                    0 -> {
-                        binding.btPreviousStep.isVisible = false
-                        binding.obView.viewState.step = FIRST
-                        binding.btNextStep.isVisible = true
-                        binding.btFinish.isVisible = false
-                        currentItem = FIRST
-                    }
-                    1 -> {
-                        binding.btPreviousStep.isVisible = true
-                        binding.obView.viewState.step = SECOND
-                        binding.btNextStep.isVisible = true
-                        binding.btFinish.isVisible = false
-                        currentItem = SECOND
-                    }
-                    else -> {
-                        binding.btPreviousStep.isVisible = true
-                        binding.obView.viewState.step = THIRD
-                        binding.btNextStep.isVisible = false
-                        binding.btFinish.isVisible = true
-                        currentItem = THIRD
+            introViewPager.registerOnPageChangeCallback(object :
+                ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                    when (position) {
+                        0 -> {
+                            btPreviousStep.isVisible = false
+                            obView.viewState.step = FIRST
+                            btNextStep.isVisible = true
+                            btFinish.isVisible = false
+                            btSkipIntro.isVisible = true
+                            currentItem = FIRST
+                        }
+                        1 -> {
+                            btPreviousStep.isVisible = true
+                            obView.viewState.step = SECOND
+                            btNextStep.isVisible = true
+                            btFinish.isVisible = false
+                            btSkipIntro.isVisible = true
+                            currentItem = SECOND
+                        }
+                        else -> {
+                            btPreviousStep.isVisible = true
+                            obView.viewState.step = THIRD
+                            btNextStep.isVisible = false
+                            btFinish.isVisible = true
+                            btSkipIntro.isVisible = false
+                            currentItem = THIRD
+                        }
                     }
                 }
+            })
+            btPreviousStep.setOnClickListener {
+                currentItem -= 1
+                introViewPager.currentItem = currentItem
             }
-        })
-        binding.btPreviousStep.setOnClickListener {
-            currentItem -= 1
-            binding.introViewPager.currentItem = currentItem
         }
     }
-
 
     override fun setupObservers() {
     }

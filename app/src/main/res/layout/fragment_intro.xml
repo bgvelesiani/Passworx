@@ -10,23 +10,22 @@
         android:id="@+id/introViewPager"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_0dp"
-        android:layout_marginTop="@dimen/dimen_10dp"
+        android:layout_marginTop="@dimen/dimen_47dp"
         android:layout_marginBottom="@dimen/dimen_20dp"
         app:layout_constraintBottom_toTopOf="@+id/obView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btSkipIntro"/>
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/btPreviousStep"
         android:layout_width="@dimen/dimen_32dp"
+        android:layout_marginTop="@dimen/dimen_10dp"
         android:layout_height="@dimen/dimen_32dp"
         android:layout_marginStart="@dimen/dimen_15dp"
         android:src="@drawable/ic_arrow_back"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/btSkipIntro"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btSkipIntro"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/btSkipIntro"
