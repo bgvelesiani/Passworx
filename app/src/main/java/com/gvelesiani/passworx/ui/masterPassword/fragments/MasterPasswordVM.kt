@@ -58,6 +58,6 @@ class MasterPasswordVM(
     data class ViewState(
         val passwordMatchError: String? = null,
         val passwordMatches: Boolean = false,
-        val biometricsAreAllowed: Boolean = false
+        val biometricsAreAllowed: Boolean = true
     )
 }
