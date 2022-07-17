@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.base.BaseFragment
@@ -55,6 +56,7 @@ class MasterPasswordFragment :
                 requireActivity().finish()
                 startActivity(Intent(requireActivity(), MainActivity::class.java))
             }
+            binding.btFingerprintAuth.isVisible = it.biometricsAreAllowed != true
         }
     }
 }

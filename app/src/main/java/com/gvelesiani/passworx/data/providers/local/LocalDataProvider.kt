@@ -14,6 +14,8 @@ interface LocalDataProvider {
     fun getMasterPassword(): String
     fun allowTakingScreenshots(allow: Boolean)
     fun getTakingScreenshotsStatus(): Boolean
+    fun allowBiometrics(allow: Boolean)
+    fun getBiometricsAllowingStatus(): Boolean
     fun finishIntro()
     fun isIntroFinished(): Boolean
 }

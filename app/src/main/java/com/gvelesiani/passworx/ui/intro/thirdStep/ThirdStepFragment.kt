@@ -17,26 +17,36 @@ class ThirdStepFragment : BaseFragment<SettingsVM, FragmentThirdStepBinding>(Set
     }
 
     private fun setOnClickListeners() {
-        binding.svTakeScreenshots.setOnCheckedChangeListener { _, allow ->
-            viewModel.allowTakingScreenshots(!allow)
+        with(binding) {
+            svTakeScreenshots.setOnCheckedChangeListener { _, allow ->
+                viewModel.allowTakingScreenshots(!allow)
+            }
+            svUnlockWithBiometrics.setOnCheckedChangeListener { _, allow ->
+                viewModel.allowBiometrics(!allow)
+            }
         }
     }
 
     override fun setupObservers() {
-        viewModel.takingScreenshotsAreAllowed.observe(viewLifecycleOwner) { allowed ->
-            binding.svTakeScreenshots.isChecked = !allowed
-            if (allowed == true) {
-                requireActivity().window.clearFlags(
-                    WindowManager.LayoutParams.FLAG_SECURE
-                )
-            } else {
-                /**
-                 * With FLAG_SECURE, Users will be prevented from taking screenshots of the application,
-                 * */
-                requireActivity().window.setFlags(
-                    WindowManager.LayoutParams.FLAG_SECURE,
-                    WindowManager.LayoutParams.FLAG_SECURE
-                )
+        with(viewModel) {
+            takingScreenshotsAreAllowed.observe(viewLifecycleOwner) { allowed ->
+                binding.svTakeScreenshots.isChecked = !allowed
+                if (allowed == true) {
+                    requireActivity().window.clearFlags(
+                        WindowManager.LayoutParams.FLAG_SECURE
+                    )
+                } else {
+                    /**
+                     * With FLAG_SECURE, Users will be prevented from taking screenshots of the application,
+                     * */
+                    requireActivity().window.setFlags(
+                        WindowManager.LayoutParams.FLAG_SECURE,
+                        WindowManager.LayoutParams.FLAG_SECURE
+                    )
+                }
+            }
+            biometricsAreAllowed.observe(viewLifecycleOwner) { allowed ->
+                binding.svUnlockWithBiometrics.isChecked = !allowed
             }
         }
     }

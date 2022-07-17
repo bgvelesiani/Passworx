@@ -57,6 +57,14 @@ val useCasesModule = module {
     }
 
     factory {
+        GetBiometricsAllowingStatusUserCase(get())
+    }
+
+    factory {
+        AllowBiometricsUseCase(get())
+    }
+
+    factory {
         FinishIntroUseCase(get())
     }
 

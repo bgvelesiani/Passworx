@@ -50,6 +50,14 @@ class RepositoryImpl(
         return localDataProvider.getTakingScreenshotsStatus()
     }
 
+    override fun allowBiometrics(allow: Boolean) {
+        localDataProvider.allowBiometrics(allow)
+    }
+
+    override fun getBiometricsAllowingStatus(): Boolean {
+        return localDataProvider.getBiometricsAllowingStatus()
+    }
+
     override fun finishIntro() {
         localDataProvider.finishIntro()
     }

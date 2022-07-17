@@ -20,32 +20,42 @@ class SettingsFragment :
     }
 
     private fun setOnClickListeners() {
-        binding.backClickArea.setOnClickListener {
-            findNavController().navigateUp()
-        }
-        binding.svChangeMasterPassword.setOnClickListener {
-            findNavController().navigate(R.id.action_navigation_settings_to_changeMasterPasswordFragment)
-        }
-        binding.svTakeScreenshots.setOnCheckedChangeListener { _, allow ->
-            viewModel.allowTakingScreenshots(!allow)
+        with(binding) {
+            backClickArea.setOnClickListener {
+                findNavController().navigateUp()
+            }
+            svChangeMasterPassword.setOnClickListener {
+                findNavController().navigate(R.id.action_navigation_settings_to_changeMasterPasswordFragment)
+            }
+            svTakeScreenshots.setOnCheckedChangeListener { _, allow ->
+                viewModel.allowTakingScreenshots(!allow)
+            }
+            svUnlockWithBiometrics.setOnCheckedChangeListener { _, allow ->
+                viewModel.allowBiometrics(!allow)
+            }
         }
     }
 
     override fun setupObservers() {
-        viewModel.takingScreenshotsAreAllowed.observe(viewLifecycleOwner) { allowed ->
-            binding.svTakeScreenshots.isChecked = !allowed
-            if (allowed == true) {
-                requireActivity().window.clearFlags(
-                    WindowManager.LayoutParams.FLAG_SECURE
-                )
-            } else {
-                /**
-                 * With FLAG_SECURE, Users will be prevented from taking screenshots of the application,
-                 * */
-                requireActivity().window.setFlags(
-                    WindowManager.LayoutParams.FLAG_SECURE,
-                    WindowManager.LayoutParams.FLAG_SECURE
-                )
+        with(viewModel) {
+            takingScreenshotsAreAllowed.observe(viewLifecycleOwner) { allowed ->
+                binding.svTakeScreenshots.isChecked = !allowed
+                if (allowed == true) {
+                    requireActivity().window.clearFlags(
+                        WindowManager.LayoutParams.FLAG_SECURE
+                    )
+                } else {
+                    /**
+                     * With FLAG_SECURE, Users will be prevented from taking screenshots of the application,
+                     * */
+                    requireActivity().window.setFlags(
+                        WindowManager.LayoutParams.FLAG_SECURE,
+                        WindowManager.LayoutParams.FLAG_SECURE
+                    )
+                }
+            }
+            biometricsAreAllowed.observe(viewLifecycleOwner) { allowed ->
+                binding.svUnlockWithBiometrics.isChecked = !allowed
             }
         }
     }

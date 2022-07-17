@@ -1,6 +1,7 @@
 package com.gvelesiani.passworx.data.providers.local
 
 import android.content.SharedPreferences
+import com.gvelesiani.passworx.constants.BIOMETRICS_ALLOWED
 import com.gvelesiani.passworx.constants.IS_INTRO_FINISHED
 import com.gvelesiani.passworx.constants.MASTER_PASSWORD
 import com.gvelesiani.passworx.constants.TAKING_SCREENSHOTS_ALLOWED
@@ -43,7 +44,6 @@ class LocalDataProviderImpl constructor(
         preferences.edit().putString(MASTER_PASSWORD, masterPassword).apply()
     }
 
-
     override fun getMasterPassword(): String {
         return preferences.getString(MASTER_PASSWORD, "").toString()
     }
@@ -54,6 +54,14 @@ class LocalDataProviderImpl constructor(
 
     override fun getTakingScreenshotsStatus(): Boolean {
         return preferences.getBoolean(TAKING_SCREENSHOTS_ALLOWED, false)
+    }
+
+    override fun allowBiometrics(allow: Boolean) {
+        preferences.edit().putBoolean(BIOMETRICS_ALLOWED, allow).apply()
+    }
+
+    override fun getBiometricsAllowingStatus(): Boolean {
+        return preferences.getBoolean(BIOMETRICS_ALLOWED, false)
     }
 
     override fun finishIntro() {
