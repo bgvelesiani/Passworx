@@ -56,7 +56,7 @@ class MasterPasswordFragment :
                 requireActivity().finish()
                 startActivity(Intent(requireActivity(), MainActivity::class.java))
             }
-            binding.btFingerprintAuth.isVisible = it.biometricsAreAllowed != true
+            binding.btFingerprintAuth.isVisible = it.biometricsAreAllowed
         }
     }
 }

@@ -31,7 +31,7 @@ class SettingsFragment :
                 viewModel.allowTakingScreenshots(!allow)
             }
             svUnlockWithBiometrics.setOnCheckedChangeListener { _, allow ->
-                viewModel.allowBiometrics(!allow)
+                viewModel.allowBiometrics(allow)
             }
         }
     }
@@ -55,7 +55,7 @@ class SettingsFragment :
                 }
             }
             biometricsAreAllowed.observe(viewLifecycleOwner) { allowed ->
-                binding.svUnlockWithBiometrics.isChecked = !allowed
+                binding.svUnlockWithBiometrics.isChecked = allowed
             }
         }
     }
