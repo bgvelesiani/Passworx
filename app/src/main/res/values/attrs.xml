@@ -6,11 +6,6 @@
         <attr name="setSubTitle" format="string" />
     </declare-styleable>
 
-    <declare-styleable name="SettingsView">
-        <attr name="setImage" format="reference" />
-        <attr name="setSettingTitle" format="string" />
-    </declare-styleable>
-
     <declare-styleable name="AppTheme">
         <attr name="accent_color" format="color" />
         <attr name="gen_pass_bg_color" format="color" />

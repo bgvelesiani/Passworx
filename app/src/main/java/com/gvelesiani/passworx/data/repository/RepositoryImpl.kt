@@ -42,12 +42,20 @@ class RepositoryImpl(
         return localDataProvider.getMasterPassword()
     }
 
-    override fun allowTakingScreenshots(allow: Boolean) {
-        localDataProvider.allowTakingScreenshots(allow)
+    override fun preventTakingScreenshots(prevent: Boolean) {
+        localDataProvider.preventTakingScreenshots(prevent)
     }
 
     override fun getTakingScreenshotsStatus(): Boolean {
         return localDataProvider.getTakingScreenshotsStatus()
+    }
+
+    override fun allowBiometrics(allow: Boolean) {
+        localDataProvider.allowBiometrics(allow)
+    }
+
+    override fun getBiometricsAllowingStatus(): Boolean {
+        return localDataProvider.getBiometricsAllowingStatus()
     }
 
     override fun finishIntro() {
