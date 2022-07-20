@@ -49,7 +49,7 @@ class CreateMasterPasswordFragment :
                 }
 
                 if (it.validationErrors != null) {
-                    onValidationErorr(it.validationErrors)
+                    onValidationError(it.validationErrors)
                 }
 
                 btCreateMasterPassword.isEnabled = it.isValid
@@ -70,7 +70,7 @@ class CreateMasterPasswordFragment :
         }
     }
 
-    private fun onValidationErorr(errors: List<MasterPasswordValidatorHelperImpl.MasterPasswordError>) {
+    private fun onValidationError(errors: List<MasterPasswordValidatorHelperImpl.MasterPasswordError>) {
         with(binding) {
             chipLength.text = errors[0].error
             chipLength.isChecked = errors[0].isValid

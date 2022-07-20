@@ -32,17 +32,17 @@ class MainActivity : BaseActivity<MainVM, ActivityMainBinding>(MainVM::class) {
     }
 
     private fun setupObservers() {
-        viewModel.takingScreenshotsAreAllowed.observe(this) { allowed ->
-            if (allowed == true) {
-                window.clearFlags(
-                    WindowManager.LayoutParams.FLAG_SECURE
-                )
-            } else {
+        viewModel.takingScreenshotsArePrevented.observe(this) { prevented ->
+            if (prevented == true) {
                 /**
                  * With FLAG_SECURE, Users will be prevented from taking screenshots of the application,
                  * */
                 window.setFlags(
                     WindowManager.LayoutParams.FLAG_SECURE,
+                    WindowManager.LayoutParams.FLAG_SECURE
+                )
+            } else {
+                window.clearFlags(
                     WindowManager.LayoutParams.FLAG_SECURE
                 )
             }

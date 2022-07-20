@@ -4,6 +4,7 @@ import com.gvelesiani.passworx.ui.MainVM
 import com.gvelesiani.passworx.ui.addPassword.AddPasswordVM
 import com.gvelesiani.passworx.ui.favorites.PasswordFavoritesVM
 import com.gvelesiani.passworx.ui.intro.IntroVM
+import com.gvelesiani.passworx.ui.intro.thirdStep.ThirdStepVM
 import com.gvelesiani.passworx.ui.masterPassword.MasterPasswordAVM
 import com.gvelesiani.passworx.ui.masterPassword.fragments.MasterPasswordVM
 import com.gvelesiani.passworx.ui.masterPassword.fragments.changeMasterPassword.ChangeMasterPasswordVM
@@ -20,9 +21,15 @@ val viewModelsModule = module {
     viewModel {
         AddPasswordVM(get(), get(), get())
     }
+
     viewModel {
-        SettingsVM(get(), get())
+        SettingsVM(get(), get(), get(), get())
     }
+
+    viewModel {
+        ThirdStepVM(get(), get())
+    }
+
     viewModel {
         PasswordsVM(get(), get(), get(), get(), get())
     }
@@ -48,7 +55,7 @@ val viewModelsModule = module {
     }
 
     viewModel {
-        MasterPasswordVM(get(), get(), get())
+        MasterPasswordVM(get(), get(), get(), get())
     }
 
     viewModel {

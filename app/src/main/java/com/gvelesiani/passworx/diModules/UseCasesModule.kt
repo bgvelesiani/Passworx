@@ -53,7 +53,15 @@ val useCasesModule = module {
     }
 
     factory {
-        AllowTakingScreenshotsUseCase(get())
+        PreventTakingScreenshotsUseCase(get())
+    }
+
+    factory {
+        GetBiometricsAllowingStatusUserCase(get())
+    }
+
+    factory {
+        AllowBiometricsUseCase(get())
     }
 
     factory {
