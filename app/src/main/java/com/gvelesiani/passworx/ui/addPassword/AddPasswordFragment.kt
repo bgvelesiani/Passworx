@@ -19,6 +19,9 @@ class AddPasswordFragment :
         FragmentAddPasswordBinding::inflate
 
     override fun setupView(savedInstanceState: Bundle?) {
+        binding.toolbar.setupToolbar {
+            findNavController().navigateUp()
+        }
         watchFields()
         setOnClickListeners()
         setupObservers()
@@ -27,9 +30,6 @@ class AddPasswordFragment :
     private fun setOnClickListeners() {
         binding.btAddNewPassword.setOnClickListener {
             addNewPassword()
-        }
-        binding.backClickArea.setOnClickListener {
-            findNavController().navigateUp()
         }
     }
 

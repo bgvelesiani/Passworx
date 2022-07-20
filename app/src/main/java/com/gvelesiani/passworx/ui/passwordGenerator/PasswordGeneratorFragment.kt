@@ -20,6 +20,9 @@ class PasswordGeneratorFragment :
         get() = FragmentPasswordGeneratorBinding::inflate
 
     override fun setupView(savedInstanceState: Bundle?) {
+        binding.toolbar.setupToolbar {
+            findNavController().navigateUp()
+        }
         setUpListeners()
     }
 
@@ -55,9 +58,6 @@ class PasswordGeneratorFragment :
             }
             smUseSymbols.setOnCheckedChangeListener { _, isChecked ->
                 viewModel.useSymbols(isChecked, sbPasswordGenerator.value.toInt())
-            }
-            binding.backClickArea.setOnClickListener {
-                findNavController().navigateUp()
             }
         }
     }

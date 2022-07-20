@@ -33,6 +33,9 @@ class PasswordsFragment :
         get() = FragmentPasswordsBinding::inflate
 
     override fun setupView(savedInstanceState: Bundle?) {
+        binding.toolbar.setupToolbar {
+            findNavController().navigateUp()
+        }
         activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         binding.btAddPassword.visibility = View.VISIBLE
         viewModel.getPasswords()
@@ -44,9 +47,6 @@ class PasswordsFragment :
     private fun setOnClickListeners() {
         binding.btAddPassword.setOnClickListener {
             findNavController().navigate(R.id.action_navigation_passwords_to_addNewPasswordFragment)
-        }
-        binding.backClickArea.setOnClickListener {
-            findNavController().navigateUp()
         }
     }
 
