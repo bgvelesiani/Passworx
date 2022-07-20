@@ -3,18 +3,18 @@ package com.gvelesiani.passworx.ui.intro.thirdStep
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gvelesiani.passworx.domain.useCases.AllowBiometricsUseCase
-import com.gvelesiani.passworx.domain.useCases.AllowTakingScreenshotsUseCase
+import com.gvelesiani.passworx.domain.useCases.PreventTakingScreenshotsUseCase
 import kotlinx.coroutines.launch
 
 class ThirdStepVM(
-    private val allowTakingScreenshotsUseCase: AllowTakingScreenshotsUseCase,
+    private val preventTakingScreenshotsUseCase: PreventTakingScreenshotsUseCase,
     private val allowBiometricsUseCase: AllowBiometricsUseCase
 ) : ViewModel() {
 
-    fun allowTakingScreenshots(allow: Boolean) {
+    fun allowTakingScreenshots(prevent: Boolean) {
         viewModelScope.launch {
             try {
-                allowTakingScreenshotsUseCase(allow)
+                preventTakingScreenshotsUseCase(prevent)
             } catch (e: Exception) {
             }
         }

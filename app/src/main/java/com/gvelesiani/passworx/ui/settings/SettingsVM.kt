@@ -4,20 +4,20 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gvelesiani.passworx.domain.useCases.AllowBiometricsUseCase
-import com.gvelesiani.passworx.domain.useCases.AllowTakingScreenshotsUseCase
+import com.gvelesiani.passworx.domain.useCases.PreventTakingScreenshotsUseCase
 import com.gvelesiani.passworx.domain.useCases.GetBiometricsAllowingStatusUserCase
 import com.gvelesiani.passworx.domain.useCases.GetTakingScreenshotsStatusUseCase
 import kotlinx.coroutines.launch
 
 class SettingsVM(
-    private val allowTakingScreenshotsUseCase: AllowTakingScreenshotsUseCase,
+    private val preventTakingScreenshotsUseCase: PreventTakingScreenshotsUseCase,
     private val getTakingScreenshotsStatusUseCase: GetTakingScreenshotsStatusUseCase,
     private val allowBiometricsUseCase: AllowBiometricsUseCase,
     private val getBiometricsAllowingStatusUserCase: GetBiometricsAllowingStatusUserCase
 ) :
     ViewModel() {
 
-    val takingScreenshotsAreAllowed: MutableLiveData<Boolean> = MutableLiveData()
+    val takingScreenshotsArePrevented: MutableLiveData<Boolean> = MutableLiveData()
     val biometricsAreAllowed: MutableLiveData<Boolean> = MutableLiveData()
 
     init {
@@ -29,16 +29,16 @@ class SettingsVM(
         viewModelScope.launch {
             try {
                 val result = getTakingScreenshotsStatusUseCase(Unit)
-                takingScreenshotsAreAllowed.postValue(result)
+                takingScreenshotsArePrevented.postValue(result)
             } catch (ignored: Exception) {
             }
         }
     }
 
-    fun allowTakingScreenshots(allow: Boolean) {
+    fun allowTakingScreenshots(prevent: Boolean) {
         viewModelScope.launch {
             try {
-                allowTakingScreenshotsUseCase(allow)
+                preventTakingScreenshotsUseCase(prevent)
                 getTakingScreenshotsStatus()
             } catch (e: Exception) {
             }

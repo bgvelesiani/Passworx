@@ -27,8 +27,8 @@ class SettingsFragment :
             svChangeMasterPassword.setOnClickListener {
                 findNavController().navigate(R.id.action_navigation_settings_to_changeMasterPasswordFragment)
             }
-            svTakeScreenshots.setOnCheckedChangeListener { _, allow ->
-                viewModel.allowTakingScreenshots(!allow)
+            svTakeScreenshots.setOnCheckedChangeListener { _, prevent ->
+                viewModel.allowTakingScreenshots(prevent)
             }
             svUnlockWithBiometrics.setOnCheckedChangeListener { _, allow ->
                 viewModel.allowBiometrics(allow)
@@ -38,18 +38,18 @@ class SettingsFragment :
 
     override fun setupObservers() {
         with(viewModel) {
-            takingScreenshotsAreAllowed.observe(viewLifecycleOwner) { allowed ->
-                binding.svTakeScreenshots.isChecked = !allowed
-                if (allowed == true) {
-                    requireActivity().window.clearFlags(
-                        WindowManager.LayoutParams.FLAG_SECURE
-                    )
-                } else {
+            takingScreenshotsArePrevented.observe(viewLifecycleOwner) { prevented ->
+                binding.svTakeScreenshots.isChecked = prevented
+                if (prevented == true) {
                     /**
                      * With FLAG_SECURE, Users will be prevented from taking screenshots of the application,
                      * */
                     requireActivity().window.setFlags(
                         WindowManager.LayoutParams.FLAG_SECURE,
+                        WindowManager.LayoutParams.FLAG_SECURE
+                    )
+                } else {
+                    requireActivity().window.clearFlags(
                         WindowManager.LayoutParams.FLAG_SECURE
                     )
                 }

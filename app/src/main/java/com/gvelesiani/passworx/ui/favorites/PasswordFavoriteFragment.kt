@@ -34,6 +34,7 @@ class PasswordFavoriteFragment :
     private lateinit var adapter: PasswordAdapter
 
     override fun setupView(savedInstanceState: Bundle?) {
+        binding.tvScreenTitle.text = "Favorite Passwords"
         binding.btAddPassword.visibility = View.GONE
         setupSearch()
         setupRecyclerViewAdapter()

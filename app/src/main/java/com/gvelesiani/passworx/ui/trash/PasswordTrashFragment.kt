@@ -32,6 +32,7 @@ class PasswordTrashFragment :
     private lateinit var adapter: PasswordAdapter
 
     override fun setupView(savedInstanceState: Bundle?) {
+        binding.tvScreenTitle.text = "Trashed Passwords"
         binding.btAddPassword.visibility = View.GONE
         setupSearch()
         setupRecyclerViewAdapter()

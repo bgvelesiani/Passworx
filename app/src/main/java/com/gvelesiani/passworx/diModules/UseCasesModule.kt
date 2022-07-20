@@ -53,7 +53,7 @@ val useCasesModule = module {
     }
 
     factory {
-        AllowTakingScreenshotsUseCase(get())
+        PreventTakingScreenshotsUseCase(get())
     }
 
     factory {

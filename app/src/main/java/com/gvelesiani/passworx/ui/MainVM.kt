@@ -8,7 +8,7 @@ import kotlinx.coroutines.launch
 
 class MainVM(private val getTakingScreenshotsStatusUseCase: GetTakingScreenshotsStatusUseCase) :
     ViewModel() {
-    val takingScreenshotsAreAllowed: MutableLiveData<Boolean> = MutableLiveData()
+    val takingScreenshotsArePrevented: MutableLiveData<Boolean> = MutableLiveData()
 
     init {
         getTakingScreenshotsStatus()
@@ -18,7 +18,7 @@ class MainVM(private val getTakingScreenshotsStatusUseCase: GetTakingScreenshots
         viewModelScope.launch {
             try {
                 val result = getTakingScreenshotsStatusUseCase.invoke(Unit)
-                takingScreenshotsAreAllowed.postValue(result)
+                takingScreenshotsArePrevented.postValue(result)
             } catch (ignored: Exception) {
             }
         }

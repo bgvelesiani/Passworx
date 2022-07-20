@@ -11,13 +11,14 @@ class ThirdStepFragment : BaseFragment<ThirdStepVM, FragmentThirdStepBinding>(Th
         get() = FragmentThirdStepBinding::inflate
 
     override fun setupView(savedInstanceState: Bundle?) {
+        binding.svUnlockWithBiometrics.isChecked = false
         setOnClickListeners()
     }
 
     private fun setOnClickListeners() {
         with(binding) {
-            svTakeScreenshots.setOnCheckedChangeListener { _, allow ->
-                viewModel.allowTakingScreenshots(!allow)
+            svTakeScreenshots.setOnCheckedChangeListener { _, prevent ->
+                viewModel.allowTakingScreenshots(prevent)
             }
             svUnlockWithBiometrics.setOnCheckedChangeListener { _, allow ->
                 viewModel.allowBiometrics(allow)

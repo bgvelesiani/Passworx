@@ -42,8 +42,8 @@ class RepositoryImpl(
         return localDataProvider.getMasterPassword()
     }
 
-    override fun allowTakingScreenshots(allow: Boolean) {
-        localDataProvider.allowTakingScreenshots(allow)
+    override fun preventTakingScreenshots(prevent: Boolean) {
+        localDataProvider.preventTakingScreenshots(prevent)
     }
 
     override fun getTakingScreenshotsStatus(): Boolean {

@@ -12,7 +12,7 @@ interface Repository {
     fun searchPasswords(query: String, isInTrash: Boolean): List<PasswordDto>
     fun createOrChangeMasterPassword(masterPassword: String)
     fun getMasterPassword(): String
-    fun allowTakingScreenshots(allow: Boolean)
+    fun preventTakingScreenshots(prevent: Boolean)
     fun getTakingScreenshotsStatus(): Boolean
     fun allowBiometrics(allow: Boolean)
     fun getBiometricsAllowingStatus(): Boolean
