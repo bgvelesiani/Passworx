@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-class PasswordModel(
+data class PasswordModel(
     val passwordId: Int = 0,
     val password: String = "",
     val passwordTitle: String = "",

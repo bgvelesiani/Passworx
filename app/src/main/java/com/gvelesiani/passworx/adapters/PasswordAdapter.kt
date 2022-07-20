@@ -1,13 +1,12 @@
 package com.gvelesiani.passworx.adapters
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import androidx.core.view.isVisible
-import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.gvelesiani.passworx.databinding.PasswordItemBinding
 import com.gvelesiani.passworx.domain.model.PasswordModel
@@ -19,20 +18,10 @@ class PasswordAdapter(
     private val copyClickListener: (PasswordModel) -> Unit,
     private val favoriteClickListener: (PasswordModel, Int) -> Unit
 ) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>(), Filterable {
-    private var passwordList: List<PasswordModel> = arrayListOf()
-    var filteredList = ArrayList<PasswordModel>()
+    ListAdapter<PasswordModel, RecyclerView.ViewHolder>(PassworxDiffUtil()), Filterable {
 
     var binding: PasswordItemBinding? = null
-
-    @SuppressLint("NotifyDataSetChanged")
-    fun submitData(data: List<PasswordModel>) {
-        val diffUtil = PassworxDiffUtil(passwordList, data)
-        val result = DiffUtil.calculateDiff(diffUtil)
-        passwordList = data
-        filteredList = data as ArrayList<PasswordModel>
-        result.dispatchUpdatesTo(this)
-    }
+    private var originalList: List<PasswordModel> = currentList.toList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -41,7 +30,7 @@ class PasswordAdapter(
     }
 
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
-        val item = filteredList[position]
+        val item = getItem(position)
         (viewHolder as PasswordViewHolder).bind(
             item,
             clickListener,
@@ -75,23 +64,14 @@ class PasswordAdapter(
                         .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
                 }
 
-                tvPasswordItemName.text = password.passwordTitle
-                    .lowercase()
+                tvPasswordItemName.text = password.passwordTitle.lowercase()
                     .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
                 root.setOnClickListener { clickListener(password) }
                 copyClickView.setOnClickListener { copyClickListener(password) }
-                menuClickView.setOnClickListener {
-                    menuClickListener(
-                        password,
-                        it
-                    )
-                }
+                menuClickView.setOnClickListener { menuClickListener(password, it) }
                 binding.favoriteClickView.setOnClickListener {
-                    favoriteClickListener(
-                        password, position
-                    )
+                    favoriteClickListener(password, position)
                 }
-
                 if (password.isFavorite) {
                     btAddToFavorites.isVisible = false
                     btRemoveFromFavorites.isVisible = true
@@ -104,40 +84,39 @@ class PasswordAdapter(
                 btAddToFavorites.isVisible = !password.isInTrash
                 copyClickView.isVisible = !password.isInTrash
                 favoriteClickView.isVisible = !password.isInTrash
-
             }
         }
     }
 
-    override fun getItemCount() = filteredList.size
-
     override fun getFilter(): Filter {
         return object : Filter() {
             override fun performFiltering(constraint: CharSequence?): FilterResults {
-                val query = constraint.toString()
-                filteredList = if (query.isEmpty()) {
-                    passwordList as ArrayList<PasswordModel>
-                } else {
-                    val resultList = ArrayList<PasswordModel>()
-                    for (password in passwordList) {
-                        if (password.passwordTitle.lowercase()
-                                .contains(constraint.toString().lowercase())
-                        ) {
-                            resultList.add(password)
-                        }
-                    }
-                    resultList
+                return FilterResults().apply {
+                    values = if (constraint.isNullOrEmpty())
+                        originalList
+                    else
+                        onFilter(originalList, constraint.toString())
                 }
-                val filterResults = FilterResults()
-                filterResults.values = filteredList
-                return filterResults
             }
 
-            @SuppressLint("NotifyDataSetChanged")
+            @Suppress("UNCHECKED_CAST")
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-                filteredList = results?.values as ArrayList<PasswordModel>
-                notifyDataSetChanged()
+                submitList(results?.values as? List<PasswordModel>, true)
             }
         }
+    }
+
+    override fun submitList(list: List<PasswordModel>?) {
+        submitList(list, false)
+    }
+
+    private fun onFilter(list: List<PasswordModel>, constraint: String): List<PasswordModel> {
+        return list.filter { it.passwordTitle.lowercase().contains(constraint.lowercase()) }
+            .sortedByDescending { it.passwordTitle.lowercase() }
+    }
+
+    private fun submitList(list: List<PasswordModel>?, filtered: Boolean) {
+        if (!filtered) originalList = list ?: listOf()
+        super.submitList(list)
     }
 }

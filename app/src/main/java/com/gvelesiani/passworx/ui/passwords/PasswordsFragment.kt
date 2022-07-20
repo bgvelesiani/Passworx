@@ -1,6 +1,5 @@
 package com.gvelesiani.passworx.ui.passwords
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.*
 import android.view.View.OnFocusChangeListener
@@ -68,7 +67,7 @@ class PasswordsFragment :
                     binding.groupNoData.isVisible = true
                     binding.rvPasswords.isVisible = false
                 } else {
-                    adapter.submitData(viewState.passwords)
+                    adapter.submitList(viewState.passwords)
                     binding.groupNoData.isVisible = false
                     binding.rvPasswords.isVisible = true
                 }
@@ -86,7 +85,6 @@ class PasswordsFragment :
         }
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     private fun showMenu(v: View, @MenuRes menuRes: Int, password: PasswordModel) {
         val popup = PopupMenu(requireContext(), v)
         popup.menuInflater.inflate(menuRes, popup.menu)
