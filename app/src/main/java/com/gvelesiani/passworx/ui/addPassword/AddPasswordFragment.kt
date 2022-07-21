@@ -24,7 +24,6 @@ class AddPasswordFragment :
         }
         watchFields()
         setOnClickListeners()
-        setupObservers()
     }
 
     private fun setOnClickListeners() {
