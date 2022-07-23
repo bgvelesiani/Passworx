@@ -19,14 +19,14 @@ class ChangeMasterPasswordFragment :
         FragmentChangeMasterPasswordBinding::inflate
 
     override fun setupView(savedInstanceState: Bundle?) {
+        binding.toolbar.setupToolbar {
+            findNavController().navigateUp()
+        }
         watchField()
         setOnClickListeners()
     }
 
     private fun setOnClickListeners() {
-        binding.backClickArea.setOnClickListener {
-            findNavController().navigateUp()
-        }
         binding.btChangeMasterPassword.setOnClickListener {
             viewModel.validate(
                 binding.etCurrentMasterPassword.editText?.text.toString(),

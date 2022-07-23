@@ -16,14 +16,14 @@ class SettingsFragment :
         get() = FragmentSettingsBinding::inflate
 
     override fun setupView(savedInstanceState: Bundle?) {
+        binding.toolbar.setupToolbar {
+            findNavController().navigateUp()
+        }
         setOnClickListeners()
     }
 
     private fun setOnClickListeners() {
         with(binding) {
-            backClickArea.setOnClickListener {
-                findNavController().navigateUp()
-            }
             svChangeMasterPassword.setOnClickListener {
                 findNavController().navigate(R.id.action_navigation_settings_to_changeMasterPasswordFragment)
             }

@@ -6,52 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".ui.browse.BrowseFragment">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarBrowse"
+    <com.gvelesiani.passworx.customViews.ToolbarView
+        android:id="@+id/toolbar"
+        app:elevation="@dimen/dimen_0dp"
+        app:setToolbarTitle="@string/title_browse"
+        app:setToolbarImage="@drawable/ic_arrow_back"
+        app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/bg_color"
-        android:stateListAnimator="@null"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize">
-
-            <FrameLayout
-                android:id="@+id/backClickArea"
-                android:layout_width="@dimen/dimen_48dp"
-                android:layout_height="@dimen/dimen_48dp"
-                android:layout_gravity="start|center_vertical"
-                android:layout_marginStart="@dimen/dimen_4dp"
-                android:layout_marginEnd="@dimen/dimen_20dp"
-                android:background="?attr/actionBarItemBackground"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="center">
-
-                <ImageView
-                    android:id="@+id/image_overview_close"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:importantForAccessibility="no"
-                    android:src="@drawable/ic_arrow_back" />
-
-            </FrameLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:fontFamily="@font/medium"
-                android:text="@string/title_browse"
-                android:textAlignment="center"
-                android:textColor="?attr/text_color"
-                android:textSize="@dimen/dimen_21sp" />
-
-        </FrameLayout>
-    </com.google.android.material.appbar.AppBarLayout>
+        android:layout_height="wrap_content"/>
 
     <com.gvelesiani.passworx.customViews.OverviewItemView
         android:id="@+id/browseFavoritePasswords"
@@ -59,7 +21,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarBrowse"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:setImageDrawable="@drawable/ic_not_favorite"
         app:setSubTitle="Manage your favorite passwords"
         app:setTitle="Favorites" />

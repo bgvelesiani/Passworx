@@ -6,6 +6,11 @@
         <attr name="setSubTitle" format="string" />
     </declare-styleable>
 
+    <declare-styleable name="ToolbarView">
+        <attr name="setToolbarImage" format="reference" />
+        <attr name="setToolbarTitle" format="string" />
+    </declare-styleable>
+
     <declare-styleable name="AppTheme">
         <attr name="accent_color" format="color" />
         <attr name="gen_pass_bg_color" format="color" />

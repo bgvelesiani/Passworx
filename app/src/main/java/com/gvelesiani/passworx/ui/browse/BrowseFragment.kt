@@ -14,15 +14,15 @@ class BrowseFragment :
         get() = FragmentBrowseBinding::inflate
 
     override fun setupView(savedInstanceState: Bundle?) {
+        binding.toolbar.setupToolbar {
+            findNavController().navigateUp()
+        }
         setUpOnClickListeners()
     }
 
     private fun setUpOnClickListeners() {
         binding.browseTrashedPasswords.setOnClickListener {
             findNavController().navigate(R.id.action_navigation_browse_to_passwordTrashFragment)
-        }
-        binding.backClickArea.setOnClickListener {
-            findNavController().navigateUp()
         }
         binding.browseFavoritePasswords.setOnClickListener {
             findNavController().navigate(R.id.action_navigation_browse_to_passwordFavouritesFragment)
