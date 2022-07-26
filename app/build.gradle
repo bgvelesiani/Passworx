@@ -6,16 +6,14 @@ plugins {
 }
 
 android {
-    compileSdk 32
+    compileSdk compile_sdk_version
 
     defaultConfig {
         applicationId "com.gvelesiani.passworx"
-        minSdk 25
-        targetSdk 32
-        versionCode 1
-        versionName "1.0"
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        minSdk min_sdk_version
+        targetSdk target_sdk_version
+        versionCode version_code
+        versionName version_name
     }
 
     buildTypes {
@@ -29,7 +27,7 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = JavaVersion.VERSION_1_8
     }
     buildFeatures {
         viewBinding true
@@ -52,13 +50,12 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
 
-    implementation 'androidx.room:room-runtime:2.4.2'
-    implementation "androidx.room:room-ktx:2.4.2"
-    testImplementation 'junit:junit:4.13.2'
-    kapt "androidx.room:room-compiler:2.4.2"
+    implementation "androidx.room:room-runtime:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
 
-    implementation "androidx.preference:preference-ktx:1.2.0"
+    implementation "androidx.preference:preference-ktx:$preferences_version"
 
-    implementation group: 'at.favre.lib', name: 'bcrypt', version: '0.9.0'
-    implementation "androidx.biometric:biometric-ktx:1.2.0-alpha04"
+    implementation group: 'at.favre.lib', name: 'bcrypt', version: "$bcrypt_version"
+    implementation "androidx.biometric:biometric-ktx:$biometric_version"
 }

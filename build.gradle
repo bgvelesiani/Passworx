@@ -5,17 +5,23 @@ buildscript {
         appcompat_version = '1.4.2'
         material_version = '1.6.1'
         constraintlayout_version = '2.1.4'
-        lifecycle_viewModel_version = '2.4.1'
-        kotlin_gradle_plugin_version = '1.5.20'
+        lifecycle_viewModel_version = '2.5.0'
+        kotlin_gradle_plugin_version = '1.6.10'
         safe_args_version = '2.3.5'
         google_services_version = '4.3.10'
         gradle_version = '7.0.4'
-        navigation_version = '2.4.2'
-        makeramen_rounded_image_view_version = '2.3.0'
-        smooth_bottom_bar_version = '1.7.9'
+        navigation_version = '2.5.0'
         koin_version = '3.1.2'
-        coroutines_version = '1.6.0'
-        room_version = '2.4.1'
+        coroutines_version = '1.6.1'
+        room_version = '2.4.2'
+        bcrypt_version = '0.9.0'
+        biometric_version = '1.2.0-alpha04'
+        preferences_version = '1.2.0'
+        min_sdk_version = 25
+        target_sdk_version = 32
+        compile_sdk_version = 32
+        version_code = 1
+        version_name = "1.0"
     }
     repositories {
         google()
