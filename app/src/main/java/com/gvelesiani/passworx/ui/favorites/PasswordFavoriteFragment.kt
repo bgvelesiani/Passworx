@@ -64,7 +64,7 @@ class PasswordFavoriteFragment :
             }
         }
         binding.search.onTextChanged {
-            adapter.filter.filter(it)
+            viewModel.searchPasswords(it)
         }
     }
 

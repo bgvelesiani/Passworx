@@ -33,6 +33,7 @@ class PasswordsFragment :
         get() = FragmentPasswordsBinding::inflate
 
     override fun setupView(savedInstanceState: Bundle?) {
+        hideKeyboard()
         binding.toolbar.setupToolbar {
             findNavController().navigateUp()
         }
@@ -173,7 +174,7 @@ class PasswordsFragment :
             }
         }
         binding.search.onTextChanged {
-            adapter.filter.filter(it)
+            viewModel.searchPasswords(it)
         }
     }
 }
