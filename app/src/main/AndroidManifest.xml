@@ -33,14 +33,13 @@
         </activity>
 
         <service android:name=".autofill.PassworxAutofillService"
-            android:label="Autofill Service"
             android:permission="android.permission.BIND_AUTOFILL_SERVICE"
             android:exported="true">
-            <meta-data android:name="android.autofill"
-                android:resource="@xml/autofill_config"/>
             <intent-filter>
                 <action android:name="android.service.autofill.AutofillService"/>
             </intent-filter>
+            <meta-data android:name="android.autofill"
+                android:resource="@xml/autofill_config"/>
         </service>
     </application>
 
