@@ -4,7 +4,6 @@ import android.app.assist.AssistStructure
 import android.os.Build
 import android.os.CancellationSignal
 import android.service.autofill.*
-import android.view.autofill.AutofillId
 import android.view.autofill.AutofillValue
 import android.widget.RemoteViews
 import androidx.annotation.RequiresApi
@@ -19,218 +18,128 @@ import org.koin.android.ext.android.inject
 
 @RequiresApi(Build.VERSION_CODES.O)
 class PassworxAutofillService : AutofillService() {
-    private val coroutineScope = CoroutineScope(Dispatchers.IO)
+    private val coroutineScope = CoroutineScope(Dispatchers.Default)
     private val getPasswordsUseCase: GetPasswordsUseCase by inject()
     private val encryptionHelper: PasswordEncryptionHelper by inject()
-    private val emailFields: MutableList<AssistStructure.ViewNode?> = ArrayList()
-    private val passwordFields: MutableList<AssistStructure.ViewNode?> = ArrayList()
-    private var currentEmail = ""
-    private var currentPassword = ""
+    var node: AssistStructure.ViewNode? = null
 
-    override fun onFillRequest(p0: FillRequest, p1: CancellationSignal, p2: FillCallback) {
+    override fun onFillRequest(
+        request: FillRequest,
+        cancellationSignal: CancellationSignal,
+        callback: FillCallback
+    ) {
         coroutineScope.launch {
-            val context: List<FillContext> = p0.fillContexts
+            // Get the structure from the request
+            val context: List<FillContext> = request.fillContexts
             val structure: AssistStructure = context[context.size - 1].structure
+            val emailFields = mutableListOf<AssistStructure.ViewNode>()
+            val passwordFields = mutableListOf<AssistStructure.ViewNode>()
+            identifyEmailFields(structure.getWindowNodeAt(0).rootViewNode, emailFields)
+            identifyPasswordFields(structure.getWindowNodeAt(0).rootViewNode, passwordFields)
 
-            //getting values from the database
-            val fillsList = getPasswordsUseCase(params = false)
-
-            //Choosing a default password initially if there is some entry in the database
-            if (fillsList.isNotEmpty()) {
-                currentEmail = fillsList[0].emailOrUserName
-                currentPassword = fillsList[0].password
-            }
-
-            //Looking for email and password fields
-            identifyEmailFields(
-                structure
-                    .getWindowNodeAt(0)
-                    .rootViewNode, emailFields, fillsList
-            )
-
-            identifyPasswordFields(
-                structure
-                    .getWindowNodeAt(0)
-                    .rootViewNode, passwordFields, fillsList
-            )
-
-            if (emailFields.size == 0 && passwordFields.size == 0)
+            // Do nothing if no email fields found
+            if (emailFields.size == 0)
                 return@launch
+            val emailField = emailFields[0]
+            val passwordField = passwordFields[0]
 
-            //Views for displaying custom suggestion
-//            val primaryEmailOrUsername = RemoteViews(packageName, R.layout.autofill_item)
-//            val primaryPassword = RemoteViews(packageName, R.layout.autofill_item)
-//
-//            primaryEmailOrUsername.setTextViewText(R.id.emailOrUserName, currentEmail)
-//            val emailField : AssistStructure.ViewNode? = if(emailFields.isEmpty()) null else emailFields[0]
-//
-//            primaryPassword.setTextViewText(R.id.passwordLabel, "Pass for $currentEmail")
-//            val passwordField : AssistStructure.ViewNode? = if(passwordFields.isEmpty()) null else passwordFields[0]
+            // Fetch user data that matches the fields.
+            val data = getPasswordsUseCase(false)
 
-            //Building dataset for email
-            var primaryEmailDataSet: Dataset? = null
+            node?.let {
+                val password = data.find { model ->
+                    it.idPackage?.lowercase()?.contains(model.websiteOrAppName.replace(".com", "").replace("www.", "").lowercase())
+                        ?: false
+                }
+                val s = data[0]
 
-//            emailField?.let {
-//                primaryEmailDataSet = Dataset.Builder(primaryEmailOrUsername)
-//                    .setValue(
-//                        it.autofillId!!,
-//                        AutofillValue.forText(currentEmail)
-//                    ).build()
-//            }
+                val usernamePresentation =
+                    RemoteViews(packageName, R.layout.autofill_item)
+                usernamePresentation.setTextViewText(R.id.passwordLabel, password?.emailOrUserName)
+                usernamePresentation.setTextViewText(R.id.emailOrUserName, password?.websiteOrAppName)
+//                val passwordPresentation =
+//                    RemoteViews(packageName, android.R.layout.simple_list_item_1)
+//                passwordPresentation.setTextViewText(android.R.id.text1, "Password for my_username")
 
-
-            //Building dataset for password
-            var primaryPasswordDataSet: Dataset? = null
-
-//            passwordField?.let {
-//                primaryPasswordDataSet = Dataset.Builder(primaryPassword)
-//                    .setValue(
-//                        it.autofillId!!,
-//                        AutofillValue.forText(encryptionHelper.decrypt(currentPassword))
-//                    ).build()
-//            }
-
-            val usernamePresentation = RemoteViews(packageName, R.layout.autofill_item)
-            usernamePresentation.setTextViewText(R.id.emailOrUserName, currentEmail)
-            usernamePresentation.setTextViewText(R.id.passwordLabel, "Password for $currentEmail")
-//            val passwordPresentation = RemoteViews(packageName, R.layout.autofill_item)
-//            passwordPresentation.setTextViewText(R.id.passwordLabel, "Password for ${currentEmail}")
-
-
-            // This trash code has to be changed
-            val emailField = if (emailFields.isNotEmpty()) emailFields[0]?.autofillId else null
-            val passwordField = if (passwordFields.isNotEmpty()) passwordFields[0]?.autofillId else null
-            var fillResponse: FillResponse? = null
-            if (emailField != null && passwordField != null) {
-                fillResponse = FillResponse.Builder()
+                // Add a dataset to the response
+                val fillResponse: FillResponse = FillResponse.Builder()
                     .addDataset(
                         Dataset.Builder()
                             .setValue(
-                                emailField,
-                                AutofillValue.forText(currentEmail),
+                                emailField.autofillId!!,
+                                AutofillValue.forText(password?.emailOrUserName),
                                 usernamePresentation
                             )
                             .setValue(
-                                passwordField,
-                                AutofillValue.forText(encryptionHelper.decrypt(currentPassword)),
+                                passwordField.autofillId!!,
+                                AutofillValue.forText(password?.password),
                                 usernamePresentation
                             )
                             .build()
                     )
                     .build()
+                // If there are no errors, call onSuccess() and pass the response
+                callback.onSuccess(fillResponse)
             }
-
-
-            //setting final response
-//            val response = FillResponse.Builder().apply {
-//                primaryEmailDataSet?.let {
-//                    this.addDataset(it)
-//                }
-//                primaryPasswordDataSet?.let {
-//                    this.addDataset(it)
-//                }
-//            }.build()
-
-            // If there are no errors, call onSuccess() and pass the response
-            p2.onSuccess(fillResponse)
         }
     }
 
-    override fun onSaveRequest(p0: SaveRequest, p1: SaveCallback) {
-        TODO("Not yet implemented")
+    override fun onSaveRequest(request: SaveRequest, callback: SaveCallback) {
     }
 
     private fun identifyEmailFields(
-        node: AssistStructure.ViewNode?,
-        emailFields: MutableList<AssistStructure.ViewNode?>?,
-        fillsList: List<PasswordModel>?
+        node: AssistStructure.ViewNode,
+        emailFields: MutableList<AssistStructure.ViewNode>
     ) {
-        //Checking if we have found the textfield or Edit Text field
-        node!!.className?.let {
-            if (it.contains("TextInput") || it.contains("textfield")
-                || it.contains("user") || it.contains("EditText") || it.contains("emailAddress")
-            ) {
-                //Checking if the page contains the domain name we are looking for
-                if (fillsList != null && node != null) {
-                    fillsList.forEach {
-                        val dName =
-                            it.websiteOrAppName.trim().removePrefix("www.").removeSuffix(".com")
-                        node!!.idPackage?.let { temp ->
-                            if (temp.contains(dName)) {
-                                currentEmail = it.emailOrUserName
-                            }
-                        }
-                    }
-                }
+        if (node.className?.contains("EditText") == true) {
+            this.node = null
+            this.node = node
+            // check view id
+            val viewId = node.idEntry
+            if (viewId != null && (viewId.contains("email") || viewId.contains("username") || viewId.contains("Email"))) {
+                emailFields.add(node)
+                return
+            }
 
-                val viewId = node.idEntry
-                if (viewId != null && (viewId.contains("mail")
-                            || viewId.contains("user") ||
-                            viewId.contains("Name"))
-                ) {
-                    emailFields?.add(node)
+            // check autofillHint
+            val hints = (node.autofillHints ?: arrayOf()).toList()
+            for (hint in hints) {
+                if (viewId?.contains("email") == true || viewId?.contains("username") == true || viewId?.contains("Email") == true) {
+                    emailFields.add(node)
                     return
-                } else {
-                    node!!.hint?.let { str ->
-                        if (str.contains("mail")
-                            || str.contains("user") ||
-                            str.contains("Name")
-                        ) {
-                            emailFields?.add(node)
-                            return
-                        }
-                    }
                 }
             }
-            //Checking all the nodes(items/views) that are displayed on the screen to look for email fields
-            for (i in 0 until node.childCount) {
-                identifyEmailFields(node.getChildAt(i), emailFields, fillsList)
-            }
+        }
+        for (i in 0 until node.childCount) {
+            identifyEmailFields(node.getChildAt(i), emailFields)
         }
     }
 
     private fun identifyPasswordFields(
-        node: AssistStructure.ViewNode?,
-        passwordFields: MutableList<AssistStructure.ViewNode?>?,
-        fillsList: List<PasswordModel>?
+        node: AssistStructure.ViewNode,
+        passwordFields: MutableList<AssistStructure.ViewNode>
     ) {
-        node!!.className?.let {
-            if (it.contains("TextInput") || it.contains("EditText")
-                || it.contains("textfield")
-            ) {
-                //Checking if the page contains the domain name we are looking for
-                if (fillsList != null && node != null) {
-                    fillsList.forEach {
-                        val dName =
-                            it.websiteOrAppName.trim().removePrefix("www.").removeSuffix(".com")
-                        node.idPackage?.let { temp ->
-                            if (temp.contains(dName)) {
-                                currentPassword = it.password
-                            }
-                        }
-                    }
-                }
+        if (node.className?.contains("EditText") == true) {
+            this.node = null
+            this.node = node
+            // check view id
+            val viewId = node.idEntry
+            if (viewId != null && (viewId.contains("pass") || viewId.contains("password") || viewId.contains("Password"))) {
+                passwordFields.add(node)
+                return
+            }
 
-
-                val viewId = node.idEntry
-                if (viewId != null && (viewId.contains("password"))
-                ) {
-                    passwordFields?.add(node)
+            // check autofillHint
+            val hints = (node.autofillHints ?: arrayOf()).toList()
+            for (hint in hints) {
+                if (viewId?.contains("pass") == true || viewId?.contains("password") == true || viewId?.contains("Password") == true) {
+                    passwordFields.add(node)
                     return
-                } else {
-                    node!!.hint?.let { str ->
-                        if (str.contains("password")
-                        ) {
-                            passwordFields?.add(node)
-                            return
-                        }
-                    }
                 }
             }
-            //Checking all the nodes(items/views) that are displayed on the screen to look for password fields
-            for (i in 0 until node.childCount) {
-                identifyPasswordFields(node.getChildAt(i), passwordFields, fillsList)
-            }
+        }
+        for (i in 0 until node.childCount) {
+            identifyPasswordFields(node.getChildAt(i), passwordFields)
         }
     }
 }
