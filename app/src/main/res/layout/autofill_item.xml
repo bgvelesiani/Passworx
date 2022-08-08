@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/bg_light"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
@@ -19,6 +20,7 @@
         android:orientation="vertical">
 
         <TextView
+            tools:text="Facebook"
             android:id="@+id/passwordLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -41,7 +43,7 @@
             android:layout_marginEnd="@dimen/dimen_5dp"
             android:layout_marginBottom="@dimen/dimen_5dp"
             android:fontFamily="@font/regular"
-            android:text="Bacho"
+            tools:text="test@test.com"
             android:textColor="@color/text_light"
             android:textSize="@dimen/dimen_14sp"
             app:layout_constraintBottom_toBottomOf="parent"
