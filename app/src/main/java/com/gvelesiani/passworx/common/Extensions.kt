@@ -44,3 +44,5 @@ fun Context.hideKeyboard(view: View) {
     val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
     inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
 }
+
+fun String.formatWebsite(): String = this.replace("www.", "").replace(".com", "").replace("m.", "").lowercase()

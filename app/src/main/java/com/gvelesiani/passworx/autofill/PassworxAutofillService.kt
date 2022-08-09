@@ -10,6 +10,7 @@ import android.view.autofill.AutofillValue
 import android.widget.RemoteViews
 import androidx.annotation.RequiresApi
 import com.gvelesiani.passworx.R
+import com.gvelesiani.passworx.common.formatWebsite
 import com.gvelesiani.passworx.domain.useCases.GetPasswordsUseCase
 import com.gvelesiani.passworx.helpers.encryptPassword.PasswordEncryptionHelper
 import kotlinx.coroutines.CoroutineScope
@@ -49,11 +50,7 @@ class PassworxAutofillService : AutofillService() {
             if (emailFields.isNotEmpty() && passwordFields.isNotEmpty()) {
                 var i = 0
                 for (password in passwords) {
-                    val websiteOrAppName = password.websiteOrAppName
-                        .lowercase()
-                        .replace("www.", "")
-                        .replace(".com", "")
-                        .replace("m.", "")
+                    val websiteOrAppName = password.websiteOrAppName.formatWebsite()
                     if (appName.contains(websiteOrAppName)) {
                         passwords[i].websiteOrAppName.split("\\s".toRegex()).forEach { partName ->
                             if ((password.emailOrUserName.contains("@")) or (partName.lowercase(
@@ -70,7 +67,10 @@ class PassworxAutofillService : AutofillService() {
                                     R.id.emailOrUserName,
                                     password.emailOrUserName
                                 )
-                                remoteView.setTextViewText(R.id.passwordLabel, password.label)
+                                remoteView.setTextViewText(R.id.passwordLabel,
+                                    password.websiteOrAppName.formatWebsite().replaceFirstChar {
+                                        if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString()
+                                    })
                                 autofillDatasets.add(
                                     Dataset.Builder(remoteView).setValue(
                                         emailFields.first()?.autofillId!!,
@@ -88,11 +88,7 @@ class PassworxAutofillService : AutofillService() {
             } else if (passwordFields.isEmpty()) {
                 var i = 0
                 for (password in passwords) {
-                    val websiteOrAppName = password.websiteOrAppName
-                        .lowercase()
-                        .replace("www.", "")
-                        .replace(".com", "")
-                        .replace("m.", "")
+                    val websiteOrAppName = password.websiteOrAppName.formatWebsite()
                     if (appName.contains(websiteOrAppName)) {
                         passwords[i].websiteOrAppName.split("\\s".toRegex()).forEach { partName ->
                             if ((password.emailOrUserName.contains("@")) or (partName.lowercase(
@@ -166,38 +162,38 @@ class PassworxAutofillService : AutofillService() {
     private fun checkHintsAndIdEntryForEmailFields(node: AssistStructure.ViewNode): Boolean {
         val hint = node.hint?.lowercase()
         val viewId = node.idEntry
-        return (hint != null && (hint.contains("email") ||
-                hint.contains("username") ||
-                hint.contains("name") ||
-                hint.contains("mail")) ||
-                (viewId != null && (viewId.contains("email") ||
-                        viewId.contains("username") ||
-                        viewId.contains("name") ||
-                        viewId.contains("mail")))
-                )
+
+        mailHints.forEach {
+            if(hint != null && hint.contains(it))
+                return true
+        }
+        mailHints.forEach {
+            if(viewId != null && viewId.contains(it))
+                return true
+        }
+        return false
     }
 
     private fun checkHintsAndIdEntryForPasswordFields(node: AssistStructure.ViewNode): Boolean {
         val hint = node.hint?.lowercase()
         val viewId = node.idEntry
-        return (hint != null && (hint.contains("password") ||
-                hint.contains("pass") ||
-                hint.contains("pin") ||
-                hint.contains("code") ||
-                hint.contains("secure")) ||
-                (viewId != null && (viewId.contains("password") ||
-                        viewId.contains("pass") ||
-                        viewId.contains("pin") ||
-                        viewId.contains("code") ||
-                        viewId.contains("secure")))
-                )
+
+        passHints.forEach {
+            if(hint != null && hint.contains(it))
+                return true
+        }
+        passHints.forEach {
+            if(viewId != null && viewId.contains(it))
+                return true
+        }
+        return false
     }
 
     private fun checkClassNameAndAutofillType(node: AssistStructure.ViewNode): Boolean {
-        return node.className != null && node.className!!.contains("EditText") || node.className!!.contains(
-            "TextInput"
-        ) || node.className!!.contains("textfield") || node.autofillType == AUTOFILL_TYPE_TEXT || node.className!!.contains(
-            "android.widget.AutoCompleteTextView"
+        return node.className != null && node.className!!.contains(EDIT_TEXT) || node.className!!.contains(
+            TEXT_INPUT
+        ) || node.className!!.contains(TEXT_FIELD) || node.autofillType == AUTOFILL_TYPE_TEXT || node.className!!.contains(
+            AUTO_COMPLETE_TEXT_VIEW
         )
     }
 
@@ -205,6 +201,11 @@ class PassworxAutofillService : AutofillService() {
     }
 
     companion object {
-
+        const val TEXT_INPUT = "TextInput"
+        const val EDIT_TEXT = "EditText"
+        const val TEXT_FIELD = "textfield"
+        const val AUTO_COMPLETE_TEXT_VIEW = "AutoCompleteTextView"
+        val passHints = listOf("password", "pin", "pass", "code", "secure")
+        val mailHints = listOf("email", "name", "username", "mail")
     }
 }
