@@ -11,6 +11,7 @@
 - Master password, to make passwords accessible only by the **User**
 - Adding passwords to **Favorites** 💗
 - **Fingerprint authentication**, to make users vault more secure 🔒
+- **Autofill Service**, which helps users fill data in various apps
 
 **Passworx** has a lot of upcoming features and functionalities, which involves:
 
