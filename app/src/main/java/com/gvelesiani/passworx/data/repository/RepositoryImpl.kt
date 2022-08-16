@@ -65,4 +65,8 @@ class RepositoryImpl(
     override fun isIntroFinished(): Boolean {
         return localDataProvider.isIntroFinished()
     }
+
+    override fun editPassword(pass: PasswordDto) {
+        localDataProvider.editPassword(pass)
+    }
 }

@@ -71,4 +71,8 @@ class LocalDataProviderImpl constructor(
     override fun isIntroFinished(): Boolean {
         return preferences.getBoolean(IS_INTRO_FINISHED, false)
     }
+
+    override fun editPassword(pass: PasswordDto) {
+        database.getPasswordDao.updatePassword(pass)
+    }
 }

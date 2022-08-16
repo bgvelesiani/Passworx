@@ -18,4 +18,5 @@ interface Repository {
     fun getBiometricsAllowingStatus(): Boolean
     fun finishIntro()
     fun isIntroFinished(): Boolean
+    fun editPassword(pass: PasswordDto)
 }

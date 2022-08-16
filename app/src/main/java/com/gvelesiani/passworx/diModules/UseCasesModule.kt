@@ -71,4 +71,7 @@ val useCasesModule = module {
     factory {
         CheckIfIntroIsFinishedUseCase(get())
     }
+    factory {
+        EditPasswordUseCase(get())
+    }
 }

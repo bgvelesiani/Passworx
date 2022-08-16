@@ -6,7 +6,6 @@ import android.view.*
 import android.view.View.OnFocusChangeListener
 import android.view.animation.AnimationUtils
 import android.widget.PopupMenu
-import android.widget.Toast
 import androidx.annotation.MenuRes
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
@@ -94,7 +93,13 @@ class PasswordsFragment :
 
         popup.setOnMenuItemClickListener { menuItem: MenuItem ->
             when (menuItem.itemId) {
-                R.id.menuEdit -> Toast.makeText(requireContext(), "Edit", Toast.LENGTH_SHORT).show()
+                R.id.menuEdit -> {
+                    findNavController().navigate(
+                        PasswordsFragmentDirections.actionNavigationPasswordsToEditFragment(
+                            password
+                        )
+                    )
+                }
                 R.id.menuDelete -> {
                     MaterialAlertDialogBuilder(
                         requireContext()

@@ -41,6 +41,9 @@
         <action
             android:id="@+id/action_navigation_passwords_self"
             app:destination="@id/navigation_passwords" />
+        <action
+            android:id="@+id/action_navigation_passwords_to_editFragment"
+            app:destination="@id/editFragment" />
     </fragment>
 
     <fragment
@@ -70,7 +73,11 @@
     <fragment
         android:id="@+id/passwordFavouritesFragment"
         android:name="com.gvelesiani.passworx.ui.favorites.PasswordFavoriteFragment"
-        android:label="@string/title_favourites" />
+        android:label="@string/title_favourites">
+        <action
+            android:id="@+id/action_passwordFavouritesFragment_to_editFragment"
+            app:destination="@id/editFragment" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_browse"
         android:name="com.gvelesiani.passworx.ui.browse.BrowseFragment"
@@ -154,6 +161,15 @@
             app:exitAnim="@anim/exit_start"
             app:popEnterAnim="@anim/enter_start"
             app:popExitAnim="@anim/exit_end" />
+    </fragment>
+    <fragment
+        android:id="@+id/editFragment"
+        android:name="com.gvelesiani.passworx.ui.editPassword.EditFragment"
+        android:label="EditFragment">
+        <argument
+            android:name="passwordToEdit"
+            app:argType="com.gvelesiani.passworx.domain.model.PasswordModel"
+            app:nullable="true" />
     </fragment>
     <!--    <fragment-->
     <!--        android:id="@+id/viewPagerContainer"-->
