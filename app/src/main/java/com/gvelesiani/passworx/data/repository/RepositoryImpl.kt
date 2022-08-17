@@ -65,4 +65,12 @@ class RepositoryImpl(
     override fun isIntroFinished(): Boolean {
         return localDataProvider.isIntroFinished()
     }
+
+    override fun checkPoint(): Int {
+        return localDataProvider.checkPoint()
+    }
+
+    override fun addPasswordList(list: List<PasswordDto>) {
+        localDataProvider.addPasswordList(list)
+    }
 }

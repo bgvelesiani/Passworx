@@ -1,13 +1,18 @@
 package com.gvelesiani.passworx.data.providers.local.dao
 
 import androidx.room.*
+import androidx.sqlite.db.SupportSQLiteQuery
 import com.gvelesiani.passworx.constants.TABLE_NAME
 import com.gvelesiani.passworx.data.dto.PasswordDto
+
 
 @Dao
 interface PasswordDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addNewPassword(pass: PasswordDto)
+
+    @Insert
+    fun addPasswordList(list: List<PasswordDto>)
 
     @Update
     fun updatePassword(pass: PasswordDto)
@@ -32,4 +37,7 @@ interface PasswordDao {
 
     @Query("SELECT * FROM $TABLE_NAME WHERE passwordTitle LIKE '%' || :query || '%' AND isInTrash=:isInTrash")
     fun searchPasswords(query: String, isInTrash: Boolean): List<PasswordDto>
+
+    @RawQuery
+    fun checkpoint(supportSQLiteQuery: SupportSQLiteQuery): Int
 }

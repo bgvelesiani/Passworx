@@ -19,7 +19,7 @@ class MasterPasswordActivity :
     override val bindingInflater: (LayoutInflater) -> ActivityMasterPasswordBinding =
         ActivityMasterPasswordBinding::inflate
 
-    override fun setupView(savedInstanceState: Bundle?) {
+    override fun setupView() {
         setupActionBar()
         setupObservers()
     }

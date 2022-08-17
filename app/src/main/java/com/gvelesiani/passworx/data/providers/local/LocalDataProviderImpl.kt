@@ -1,6 +1,7 @@
 package com.gvelesiani.passworx.data.providers.local
 
 import android.content.SharedPreferences
+import androidx.sqlite.db.SimpleSQLiteQuery
 import com.gvelesiani.passworx.constants.BIOMETRICS_ALLOWED
 import com.gvelesiani.passworx.constants.IS_INTRO_FINISHED
 import com.gvelesiani.passworx.constants.MASTER_PASSWORD
@@ -70,5 +71,13 @@ class LocalDataProviderImpl constructor(
 
     override fun isIntroFinished(): Boolean {
         return preferences.getBoolean(IS_INTRO_FINISHED, false)
+    }
+
+    override fun checkPoint(): Int {
+        return database.getPasswordDao.checkpoint((SimpleSQLiteQuery("pragma wal_checkpoint(full)")))
+    }
+
+    override fun addPasswordList(list: List<PasswordDto>) {
+        database.getPasswordDao.addPasswordList(list)
     }
 }

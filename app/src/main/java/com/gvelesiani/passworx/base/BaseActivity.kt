@@ -22,8 +22,8 @@ abstract class BaseActivity<VM : ViewModel, B : ViewBinding>(klass: KClass<VM>) 
         binding = bindingInflater.invoke(layoutInflater).apply {
             setContentView(root)
         }
-        setupView(savedInstanceState)
+        setupView()
     }
 
-    abstract fun setupView(savedInstanceState: Bundle?)
+    abstract fun setupView()
 }

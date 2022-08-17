@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.room.Room
+import androidx.room.RoomDatabase
 import com.gvelesiani.passworx.constants.DATABASE_NAME
 import com.gvelesiani.passworx.constants.PREFERENCES_KEY
 import com.gvelesiani.passworx.data.providers.local.LocalDataProvider
@@ -17,6 +18,7 @@ import org.koin.dsl.module
 val localStorageModule = module {
     fun provideDataBase(application: Application): PasswordDatabase {
         return Room.databaseBuilder(application, PasswordDatabase::class.java, DATABASE_NAME)
+            .setJournalMode(RoomDatabase.JournalMode.TRUNCATE)
             .fallbackToDestructiveMigration() // TODO: Remove this and add manual migrations later
             .build()
     }

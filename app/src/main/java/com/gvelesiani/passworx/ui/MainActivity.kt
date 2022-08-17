@@ -1,6 +1,5 @@
 package com.gvelesiani.passworx.ui
 
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.WindowManager
 import androidx.navigation.NavController
@@ -15,7 +14,7 @@ class MainActivity : BaseActivity<MainVM, ActivityMainBinding>(MainVM::class) {
     override val bindingInflater: (LayoutInflater) -> ActivityMainBinding =
         ActivityMainBinding::inflate
 
-    override fun setupView(savedInstanceState: Bundle?) {
+    override fun setupView() {
         setupObservers()
         setContentView(binding.root)
         setupNavController()
