@@ -1,21 +1,14 @@
 package com.gvelesiani.passworx.ui.passwords
 
 import android.annotation.SuppressLint
-import android.app.Activity
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.provider.DocumentsContract
-import android.util.Log
 import android.view.*
 import android.view.View.OnFocusChangeListener
 import android.view.animation.AnimationUtils
 import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.annotation.MenuRes
-import androidx.core.net.toUri
 import androidx.core.view.isVisible
-import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,22 +20,14 @@ import com.gvelesiani.passworx.base.BaseFragment
 import com.gvelesiani.passworx.common.copyToClipboard
 import com.gvelesiani.passworx.common.hideKeyboard
 import com.gvelesiani.passworx.common.onTextChanged
-import com.gvelesiani.passworx.constants.DATABASE_NAME
-import com.gvelesiani.passworx.data.providers.local.database.PasswordDatabase
 import com.gvelesiani.passworx.databinding.FragmentPasswordsBinding
 import com.gvelesiani.passworx.domain.model.PasswordModel
-import com.gvelesiani.passworx.ui.MainActivity
-import com.gvelesiani.passworx.ui.MainVM
 import com.gvelesiani.passworx.ui.passwordDetails.PasswordDetailsBottomSheet
-import org.koin.android.ext.android.inject
-import java.io.File
 
 
 class PasswordsFragment :
     BaseFragment<PasswordsVM, FragmentPasswordsBinding>(PasswordsVM::class) {
     private lateinit var adapter: PasswordAdapter
-    private val passwordDatabase: PasswordDatabase by inject()
-    private val activityViewModel: MainVM by activityViewModels()
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentPasswordsBinding
         get() = FragmentPasswordsBinding::inflate
@@ -58,14 +43,6 @@ class PasswordsFragment :
         setupSearch()
         setupRecyclerViewAdapter()
         setOnClickListeners()
-
-        binding.btBackup.setOnClickListener {
-            viewModel.backup()
-        }
-
-        binding.btRestore.setOnClickListener {
-            tryOpenFile()
-        }
     }
 
     private fun setOnClickListeners() {
@@ -78,33 +55,6 @@ class PasswordsFragment :
         viewModel.viewState.observe(viewLifecycleOwner) {
             observeViewState(it)
         }
-//        activityViewModel.backup.observe(viewLifecycleOwner) {
-//            it?.let { roomBackup ->
-//                roomBackup.database(passwordDatabase)
-//                    .enableLogDebug(true)
-//                    .backupIsEncrypted(true)
-//                    .customEncryptPassword(BuildConfig.PASSWORX_BACKUP_ENCRYPT_KEY)
-//                    .backupLocation(RoomBackup.BACKUP_FILE_LOCATION_CUSTOM_DIALOG)
-//                    .maxFileCount(5)
-//                    .apply {
-//                        onCompleteListener { success, _, _ ->
-//                            if (success) restartApp(
-//                                Intent(
-//                                    activity,
-//                                    MainActivity::class.java
-//                                )
-//                            )
-//                        }
-//                    }
-//                binding.btBackup.setOnClickListener {
-//                    roomBackup.backup()
-//                }
-//
-//                binding.btRestore.setOnClickListener {
-//                    roomBackup.restore()
-//                }
-//            }
-//        }
     }
 
     private fun observeViewState(viewState: PasswordsVM.ViewState) {
@@ -135,72 +85,6 @@ class PasswordsFragment :
             snackbar.anchorView = binding.btAddPassword
             snackbar.show()
         }
-
-        if (viewState.ff) {
-            val file = File(passwordDatabase.openHelper.writableDatabase.path)
-            createFile(file.path.toUri())
-//
-            Log.d("databasefileeee", file.name)
-        }
-    }
-
-    private fun createFile(pickerInitialUri: Uri) {
-        val intent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
-            addCategory(Intent.CATEGORY_OPENABLE)
-            type = "*/*"
-            putExtra(Intent.EXTRA_TITLE, DATABASE_NAME)
-
-            // Optionally, specify a URI for the directory that should be opened in
-            // the system file picker before your app creates the document.
-            putExtra(DocumentsContract.EXTRA_INITIAL_URI, pickerInitialUri)
-        }
-        startActivityForResult(intent, 25)
-    }
-
-    fun tryOpenFile() {
-        val intentType = "*/*"
-        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
-            addCategory(Intent.CATEGORY_OPENABLE)
-            type = intentType
-            putExtra(Intent.EXTRA_MIME_TYPES, arrayOf(intentType))
-        }
-
-        startActivityForResult(intent, 26)
-    }
-
-    override fun onActivityResult(
-        requestCode: Int, resultCode: Int, resultData: Intent?
-    ) {
-        if (requestCode == 26
-            && resultCode == Activity.RESULT_OK
-        ) {
-            resultData?.data?.also { uri ->
-                passwordDatabase.openHelper.close()
-                context?.contentResolver?.openInputStream(uri)?.use { stream ->
-                    val dbFile = context?.getDatabasePath(DATABASE_NAME)
-                    dbFile?.delete()
-                    stream.copyTo(dbFile!!.outputStream())
-                }
-                restartApp()
-            }
-        } else if (requestCode == 25 && resultCode == Activity.RESULT_OK) {
-            resultData?.data?.also { uri ->
-                passwordDatabase.openHelper.close()
-                context?.contentResolver?.openOutputStream(uri)?.use { stream ->
-                    context?.getDatabasePath(DATABASE_NAME)?.inputStream()?.copyTo(stream)
-                }
-            }
-        }
-    }
-
-    private fun restartApp() {
-        val intent = Intent(requireContext(), MainActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        requireContext().startActivity(intent)
-        if (context is Activity) {
-            (context as Activity).finish()
-        }
-        Runtime.getRuntime().exit(0)
     }
 
 

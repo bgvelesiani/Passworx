@@ -11,9 +11,6 @@ interface PasswordDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addNewPassword(pass: PasswordDto)
 
-    @Insert
-    fun addPasswordList(list: List<PasswordDto>)
-
     @Update
     fun updatePassword(pass: PasswordDto)
 
@@ -37,7 +34,4 @@ interface PasswordDao {
 
     @Query("SELECT * FROM $TABLE_NAME WHERE passwordTitle LIKE '%' || :query || '%' AND isInTrash=:isInTrash")
     fun searchPasswords(query: String, isInTrash: Boolean): List<PasswordDto>
-
-    @RawQuery
-    fun checkpoint(supportSQLiteQuery: SupportSQLiteQuery): Int
 }

@@ -64,12 +64,12 @@ class PasswordAdapter(
                     "drawable",
                     "com.gvelesiani.passworx"
                 )
-                if (logoResource != 0) {
-                    tvItemLogo.setBackgroundResource(logoResource)
-                } else {
-                    tvItemLogo.text = password.websiteOrAppName.subSequence(0, 2).toString()
-                        .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
-                }
+//                if (logoResource != 0) {
+//                    tvItemLogo.setBackgroundResource(logoResource)
+//                } else {
+//                    tvItemLogo.text = password.websiteOrAppName.subSequence(0, 2).toString()
+//                        .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
+//                }
 
                 tvPasswordItemName.text = password.passwordTitle
                     .lowercase()

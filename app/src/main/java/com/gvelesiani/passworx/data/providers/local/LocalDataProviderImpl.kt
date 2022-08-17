@@ -73,11 +73,11 @@ class LocalDataProviderImpl constructor(
         return preferences.getBoolean(IS_INTRO_FINISHED, false)
     }
 
-    override fun checkPoint(): Int {
-        return database.getPasswordDao.checkpoint((SimpleSQLiteQuery("pragma wal_checkpoint(full)")))
+    override fun savePasswordsAsString(passwords: String) {
+        preferences.edit().putString("passwordsAsString", "").apply()
     }
 
-    override fun addPasswordList(list: List<PasswordDto>) {
-        database.getPasswordDao.addPasswordList(list)
+    override fun getPasswordsAsString(): String {
+        return preferences.getString("passwordsAsString", "").toString()
     }
 }

@@ -73,6 +73,6 @@ val useCasesModule = module {
     }
 
     factory {
-        AddPasswordListUseCase(get())
+        GetPasswordsFromStringUseCase()
     }
 }

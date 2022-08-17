@@ -2,7 +2,6 @@ package com.gvelesiani.passworx.ui.passwords
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.gvelesiani.passworx.data.repository.Repository
 import com.gvelesiani.passworx.domain.model.PasswordModel
 import com.gvelesiani.passworx.domain.useCases.*
 import kotlinx.coroutines.CoroutineScope
@@ -16,20 +15,11 @@ class PasswordsVM(
     private val updateItemTrashStateUseCase: UpdateItemTrashStateUseCase,
     private val searchPasswordsUseCase: SearchPasswordsUseCase,
     private val decryptPasswordUseCase: DecryptPasswordUseCase,
-    private val addPasswordListUseCase: AddPasswordListUseCase,
-    private val repository: Repository
 ) : ViewModel() {
     val viewState: MutableLiveData<ViewState> = MutableLiveData()
 
     init {
         viewState.value = ViewState()
-    }
-
-    fun backup(){
-        CoroutineScope(Dispatchers.IO).launch {
-            repository.checkPoint()
-            viewState.postValue(currentViewState().copy(ff = true))
-        }
     }
 
     private fun currentViewState(): ViewState = viewState.value!!
@@ -115,20 +105,11 @@ class PasswordsVM(
         }
     }
 
-    fun addPasswords(list: List<PasswordModel>) {
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                addPasswordListUseCase(list)
-            } catch (e: Exception){}
-        }
-    }
-
     data class ViewState(
         val showDecryptionError: String? = null,
         val decryptedPassword: String? = null,
         val isLoading: Boolean = false,
         val showGetPasswordsError: String? = null,
-        val ff:Boolean=false,
         val passwords: List<PasswordModel> = listOf(),
         val showUpdatePasswordError: String? = null,
         val showTrashingItemError: String? = null

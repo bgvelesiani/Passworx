@@ -6,7 +6,9 @@ import androidx.lifecycle.viewModelScope
 import com.gvelesiani.passworx.domain.useCases.GetTakingScreenshotsStatusUseCase
 import kotlinx.coroutines.launch
 
-class MainVM(private val getTakingScreenshotsStatusUseCase: GetTakingScreenshotsStatusUseCase) :
+class MainVM(
+    private val getTakingScreenshotsStatusUseCase: GetTakingScreenshotsStatusUseCase
+) :
     ViewModel() {
     val takingScreenshotsArePrevented: MutableLiveData<Boolean> = MutableLiveData()
 

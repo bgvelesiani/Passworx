@@ -66,11 +66,11 @@ class RepositoryImpl(
         return localDataProvider.isIntroFinished()
     }
 
-    override fun checkPoint(): Int {
-        return localDataProvider.checkPoint()
+    override fun savePasswordsAsString(passwords: String) {
+        localDataProvider.savePasswordsAsString(passwords)
     }
 
-    override fun addPasswordList(list: List<PasswordDto>) {
-        localDataProvider.addPasswordList(list)
+    override fun getPasswordsAsString(): String {
+        return localDataProvider.getPasswordsAsString()
     }
 }

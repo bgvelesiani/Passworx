@@ -61,6 +61,6 @@ dependencies {
     implementation "androidx.biometric:biometric-ktx:$biometric_version"
 
 //    implementation 'de.raphaelebner:roomdatabasebackup:1.0.0-beta10'
-    implementation 'com.google.code.gson:gson:2.9.1'
+    implementation 'com.google.code.gson:gson:2.8.5'
 
 }

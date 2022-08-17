@@ -154,24 +154,25 @@
             app:exitAnim="@anim/exit_start"
             app:popEnterAnim="@anim/enter_start"
             app:popExitAnim="@anim/exit_end" />
+        <action
+            android:id="@+id/action_overviewFragment_to_backupAndRestoreFragment"
+            app:destination="@id/backupAndRestoreFragment"
+            app:enterAnim="@anim/enter_end"
+            app:exitAnim="@anim/exit_start"
+            app:popEnterAnim="@anim/enter_start"
+            app:popExitAnim="@anim/exit_end"/>
     </fragment>
-    <!--    <fragment-->
-    <!--        android:id="@+id/viewPagerContainer"-->
-    <!--        android:name="com.gvelesiani.passworx.ui.ViewPagerContainer"-->
-    <!--        android:label="@string/app_name">-->
-    <!--        <action-->
-    <!--            android:id="@+id/action_viewPagerContainer_to_changeMasterPasswordFragment"-->
-    <!--            app:destination="@id/changeMasterPasswordFragment" />-->
-    <!--        <action-->
-    <!--            android:id="@+id/action_viewPagerContainer_to_passwordTrashFragment"-->
-    <!--            app:destination="@id/passwordTrashFragment" />-->
-    <!--        <action-->
-    <!--            android:id="@+id/action_viewPagerContainer_to_addNewPasswordFragment"-->
-    <!--            app:destination="@id/addNewPasswordFragment"-->
-    <!--            app:enterAnim="@anim/enter_end"-->
-    <!--            app:exitAnim="@anim/exit_start"-->
-    <!--            app:popEnterAnim="@anim/enter_start"-->
-    <!--            app:popExitAnim="@anim/exit_end"-->
-    <!--            />-->
-    <!--    </fragment>-->
+
+    <fragment
+        android:id="@+id/backupAndRestoreFragment"
+        android:name="com.gvelesiani.passworx.ui.backupAndRestore.BackupAndRestoreFragment"
+        android:label="BackupAndRestore">
+        <action
+            android:id="@+id/action_backupAndRestoreFragment_to_overviewFragment"
+            app:destination="@id/overviewFragment"
+            app:enterAnim="@anim/enter_end"
+            app:exitAnim="@anim/exit_start"
+            app:popEnterAnim="@anim/enter_start"
+            app:popExitAnim="@anim/exit_end" />
+    </fragment>
 </navigation>

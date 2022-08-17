@@ -1,40 +1,53 @@
 package com.gvelesiani.passworx.ui.backupAndRestore
 
-import android.content.Context
-import android.net.Uri
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.gvelesiani.passworx.constants.DATABASE_NAME
-import com.gvelesiani.passworx.data.providers.local.database.PasswordDatabase
+import com.gvelesiani.passworx.domain.model.PasswordModel
+import com.gvelesiani.passworx.domain.useCases.AddNewPasswordUseCase
+import com.gvelesiani.passworx.domain.useCases.GetPasswordsFromStringUseCase
+import com.gvelesiani.passworx.domain.useCases.GetPasswordsUseCase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.sync.withLock
-import kotlinx.coroutines.withContext
 
-class BackupAndRestoreVM : ViewModel(){
-    fun export(uri: Uri, context: Context) {
-        viewModelScope.launch {
-            Mutex(false).withLock {
-//                PasswordDatabase.close()
+class BackupAndRestoreVM(
+    private val getPasswordsFromStringUseCase: GetPasswordsFromStringUseCase,
+    private val addNewPasswordUseCase: AddNewPasswordUseCase,
+    private val getPasswordsUseCase: GetPasswordsUseCase
+) : ViewModel() {
+    val viewState: MutableLiveData<ViewState> = MutableLiveData()
 
-                context.contentResolver.openOutputStream(uri)?.use { stream ->
-                    context.getDatabasePath(DATABASE_NAME).inputStream().copyTo(stream)
-                }
+    init {
+        viewState.value = ViewState()
+        getPasswords()
+    }
+
+    private fun currentViewState(): ViewState = viewState.value!!
+
+    private fun getPasswords() {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val result = getPasswordsUseCase(false)
+                viewState.postValue(currentViewState().copy(passwords = result))
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
         }
     }
 
-    fun import(uri: Uri, context: Context) {
-        viewModelScope.launch {
-            Mutex(false).withLock {
-//                provider.close()
-
-                context.contentResolver.openInputStream(uri)?.use { stream ->
-                    val dbFile = context.getDatabasePath(DATABASE_NAME)
-                    dbFile?.delete()
-                    stream.copyTo(dbFile.outputStream())
+    fun insertPreviousPasswords(fileContent: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val passwords = getPasswordsFromStringUseCase(fileContent)
+                for (password in passwords) {
+                    addNewPasswordUseCase(password)
                 }
+            } catch (e: Exception) {
             }
         }
     }
+
+    data class ViewState(
+        val passwords: List<PasswordModel> = listOf()
+    )
 }

@@ -32,7 +32,7 @@ val viewModelsModule = module {
     }
 
     viewModel {
-        PasswordsVM(get(), get(), get(), get(), get(), get(), get())
+        PasswordsVM(get(), get(), get(), get(), get())
     }
 
     viewModel {
@@ -76,6 +76,6 @@ val viewModelsModule = module {
     }
 
     viewModel {
-        BackupAndRestoreVM()
+        BackupAndRestoreVM(get(), get(), get())
     }
 }
