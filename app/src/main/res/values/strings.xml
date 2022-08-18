@@ -95,4 +95,5 @@
     <string name="unlock_with_biometrics_info">With this turned on, you can unlock application with your fingerprint or face ID</string>
     <string name="generate_password_title">Generate Password</string>
     <string name="title_backup_and_restore">Backup and Restore</string>
+    <string name="restorePasswordsSuccess">Successfully restored %s passwords</string>
 </resources>

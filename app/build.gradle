@@ -60,7 +60,6 @@ dependencies {
     implementation group: 'at.favre.lib', name: 'bcrypt', version: "$bcrypt_version"
     implementation "androidx.biometric:biometric-ktx:$biometric_version"
 
-//    implementation 'de.raphaelebner:roomdatabasebackup:1.0.0-beta10'
-    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation "com.google.code.gson:gson:$gson_version"
 
 }

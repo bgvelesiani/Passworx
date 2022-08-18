@@ -34,7 +34,7 @@ class ToolbarView(context: Context, @Nullable attrs: AttributeSet) :
         }
     }
 
-    fun setupToolbar(backClick: () -> Unit){
+    fun setupToolbar(backClick: () -> Unit) {
         binding.ivToolbar.setOnClickListener {
             backClick()
         }

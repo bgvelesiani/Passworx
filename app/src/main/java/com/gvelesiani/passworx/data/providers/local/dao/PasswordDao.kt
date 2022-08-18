@@ -1,7 +1,6 @@
 package com.gvelesiani.passworx.data.providers.local.dao
 
 import androidx.room.*
-import androidx.sqlite.db.SupportSQLiteQuery
 import com.gvelesiani.passworx.constants.TABLE_NAME
 import com.gvelesiani.passworx.data.dto.PasswordDto
 

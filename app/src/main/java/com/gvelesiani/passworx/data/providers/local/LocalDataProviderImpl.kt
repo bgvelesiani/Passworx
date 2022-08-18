@@ -1,7 +1,6 @@
 package com.gvelesiani.passworx.data.providers.local
 
 import android.content.SharedPreferences
-import androidx.sqlite.db.SimpleSQLiteQuery
 import com.gvelesiani.passworx.constants.BIOMETRICS_ALLOWED
 import com.gvelesiani.passworx.constants.IS_INTRO_FINISHED
 import com.gvelesiani.passworx.constants.MASTER_PASSWORD

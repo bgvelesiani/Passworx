@@ -76,6 +76,6 @@ val viewModelsModule = module {
     }
 
     viewModel {
-        BackupAndRestoreVM(get(), get(), get())
+        BackupAndRestoreVM(get(), get(), get(), get(), get())
     }
 }
