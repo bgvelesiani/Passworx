@@ -4,9 +4,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gvelesiani.passworx.domain.useCases.AllowBiometricsUseCase
-import com.gvelesiani.passworx.domain.useCases.PreventTakingScreenshotsUseCase
 import com.gvelesiani.passworx.domain.useCases.GetBiometricsAllowingStatusUserCase
 import com.gvelesiani.passworx.domain.useCases.GetTakingScreenshotsStatusUseCase
+import com.gvelesiani.passworx.domain.useCases.PreventTakingScreenshotsUseCase
 import kotlinx.coroutines.launch
 
 class SettingsVM(

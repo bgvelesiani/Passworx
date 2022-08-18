@@ -18,4 +18,6 @@ interface Repository {
     fun getBiometricsAllowingStatus(): Boolean
     fun finishIntro()
     fun isIntroFinished(): Boolean
+    fun savePasswordsAsString(passwords: String)
+    fun getPasswordsAsString(): String
 }

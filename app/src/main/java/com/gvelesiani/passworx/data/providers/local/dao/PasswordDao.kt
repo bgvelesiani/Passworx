@@ -4,6 +4,7 @@ import androidx.room.*
 import com.gvelesiani.passworx.constants.TABLE_NAME
 import com.gvelesiani.passworx.data.dto.PasswordDto
 
+
 @Dao
 interface PasswordDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)

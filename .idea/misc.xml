@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../layout/custom_preview.xml" value="0.42962962962962964" />
         <entry key="..\:/App/Android/Projects/secure_pass/app/src/main/res/drawable/button_background.xml" value="0.19166666666666668" />
         <entry key="..\:/App/Android/Projects/secure_pass/app/src/main/res/drawable/generated_password_background.xml" value="0.19166666666666668" />
         <entry key="..\:/App/Android/Projects/secure_pass/app/src/main/res/drawable/ic_add_new_password.xml" value="0.19166666666666668" />
@@ -124,6 +125,18 @@
         <entry key="..\:/Apps/projects/passworx/app/src/main/res/menu/trashed_passwords_menu.xml" value="0.11018518518518519" />
         <entry key="..\:/Apps/projects/passworx/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.14947916666666666" />
         <entry key="..\:/Apps/projects/passworx/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2755208333333333" />
+        <entry key="app/src/main/res/drawable/ic_backup.xml" value="0.112" />
+        <entry key="app/src/main/res/drawable/ic_settings.xml" value="0.112" />
+        <entry key="app/src/main/res/layout/autofill_item.xml" value="0.45" />
+        <entry key="app/src/main/res/layout/fragment_add_password.xml" value="0.3888888888888889" />
+        <entry key="app/src/main/res/layout/fragment_backup_and_restore.xml" value="0.21296296296296297" />
+        <entry key="app/src/main/res/layout/fragment_browse.xml" value="0.21296296296296297" />
+        <entry key="app/src/main/res/layout/fragment_master_password.xml" value="0.4119791666666667" />
+        <entry key="app/src/main/res/layout/fragment_overview_container.xml" value="0.21296296296296297" />
+        <entry key="app/src/main/res/layout/fragment_password_generator.xml" value="0.4119791666666667" />
+        <entry key="app/src/main/res/layout/fragment_passwords.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.3290676416819013" />
+        <entry key="app/src/main/res/layout/password_item.xml" value="0.14537037037037037" />
       </map>
     </option>
   </component>

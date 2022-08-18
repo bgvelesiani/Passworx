@@ -19,20 +19,24 @@ class OverviewFragment :
 
     private fun setOnClickListeners() {
         with(binding) {
-            binding.ctBrowse.setOnClickListener {
+            ctBrowse.setOnClickListener {
                 findNavController().navigate(R.id.action_overviewFragment_to_navigation_browse)
             }
 
-            binding.ctGenerate.setOnClickListener {
+            ctGenerate.setOnClickListener {
                 findNavController().navigate(R.id.action_overviewFragment_to_navigation_generate)
             }
 
-            binding.ctSettings.setOnClickListener {
+            ctSettings.setOnClickListener {
                 findNavController().navigate(R.id.action_overviewFragment_to_navigation_settings)
             }
 
-            binding.ctVault.setOnClickListener {
+            ctVault.setOnClickListener {
                 findNavController().navigate(R.id.action_overviewFragment_to_navigation_passwords)
+            }
+
+            ctBackupAndRestore.setOnClickListener {
+                findNavController().navigate(R.id.action_overviewFragment_to_backupAndRestoreFragment)
             }
         }
     }

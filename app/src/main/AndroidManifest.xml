@@ -9,9 +9,12 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@drawable/ic_launcher"
+        android:backupAgent=".ui.passwords.Agent"
         android:supportsRtl="true"
         android:theme="@style/Theme.Passworx"
         tools:replace="android:theme">
+        <meta-data android:name="com.google.android.backup.api_key"
+            android:value="unused" />
         <activity
             android:name="com.gvelesiani.passworx.ui.MainActivity"
             android:exported="true"

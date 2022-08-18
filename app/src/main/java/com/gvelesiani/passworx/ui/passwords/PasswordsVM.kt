@@ -14,7 +14,7 @@ class PasswordsVM(
     private val updateFavoriteStateUseCase: UpdateFavoriteStateUseCase,
     private val updateItemTrashStateUseCase: UpdateItemTrashStateUseCase,
     private val searchPasswordsUseCase: SearchPasswordsUseCase,
-    private val decryptPasswordUseCase: DecryptPasswordUseCase
+    private val decryptPasswordUseCase: DecryptPasswordUseCase,
 ) : ViewModel() {
     val viewState: MutableLiveData<ViewState> = MutableLiveData()
 

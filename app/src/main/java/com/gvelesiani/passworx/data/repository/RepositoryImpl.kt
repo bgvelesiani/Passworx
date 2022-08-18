@@ -65,4 +65,12 @@ class RepositoryImpl(
     override fun isIntroFinished(): Boolean {
         return localDataProvider.isIntroFinished()
     }
+
+    override fun savePasswordsAsString(passwords: String) {
+        localDataProvider.savePasswordsAsString(passwords)
+    }
+
+    override fun getPasswordsAsString(): String {
+        return localDataProvider.getPasswordsAsString()
+    }
 }

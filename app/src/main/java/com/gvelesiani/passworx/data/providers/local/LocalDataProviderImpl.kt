@@ -71,4 +71,12 @@ class LocalDataProviderImpl constructor(
     override fun isIntroFinished(): Boolean {
         return preferences.getBoolean(IS_INTRO_FINISHED, false)
     }
+
+    override fun savePasswordsAsString(passwords: String) {
+        preferences.edit().putString("passwordsAsString", "").apply()
+    }
+
+    override fun getPasswordsAsString(): String {
+        return preferences.getString("passwordsAsString", "").toString()
+    }
 }

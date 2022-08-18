@@ -1,7 +1,6 @@
 package com.gvelesiani.passworx.ui.masterPassword
 
 import android.graphics.drawable.ColorDrawable
-import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.core.view.isVisible
 import androidx.fragment.app.commit
@@ -19,7 +18,7 @@ class MasterPasswordActivity :
     override val bindingInflater: (LayoutInflater) -> ActivityMasterPasswordBinding =
         ActivityMasterPasswordBinding::inflate
 
-    override fun setupView(savedInstanceState: Bundle?) {
+    override fun setupView() {
         setupActionBar()
         setupObservers()
     }

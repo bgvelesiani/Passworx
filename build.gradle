@@ -2,21 +2,22 @@
 buildscript {
     ext {
         androidx_core_version = '1.8.0'
-        appcompat_version = '1.4.2'
+        appcompat_version = '1.5.0'
         material_version = '1.6.1'
         constraintlayout_version = '2.1.4'
-        lifecycle_viewModel_version = '2.5.0'
+        lifecycle_viewModel_version = '2.5.1'
         kotlin_gradle_plugin_version = '1.6.10'
         safe_args_version = '2.3.5'
         google_services_version = '4.3.10'
         gradle_version = '7.0.4'
-        navigation_version = '2.5.0'
+        navigation_version = '2.5.1'
         koin_version = '3.1.2'
         coroutines_version = '1.6.1'
-        room_version = '2.4.2'
+        room_version = '2.4.3'
         bcrypt_version = '0.9.0'
         biometric_version = '1.2.0-alpha04'
         preferences_version = '1.2.0'
+        gson_version = '2.8.5'
         min_sdk_version = 25
         target_sdk_version = 32
         compile_sdk_version = 32

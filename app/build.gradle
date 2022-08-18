@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-parcelize'
     id 'kotlin-kapt'
+    id 'com.google.secrets_gradle_plugin' version'0.4'
 }
 
 android {
@@ -58,4 +59,7 @@ dependencies {
 
     implementation group: 'at.favre.lib', name: 'bcrypt', version: "$bcrypt_version"
     implementation "androidx.biometric:biometric-ktx:$biometric_version"
+
+    implementation "com.google.code.gson:gson:$gson_version"
+
 }
