@@ -3,10 +3,10 @@ package com.gvelesiani.passworx.ui.trash
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.gvelesiani.passworx.domain.model.PasswordModel
-import com.gvelesiani.passworx.domain.useCases.DeletePasswordUseCase
-import com.gvelesiani.passworx.domain.useCases.GetPasswordsUseCase
-import com.gvelesiani.passworx.domain.useCases.SearchPasswordsUseCase
-import com.gvelesiani.passworx.domain.useCases.UpdateItemTrashStateUseCase
+import com.gvelesiani.passworx.domain.useCases.passwords.DeletePasswordUseCase
+import com.gvelesiani.passworx.domain.useCases.passwords.GetPasswordsUseCase
+import com.gvelesiani.passworx.domain.useCases.passwords.SearchPasswordsUseCase
+import com.gvelesiani.passworx.domain.useCases.passwords.UpdateItemTrashStateUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay

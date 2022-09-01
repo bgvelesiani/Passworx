@@ -7,12 +7,9 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.gvelesiani.passworx.constants.DATABASE_NAME
 import com.gvelesiani.passworx.constants.PREFERENCES_KEY
-import com.gvelesiani.passworx.data.providers.local.LocalDataProvider
-import com.gvelesiani.passworx.data.providers.local.LocalDataProviderImpl
-import com.gvelesiani.passworx.data.providers.local.dao.PasswordDao
-import com.gvelesiani.passworx.data.providers.local.database.PasswordDatabase
+import com.gvelesiani.passworx.data.database.dao.PasswordDao
+import com.gvelesiani.passworx.data.database.database.PasswordDatabase
 import org.koin.android.ext.koin.androidApplication
-import org.koin.dsl.bind
 import org.koin.dsl.module
 
 val localStorageModule = module {
@@ -36,10 +33,4 @@ val localStorageModule = module {
     single { provideDataBase(androidApplication()) }
 
     single { provideDao(get()) }
-
-    single {
-        LocalDataProviderImpl(
-            get(), get()
-        )
-    } bind LocalDataProvider::class
 }

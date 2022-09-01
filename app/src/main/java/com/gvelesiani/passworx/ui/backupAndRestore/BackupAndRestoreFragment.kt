@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.navigation.fragment.findNavController
 import com.google.gson.Gson
 import com.gvelesiani.passworx.base.BaseFragment
 import com.gvelesiani.passworx.common.makeSnackBar
@@ -38,6 +39,9 @@ class BackupAndRestoreFragment :
                     putExtra(Intent.EXTRA_MIME_TYPES, arrayOf(intentType))
                 }
                 importDatabase.launch(intent)
+            }
+            toolbar.setupToolbar {
+                findNavController().navigateUp()
             }
         }
     }

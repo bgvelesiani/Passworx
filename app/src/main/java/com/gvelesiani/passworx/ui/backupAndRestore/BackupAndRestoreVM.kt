@@ -4,9 +4,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.domain.model.PasswordModel
-import com.gvelesiani.passworx.domain.useCases.AddNewPasswordUseCase
-import com.gvelesiani.passworx.domain.useCases.GetPasswordsFromStringUseCase
-import com.gvelesiani.passworx.domain.useCases.GetPasswordsUseCase
+import com.gvelesiani.passworx.domain.useCases.backup.GetPasswordsFromStringUseCase
+import com.gvelesiani.passworx.domain.useCases.passwords.AddNewPasswordUseCase
+import com.gvelesiani.passworx.domain.useCases.passwords.GetPasswordsUseCase
 import com.gvelesiani.passworx.helpers.encryptPassword.PasswordEncryptionHelper
 import com.gvelesiani.passworx.helpers.resourceProvider.ResourceHelper
 import kotlinx.coroutines.CoroutineScope

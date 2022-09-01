@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.constants.MAX_TITLE_LENGTH
 import com.gvelesiani.passworx.domain.model.PasswordModel
-import com.gvelesiani.passworx.domain.useCases.UpdatePasswordUseCase
+import com.gvelesiani.passworx.domain.useCases.passwords.UpdatePasswordUseCase
 import com.gvelesiani.passworx.helpers.encryptPassword.PasswordEncryptionHelper
 import com.gvelesiani.passworx.helpers.resourceProvider.ResourceHelper
 import kotlinx.coroutines.CoroutineScope

@@ -3,8 +3,8 @@ package com.gvelesiani.passworx.ui.masterPassword.fragments
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.gvelesiani.passworx.domain.useCases.GetBiometricsAllowingStatusUserCase
-import com.gvelesiani.passworx.domain.useCases.GetMasterPasswordUseCase
+import com.gvelesiani.passworx.domain.useCases.biometrics.GetBiometricsAllowingStatusUserCase
+import com.gvelesiani.passworx.domain.useCases.masterPassword.GetMasterPasswordUseCase
 import com.gvelesiani.passworx.helpers.biometrics.BiometricsHelper
 import com.gvelesiani.passworx.helpers.hashPassword.PasswordHashHelper
 import kotlinx.coroutines.launch

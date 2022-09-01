@@ -9,7 +9,6 @@ import androidx.navigation.fragment.findNavController
 import com.gvelesiani.passworx.base.BaseBottomSheet
 import com.gvelesiani.passworx.databinding.BottomSheetPasswordDetailsBinding
 import com.gvelesiani.passworx.domain.model.PasswordModel
-import com.gvelesiani.passworx.ui.favorites.PasswordFavoriteFragmentDirections
 import com.gvelesiani.passworx.ui.passwords.PasswordsFragmentDirections
 
 class PasswordDetailsBottomSheet :

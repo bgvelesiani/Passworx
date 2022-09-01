@@ -3,7 +3,7 @@ package com.gvelesiani.passworx.ui
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.gvelesiani.passworx.domain.useCases.GetTakingScreenshotsStatusUseCase
+import com.gvelesiani.passworx.domain.useCases.screenshots.GetTakingScreenshotsStatusUseCase
 import kotlinx.coroutines.launch
 
 class MainVM(
