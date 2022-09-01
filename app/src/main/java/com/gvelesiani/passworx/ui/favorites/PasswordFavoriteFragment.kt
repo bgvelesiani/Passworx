@@ -106,7 +106,7 @@ class PasswordFavoriteFragment :
         popup.setOnMenuItemClickListener { menuItem: MenuItem ->
             when (menuItem.itemId) {
                 R.id.menuEditInFavourites -> findNavController().navigate(
-                    PasswordFavoriteFragmentDirections.actionPasswordFavouritesFragmentToEditFragment(
+                    PasswordFavoriteFragmentDirections.actionPasswordFavouritesFragmentToUpdatePasswordFragment(
                         password
                     )
                 )

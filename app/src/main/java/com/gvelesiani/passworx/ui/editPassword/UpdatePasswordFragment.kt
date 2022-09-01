@@ -12,14 +12,14 @@ import com.gvelesiani.passworx.common.onTextChanged
 import com.gvelesiani.passworx.databinding.FragmentEditBinding
 import com.gvelesiani.passworx.domain.model.PasswordModel
 
-class EditFragment : BaseFragment<EditVM, FragmentEditBinding>(EditVM::class) {
+class UpdatePasswordFragment : BaseFragment<UpdatePasswordVM, FragmentEditBinding>(UpdatePasswordVM::class) {
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentEditBinding
         get() = FragmentEditBinding::inflate
 
-    private val args: EditFragmentArgs by navArgs()
+    private val args: UpdatePasswordFragmentArgs by navArgs()
 
     override fun setupView(savedInstanceState: Bundle?) {
-        args.passwordToEdit?.let {
+        args.password?.let {
             setEditableData(it)
             viewModel.decryptPassword(password = it.password)
         }
@@ -46,20 +46,20 @@ class EditFragment : BaseFragment<EditVM, FragmentEditBinding>(EditVM::class) {
         with(binding) {
             viewModel.editPassword(
                 PasswordModel(
-                    passwordId = args.passwordToEdit?.passwordId!!,
+                    passwordId = args.password?.passwordId!!,
                     password = viewModel.encryptPassword(etPassword.editText?.text.toString()),
                     passwordTitle = etTitle.editText?.text.toString(),
                     websiteOrAppName = etWebsiteOrAppName.editText?.text.toString(),
                     emailOrUserName = etEmailOrUserName.editText?.text.toString(),
                     label = etLabel.editText?.text.toString(),
-                    isFavorite = args.passwordToEdit?.isFavorite!!
+                    isFavorite = args.password?.isFavorite!!
                 )
             )
         }
         findNavController().navigateUp()
     }
 
-    private fun observeViewState(viewState: EditVM.ViewState) {
+    private fun observeViewState(viewState: UpdatePasswordVM.ViewState) {
         binding.etPassword.editText?.setText(viewState.password)
         if (viewState.showEditPasswordError != null) {
             MaterialAlertDialogBuilder(requireContext())

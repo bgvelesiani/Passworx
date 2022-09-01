@@ -95,7 +95,7 @@ class PasswordsFragment :
             when (menuItem.itemId) {
                 R.id.menuEdit -> {
                     findNavController().navigate(
-                        PasswordsFragmentDirections.actionNavigationPasswordsToEditFragment(
+                        PasswordsFragmentDirections.actionNavigationPasswordsToUpdatePasswordFragment(
                             password
                         )
                     )

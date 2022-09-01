@@ -16,7 +16,7 @@
             android:name="com.gvelesiani.passworx.ui.MainActivity"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|adjustResize"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             tools:ignore="LockedOrientationActivity" />
 
         <activity

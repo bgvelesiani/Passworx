@@ -5,9 +5,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.FragmentManager
+import androidx.navigation.fragment.findNavController
 import com.gvelesiani.passworx.base.BaseBottomSheet
 import com.gvelesiani.passworx.databinding.BottomSheetPasswordDetailsBinding
 import com.gvelesiani.passworx.domain.model.PasswordModel
+import com.gvelesiani.passworx.ui.favorites.PasswordFavoriteFragmentDirections
+import com.gvelesiani.passworx.ui.passwords.PasswordsFragmentDirections
 
 class PasswordDetailsBottomSheet :
     BaseBottomSheet<PasswordDetailsVM, BottomSheetPasswordDetailsBinding>(PasswordDetailsVM::class) {
@@ -20,12 +23,24 @@ class PasswordDetailsBottomSheet :
         if (password != null) {
             setData(password)
             viewModel.decryptPassword(password = password.password)
+            setOnClickListeners(password)
         }
     }
 
     override fun setupObservers() {
         viewModel.viewState.observe(this) {
             it?.let { observeViewState(it) }
+        }
+    }
+
+    private fun setOnClickListeners(password: PasswordModel) {
+        binding.btEditPassword.setOnClickListener {
+            findNavController().navigate(
+                PasswordsFragmentDirections.actionNavigationPasswordsToUpdatePasswordFragment(
+                    password
+                )
+            )
+            this.dismiss()
         }
     }
 
