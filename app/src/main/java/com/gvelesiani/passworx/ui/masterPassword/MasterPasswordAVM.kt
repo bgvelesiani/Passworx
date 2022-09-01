@@ -3,8 +3,8 @@ package com.gvelesiani.passworx.ui.masterPassword
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.gvelesiani.passworx.domain.useCases.CheckIfIntroIsFinishedUseCase
-import com.gvelesiani.passworx.domain.useCases.GetMasterPasswordUseCase
+import com.gvelesiani.passworx.domain.useCases.intro.CheckIfIntroIsFinishedUseCase
+import com.gvelesiani.passworx.domain.useCases.masterPassword.GetMasterPasswordUseCase
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 

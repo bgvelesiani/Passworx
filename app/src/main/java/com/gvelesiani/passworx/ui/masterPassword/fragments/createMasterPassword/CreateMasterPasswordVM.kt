@@ -2,7 +2,7 @@ package com.gvelesiani.passworx.ui.masterPassword.fragments.createMasterPassword
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.gvelesiani.passworx.domain.useCases.CreateOrChangeMasterPasswordUseCase
+import com.gvelesiani.passworx.domain.useCases.masterPassword.CreateOrChangeMasterPasswordUseCase
 import com.gvelesiani.passworx.helpers.hashPassword.PasswordHashHelper
 import com.gvelesiani.passworx.helpers.validateMasterPassword.MasterPasswordValidatorHelper
 import com.gvelesiani.passworx.helpers.validateMasterPassword.MasterPasswordValidatorHelperImpl

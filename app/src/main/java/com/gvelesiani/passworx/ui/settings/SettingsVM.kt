@@ -3,10 +3,10 @@ package com.gvelesiani.passworx.ui.settings
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.gvelesiani.passworx.domain.useCases.AllowBiometricsUseCase
-import com.gvelesiani.passworx.domain.useCases.GetBiometricsAllowingStatusUserCase
-import com.gvelesiani.passworx.domain.useCases.GetTakingScreenshotsStatusUseCase
-import com.gvelesiani.passworx.domain.useCases.PreventTakingScreenshotsUseCase
+import com.gvelesiani.passworx.domain.useCases.biometrics.AllowBiometricsUseCase
+import com.gvelesiani.passworx.domain.useCases.biometrics.GetBiometricsAllowingStatusUserCase
+import com.gvelesiani.passworx.domain.useCases.screenshots.GetTakingScreenshotsStatusUseCase
+import com.gvelesiani.passworx.domain.useCases.screenshots.PreventTakingScreenshotsUseCase
 import kotlinx.coroutines.launch
 
 class SettingsVM(

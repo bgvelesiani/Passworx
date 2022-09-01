@@ -12,7 +12,8 @@ import com.gvelesiani.passworx.common.onTextChanged
 import com.gvelesiani.passworx.databinding.FragmentEditBinding
 import com.gvelesiani.passworx.domain.model.PasswordModel
 
-class UpdatePasswordFragment : BaseFragment<UpdatePasswordVM, FragmentEditBinding>(UpdatePasswordVM::class) {
+class UpdatePasswordFragment :
+    BaseFragment<UpdatePasswordVM, FragmentEditBinding>(UpdatePasswordVM::class) {
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentEditBinding
         get() = FragmentEditBinding::inflate
 

@@ -21,7 +21,7 @@ class PassworxApplication : Application() {
             helpersModule,
             useCasesModule,
             localStorageModule,
-            repositoryModule
+            repositoriesModule
         )
     }
 }
