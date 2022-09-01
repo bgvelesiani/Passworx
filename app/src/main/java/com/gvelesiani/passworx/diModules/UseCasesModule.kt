@@ -75,4 +75,8 @@ val useCasesModule = module {
     factory {
         GetPasswordsFromStringUseCase(get())
     }
+
+    factory {
+        UpdatePasswordUseCase(get())
+    }
 }

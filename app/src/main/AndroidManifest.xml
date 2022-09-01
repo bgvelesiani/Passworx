@@ -9,7 +9,6 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@drawable/ic_launcher"
-        android:backupAgent=".ui.passwords.Agent"
         android:supportsRtl="true"
         android:theme="@style/Theme.Passworx"
         tools:replace="android:theme">
@@ -19,7 +18,7 @@
             android:name="com.gvelesiani.passworx.ui.MainActivity"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|adjustResize"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             tools:ignore="LockedOrientationActivity" />
 
         <activity

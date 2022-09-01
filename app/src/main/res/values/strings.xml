@@ -94,6 +94,9 @@
     <string name="take_in_app_screenshots_info">With this turned on app can prevent system from taking screenshots or recording a video of your passwords</string>
     <string name="unlock_with_biometrics_info">With this turned on, you can unlock application with your fingerprint or face ID</string>
     <string name="generate_password_title">Generate Password</string>
+
+    <string name="title_edit_password">Edit Password</string>
+
     <string name="title_backup_and_restore">Backup and Restore</string>
     <string name="restorePasswordsSuccess">Successfully restored %s passwords</string>
     <string name="restore_passwords_button_text">Restore Passwords</string>

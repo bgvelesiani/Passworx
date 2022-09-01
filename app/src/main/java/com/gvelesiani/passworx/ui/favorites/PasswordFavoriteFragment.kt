@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.PopupMenu
-import android.widget.Toast
 import androidx.annotation.MenuRes
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
@@ -37,6 +36,7 @@ class PasswordFavoriteFragment :
         binding.toolbar.setupToolbar {
             findNavController().navigateUp()
         }
+        viewModel.getPasswords()
         binding.btAddPassword.visibility = View.GONE
         setupSearch()
         setupRecyclerViewAdapter()
@@ -105,11 +105,11 @@ class PasswordFavoriteFragment :
 
         popup.setOnMenuItemClickListener { menuItem: MenuItem ->
             when (menuItem.itemId) {
-                R.id.menuEditInFavourites -> Toast.makeText(
-                    requireContext(),
-                    "Edit",
-                    Toast.LENGTH_SHORT
-                ).show()
+                R.id.menuEditInFavourites -> findNavController().navigate(
+                    PasswordFavoriteFragmentDirections.actionPasswordFavouritesFragmentToUpdatePasswordFragment(
+                        password
+                    )
+                )
                 R.id.menuDeleteFromFavourites -> {
                     MaterialAlertDialogBuilder(
                         requireContext(),

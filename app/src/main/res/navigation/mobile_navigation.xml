@@ -41,6 +41,9 @@
         <action
             android:id="@+id/action_navigation_passwords_self"
             app:destination="@id/navigation_passwords" />
+        <action
+            android:id="@+id/action_navigation_passwords_to_updatePasswordFragment"
+            app:destination="@id/updatePasswordFragment" />
     </fragment>
 
     <fragment
@@ -70,7 +73,11 @@
     <fragment
         android:id="@+id/passwordFavouritesFragment"
         android:name="com.gvelesiani.passworx.ui.favorites.PasswordFavoriteFragment"
-        android:label="@string/title_favourites" />
+        android:label="@string/title_favourites">
+        <action
+            android:id="@+id/action_passwordFavouritesFragment_to_updatePasswordFragment"
+            app:destination="@id/updatePasswordFragment" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_browse"
         android:name="com.gvelesiani.passworx.ui.browse.BrowseFragment"
@@ -174,5 +181,15 @@
             app:exitAnim="@anim/exit_start"
             app:popEnterAnim="@anim/enter_start"
             app:popExitAnim="@anim/exit_end" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/updatePasswordFragment"
+        android:name="com.gvelesiani.passworx.ui.editPassword.UpdatePasswordFragment"
+        android:label="UpdatePasswordFragment">
+        <argument
+            android:name="password"
+            app:argType="com.gvelesiani.passworx.domain.model.PasswordModel"
+            app:nullable="true" />
     </fragment>
 </navigation>

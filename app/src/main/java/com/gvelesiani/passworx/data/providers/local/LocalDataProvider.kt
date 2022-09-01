@@ -20,4 +20,5 @@ interface LocalDataProvider {
     fun isIntroFinished(): Boolean
     fun savePasswordsAsString(passwords: String)
     fun getPasswordsAsString(): String
+    fun updatePassword(pass: PasswordDto)
 }

@@ -66,6 +66,10 @@ class RepositoryImpl(
         return localDataProvider.isIntroFinished()
     }
 
+    override fun updatePassword(pass: PasswordDto) {
+        localDataProvider.updatePassword(pass)
+    }
+
     override fun savePasswordsAsString(passwords: String) {
         localDataProvider.savePasswordsAsString(passwords)
     }
