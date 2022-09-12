@@ -5,8 +5,8 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.gvelesiani.data.common.DATABASE_NAME
-import com.gvelesiani.data.common.PREFERENCES_KEY
+import com.gvelesiani.common.constants.DATABASE_NAME
+import com.gvelesiani.common.constants.PREFERENCES_KEY
 import com.gvelesiani.data.database.dao.PasswordDao
 import com.gvelesiani.data.database.database.PasswordDatabase
 import org.koin.android.ext.koin.androidApplication

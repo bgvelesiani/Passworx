@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
-import com.gvelesiani.domain.model.PasswordModel
+import com.gvelesiani.base.BaseFragment
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.adapters.PasswordAdapter
 import com.gvelesiani.passworx.common.copyToClipboard
@@ -24,7 +24,7 @@ import com.gvelesiani.passworx.ui.passwordDetails.PasswordDetailsBottomSheet
 
 
 class PasswordsFragment :
-    com.gvelesiani.base.BaseFragment<PasswordsVM, FragmentPasswordsBinding>(PasswordsVM::class) {
+    BaseFragment<PasswordsVM, FragmentPasswordsBinding>(PasswordsVM::class) {
     private lateinit var adapter: PasswordAdapter
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentPasswordsBinding
@@ -87,7 +87,11 @@ class PasswordsFragment :
 
 
     @SuppressLint("NotifyDataSetChanged")
-    private fun showMenu(v: View, @MenuRes menuRes: Int, password: PasswordModel) {
+    private fun showMenu(
+        v: View,
+        @MenuRes menuRes: Int,
+        password: com.gvelesiani.common.models.domain.PasswordModel
+    ) {
         val popup = PopupMenu(requireContext(), v)
         popup.menuInflater.inflate(menuRes, popup.menu)
 
@@ -136,14 +140,14 @@ class PasswordsFragment :
 
     private fun setupRecyclerViewAdapter() {
         adapter = PasswordAdapter(
-            clickListener = { password: PasswordModel ->
+            clickListener = { password: com.gvelesiani.common.models.domain.PasswordModel ->
                 PasswordDetailsBottomSheet.show(
                     password,
                     childFragmentManager,
                     PasswordDetailsBottomSheet.TAG
                 )
             },
-            menuClickListener = { password: PasswordModel, view: View ->
+            menuClickListener = { password: com.gvelesiani.common.models.domain.PasswordModel, view: View ->
                 showMenu(
                     view,
                     R.menu.password_item_menu,

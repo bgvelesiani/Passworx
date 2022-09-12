@@ -1,7 +1,7 @@
 package com.gvelesiani.data.repositories.local
 
 import android.content.SharedPreferences
-import com.gvelesiani.data.common.MASTER_PASSWORD
+import com.gvelesiani.common.constants.MASTER_PASSWORD
 import com.gvelesiani.domain.repositories.MasterPasswordRepository
 
 class MasterPasswordRepositoryImpl constructor(

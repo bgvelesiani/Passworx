@@ -2,7 +2,6 @@ package com.gvelesiani.passworx.ui.backupAndRestore
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.gvelesiani.domain.model.PasswordModel
 import com.gvelesiani.domain.useCases.backup.GetPasswordsFromStringUseCase
 import com.gvelesiani.domain.useCases.passwords.AddNewPasswordUseCase
 import com.gvelesiani.domain.useCases.passwords.GetPasswordsUseCase
@@ -64,7 +63,7 @@ class BackupAndRestoreVM(
     }
 
     data class ViewState(
-        val passwords: List<PasswordModel> = listOf(),
+        val passwords: List<com.gvelesiani.common.models.domain.PasswordModel> = listOf(),
         val restorePasswordsSuccess: String? = null
     )
 }

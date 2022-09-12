@@ -6,12 +6,12 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.FragmentManager
 import androidx.navigation.fragment.findNavController
-import com.gvelesiani.domain.model.PasswordModel
+import com.gvelesiani.base.BaseBottomSheet
 import com.gvelesiani.passworx.databinding.BottomSheetPasswordDetailsBinding
 import com.gvelesiani.passworx.ui.passwords.PasswordsFragmentDirections
 
 class PasswordDetailsBottomSheet :
-    com.gvelesiani.base.BaseBottomSheet<PasswordDetailsVM, BottomSheetPasswordDetailsBinding>(
+    BaseBottomSheet<PasswordDetailsVM, BottomSheetPasswordDetailsBinding>(
         PasswordDetailsVM::class
     ) {
 
@@ -19,7 +19,8 @@ class PasswordDetailsBottomSheet :
         get() = BottomSheetPasswordDetailsBinding::inflate
 
     override fun setupView(savedInstanceState: Bundle?) {
-        val password = arguments?.getParcelable<PasswordModel>(PASSWORD)
+        val password =
+            arguments?.getParcelable<com.gvelesiani.common.models.domain.PasswordModel>(PASSWORD)
         if (password != null) {
             setData(password)
             viewModel.decryptPassword(password = password.password)
@@ -33,7 +34,7 @@ class PasswordDetailsBottomSheet :
         }
     }
 
-    private fun setOnClickListeners(password: PasswordModel) {
+    private fun setOnClickListeners(password: com.gvelesiani.common.models.domain.PasswordModel) {
         binding.btEditPassword.setOnClickListener {
             findNavController().navigate(
                 PasswordsFragmentDirections.actionNavigationPasswordsToUpdatePasswordFragment(
@@ -44,7 +45,7 @@ class PasswordDetailsBottomSheet :
         }
     }
 
-    private fun setData(password: PasswordModel) {
+    private fun setData(password: com.gvelesiani.common.models.domain.PasswordModel) {
         with(binding) {
             tvPassword.editText?.isFocusable = false
             tvEmailOrUsername.text = password.emailOrUserName
@@ -61,7 +62,7 @@ class PasswordDetailsBottomSheet :
         const val TAG = "PasswordDetailsBottomSheet"
         private const val PASSWORD = "PASSWORD"
         fun show(
-            password: PasswordModel,
+            password: com.gvelesiani.common.models.domain.PasswordModel,
             fragmentManager: FragmentManager,
             tag: String
         ) {

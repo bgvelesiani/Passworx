@@ -1,8 +1,8 @@
 package com.gvelesiani.data.database.dao
 
 import androidx.room.*
-import com.gvelesiani.data.common.TABLE_NAME
-import com.gvelesiani.data.dto.PasswordDto
+import com.gvelesiani.common.constants.TABLE_NAME
+import com.gvelesiani.common.models.data.PasswordDto
 
 
 @Dao

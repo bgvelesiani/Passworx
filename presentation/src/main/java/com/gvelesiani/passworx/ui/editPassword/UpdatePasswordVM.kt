@@ -2,7 +2,6 @@ package com.gvelesiani.passworx.ui.editPassword
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.gvelesiani.domain.model.PasswordModel
 import com.gvelesiani.domain.useCases.passwords.UpdatePasswordUseCase
 import com.gvelesiani.helpers.helpers.encryptPassword.PasswordEncryptionHelper
 import com.gvelesiani.helpers.helpers.resourceProvider.ResourceHelper
@@ -25,7 +24,7 @@ class UpdatePasswordVM(
 
     private fun currentViewState(): ViewState = viewState.value!!
 
-    fun editPassword(password: PasswordModel) {
+    fun editPassword(password: com.gvelesiani.common.models.domain.PasswordModel) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 editPasswordUseCase(password)

@@ -5,13 +5,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
+import com.gvelesiani.base.BaseFragment
 import com.gvelesiani.helpers.helpers.validateMasterPassword.MasterPasswordValidatorHelperImpl
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.common.onTextChanged
 import com.gvelesiani.passworx.databinding.FragmentChangeMasterPasswordBinding
 
 class ChangeMasterPasswordFragment :
-    com.gvelesiani.base.BaseFragment<ChangeMasterPasswordVM, FragmentChangeMasterPasswordBinding>(
+    BaseFragment<ChangeMasterPasswordVM, FragmentChangeMasterPasswordBinding>(
         ChangeMasterPasswordVM::class
     ) {
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentChangeMasterPasswordBinding =

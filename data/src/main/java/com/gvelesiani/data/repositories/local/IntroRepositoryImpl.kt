@@ -1,7 +1,7 @@
 package com.gvelesiani.data.repositories.local
 
 import android.content.SharedPreferences
-import com.gvelesiani.data.common.IS_INTRO_FINISHED
+import com.gvelesiani.common.constants.IS_INTRO_FINISHED
 import com.gvelesiani.domain.repositories.IntroRepository
 
 class IntroRepositoryImpl constructor(

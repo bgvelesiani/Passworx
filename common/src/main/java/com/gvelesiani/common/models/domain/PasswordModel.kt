@@ -1,4 +1,4 @@
-package com.gvelesiani.domain.model
+package com.gvelesiani.common.models.domain
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

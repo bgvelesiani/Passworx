@@ -1,7 +1,7 @@
 package com.gvelesiani.data.repositories.local
 
 import android.content.SharedPreferences
-import com.gvelesiani.data.common.BIOMETRICS_ALLOWED
+import com.gvelesiani.common.constants.BIOMETRICS_ALLOWED
 import com.gvelesiani.domain.repositories.BiometricsRepository
 
 class BiometricsRepositoryImpl constructor(

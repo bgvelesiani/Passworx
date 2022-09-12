@@ -2,7 +2,6 @@ package com.gvelesiani.passworx.ui.favorites
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.gvelesiani.domain.model.PasswordModel
 import com.gvelesiani.domain.useCases.encryption.DecryptPasswordUseCase
 import com.gvelesiani.domain.useCases.passwords.GetFavoritePasswordsUseCase
 import com.gvelesiani.domain.useCases.passwords.SearchPasswordsUseCase
@@ -103,6 +102,6 @@ class PasswordFavoritesVM(
         val isLoading: Boolean = false,
         val showGetPasswordsError: String? = null,
         val showDeletePasswordsError: String? = null,
-        val passwords: List<PasswordModel> = listOf()
+        val passwords: List<com.gvelesiani.common.models.domain.PasswordModel> = listOf()
     )
 }

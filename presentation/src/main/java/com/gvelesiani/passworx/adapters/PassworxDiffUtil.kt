@@ -1,11 +1,10 @@
 package com.gvelesiani.passworx.adapters
 
 import androidx.recyclerview.widget.DiffUtil
-import com.gvelesiani.domain.model.PasswordModel
 
 class PassworxDiffUtil(
-    private val oldList: List<PasswordModel>,
-    private val newList: List<PasswordModel>
+    private val oldList: List<com.gvelesiani.common.models.domain.PasswordModel>,
+    private val newList: List<com.gvelesiani.common.models.domain.PasswordModel>
 ) : DiffUtil.Callback() {
     override fun getOldListSize(): Int = oldList.size
 

@@ -39,31 +39,20 @@ android {
 dependencies {
     implementation project(':base')
     implementation project(':domain')
-    implementation project(':common')
+    implementation project(':helpers')
     implementation project(':data')
-    implementation "androidx.core:core-ktx:$androidx_core_version"
-    implementation "androidx.appcompat:appcompat:$appcompat_version"
-    implementation "com.google.android.material:material:$material_version"
+    implementation project(':common')
+
     implementation "androidx.constraintlayout:constraintlayout:$constraintlayout_version"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_viewModel_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_viewModel_version"
     implementation "androidx.navigation:navigation-fragment-ktx:$navigation_version"
     implementation "androidx.navigation:navigation-ui-ktx:$navigation_version"
 
-    implementation "io.insert-koin:koin-android:$koin_version"
-    implementation "io.insert-koin:koin-android-compat:$koin_version"
-
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
-
-    implementation "androidx.room:room-runtime:$room_version"
-    implementation "androidx.room:room-ktx:$room_version"
-    kapt "androidx.room:room-compiler:$room_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_core_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_android_version"
 
     implementation "androidx.preference:preference-ktx:$preferences_version"
-
-    implementation group: 'at.favre.lib', name: 'bcrypt', version: "$bcrypt_version"
-    implementation "androidx.biometric:biometric-ktx:$biometric_version"
 
     implementation "com.google.code.gson:gson:$gson_version"
 

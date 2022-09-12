@@ -1,9 +1,8 @@
-package com.gvelesiani.data.dto
+package com.gvelesiani.common.models.data
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.gvelesiani.data.common.TABLE_NAME
-
+import com.gvelesiani.common.constants.TABLE_NAME
 
 @Entity(tableName = TABLE_NAME)
 data class PasswordDto(

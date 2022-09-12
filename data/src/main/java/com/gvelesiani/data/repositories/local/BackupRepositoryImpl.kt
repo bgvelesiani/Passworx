@@ -1,7 +1,7 @@
 package com.gvelesiani.data.repositories.local
 
 import android.content.SharedPreferences
-import com.gvelesiani.data.common.PASSWORDS_AS_STRING
+import com.gvelesiani.common.constants.PASSWORDS_AS_STRING
 import com.gvelesiani.domain.repositories.BackupRepository
 
 class BackupRepositoryImpl constructor(

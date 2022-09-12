@@ -6,6 +6,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import com.google.android.material.color.MaterialColors
+import com.gvelesiani.base.BaseActivity
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.databinding.ActivityMasterPasswordBinding
 import com.gvelesiani.passworx.ui.intro.IntroFragment
@@ -13,7 +14,7 @@ import com.gvelesiani.passworx.ui.masterPassword.fragments.MasterPasswordFragmen
 import com.gvelesiani.passworx.ui.masterPassword.fragments.createMasterPassword.CreateMasterPasswordFragment
 
 class MasterPasswordActivity :
-    com.gvelesiani.base.BaseActivity<MasterPasswordAVM, ActivityMasterPasswordBinding>(
+    BaseActivity<MasterPasswordAVM, ActivityMasterPasswordBinding>(
         MasterPasswordAVM::class
     ) {
     override val bindingInflater: (LayoutInflater) -> ActivityMasterPasswordBinding =

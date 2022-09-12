@@ -2,7 +2,6 @@ package com.gvelesiani.passworx.ui.passwords
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.gvelesiani.domain.model.PasswordModel
 import com.gvelesiani.domain.useCases.encryption.DecryptPasswordUseCase
 import com.gvelesiani.domain.useCases.passwords.GetPasswordsUseCase
 import com.gvelesiani.domain.useCases.passwords.SearchPasswordsUseCase
@@ -114,7 +113,7 @@ class PasswordsVM(
         val decryptedPassword: String? = null,
         val isLoading: Boolean = false,
         val showGetPasswordsError: String? = null,
-        val passwords: List<PasswordModel> = listOf(),
+        val passwords: List<com.gvelesiani.common.models.domain.PasswordModel> = listOf(),
         val showUpdatePasswordError: String? = null,
         val showTrashingItemError: String? = null
     )

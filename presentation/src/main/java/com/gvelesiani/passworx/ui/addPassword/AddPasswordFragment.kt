@@ -5,14 +5,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.gvelesiani.domain.model.PasswordModel
+import com.gvelesiani.base.BaseFragment
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.common.onTextChanged
 import com.gvelesiani.passworx.databinding.FragmentAddPasswordBinding
 
 
 class AddPasswordFragment :
-    com.gvelesiani.base.BaseFragment<AddPasswordVM, FragmentAddPasswordBinding>(AddPasswordVM::class) {
+    BaseFragment<AddPasswordVM, FragmentAddPasswordBinding>(AddPasswordVM::class) {
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentAddPasswordBinding =
         FragmentAddPasswordBinding::inflate
@@ -34,7 +34,7 @@ class AddPasswordFragment :
     private fun addNewPassword() {
         with(binding) {
             viewModel.addNewPassword(
-                PasswordModel(
+                com.gvelesiani.common.models.domain.PasswordModel(
                     password = viewModel.encryptPassword(etPassword.editText?.text.toString()),
                     passwordTitle = etTitle.editText?.text.toString(),
                     websiteOrAppName = etWebsiteOrAppName.editText?.text.toString(),

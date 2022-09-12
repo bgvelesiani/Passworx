@@ -7,23 +7,23 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.gvelesiani.domain.model.PasswordModel
 import com.gvelesiani.passworx.databinding.PasswordItemBinding
 import java.util.*
 
 class PasswordAdapter(
-    private val clickListener: (PasswordModel) -> Unit,
-    private val menuClickListener: (PasswordModel, View) -> Unit,
-    private val copyClickListener: (PasswordModel) -> Unit,
-    private val favoriteClickListener: (PasswordModel, Int) -> Unit
+    private val clickListener: (com.gvelesiani.common.models.domain.PasswordModel) -> Unit,
+    private val menuClickListener: (com.gvelesiani.common.models.domain.PasswordModel, View) -> Unit,
+    private val copyClickListener: (com.gvelesiani.common.models.domain.PasswordModel) -> Unit,
+    private val favoriteClickListener: (com.gvelesiani.common.models.domain.PasswordModel, Int) -> Unit
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private var passwordList: List<PasswordModel> = arrayListOf()
+    private var passwordList: List<com.gvelesiani.common.models.domain.PasswordModel> =
+        arrayListOf()
 
     var binding: PasswordItemBinding? = null
 
     @SuppressLint("NotifyDataSetChanged")
-    fun submitData(data: List<PasswordModel>) {
+    fun submitData(data: List<com.gvelesiani.common.models.domain.PasswordModel>) {
         val diffUtil = PassworxDiffUtil(passwordList, data)
         val result = DiffUtil.calculateDiff(diffUtil)
         passwordList = data
@@ -50,10 +50,10 @@ class PasswordAdapter(
     inner class PasswordViewHolder(private val binding: PasswordItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(
-            password: PasswordModel,
-            clickListener: (PasswordModel) -> Unit,
-            menuClickListener: (PasswordModel, View) -> Unit,
-            copyClickListener: (PasswordModel) -> Unit,
+            password: com.gvelesiani.common.models.domain.PasswordModel,
+            clickListener: (com.gvelesiani.common.models.domain.PasswordModel) -> Unit,
+            menuClickListener: (com.gvelesiani.common.models.domain.PasswordModel, View) -> Unit,
+            copyClickListener: (com.gvelesiani.common.models.domain.PasswordModel) -> Unit,
             position: Int
         ) {
             with(binding) {

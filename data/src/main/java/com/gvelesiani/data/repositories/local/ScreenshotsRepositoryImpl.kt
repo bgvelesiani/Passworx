@@ -1,7 +1,7 @@
 package com.gvelesiani.data.repositories.local
 
 import android.content.SharedPreferences
-import com.gvelesiani.data.common.PREVENT_TAKING_SCREENSHOTS
+import com.gvelesiani.common.constants.PREVENT_TAKING_SCREENSHOTS
 import com.gvelesiani.domain.repositories.ScreenshotsRepository
 
 class ScreenshotsRepositoryImpl constructor(

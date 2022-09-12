@@ -189,7 +189,7 @@
         android:label="UpdatePasswordFragment">
         <argument
             android:name="password"
-            app:argType="com.gvelesiani.domain.model.PasswordModel"
+            app:argType="com.gvelesiani.common.models.domain.PasswordModel"
             app:nullable="true" />
     </fragment>
 </navigation>

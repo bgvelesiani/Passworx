@@ -10,9 +10,6 @@ android {
     defaultConfig {
         minSdk min_sdk_version
         targetSdk target_sdk_version
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -32,11 +29,7 @@ android {
 
 dependencies {
     implementation project(':base')
+    implementation project(':helpers')
     implementation project(':common')
-    implementation "androidx.core:core-ktx:$androidx_core_version"
-    implementation "androidx.appcompat:appcompat:$appcompat_version"
-    implementation "com.google.android.material:material:$material_version"
-    implementation "io.insert-koin:koin-android:$koin_version"
-    implementation "io.insert-koin:koin-android-compat:$koin_version"
     implementation "com.google.code.gson:gson:$gson_version"
 }

@@ -6,13 +6,14 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
+import com.gvelesiani.base.BaseFragment
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.common.copyToClipboard
 import com.gvelesiani.passworx.databinding.FragmentPasswordGeneratorBinding
 
 
 class PasswordGeneratorFragment :
-    com.gvelesiani.base.BaseFragment<PasswordGeneratorVM, FragmentPasswordGeneratorBinding>(
+    BaseFragment<PasswordGeneratorVM, FragmentPasswordGeneratorBinding>(
         PasswordGeneratorVM::class
     ) {
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentPasswordGeneratorBinding

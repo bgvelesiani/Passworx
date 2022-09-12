@@ -6,13 +6,13 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.gvelesiani.domain.model.PasswordModel
+import com.gvelesiani.base.BaseFragment
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.common.onTextChanged
 import com.gvelesiani.passworx.databinding.FragmentEditBinding
 
 class UpdatePasswordFragment :
-    com.gvelesiani.base.BaseFragment<UpdatePasswordVM, FragmentEditBinding>(UpdatePasswordVM::class) {
+    BaseFragment<UpdatePasswordVM, FragmentEditBinding>(UpdatePasswordVM::class) {
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentEditBinding
         get() = FragmentEditBinding::inflate
 
@@ -45,7 +45,7 @@ class UpdatePasswordFragment :
     private fun editPassword() {
         with(binding) {
             viewModel.editPassword(
-                PasswordModel(
+                com.gvelesiani.common.models.domain.PasswordModel(
                     passwordId = args.password?.passwordId!!,
                     password = viewModel.encryptPassword(etPassword.editText?.text.toString()),
                     passwordTitle = etTitle.editText?.text.toString(),
@@ -75,7 +75,7 @@ class UpdatePasswordFragment :
         binding.btAddNewPassword.isEnabled = viewState.addButtonEnabled
     }
 
-    private fun setEditableData(password: PasswordModel) {
+    private fun setEditableData(password: com.gvelesiani.common.models.domain.PasswordModel) {
         with(binding) {
             etPassword.editText?.setText(password.password)
             etTitle.editText?.setText(password.passwordTitle)

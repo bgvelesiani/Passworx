@@ -2,7 +2,6 @@ package com.gvelesiani.passworx.ui.trash
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.gvelesiani.domain.model.PasswordModel
 import com.gvelesiani.domain.useCases.passwords.DeletePasswordUseCase
 import com.gvelesiani.domain.useCases.passwords.GetPasswordsUseCase
 import com.gvelesiani.domain.useCases.passwords.SearchPasswordsUseCase
@@ -90,6 +89,6 @@ class PasswordTrashVM(
         val isLoading: Boolean = false,
         val showGetPasswordsError: String? = null,
         val showDeletePasswordsError: String? = null,
-        val passwords: List<PasswordModel> = listOf()
+        val passwords: List<com.gvelesiani.common.models.domain.PasswordModel> = listOf()
     )
 }
