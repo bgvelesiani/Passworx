@@ -9,3 +9,7 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Passworx"
 include ':app'
+include ':base'
+include ':data'
+include ':domain'
+include ':common'

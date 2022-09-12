@@ -4,12 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.gvelesiani.domain.useCases.generate.GeneratePasswordUseCase
+import com.gvelesiani.domain.useCases.generate.Password
+import com.gvelesiani.helpers.helpers.resourceProvider.ResourceHelper
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.constants.INITIAL_GENERATED_PASSWORD_LENGTH
 import com.gvelesiani.passworx.constants.PasswordGeneratorProperties
-import com.gvelesiani.passworx.domain.useCases.generate.GeneratePasswordUseCase
-import com.gvelesiani.passworx.domain.useCases.generate.Password
-import com.gvelesiani.passworx.helpers.resourceProvider.ResourceHelper
 import kotlinx.coroutines.launch
 
 class PasswordGeneratorVM(

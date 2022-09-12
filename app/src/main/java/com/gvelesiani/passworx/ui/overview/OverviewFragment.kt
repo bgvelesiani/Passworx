@@ -5,11 +5,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.gvelesiani.passworx.R
-import com.gvelesiani.passworx.base.BaseFragment
 import com.gvelesiani.passworx.databinding.FragmentOverviewContainerBinding
 
 class OverviewFragment :
-    BaseFragment<OverviewVM, FragmentOverviewContainerBinding>(OverviewVM::class) {
+    com.gvelesiani.base.BaseFragment<OverviewVM, FragmentOverviewContainerBinding>(OverviewVM::class) {
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) ->
     FragmentOverviewContainerBinding = FragmentOverviewContainerBinding::inflate
 

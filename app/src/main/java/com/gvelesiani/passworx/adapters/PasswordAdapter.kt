@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.gvelesiani.domain.model.PasswordModel
 import com.gvelesiani.passworx.databinding.PasswordItemBinding
-import com.gvelesiani.passworx.domain.model.PasswordModel
 import java.util.*
 
 class PasswordAdapter(

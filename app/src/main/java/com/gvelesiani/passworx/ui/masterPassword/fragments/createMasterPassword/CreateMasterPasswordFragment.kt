@@ -6,15 +6,14 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
+import com.gvelesiani.helpers.helpers.validateMasterPassword.MasterPasswordValidatorHelperImpl
 import com.gvelesiani.passworx.R
-import com.gvelesiani.passworx.base.BaseFragment
 import com.gvelesiani.passworx.common.onTextChanged
 import com.gvelesiani.passworx.databinding.FragmentCreateMasterPasswordBinding
-import com.gvelesiani.passworx.helpers.validateMasterPassword.MasterPasswordValidatorHelperImpl
 import com.gvelesiani.passworx.ui.masterPassword.fragments.MasterPasswordFragment
 
 class CreateMasterPasswordFragment :
-    BaseFragment<CreateMasterPasswordVM, FragmentCreateMasterPasswordBinding>(
+    com.gvelesiani.base.BaseFragment<CreateMasterPasswordVM, FragmentCreateMasterPasswordBinding>(
         CreateMasterPasswordVM::class
     ) {
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentCreateMasterPasswordBinding =

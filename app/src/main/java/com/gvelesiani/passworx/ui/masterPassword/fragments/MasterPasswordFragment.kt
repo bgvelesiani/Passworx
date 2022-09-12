@@ -7,12 +7,13 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.gvelesiani.passworx.R
-import com.gvelesiani.passworx.base.BaseFragment
 import com.gvelesiani.passworx.databinding.FragmentMasterPasswordBinding
 import com.gvelesiani.passworx.ui.MainActivity
 
 class MasterPasswordFragment :
-    BaseFragment<MasterPasswordVM, FragmentMasterPasswordBinding>(MasterPasswordVM::class) {
+    com.gvelesiani.base.BaseFragment<MasterPasswordVM, FragmentMasterPasswordBinding>(
+        MasterPasswordVM::class
+    ) {
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentMasterPasswordBinding =
         FragmentMasterPasswordBinding::inflate

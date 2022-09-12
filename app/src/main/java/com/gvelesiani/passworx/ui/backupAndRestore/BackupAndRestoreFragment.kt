@@ -7,15 +7,16 @@ import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.navigation.fragment.findNavController
 import com.google.gson.Gson
-import com.gvelesiani.passworx.base.BaseFragment
+import com.gvelesiani.domain.model.PasswordModel
 import com.gvelesiani.passworx.common.makeSnackBar
 import com.gvelesiani.passworx.common.readFileContent
 import com.gvelesiani.passworx.common.writeInFile
 import com.gvelesiani.passworx.databinding.FragmentBackupAndRestoreBinding
-import com.gvelesiani.passworx.domain.model.PasswordModel
 
 class BackupAndRestoreFragment :
-    BaseFragment<BackupAndRestoreVM, FragmentBackupAndRestoreBinding>(BackupAndRestoreVM::class) {
+    com.gvelesiani.base.BaseFragment<BackupAndRestoreVM, FragmentBackupAndRestoreBinding>(
+        BackupAndRestoreVM::class
+    ) {
     private var passwordList: MutableList<PasswordModel> = mutableListOf()
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentBackupAndRestoreBinding =

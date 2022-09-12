@@ -6,13 +6,14 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.FragmentManager
 import androidx.navigation.fragment.findNavController
-import com.gvelesiani.passworx.base.BaseBottomSheet
+import com.gvelesiani.domain.model.PasswordModel
 import com.gvelesiani.passworx.databinding.BottomSheetPasswordDetailsBinding
-import com.gvelesiani.passworx.domain.model.PasswordModel
 import com.gvelesiani.passworx.ui.passwords.PasswordsFragmentDirections
 
 class PasswordDetailsBottomSheet :
-    BaseBottomSheet<PasswordDetailsVM, BottomSheetPasswordDetailsBinding>(PasswordDetailsVM::class) {
+    com.gvelesiani.base.BaseBottomSheet<PasswordDetailsVM, BottomSheetPasswordDetailsBinding>(
+        PasswordDetailsVM::class
+    ) {
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> BottomSheetPasswordDetailsBinding
         get() = BottomSheetPasswordDetailsBinding::inflate

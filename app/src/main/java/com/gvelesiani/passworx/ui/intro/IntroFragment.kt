@@ -9,7 +9,6 @@ import androidx.fragment.app.replace
 import androidx.viewpager2.widget.ViewPager2
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.adapters.IntroAdapter
-import com.gvelesiani.passworx.base.BaseFragment
 import com.gvelesiani.passworx.constants.Steps.FIRST
 import com.gvelesiani.passworx.constants.Steps.SECOND
 import com.gvelesiani.passworx.constants.Steps.THIRD
@@ -17,7 +16,8 @@ import com.gvelesiani.passworx.databinding.FragmentIntroBinding
 import com.gvelesiani.passworx.ui.masterPassword.fragments.createMasterPassword.CreateMasterPasswordFragment
 
 
-class IntroFragment : BaseFragment<IntroVM, FragmentIntroBinding>(IntroVM::class) {
+class IntroFragment :
+    com.gvelesiani.base.BaseFragment<IntroVM, FragmentIntroBinding>(IntroVM::class) {
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentIntroBinding =
         FragmentIntroBinding::inflate
 

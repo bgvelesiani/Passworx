@@ -2,12 +2,12 @@ package com.gvelesiani.passworx.ui.passwords
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.gvelesiani.passworx.domain.model.PasswordModel
-import com.gvelesiani.passworx.domain.useCases.encryption.DecryptPasswordUseCase
-import com.gvelesiani.passworx.domain.useCases.passwords.GetPasswordsUseCase
-import com.gvelesiani.passworx.domain.useCases.passwords.SearchPasswordsUseCase
-import com.gvelesiani.passworx.domain.useCases.passwords.UpdateFavoriteStateUseCase
-import com.gvelesiani.passworx.domain.useCases.passwords.UpdateItemTrashStateUseCase
+import com.gvelesiani.domain.model.PasswordModel
+import com.gvelesiani.domain.useCases.encryption.DecryptPasswordUseCase
+import com.gvelesiani.domain.useCases.passwords.GetPasswordsUseCase
+import com.gvelesiani.domain.useCases.passwords.SearchPasswordsUseCase
+import com.gvelesiani.domain.useCases.passwords.UpdateFavoriteStateUseCase
+import com.gvelesiani.domain.useCases.passwords.UpdateItemTrashStateUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay

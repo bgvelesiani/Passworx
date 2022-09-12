@@ -6,11 +6,10 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.navigation.fragment.findNavController
 import com.gvelesiani.passworx.R
-import com.gvelesiani.passworx.base.BaseFragment
 import com.gvelesiani.passworx.databinding.FragmentSettingsBinding
 
 class SettingsFragment :
-    BaseFragment<SettingsVM, FragmentSettingsBinding>(SettingsVM::class) {
+    com.gvelesiani.base.BaseFragment<SettingsVM, FragmentSettingsBinding>(SettingsVM::class) {
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentSettingsBinding
         get() = FragmentSettingsBinding::inflate

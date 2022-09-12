@@ -1,7 +1,7 @@
 package com.gvelesiani.passworx.adapters
 
 import androidx.recyclerview.widget.DiffUtil
-import com.gvelesiani.passworx.domain.model.PasswordModel
+import com.gvelesiani.domain.model.PasswordModel
 
 class PassworxDiffUtil(
     private val oldList: List<PasswordModel>,

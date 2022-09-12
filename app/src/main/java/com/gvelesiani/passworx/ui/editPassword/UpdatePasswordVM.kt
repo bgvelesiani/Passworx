@@ -2,12 +2,12 @@ package com.gvelesiani.passworx.ui.editPassword
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.gvelesiani.domain.model.PasswordModel
+import com.gvelesiani.domain.useCases.passwords.UpdatePasswordUseCase
+import com.gvelesiani.helpers.helpers.encryptPassword.PasswordEncryptionHelper
+import com.gvelesiani.helpers.helpers.resourceProvider.ResourceHelper
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.constants.MAX_TITLE_LENGTH
-import com.gvelesiani.passworx.domain.model.PasswordModel
-import com.gvelesiani.passworx.domain.useCases.passwords.UpdatePasswordUseCase
-import com.gvelesiani.passworx.helpers.encryptPassword.PasswordEncryptionHelper
-import com.gvelesiani.passworx.helpers.resourceProvider.ResourceHelper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

@@ -13,19 +13,18 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
+import com.gvelesiani.domain.model.PasswordModel
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.adapters.PasswordAdapter
-import com.gvelesiani.passworx.base.BaseFragment
 import com.gvelesiani.passworx.common.copyToClipboard
 import com.gvelesiani.passworx.common.hideKeyboard
 import com.gvelesiani.passworx.common.onTextChanged
 import com.gvelesiani.passworx.databinding.FragmentPasswordsBinding
-import com.gvelesiani.passworx.domain.model.PasswordModel
 import com.gvelesiani.passworx.ui.passwordDetails.PasswordDetailsBottomSheet
 
 
 class PasswordsFragment :
-    BaseFragment<PasswordsVM, FragmentPasswordsBinding>(PasswordsVM::class) {
+    com.gvelesiani.base.BaseFragment<PasswordsVM, FragmentPasswordsBinding>(PasswordsVM::class) {
     private lateinit var adapter: PasswordAdapter
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentPasswordsBinding

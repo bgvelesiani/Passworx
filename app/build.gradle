@@ -37,6 +37,10 @@ android {
 }
 
 dependencies {
+    implementation project(':base')
+    implementation project(':domain')
+    implementation project(':common')
+    implementation project(':data')
     implementation "androidx.core:core-ktx:$androidx_core_version"
     implementation "androidx.appcompat:appcompat:$appcompat_version"
     implementation "com.google.android.material:material:$material_version"

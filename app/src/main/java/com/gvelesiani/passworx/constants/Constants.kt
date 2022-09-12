@@ -1,11 +1,8 @@
 package com.gvelesiani.passworx.constants
 
-const val DATABASE_NAME = "PASSWORD_DATABASE"
-const val TABLE_NAME = "PASSWORD_TABLE"
 const val INITIAL_GENERATED_PASSWORD_LENGTH = 8
 const val CLIP_DATA_PLAIN_TEXT_LABEL = "GENERATED_PASSWORD"
 const val MAX_TITLE_LENGTH = 20
-const val PREFERENCES_KEY = "com.gvelesiani.passworx_preferences"
 
 object PasswordGeneratorProperties {
     const val CAPITAL_LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -14,12 +11,6 @@ object PasswordGeneratorProperties {
     const val NUMBERS = "0123456789"
     const val COMPLEX_PASSWORD = CAPITAL_LETTERS + LOWERCASE_LETTERS + NUMBERS + SYMBOLS
 }
-
-const val MASTER_PASSWORD = "MASTER_PASSWORD"
-const val PREVENT_TAKING_SCREENSHOTS = "TAKING_SCREENSHOTS_PREVENTED"
-const val BIOMETRICS_ALLOWED = "BIOMETRICS_ALLOWED"
-const val IS_INTRO_FINISHED = "IS_INTRO_FINISHED"
-const val PASSWORDS_AS_STRING = "PASSWORDS_AS_STRING"
 
 object Steps {
     const val FIRST = 0

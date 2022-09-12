@@ -5,10 +5,9 @@ import android.view.WindowManager
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.gvelesiani.passworx.R
-import com.gvelesiani.passworx.base.BaseActivity
 import com.gvelesiani.passworx.databinding.ActivityMainBinding
 
-class MainActivity : BaseActivity<MainVM, ActivityMainBinding>(MainVM::class) {
+class MainActivity : com.gvelesiani.base.BaseActivity<MainVM, ActivityMainBinding>(MainVM::class) {
     private lateinit var navController: NavController
 
     override val bindingInflater: (LayoutInflater) -> ActivityMainBinding =

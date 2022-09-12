@@ -6,14 +6,13 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.gvelesiani.domain.model.PasswordModel
 import com.gvelesiani.passworx.R
-import com.gvelesiani.passworx.base.BaseFragment
 import com.gvelesiani.passworx.common.onTextChanged
 import com.gvelesiani.passworx.databinding.FragmentEditBinding
-import com.gvelesiani.passworx.domain.model.PasswordModel
 
 class UpdatePasswordFragment :
-    BaseFragment<UpdatePasswordVM, FragmentEditBinding>(UpdatePasswordVM::class) {
+    com.gvelesiani.base.BaseFragment<UpdatePasswordVM, FragmentEditBinding>(UpdatePasswordVM::class) {
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentEditBinding
         get() = FragmentEditBinding::inflate
 

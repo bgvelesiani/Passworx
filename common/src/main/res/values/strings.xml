@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="biometric_auth_subtitle">Log in using your biometric credentials</string>
+    <string name="biometric_auth_negative_button_text">Use master password</string>
+    <string name="biometric_auth_title">PassworX BiometriX</string>
+</resources>

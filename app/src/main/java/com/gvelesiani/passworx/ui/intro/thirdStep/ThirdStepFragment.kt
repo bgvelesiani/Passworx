@@ -3,10 +3,10 @@ package com.gvelesiani.passworx.ui.intro.thirdStep
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.gvelesiani.passworx.base.BaseFragment
 import com.gvelesiani.passworx.databinding.FragmentThirdStepBinding
 
-class ThirdStepFragment : BaseFragment<ThirdStepVM, FragmentThirdStepBinding>(ThirdStepVM::class) {
+class ThirdStepFragment :
+    com.gvelesiani.base.BaseFragment<ThirdStepVM, FragmentThirdStepBinding>(ThirdStepVM::class) {
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentThirdStepBinding
         get() = FragmentThirdStepBinding::inflate
 

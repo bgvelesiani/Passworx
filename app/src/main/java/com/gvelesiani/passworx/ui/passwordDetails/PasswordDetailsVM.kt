@@ -2,7 +2,7 @@ package com.gvelesiani.passworx.ui.passwordDetails
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.gvelesiani.passworx.helpers.encryptPassword.PasswordEncryptionHelper
+import com.gvelesiani.helpers.helpers.encryptPassword.PasswordEncryptionHelper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

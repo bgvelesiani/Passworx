@@ -17,70 +17,77 @@ import com.gvelesiani.passworx.ui.passwords.PasswordsVM
 import com.gvelesiani.passworx.ui.settings.SettingsVM
 import com.gvelesiani.passworx.ui.trash.PasswordTrashVM
 import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.module.Module
 import org.koin.dsl.module
 
-val viewModelsModule = module {
-    viewModel {
-        AddPasswordVM(get(), get(), get())
+object ViewModelsModule {
+    fun load(): Module {
+        return viewModelsModule
     }
 
-    viewModel {
-        SettingsVM(get(), get(), get(), get())
-    }
+    private val viewModelsModule = module {
+        viewModel {
+            AddPasswordVM(get(), get(), get())
+        }
 
-    viewModel {
-        ThirdStepVM(get(), get())
-    }
+        viewModel {
+            SettingsVM(get(), get(), get(), get())
+        }
 
-    viewModel {
-        PasswordsVM(get(), get(), get(), get(), get())
-    }
+        viewModel {
+            ThirdStepVM(get(), get())
+        }
 
-    viewModel {
-        PasswordGeneratorVM(get(), get())
-    }
+        viewModel {
+            PasswordsVM(get(), get(), get(), get(), get())
+        }
 
-    viewModel {
-        PasswordTrashVM(get(), get(), get(), get())
-    }
+        viewModel {
+            PasswordGeneratorVM(get(), get())
+        }
 
-    viewModel {
-        PasswordDetailsVM(get())
-    }
+        viewModel {
+            PasswordTrashVM(get(), get(), get(), get())
+        }
 
-    viewModel {
-        PasswordFavoritesVM(get(), get(), get(), get(), get())
-    }
+        viewModel {
+            PasswordDetailsVM(get())
+        }
 
-    viewModel {
-        CreateMasterPasswordVM(get(), get(), get())
-    }
+        viewModel {
+            PasswordFavoritesVM(get(), get(), get(), get(), get())
+        }
 
-    viewModel {
-        MasterPasswordVM(get(), get(), get(), get())
-    }
+        viewModel {
+            CreateMasterPasswordVM(get(), get(), get())
+        }
 
-    viewModel {
-        ChangeMasterPasswordVM(get(), get(), get(), get())
-    }
+        viewModel {
+            MasterPasswordVM(get(), get(), get(), get())
+        }
 
-    viewModel {
-        MasterPasswordAVM(get(), get())
-    }
+        viewModel {
+            ChangeMasterPasswordVM(get(), get(), get(), get())
+        }
 
-    viewModel {
-        MainVM(get())
-    }
+        viewModel {
+            MasterPasswordAVM(get(), get())
+        }
 
-    viewModel {
-        IntroVM(get())
-    }
+        viewModel {
+            MainVM(get())
+        }
 
-    viewModel {
-        UpdatePasswordVM(get(), get(), get())
-    }
+        viewModel {
+            IntroVM(get())
+        }
 
-    viewModel {
-        BackupAndRestoreVM(get(), get(), get(), get(), get())
+        viewModel {
+            UpdatePasswordVM(get(), get(), get())
+        }
+
+        viewModel {
+            BackupAndRestoreVM(get(), get(), get(), get(), get())
+        }
     }
 }

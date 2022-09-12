@@ -2,11 +2,11 @@ package com.gvelesiani.passworx.ui.masterPassword.fragments.changeMasterPassword
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.gvelesiani.passworx.domain.useCases.masterPassword.CreateOrChangeMasterPasswordUseCase
-import com.gvelesiani.passworx.domain.useCases.masterPassword.GetMasterPasswordUseCase
-import com.gvelesiani.passworx.helpers.hashPassword.PasswordHashHelper
-import com.gvelesiani.passworx.helpers.validateMasterPassword.MasterPasswordValidatorHelper
-import com.gvelesiani.passworx.helpers.validateMasterPassword.MasterPasswordValidatorHelperImpl
+import com.gvelesiani.domain.useCases.masterPassword.CreateOrChangeMasterPasswordUseCase
+import com.gvelesiani.domain.useCases.masterPassword.GetMasterPasswordUseCase
+import com.gvelesiani.helpers.helpers.hashPassword.PasswordHashHelper
+import com.gvelesiani.helpers.helpers.validateMasterPassword.MasterPasswordValidatorHelper
+import com.gvelesiani.helpers.helpers.validateMasterPassword.MasterPasswordValidatorHelperImpl
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
