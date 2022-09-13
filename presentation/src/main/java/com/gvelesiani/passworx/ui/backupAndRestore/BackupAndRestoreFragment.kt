@@ -9,9 +9,9 @@ import androidx.navigation.fragment.findNavController
 import com.google.gson.Gson
 import com.gvelesiani.base.BaseFragment
 import com.gvelesiani.common.models.domain.PasswordModel
-import com.gvelesiani.passworx.common.makeSnackBar
-import com.gvelesiani.passworx.common.readFileContent
-import com.gvelesiani.passworx.common.writeInFile
+import com.gvelesiani.passworx.common.extensions.makeSnackBar
+import com.gvelesiani.passworx.common.extensions.readFileContent
+import com.gvelesiani.passworx.common.extensions.writeInFile
 import com.gvelesiani.passworx.databinding.FragmentBackupAndRestoreBinding
 
 class BackupAndRestoreFragment :
