@@ -1,4 +1,4 @@
-package com.gvelesiani.passworx.ui.editPassword
+package com.gvelesiani.passworx.ui.updatePassword
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 class UpdatePasswordVM(
     private val encryptionHelper: PasswordEncryptionHelper,
     private val resourceHelper: ResourceHelper,
-    private val editPasswordUseCase: UpdatePasswordUseCase,
+    private val updatePasswordUseCase: UpdatePasswordUseCase,
 ) : ViewModel() {
     val viewState: MutableLiveData<ViewState> = MutableLiveData()
 
@@ -24,14 +24,14 @@ class UpdatePasswordVM(
 
     private fun currentViewState(): ViewState = viewState.value!!
 
-    fun editPassword(password: com.gvelesiani.common.models.domain.PasswordModel) {
+    fun updatePassword(password: com.gvelesiani.common.models.domain.PasswordModel) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                editPasswordUseCase(password)
+                updatePasswordUseCase(password)
             } catch (e: Exception) {
                 viewState.postValue(
                     currentViewState().copy(
-                        showEditPasswordError = resourceHelper.getString(
+                        showUpdatePasswordError = resourceHelper.getString(
                             R.string.add_password_error_Text
                         )
                     )
@@ -81,7 +81,7 @@ class UpdatePasswordVM(
         val isLoading: Boolean = false,
         val showTitleErrorMessage: String? = null,
         val showLabelErrorMessage: String? = null,
-        val showEditPasswordError: String? = null,
+        val showUpdatePasswordError: String? = null,
         val addButtonEnabled: Boolean = true
     )
 

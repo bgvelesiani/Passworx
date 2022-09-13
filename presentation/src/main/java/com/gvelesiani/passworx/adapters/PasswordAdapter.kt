@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.gvelesiani.passworx.common.formatWebsite
 import com.gvelesiani.passworx.databinding.PasswordItemBinding
 import java.util.*
 
@@ -60,7 +61,7 @@ class PasswordAdapter(
                 tvEmailOrUsername.text = password.emailOrUserName
 
                 val logoResource = tvItemLogo.context.resources.getIdentifier(
-                    password.websiteOrAppName.lowercase().replace("\\s".toRegex(), ""),
+                    password.websiteOrAppName.formatWebsite(),
                     "drawable",
                     "com.gvelesiani.passworx"
                 )

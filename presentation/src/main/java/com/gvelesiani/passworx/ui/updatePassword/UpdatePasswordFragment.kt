@@ -1,4 +1,4 @@
-package com.gvelesiani.passworx.ui.editPassword
+package com.gvelesiani.passworx.ui.updatePassword
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,14 +7,15 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.gvelesiani.base.BaseFragment
+import com.gvelesiani.common.models.domain.PasswordModel
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.common.onTextChanged
-import com.gvelesiani.passworx.databinding.FragmentEditBinding
+import com.gvelesiani.passworx.databinding.FragmentUpdatePasswordBinding
 
 class UpdatePasswordFragment :
-    BaseFragment<UpdatePasswordVM, FragmentEditBinding>(UpdatePasswordVM::class) {
-    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentEditBinding
-        get() = FragmentEditBinding::inflate
+    BaseFragment<UpdatePasswordVM, FragmentUpdatePasswordBinding>(UpdatePasswordVM::class) {
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentUpdatePasswordBinding
+        get() = FragmentUpdatePasswordBinding::inflate
 
     private val args: UpdatePasswordFragmentArgs by navArgs()
 
@@ -31,8 +32,8 @@ class UpdatePasswordFragment :
     }
 
     private fun setOnClickListeners() {
-        binding.btAddNewPassword.setOnClickListener {
-            editPassword()
+        binding.btUpdatePassword.setOnClickListener {
+            updatePassword()
         }
     }
 
@@ -42,10 +43,10 @@ class UpdatePasswordFragment :
         }
     }
 
-    private fun editPassword() {
+    private fun updatePassword() {
         with(binding) {
-            viewModel.editPassword(
-                com.gvelesiani.common.models.domain.PasswordModel(
+            viewModel.updatePassword(
+                PasswordModel(
                     passwordId = args.password?.passwordId!!,
                     password = viewModel.encryptPassword(etPassword.editText?.text.toString()),
                     passwordTitle = etTitle.editText?.text.toString(),
@@ -61,10 +62,10 @@ class UpdatePasswordFragment :
 
     private fun observeViewState(viewState: UpdatePasswordVM.ViewState) {
         binding.etPassword.editText?.setText(viewState.password)
-        if (viewState.showEditPasswordError != null) {
+        if (viewState.showUpdatePasswordError != null) {
             MaterialAlertDialogBuilder(requireContext())
                 .setTitle(resources.getString(R.string.generate_password_error_dialog_title))
-                .setMessage(viewState.showEditPasswordError)
+                .setMessage(viewState.showUpdatePasswordError)
                 .setPositiveButton(resources.getString(R.string.generate_password_error_dialog_button_text)) { _, _ ->
                 }
                 .show()
@@ -72,7 +73,7 @@ class UpdatePasswordFragment :
 
         binding.etTitle.error = viewState.showTitleErrorMessage
         binding.etLabel.error = viewState.showLabelErrorMessage
-        binding.btAddNewPassword.isEnabled = viewState.addButtonEnabled
+        binding.btUpdatePassword.isEnabled = viewState.addButtonEnabled
     }
 
     private fun setEditableData(password: com.gvelesiani.common.models.domain.PasswordModel) {

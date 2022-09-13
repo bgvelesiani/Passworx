@@ -185,7 +185,7 @@
 
     <fragment
         android:id="@+id/updatePasswordFragment"
-        android:name="com.gvelesiani.passworx.ui.editPassword.UpdatePasswordFragment"
+        android:name="com.gvelesiani.passworx.ui.updatePassword.UpdatePasswordFragment"
         android:label="UpdatePasswordFragment">
         <argument
             android:name="password"
