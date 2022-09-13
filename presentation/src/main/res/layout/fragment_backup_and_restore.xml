@@ -20,7 +20,7 @@
         android:layout_marginStart="@dimen/dimen_17dp"
         android:layout_marginEnd="@dimen/dimen_17dp"
         android:padding="@dimen/dimen_13dp"
-        app:cardBackgroundColor="?attr/gen_pass_bg_color"
+        app:cardBackgroundColor="?attr/password_bg_color"
         app:cardCornerRadius="@dimen/dimen_15dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar">
@@ -62,7 +62,7 @@
         android:layout_marginTop="@dimen/dimen_17dp"
         android:layout_marginEnd="@dimen/dimen_17dp"
         android:padding="@dimen/dimen_13dp"
-        app:cardBackgroundColor="?attr/gen_pass_bg_color"
+        app:cardBackgroundColor="?attr/password_bg_color"
         app:cardCornerRadius="@dimen/dimen_15dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cvBackupDatabase">
