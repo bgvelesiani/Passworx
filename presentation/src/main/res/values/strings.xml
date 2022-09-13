@@ -12,6 +12,7 @@
     <string name="copy_password_snackbar_text">Generated password copied to clipboard</string>
     <string name="copy_password_button_text">Copy Password</string>
     <string name="add_password_button_text">Add Password</string>
+    <string name="update_password_button_text">Update Password</string>
     <string name="password_generator_slider_min_value">8</string>
     <string name="password_generator_slider_max_value">32</string>
 
@@ -42,7 +43,7 @@
     <string name="empty_trash_title">Trash is empty</string>
     <string name="empty_passwords_message">Store passwords in Passworx, Make them more secure</string>
     <string name="empty_passwords_title">Nothing yet…</string>
-    <string name="bs_edit_password_bt_text">Edit Password</string>
+    <string name="bs_update_password_bt_text">Update Password</string>
     <string name="move_to_trash_dialog_message">Are you sure you want to move this password to trash?</string>
     <string name="move_to_favourites_dialog_message">Are you sure you want to move this password to Favourites?</string>
     <string name="dialog_no">No</string>
@@ -96,7 +97,7 @@
     <string name="unlock_with_biometrics_info">With this turned on, you can unlock application with your fingerprint or face ID</string>
     <string name="generate_password_title">Generate Password</string>
 
-    <string name="title_edit_password">Edit Password</string>
+    <string name="title_update_password">Update Password</string>
 
     <string name="title_backup_and_restore">Backup and Restore</string>
     <string name="restorePasswordsSuccess">Successfully restored %s passwords</string>

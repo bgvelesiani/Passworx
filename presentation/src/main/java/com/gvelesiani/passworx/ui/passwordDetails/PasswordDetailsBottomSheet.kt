@@ -35,7 +35,7 @@ class PasswordDetailsBottomSheet :
     }
 
     private fun setOnClickListeners(password: com.gvelesiani.common.models.domain.PasswordModel) {
-        binding.btEditPassword.setOnClickListener {
+        binding.btUpdatePassword.setOnClickListener {
             findNavController().navigate(
                 PasswordsFragmentDirections.actionNavigationPasswordsToUpdatePasswordFragment(
                     password

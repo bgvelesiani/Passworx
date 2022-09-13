@@ -3,7 +3,7 @@ package com.gvelesiani.passworx.diModules
 import com.gvelesiani.passworx.ui.MainVM
 import com.gvelesiani.passworx.ui.addPassword.AddPasswordVM
 import com.gvelesiani.passworx.ui.backupAndRestore.BackupAndRestoreVM
-import com.gvelesiani.passworx.ui.editPassword.UpdatePasswordVM
+import com.gvelesiani.passworx.ui.updatePassword.UpdatePasswordVM
 import com.gvelesiani.passworx.ui.favorites.PasswordFavoritesVM
 import com.gvelesiani.passworx.ui.intro.IntroVM
 import com.gvelesiani.passworx.ui.intro.thirdStep.ThirdStepVM
