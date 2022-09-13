@@ -9,7 +9,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.gvelesiani.base.BaseFragment
 import com.gvelesiani.common.models.domain.PasswordModel
 import com.gvelesiani.passworx.R
-import com.gvelesiani.passworx.common.onTextChanged
+import com.gvelesiani.passworx.common.extensions.onTextChanged
 import com.gvelesiani.passworx.databinding.FragmentUpdatePasswordBinding
 
 class UpdatePasswordFragment :
@@ -76,7 +76,7 @@ class UpdatePasswordFragment :
         binding.btUpdatePassword.isEnabled = viewState.addButtonEnabled
     }
 
-    private fun setEditableData(password: com.gvelesiani.common.models.domain.PasswordModel) {
+    private fun setEditableData(password: PasswordModel) {
         with(binding) {
             etPassword.editText?.setText(password.password)
             etTitle.editText?.setText(password.passwordTitle)

@@ -16,9 +16,9 @@ import com.google.android.material.snackbar.Snackbar
 import com.gvelesiani.base.BaseFragment
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.adapters.PasswordAdapter
-import com.gvelesiani.passworx.common.copyToClipboard
-import com.gvelesiani.passworx.common.hideKeyboard
-import com.gvelesiani.passworx.common.onTextChanged
+import com.gvelesiani.passworx.common.extensions.copyToClipboard
+import com.gvelesiani.passworx.common.extensions.hideKeyboard
+import com.gvelesiani.passworx.common.extensions.onTextChanged
 import com.gvelesiani.passworx.databinding.FragmentPasswordsBinding
 import com.gvelesiani.passworx.ui.passwordDetails.PasswordDetailsBottomSheet
 
@@ -53,6 +53,16 @@ class PasswordsFragment :
         viewModel.viewState.observe(viewLifecycleOwner) {
             observeViewState(it)
         }
+        viewModel.decryptedPassword.observe(viewLifecycleOwner){
+            it.copyToClipboard(requireContext())
+            val snackbar = Snackbar.make(
+                requireView(),
+                getString(R.string.password_copying_success),
+                Snackbar.LENGTH_SHORT
+            )
+            snackbar.anchorView = binding.btAddPassword
+            snackbar.show()
+        }
     }
 
     private fun observeViewState(viewState: PasswordsVM.ViewState) {
@@ -72,16 +82,6 @@ class PasswordsFragment :
                     binding.rvPasswords.isVisible = true
                 }
             }
-        }
-        viewState.decryptedPassword?.let {
-            it.copyToClipboard(requireContext())
-            val snackbar = Snackbar.make(
-                requireView(),
-                getString(R.string.password_copying_success),
-                Snackbar.LENGTH_SHORT
-            )
-            snackbar.anchorView = binding.btAddPassword
-            snackbar.show()
         }
     }
 

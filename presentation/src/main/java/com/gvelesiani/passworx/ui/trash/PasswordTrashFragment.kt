@@ -18,8 +18,8 @@ import com.google.android.material.snackbar.Snackbar
 import com.gvelesiani.base.BaseFragment
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.adapters.PasswordAdapter
-import com.gvelesiani.passworx.common.hideKeyboard
-import com.gvelesiani.passworx.common.onTextChanged
+import com.gvelesiani.passworx.common.extensions.hideKeyboard
+import com.gvelesiani.passworx.common.extensions.onTextChanged
 import com.gvelesiani.passworx.databinding.FragmentPasswordsBinding
 import com.gvelesiani.passworx.ui.passwordDetails.PasswordDetailsBottomSheet
 

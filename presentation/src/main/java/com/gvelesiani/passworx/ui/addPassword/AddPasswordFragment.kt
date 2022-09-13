@@ -7,7 +7,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.gvelesiani.base.BaseFragment
 import com.gvelesiani.passworx.R
-import com.gvelesiani.passworx.common.onTextChanged
+import com.gvelesiani.passworx.common.extensions.onTextChanged
 import com.gvelesiani.passworx.databinding.FragmentAddPasswordBinding
 
 

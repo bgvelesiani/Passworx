@@ -1,4 +1,4 @@
-package com.gvelesiani.passworx.common
+package com.gvelesiani.passworx.common.extensions
 
 import android.content.Context
 import android.net.Uri

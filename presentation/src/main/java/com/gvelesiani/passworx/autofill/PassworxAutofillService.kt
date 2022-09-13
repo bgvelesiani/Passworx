@@ -14,7 +14,7 @@ import androidx.annotation.RequiresApi
 import com.gvelesiani.domain.useCases.passwords.GetPasswordsUseCase
 import com.gvelesiani.helpers.helpers.encryptPassword.PasswordEncryptionHelper
 import com.gvelesiani.passworx.R
-import com.gvelesiani.passworx.common.formatWebsite
+import com.gvelesiani.passworx.common.extensions.formatWebsite
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

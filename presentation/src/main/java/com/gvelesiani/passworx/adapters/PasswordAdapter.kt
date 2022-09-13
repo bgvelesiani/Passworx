@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.gvelesiani.passworx.common.formatWebsite
+import com.gvelesiani.passworx.common.extensions.formatWebsite
 import com.gvelesiani.passworx.databinding.PasswordItemBinding
 import java.util.*
 

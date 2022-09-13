@@ -8,7 +8,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.gvelesiani.base.BaseFragment
 import com.gvelesiani.passworx.R
-import com.gvelesiani.passworx.common.copyToClipboard
+import com.gvelesiani.passworx.common.extensions.copyToClipboard
 import com.gvelesiani.passworx.databinding.FragmentPasswordGeneratorBinding
 
 

@@ -7,6 +7,7 @@ import com.gvelesiani.domain.useCases.passwords.GetPasswordsUseCase
 import com.gvelesiani.domain.useCases.passwords.SearchPasswordsUseCase
 import com.gvelesiani.domain.useCases.passwords.UpdateFavoriteStateUseCase
 import com.gvelesiani.domain.useCases.passwords.UpdateItemTrashStateUseCase
+import com.gvelesiani.passworx.common.ActionLiveData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -20,6 +21,7 @@ class PasswordsVM(
     private val decryptPasswordUseCase: DecryptPasswordUseCase,
 ) : ViewModel() {
     val viewState: MutableLiveData<ViewState> = MutableLiveData()
+    val decryptedPassword: ActionLiveData<String> = ActionLiveData()
 
     init {
         viewState.value = ViewState()
@@ -100,8 +102,8 @@ class PasswordsVM(
     fun decryptPassword(encryptedPassword: String) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val decryptedPassword = decryptPasswordUseCase(encryptedPassword)
-                viewState.postValue(currentViewState().copy(decryptedPassword = decryptedPassword))
+                val password = decryptPasswordUseCase(encryptedPassword)
+                decryptedPassword.postValue(password)
             } catch (e: Exception) {
                 viewState.postValue(currentViewState().copy(showDecryptionError = "Couldn't decrypt password"))
             }
@@ -110,7 +112,6 @@ class PasswordsVM(
 
     data class ViewState(
         val showDecryptionError: String? = null,
-        val decryptedPassword: String? = null,
         val isLoading: Boolean = false,
         val showGetPasswordsError: String? = null,
         val passwords: List<com.gvelesiani.common.models.domain.PasswordModel> = listOf(),
