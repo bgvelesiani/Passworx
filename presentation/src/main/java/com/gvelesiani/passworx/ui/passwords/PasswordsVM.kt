@@ -1,7 +1,7 @@
 package com.gvelesiani.passworx.ui.passwords
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.gvelesiani.common.models.domain.PasswordModel
 import com.gvelesiani.domain.useCases.encryption.DecryptPasswordUseCase
 import com.gvelesiani.domain.useCases.passwords.GetPasswordsUseCase
 import com.gvelesiani.domain.useCases.passwords.SearchPasswordsUseCase
@@ -11,6 +11,8 @@ import com.gvelesiani.passworx.common.ActionLiveData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class PasswordsVM(
@@ -20,34 +22,22 @@ class PasswordsVM(
     private val searchPasswordsUseCase: SearchPasswordsUseCase,
     private val decryptPasswordUseCase: DecryptPasswordUseCase,
 ) : ViewModel() {
-    val viewState: MutableLiveData<ViewState> = MutableLiveData()
     val decryptedPassword: ActionLiveData<String> = ActionLiveData()
+    val passwords = MutableStateFlow<List<PasswordModel>>(listOf())
+    val isLoading = MutableStateFlow(false)
 
-    init {
-        viewState.value = ViewState()
-    }
-
-    private fun currentViewState(): ViewState = viewState.value!!
+    private val _uiState = MutableStateFlow<PasswordsUIState>(PasswordsUIState.Empty)
+    val uiState: StateFlow<PasswordsUIState> = _uiState
 
     fun getPasswords() {
-        viewState.value = currentViewState().copy(isLoading = true)
+        _uiState.value = PasswordsUIState.Loading
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                delay(100)
+                delay(1000)
+                isLoading.value = false
                 val result = getPasswordsUseCase(params = false)
-                viewState.postValue(
-                    currentViewState().copy(
-                        passwords = result,
-                        isLoading = false
-                    )
-                )
+                _uiState.value = if(result.isEmpty()) PasswordsUIState.Empty else PasswordsUIState.Success(result)
             } catch (e: Exception) {
-                viewState.postValue(
-                    currentViewState().copy(
-                        isLoading = false,
-                        showGetPasswordsError = "Couldn't get passwords"
-                    )
-                )
             }
         }
     }
@@ -55,8 +45,8 @@ class PasswordsVM(
     fun searchPasswords(query: String) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val passwords = searchPasswordsUseCase(Pair(query, false))
-                viewState.postValue(currentViewState().copy(passwords = passwords))
+                val result = searchPasswordsUseCase(Pair(query, false))
+                _uiState.value = PasswordsUIState.Success(result)
             } catch (e: Exception) {
             }
         }
@@ -67,14 +57,9 @@ class PasswordsVM(
             try {
                 delay(100)
                 updateFavoriteStateUseCase(Pair(isFavorite, passwordId))
-                val passwords = getPasswordsUseCase(false)
-                viewState.postValue(
-                    currentViewState().copy(
-                        passwords = passwords
-                    )
-                )
+                val result = getPasswordsUseCase(false)
+                _uiState.value = PasswordsUIState.Success(result)
             } catch (e: Exception) {
-                viewState.postValue(currentViewState().copy(showUpdatePasswordError = "Couldn't update password... please try again"))
             }
         }
     }
@@ -87,14 +72,8 @@ class PasswordsVM(
                 if (isFavorite) {
                     updateFavoriteStateUseCase(Pair(false, passwordId))
                 }
-                val passwords = getPasswordsUseCase(false)
-                viewState.postValue(
-                    currentViewState().copy(
-                        passwords = passwords
-                    )
-                )
+                passwords.value = getPasswordsUseCase(false)
             } catch (e: Exception) {
-                viewState.postValue(currentViewState().copy(showTrashingItemError = "Couldn't move item to trash"))
             }
         }
     }
@@ -105,17 +84,14 @@ class PasswordsVM(
                 val password = decryptPasswordUseCase(encryptedPassword)
                 decryptedPassword.postValue(password)
             } catch (e: Exception) {
-                viewState.postValue(currentViewState().copy(showDecryptionError = "Couldn't decrypt password"))
             }
         }
     }
+}
 
-    data class ViewState(
-        val showDecryptionError: String? = null,
-        val isLoading: Boolean = false,
-        val showGetPasswordsError: String? = null,
-        val passwords: List<com.gvelesiani.common.models.domain.PasswordModel> = listOf(),
-        val showUpdatePasswordError: String? = null,
-        val showTrashingItemError: String? = null
-    )
+sealed class PasswordsUIState {
+    data class Success(val passwords: List<PasswordModel>): PasswordsUIState()
+    object Empty: PasswordsUIState()
+    object Loading: PasswordsUIState()
+    data class Error(val errorMsg: String): PasswordsUIState()
 }

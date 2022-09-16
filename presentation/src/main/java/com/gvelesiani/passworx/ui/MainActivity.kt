@@ -8,6 +8,7 @@ import com.gvelesiani.base.BaseActivity
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.databinding.ActivityMainBinding
 
+@Deprecated("Needs to be deleted soon")
 class MainActivity : BaseActivity<MainVM, ActivityMainBinding>(MainVM::class) {
     private lateinit var navController: NavController
 

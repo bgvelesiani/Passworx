@@ -23,6 +23,7 @@ import com.gvelesiani.passworx.common.extensions.onTextChanged
 import com.gvelesiani.passworx.databinding.FragmentPasswordsBinding
 import com.gvelesiani.passworx.ui.passwordDetails.PasswordDetailsBottomSheet
 
+@Deprecated("Needs to be deleted soon")
 class PasswordTrashFragment :
     BaseFragment<PasswordTrashVM, FragmentPasswordsBinding>(PasswordTrashVM::class) {
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentPasswordsBinding =
@@ -31,10 +32,10 @@ class PasswordTrashFragment :
     private lateinit var adapter: PasswordAdapter
 
     override fun setupView(savedInstanceState: Bundle?) {
-        binding.toolbar.setupToolbar {
-            findNavController().navigateUp()
-        }
-        binding.btAddPassword.visibility = View.GONE
+//        binding.toolbar.setupToolbar {
+//            findNavController().navigateUp()
+//        }
+//        binding.btAddPassword.visibility = View.GONE
         setupSearch()
         setupRecyclerViewAdapter()
     }
@@ -46,43 +47,43 @@ class PasswordTrashFragment :
     }
 
     private fun setupSearch() {
-        binding.btClearSearch.setOnClickListener {
-            resetSearch(reset = true)
-        }
-        binding.search.onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
-            if (hasFocus) {
-                binding.btSearch.visibility = View.GONE
-                binding.btClearSearch.animation =
-                    AnimationUtils.loadAnimation(requireContext(), R.anim.rotate_animation)
-                binding.btClearSearch.visibility = View.VISIBLE
-            } else {
-                binding.btSearch.visibility = View.VISIBLE
-                binding.btClearSearch.visibility = View.GONE
-            }
-        }
-        binding.search.onTextChanged {
-            viewModel.searchPasswords(it)
-        }
+//        binding.btClearSearch.setOnClickListener {
+//            resetSearch(reset = true)
+//        }
+//        binding.search.onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
+//            if (hasFocus) {
+//                binding.btSearch.visibility = View.GONE
+//                binding.btClearSearch.animation =
+//                    AnimationUtils.loadAnimation(requireContext(), R.anim.rotate_animation)
+//                binding.btClearSearch.visibility = View.VISIBLE
+//            } else {
+//                binding.btSearch.visibility = View.VISIBLE
+//                binding.btClearSearch.visibility = View.GONE
+//            }
+//        }
+//        binding.search.onTextChanged {
+//            viewModel.searchPasswords(it)
+//        }
     }
 
     private fun observeViewState(viewState: PasswordTrashVM.ViewState) {
-        binding.progressBar.isVisible = viewState.isLoading
-        when (viewState.isLoading) {
-            true -> {
-                binding.rvPasswords.isVisible = false
-                binding.groupNoData.isVisible = false
-            }
-            else -> {
-                if (viewState.passwords.isEmpty()) {
-                    binding.groupNoData.isVisible = true
-                    binding.rvPasswords.isVisible = false
-                } else {
-                    adapter.submitData(viewState.passwords)
-                    binding.groupNoData.isVisible = false
-                    binding.rvPasswords.isVisible = true
-                }
-            }
-        }
+//        binding.progressBar.isVisible = viewState.isLoading
+//        when (viewState.isLoading) {
+//            true -> {
+//                binding.rvPasswords.isVisible = false
+//                binding.groupNoData.isVisible = false
+//            }
+//            else -> {
+//                if (viewState.passwords.isEmpty()) {
+//                    binding.groupNoData.isVisible = true
+//                    binding.rvPasswords.isVisible = false
+//                } else {
+//                    adapter.submitData(viewState.passwords)
+//                    binding.groupNoData.isVisible = false
+//                    binding.rvPasswords.isVisible = true
+//                }
+//            }
+//        }
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -97,9 +98,9 @@ class PasswordTrashFragment :
         popup.setOnMenuItemClickListener { menuItem: MenuItem ->
             when (menuItem.itemId) {
                 R.id.menuRestorePassword -> {
-                    binding.search.text?.isNotEmpty()?.let { resetSearch(it) }
+//                    binding.search.text?.isNotEmpty()?.let { resetSearch(it) }
                     viewModel.restorePassword(passwordId = password.passwordId)
-                    binding.rvPasswords.itemAnimator = DefaultItemAnimator()
+//                    binding.rvPasswords.itemAnimator = DefaultItemAnimator()
                 }
                 R.id.menuDeletePermanently -> {
                     MaterialAlertDialogBuilder(
@@ -111,9 +112,9 @@ class PasswordTrashFragment :
                             // Respond to negative button press
                         }
                         .setPositiveButton("Yes") { _, _ ->
-                            binding.search.text?.isNotEmpty()?.let { resetSearch(it) }
+//                            binding.search.text?.isNotEmpty()?.let { resetSearch(it) }
                             viewModel.deletePassword(passwordId = password.passwordId)
-                            binding.rvPasswords.itemAnimator = DefaultItemAnimator()
+//                            binding.rvPasswords.itemAnimator = DefaultItemAnimator()
                         }
                         .show()
                 }
@@ -127,9 +128,9 @@ class PasswordTrashFragment :
 
     private fun resetSearch(reset: Boolean) {
         if (reset) {
-            binding.search.setText("")
-            hideKeyboard()
-            binding.search.clearFocus()
+//            binding.search.setText("")
+//            hideKeyboard()
+//            binding.search.clearFocus()
         }
     }
 
@@ -155,10 +156,10 @@ class PasswordTrashFragment :
                     getString(R.string.password_copying_error),
                     Snackbar.LENGTH_SHORT
                 )
-                snackbar.anchorView = binding.btAddPassword
+       //         snackbar.anchorView = binding.btAddPassword
                 snackbar.show()
             }, { _, _ -> })
-        binding.rvPasswords.adapter = adapter
-        binding.rvPasswords.layoutManager = LinearLayoutManager(requireContext())
+//        binding.rvPasswords.adapter = adapter
+//        binding.rvPasswords.layoutManager = LinearLayoutManager(requireContext())
     }
 }

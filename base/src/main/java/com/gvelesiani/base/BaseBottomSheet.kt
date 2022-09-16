@@ -12,7 +12,7 @@ import kotlin.reflect.KClass
 
 abstract class BaseBottomSheet<VM : ViewModel, B : ViewBinding>(klass: KClass<VM>) :
     BottomSheetDialogFragment() {
-    val viewModel: VM by viewModel(clazz = klass)
+    val viewModel: VM = klass.java as VM
 
     private var _binding: B? = null
     val binding get() = _binding!!

@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.gvelesiani.domain.useCases.screenshots.GetTakingScreenshotsStatusUseCase
 import kotlinx.coroutines.launch
 
+@Deprecated("Needs to be deleted soon")
 class MainVM(
     private val getTakingScreenshotsStatusUseCase: GetTakingScreenshotsStatusUseCase
 ) :

@@ -3,14 +3,16 @@ package com.gvelesiani.passworx.ui.addPassword
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.gvelesiani.base.BaseFragment
 import com.gvelesiani.passworx.R
-import com.gvelesiani.passworx.common.extensions.onTextChanged
 import com.gvelesiani.passworx.databinding.FragmentAddPasswordBinding
 
 
+@Deprecated("Needs to be deleted soon")
 class AddPasswordFragment :
     BaseFragment<AddPasswordVM, FragmentAddPasswordBinding>(AddPasswordVM::class) {
 
@@ -18,41 +20,39 @@ class AddPasswordFragment :
         FragmentAddPasswordBinding::inflate
 
     override fun setupView(savedInstanceState: Bundle?) {
-        binding.toolbar.setupToolbar {
-            findNavController().navigateUp()
-        }
-        watchFields()
+//        binding.toolbar.setupToolbar {
+//            findNavController().navigateUp()
+//        }
+//        watchFields()
         setOnClickListeners()
+        binding.content.setContent {
+            AddPasswordScreen(
+//                viewModel = viewModel,
+                navController = findNavController()
+            )
+        }
     }
 
     private fun setOnClickListeners() {
-        binding.btAddNewPassword.setOnClickListener {
-            addNewPassword()
-        }
+//        binding.btAddNewPassword.setOnClickListener {
+//            addNewPassword()
+//        }
     }
 
-    private fun addNewPassword() {
-        with(binding) {
-            viewModel.addNewPassword(
-                com.gvelesiani.common.models.domain.PasswordModel(
-                    password = viewModel.encryptPassword(etPassword.editText?.text.toString()),
-                    passwordTitle = etTitle.editText?.text.toString(),
-                    websiteOrAppName = etWebsiteOrAppName.editText?.text.toString(),
-                    emailOrUserName = etEmailOrUserName.editText?.text.toString(),
-                    label = etLabel.editText?.text.toString()
-                )
-            )
-        }
-        findNavController().navigateUp()
-    }
+//    private fun watchFields() {
+//        binding.etTitle.editText?.onTextChanged {
+//            viewModel.onTitleChanged(it)
+//        }
+//        binding.etLabel.editText?.onTextChanged {
+//            viewModel.onLabelChanged(it)
+//        }
+//    }
 
-    private fun watchFields() {
-        binding.etTitle.editText?.onTextChanged {
-            viewModel.onTitleChanged(it)
-        }
-        binding.etLabel.editText?.onTextChanged {
-            viewModel.onLabelChanged(it)
-        }
+    @Preview
+    @Composable
+    fun AddPasswordContentPreview() {
+        AddPasswordScreen(
+            findNavController())
     }
 
     private fun observeViewState(viewState: AddPasswordVM.ViewState) {
@@ -64,10 +64,6 @@ class AddPasswordFragment :
                 }
                 .show()
         }
-
-        binding.etTitle.error = viewState.showTitleErrorMessage
-        binding.etLabel.error = viewState.showLabelErrorMessage
-        binding.btAddNewPassword.isEnabled = viewState.addButtonEnabled
     }
 
     override fun setupObservers() {

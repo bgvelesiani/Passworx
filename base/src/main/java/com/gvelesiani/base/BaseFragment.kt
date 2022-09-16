@@ -11,7 +11,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.reflect.KClass
 
 abstract class BaseFragment<VM : ViewModel, B : ViewBinding>(klass: KClass<VM>) : Fragment() {
-    val viewModel: VM by viewModel(clazz = klass)
+    val viewModel: VM = klass.java as VM
 
     private var _binding: B? = null
     val binding get() = _binding!!

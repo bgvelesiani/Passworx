@@ -11,6 +11,7 @@ import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.databinding.FragmentMasterPasswordBinding
 import com.gvelesiani.passworx.ui.MainActivity
 
+@Deprecated("Needs to be deleted soon")
 class MasterPasswordFragment :
     BaseFragment<MasterPasswordVM, FragmentMasterPasswordBinding>(
         MasterPasswordVM::class
@@ -45,20 +46,20 @@ class MasterPasswordFragment :
     }
 
     override fun setupObservers() {
-        viewModel.viewState.observe(this) {
-            if (it.passwordMatchError != null) {
-                MaterialAlertDialogBuilder(requireContext())
-                    .setTitle(resources.getString(R.string.generate_password_error_dialog_title))
-                    .setMessage(it.passwordMatchError)
-                    .setPositiveButton(resources.getString(R.string.generate_password_error_dialog_button_text)) { _, _ ->
-                    }
-                    .show()
-            }
-            if (it.passwordMatches) {
-                requireActivity().finish()
-                startActivity(Intent(requireActivity(), MainActivity::class.java))
-            }
-            binding.btFingerprintAuth.isVisible = it.biometricsAreAllowed
-        }
+//        viewModel.viewState.observe(this) {
+//            if (it.passwordMatchError != null) {
+//                MaterialAlertDialogBuilder(requireContext())
+//                    .setTitle(resources.getString(R.string.generate_password_error_dialog_title))
+//                    .setMessage(it.passwordMatchError)
+//                    .setPositiveButton(resources.getString(R.string.generate_password_error_dialog_button_text)) { _, _ ->
+//                    }
+//                    .show()
+//            }
+//            if (it.passwordMatches) {
+//                requireActivity().finish()
+//                startActivity(Intent(requireActivity(), MainActivity::class.java))
+//            }
+//            binding.btFingerprintAuth.isVisible = it.biometricsAreAllowed
+//        }
     }
 }

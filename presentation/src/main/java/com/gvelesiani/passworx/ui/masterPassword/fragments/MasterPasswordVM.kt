@@ -1,12 +1,13 @@
 package com.gvelesiani.passworx.ui.masterPassword.fragments
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gvelesiani.domain.useCases.biometrics.GetBiometricsAllowingStatusUserCase
 import com.gvelesiani.domain.useCases.masterPassword.GetMasterPasswordUseCase
 import com.gvelesiani.helpers.helpers.biometrics.BiometricsHelper
 import com.gvelesiani.helpers.helpers.hashPassword.PasswordHashHelper
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class MasterPasswordVM(
@@ -15,28 +16,22 @@ class MasterPasswordVM(
     private val biometricsHelper: BiometricsHelper,
     private val getBiometricsAllowingStatusUserCase: GetBiometricsAllowingStatusUserCase
 ) : ViewModel() {
-    val viewState: MutableLiveData<ViewState> = MutableLiveData()
+    private val _uiState = MutableStateFlow<MasterPasswordUiState>(MasterPasswordUiState.EmptyState)
+    val uiState: StateFlow<MasterPasswordUiState> = _uiState
 
     init {
-        viewState.value = ViewState()
         getBiometricsAllowingStatus()
     }
 
-    private fun currentViewState(): ViewState = viewState.value!!
-
     fun doesPasswordMatch(password: String) {
+        _uiState.value = MasterPasswordUiState.Loading
         viewModelScope.launch {
             try {
                 val result = getMasterPasswordUseCase.invoke(Unit)
                 if (!passwordHashHelper.verify(password, result)) {
-                    viewState.postValue(currentViewState().copy(passwordMatchError = "Master password is incorrect, please try again"))
+                    _uiState.value = MasterPasswordUiState.PasswordMatchError
                 } else {
-                    viewState.postValue(
-                        currentViewState().copy(
-                            passwordMatches = true,
-                            passwordMatchError = null
-                        )
-                    )
+                    _uiState.value = MasterPasswordUiState.PasswordMatchSuccess
                 }
             } catch (ignored: Exception) {
             }
@@ -49,15 +44,17 @@ class MasterPasswordVM(
         viewModelScope.launch {
             try {
                 val result = getBiometricsAllowingStatusUserCase(Unit)
-                viewState.postValue(currentViewState().copy(biometricsAreAllowed = result))
+                _uiState.value = MasterPasswordUiState.BiometricsAreAllowed(allowed = result)
             } catch (e: Exception) {
             }
         }
     }
+}
 
-    data class ViewState(
-        val passwordMatchError: String? = null,
-        val passwordMatches: Boolean = false,
-        val biometricsAreAllowed: Boolean = false
-    )
+sealed class MasterPasswordUiState {
+    object PasswordMatchSuccess : MasterPasswordUiState()
+    object PasswordMatchError : MasterPasswordUiState()
+    object Loading : MasterPasswordUiState()
+    object EmptyState : MasterPasswordUiState()
+    data class BiometricsAreAllowed(val allowed: Boolean) : MasterPasswordUiState()
 }

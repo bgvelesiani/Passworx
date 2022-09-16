@@ -13,7 +13,7 @@ abstract class BaseActivity<VM : ViewModel, B : ViewBinding>(klass: KClass<VM>) 
 
     lateinit var binding: B
 
-    val viewModel: VM by viewModel(clazz = klass)
+    val viewModel: VM = klass.java as VM
 
     abstract val bindingInflater: (LayoutInflater) -> B
 
