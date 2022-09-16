@@ -1,189 +1,147 @@
 package com.gvelesiani.passworx.ui.passwords
 
-import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.*
-import android.view.View.OnFocusChangeListener
-import android.view.animation.AnimationUtils
-import android.widget.PopupMenu
-import androidx.annotation.MenuRes
-import androidx.core.view.isVisible
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import android.view.WindowManager
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material.FloatingActionButton
+import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.gvelesiani.base.BaseFragment
+import com.gvelesiani.common.models.domain.PasswordModel
 import com.gvelesiani.passworx.R
-import com.gvelesiani.passworx.adapters.PasswordAdapter
 import com.gvelesiani.passworx.common.extensions.copyToClipboard
+import com.gvelesiani.passworx.common.extensions.formatWebsite
 import com.gvelesiani.passworx.common.extensions.hideKeyboard
-import com.gvelesiani.passworx.common.extensions.onTextChanged
 import com.gvelesiani.passworx.databinding.FragmentPasswordsBinding
+import com.gvelesiani.passworx.ui.composables.PasswordItem
+import com.gvelesiani.passworx.ui.composables.SearchView
+import com.gvelesiani.passworx.ui.composables.ToolbarView
+import com.gvelesiani.passworx.ui.composeTheme.accentColor
 import com.gvelesiani.passworx.ui.passwordDetails.PasswordDetailsBottomSheet
 
 
 class PasswordsFragment :
     BaseFragment<PasswordsVM, FragmentPasswordsBinding>(PasswordsVM::class) {
-    private lateinit var adapter: PasswordAdapter
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentPasswordsBinding
         get() = FragmentPasswordsBinding::inflate
 
     override fun setupView(savedInstanceState: Bundle?) {
         hideKeyboard()
-        binding.toolbar.setupToolbar {
-            findNavController().navigateUp()
-        }
         activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
-        binding.btAddPassword.visibility = View.VISIBLE
         viewModel.getPasswords()
-        setupSearch()
-        setupRecyclerViewAdapter()
-        setOnClickListeners()
     }
 
-    private fun setOnClickListeners() {
-        binding.btAddPassword.setOnClickListener {
-            findNavController().navigate(R.id.action_navigation_passwords_to_addNewPasswordFragment)
+    @Composable
+    fun PasswordsContent(passwords: List<PasswordModel>) {
+        Box(Modifier.fillMaxSize()) {
+            Column(Modifier.fillMaxSize()) {
+                ToolbarView("Passwords") {
+                    findNavController().navigateUp()
+                }
+                SearchView {
+                    viewModel.searchPasswords(it)
+                }
+                Spacer(modifier = Modifier.height(15.dp))
+                LazyColumn(contentPadding = PaddingValues(top = 15.dp, bottom = 80.dp)) {
+                    items(passwords) { password ->
+                        val logoResource = LocalContext.current.resources.getIdentifier(
+                            password.websiteOrAppName.formatWebsite(),
+                            "drawable",
+                            "com.gvelesiani.passworx"
+                        )
+                        PasswordItem(
+                            logoResource,
+                            password = password,
+                            onCopyClick = {
+                                viewModel.decryptPassword(password.password)
+                            },
+                            onFavoriteClick = {
+                                viewModel.updateFavoriteState(
+                                    !password.isFavorite,
+                                    password.passwordId
+                                )
+                            },
+                            onPasswordClick = {
+                                PasswordDetailsBottomSheet.show(
+                                    password,
+                                    childFragmentManager,
+                                    PasswordDetailsBottomSheet.TAG
+                                )
+                            }
+                        )
+                    }
+                }
+            }
+            FloatingActionButton(
+                backgroundColor = accentColor,
+                modifier = Modifier
+                    .align(Alignment.BottomEnd)
+                    .padding(end = 16.dp, bottom = 16.dp)
+                    .size(56.dp),
+                onClick = {
+                    findNavController().navigate(R.id.action_navigation_passwords_to_addNewPasswordFragment)
+                }) {
+                Icon(imageVector = Icons.Filled.Add, contentDescription = "", tint = Color.White)
+            }
         }
+    }
+
+
+    @Preview
+    @Composable
+    fun PasswordsContentPreview() {
+        PasswordsContent(
+            passwords = listOf(
+                PasswordModel(
+                    0,
+                    "test",
+                    "test",
+                    "test",
+                    "bgvelesiani2@gmail.com",
+                    "test",
+                    true,
+                    true
+                )
+            )
+        )
     }
 
     override fun setupObservers() {
         viewModel.viewState.observe(viewLifecycleOwner) {
             observeViewState(it)
         }
-        viewModel.decryptedPassword.observe(viewLifecycleOwner){
+        viewModel.decryptedPassword.observe(viewLifecycleOwner) {
             it.copyToClipboard(requireContext())
             val snackbar = Snackbar.make(
                 requireView(),
                 getString(R.string.password_copying_success),
                 Snackbar.LENGTH_SHORT
             )
-            snackbar.anchorView = binding.btAddPassword
             snackbar.show()
         }
     }
 
     private fun observeViewState(viewState: PasswordsVM.ViewState) {
-        binding.progressBar.isVisible = viewState.isLoading
-        when (viewState.isLoading) {
-            true -> {
-                binding.rvPasswords.isVisible = false
-                binding.groupNoData.isVisible = false
+        binding.content.setContent {
+            MaterialTheme {
+                PasswordsContent(passwords = viewState.passwords)
             }
-            else -> {
-                if (viewState.passwords.isEmpty()) {
-                    binding.groupNoData.isVisible = true
-                    binding.rvPasswords.isVisible = false
-                } else {
-                    adapter.submitData(viewState.passwords)
-                    binding.groupNoData.isVisible = false
-                    binding.rvPasswords.isVisible = true
-                }
-            }
-        }
-    }
-
-
-    @SuppressLint("NotifyDataSetChanged")
-    private fun showMenu(
-        v: View,
-        @MenuRes menuRes: Int,
-        password: com.gvelesiani.common.models.domain.PasswordModel
-    ) {
-        val popup = PopupMenu(requireContext(), v)
-        popup.menuInflater.inflate(menuRes, popup.menu)
-
-        popup.setOnMenuItemClickListener { menuItem: MenuItem ->
-            when (menuItem.itemId) {
-                R.id.menuEdit -> {
-                    findNavController().navigate(
-                        PasswordsFragmentDirections.actionNavigationPasswordsToUpdatePasswordFragment(
-                            password
-                        )
-                    )
-                }
-                R.id.menuDelete -> {
-                    MaterialAlertDialogBuilder(
-                        requireContext()
-                    )
-                        .setMessage(getString(R.string.move_to_trash_dialog_message))
-                        .setNegativeButton(getString(R.string.dialog_no)) { _, _ ->
-                        }
-                        .setPositiveButton(getString(R.string.dialog_yes)) { _, _ ->
-                            viewModel.updateItemTrashState(
-                                !password.isInTrash,
-                                password.isFavorite,
-                                password.passwordId
-                            )
-                            binding.search.text?.isNotEmpty()?.let { resetSearch(it) }
-                            binding.rvPasswords.itemAnimator = DefaultItemAnimator()
-                        }
-                        .show()
-                }
-            }
-            true
-        }
-        popup.setOnDismissListener {
-        }
-        popup.show()
-    }
-
-    private fun resetSearch(reset: Boolean) {
-        if (reset) {
-            binding.search.setText("")
-            hideKeyboard()
-            binding.search.clearFocus()
-        }
-    }
-
-    private fun setupRecyclerViewAdapter() {
-        adapter = PasswordAdapter(
-            clickListener = { password: com.gvelesiani.common.models.domain.PasswordModel ->
-                PasswordDetailsBottomSheet.show(
-                    password,
-                    childFragmentManager,
-                    PasswordDetailsBottomSheet.TAG
-                )
-            },
-            menuClickListener = { password: com.gvelesiani.common.models.domain.PasswordModel, view: View ->
-                showMenu(
-                    view,
-                    R.menu.password_item_menu,
-                    password
-                )
-            },
-            copyClickListener = { passwordModel ->
-                viewModel.decryptPassword(passwordModel.password)
-            },
-            favoriteClickListener = { passwordModel, position ->
-                binding.search.text?.isNotEmpty()?.let { resetSearch(it) }
-                viewModel.updateFavoriteState(!passwordModel.isFavorite, passwordModel.passwordId)
-                adapter.notifyItemChanged(position)
-            })
-        binding.rvPasswords.adapter = adapter
-        binding.rvPasswords.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvPasswords.itemAnimator = null
-    }
-
-    private fun setupSearch() {
-        binding.btClearSearch.setOnClickListener {
-            resetSearch(reset = true)
-        }
-        binding.search.onFocusChangeListener = OnFocusChangeListener { v, hasFocus ->
-            if (hasFocus) {
-                binding.btSearch.visibility = View.GONE
-                binding.btClearSearch.animation =
-                    AnimationUtils.loadAnimation(requireContext(), R.anim.rotate_animation)
-                binding.btClearSearch.visibility = View.VISIBLE
-            } else {
-                binding.btSearch.visibility = View.VISIBLE
-                binding.btClearSearch.visibility = View.GONE
-            }
-        }
-        binding.search.onTextChanged {
-            viewModel.searchPasswords(it)
         }
     }
 }

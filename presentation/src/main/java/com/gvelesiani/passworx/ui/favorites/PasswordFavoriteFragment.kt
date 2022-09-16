@@ -34,11 +34,11 @@ class PasswordFavoriteFragment :
     private lateinit var adapter: PasswordAdapter
 
     override fun setupView(savedInstanceState: Bundle?) {
-        binding.toolbar.setupToolbar {
-            findNavController().navigateUp()
-        }
+//        binding.toolbar.setupToolbar {
+//            findNavController().navigateUp()
+//        }
         viewModel.getPasswords()
-        binding.btAddPassword.visibility = View.GONE
+//        binding.btAddPassword.visibility = View.GONE
         setupSearch()
         setupRecyclerViewAdapter()
     }
@@ -50,43 +50,43 @@ class PasswordFavoriteFragment :
     }
 
     private fun setupSearch() {
-        binding.btClearSearch.setOnClickListener {
-            resetSearch(reset = true)
-        }
-        binding.search.onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
-            if (hasFocus) {
-                binding.btSearch.visibility = View.GONE
-                binding.btClearSearch.animation =
-                    AnimationUtils.loadAnimation(requireContext(), R.anim.rotate_animation)
-                binding.btClearSearch.visibility = View.VISIBLE
-            } else {
-                binding.btSearch.visibility = View.VISIBLE
-                binding.btClearSearch.visibility = View.GONE
-            }
-        }
-        binding.search.onTextChanged {
-            viewModel.searchPasswords(it)
-        }
+//        binding.btClearSearch.setOnClickListener {
+//            resetSearch(reset = true)
+//        }
+//        binding.search.onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
+//            if (hasFocus) {
+//                binding.btSearch.visibility = View.GONE
+//                binding.btClearSearch.animation =
+//                    AnimationUtils.loadAnimation(requireContext(), R.anim.rotate_animation)
+//                binding.btClearSearch.visibility = View.VISIBLE
+//            } else {
+//                binding.btSearch.visibility = View.VISIBLE
+//                binding.btClearSearch.visibility = View.GONE
+//            }
+//        }
+//        binding.search.onTextChanged {
+//            viewModel.searchPasswords(it)
+//        }
     }
 
     private fun observeViewState(viewState: PasswordFavoritesVM.ViewState) {
-        binding.progressBar.isVisible = viewState.isLoading
-        when (viewState.isLoading) {
-            true -> {
-                binding.rvPasswords.isVisible = false
-                binding.groupNoData.isVisible = false
-            }
-            else -> {
-                if (viewState.passwords.isEmpty()) {
-                    binding.groupNoData.isVisible = true
-                    binding.rvPasswords.isVisible = false
-                } else {
-                    adapter.submitData(viewState.passwords)
-                    binding.groupNoData.isVisible = false
-                    binding.rvPasswords.isVisible = true
-                }
-            }
-        }
+//        binding.progressBar.isVisible = viewState.isLoading
+//        when (viewState.isLoading) {
+//            true -> {
+//                binding.rvPasswords.isVisible = false
+//                binding.groupNoData.isVisible = false
+//            }
+//            else -> {
+//                if (viewState.passwords.isEmpty()) {
+//                    binding.groupNoData.isVisible = true
+//                    binding.rvPasswords.isVisible = false
+//                } else {
+//                    adapter.submitData(viewState.passwords)
+//                    binding.groupNoData.isVisible = false
+//                    binding.rvPasswords.isVisible = true
+//                }
+//            }
+//        }
         viewState.decryptedPassword?.let {
             it.copyToClipboard(requireContext())
             val snackbar = Snackbar.make(
@@ -94,7 +94,7 @@ class PasswordFavoriteFragment :
                 getString(R.string.password_copying_success),
                 Snackbar.LENGTH_SHORT
             )
-            snackbar.anchorView = binding.btAddPassword
+//            snackbar.anchorView = binding.btAddPassword
             snackbar.show()
         }
     }
@@ -128,8 +128,8 @@ class PasswordFavoriteFragment :
                                 !password.isInTrash,
                                 password.passwordId
                             )
-                            binding.search.text?.isNotEmpty()?.let { resetSearch(it) }
-                            binding.rvPasswords.itemAnimator = DefaultItemAnimator()
+//                            binding.search.text?.isNotEmpty()?.let { resetSearch(it) }
+//                            binding.rvPasswords.itemAnimator = DefaultItemAnimator()
                         }
                         .show()
                 }
@@ -161,20 +161,20 @@ class PasswordFavoriteFragment :
                 viewModel.decryptPassword(passwordModel.password)
             },
             favoriteClickListener = { passwordModel, position ->
-                binding.search.text?.isNotEmpty()?.let { resetSearch(it) }
+//                binding.search.text?.isNotEmpty()?.let { resetSearch(it) }
                 viewModel.updateFavoriteState(!passwordModel.isFavorite, passwordModel.passwordId)
                 adapter.notifyItemChanged(position)
             })
-        binding.rvPasswords.adapter = adapter
-        binding.rvPasswords.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvPasswords.itemAnimator = null
+//        binding.rvPasswords.adapter = adapter
+//        binding.rvPasswords.layoutManager = LinearLayoutManager(requireContext())
+//        binding.rvPasswords.itemAnimator = null
     }
 
     private fun resetSearch(reset: Boolean) {
         if (reset) {
-            binding.search.setText("")
-            hideKeyboard()
-            binding.search.clearFocus()
+//            binding.search.setText("")
+//            hideKeyboard()
+//            binding.search.clearFocus()
         }
     }
 
