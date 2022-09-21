@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.gvelesiani.base.BaseFragment
@@ -43,71 +44,9 @@ class PasswordsFragment :
     override fun setupView(savedInstanceState: Bundle?) {
         hideKeyboard()
         activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
-        viewModel.getPasswords()
-        binding.content.setContent {
-            PasswordsContent(viewModel.passwords.collectAsState().value)
-        }
-    }
-
-    @Composable
-    fun PasswordsContent(passwords: List<PasswordModel>) {
-        Box(Modifier.fillMaxSize()) {
-            Column(Modifier.fillMaxSize()) {
-                ToolbarView("Passwords") {
-                    findNavController().navigateUp()
-                }
-                SearchView {
-                    viewModel.searchPasswords(it)
-                }
-                Spacer(modifier = Modifier.height(15.dp))
-                LazyColumn(contentPadding = PaddingValues(top = 15.dp, bottom = 80.dp)) {
-                    items(passwords) { password ->
-                        val logoResource = LocalContext.current.resources.getIdentifier(
-                            password.websiteOrAppName.formatWebsite(),
-                            "drawable",
-                            "com.gvelesiani.passworx"
-                        )
-                        PasswordItem(
-                            logoResource,
-                            password = password,
-                            onCopyClick = {
-                                viewModel.decryptPassword(password.password)
-                            },
-                            onFavoriteClick = {
-                                viewModel.updateFavoriteState(
-                                    !password.isFavorite,
-                                    password.passwordId
-                                )
-                            },
-                            onPasswordClick = {
-                                PasswordDetailsBottomSheet.show(
-                                    password,
-                                    childFragmentManager,
-                                    PasswordDetailsBottomSheet.TAG
-                                )
-                            }
-                        )
-                    }
-                }
-            }
-            FloatingActionButton(
-                backgroundColor = accentColor,
-                modifier = Modifier
-                    .align(Alignment.BottomEnd)
-                    .padding(end = 16.dp, bottom = 16.dp)
-                    .size(56.dp),
-                onClick = {
-                    findNavController().navigate(R.id.action_navigation_passwords_to_addNewPasswordFragment)
-                }) {
-                Icon(imageVector = Icons.Filled.Add, contentDescription = "", tint = Color.White)
-            }
-        }
     }
 
     override fun setupObservers() {
-        viewModel.viewState.observe(viewLifecycleOwner) {
-//            observeViewState(it)
-        }
         viewModel.decryptedPassword.observe(viewLifecycleOwner) {
             it.copyToClipboard(requireContext())
             val snackbar = Snackbar.make(

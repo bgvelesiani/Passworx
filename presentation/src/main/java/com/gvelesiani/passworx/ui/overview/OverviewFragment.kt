@@ -14,7 +14,7 @@ class OverviewFragment :
 
     override fun setupView(savedInstanceState: Bundle?) {
         binding.content.setContent {
-            OverviewContent(findNavController())
+            OverviewScreen(findNavController())
         }
     }
 

@@ -7,6 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
 import com.gvelesiani.passworx.R
+import com.gvelesiani.passworx.navGraph.Screen
 import com.gvelesiani.passworx.ui.components.OverviewItem
 import com.gvelesiani.passworx.ui.components.ToolbarView
 
@@ -15,12 +16,12 @@ fun BrowseScreen(
     navController: NavController
 ) {
     Column(Modifier.fillMaxSize()) {
-        ToolbarView(LocalContext.current.getString(R.string.title_browse)) {
+        ToolbarView(screenTitle = LocalContext.current.getString(R.string.title_browse)) {
             navController.navigateUp()
         }
         OverviewItem(
             onOverviewItemClick = {
-                navController.navigate(R.id.action_navigation_browse_to_passwordFavouritesFragment)
+                navController.navigate(Screen.UnderConstruction.route)
             },
             image = R.drawable.ic_not_favorite,
             title = "Favorites",
@@ -28,7 +29,7 @@ fun BrowseScreen(
         )
         OverviewItem(
             onOverviewItemClick = {
-                navController.navigate(R.id.action_navigation_browse_to_passwordTrashFragment)
+                navController.navigate(Screen.UnderConstruction.route)
             },
             image = R.drawable.ic_passwords,
             title = "Trash",

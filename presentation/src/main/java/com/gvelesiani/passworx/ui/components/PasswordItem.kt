@@ -1,8 +1,7 @@
 package com.gvelesiani.passworx.ui.components
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.*
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
@@ -22,11 +21,13 @@ import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.ui.composeTheme.*
 import java.util.*
 
+
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun PasswordItem(
     logoResource: Int = 0,
     password: PasswordModel,
-    onPasswordClick: () -> Unit,
+    onPasswordClick: (PasswordModel) -> Unit,
     onFavoriteClick: () -> Unit,
     onCopyClick: () -> Unit
 ) {
@@ -40,8 +41,11 @@ fun PasswordItem(
         elevation = 0.dp,
         modifier = Modifier
             .padding(start = 16.dp, bottom = 15.dp, end = 16.dp)
-            .clickable {
-                onPasswordClick.invoke()
+            .clickable (
+                interactionSource = MutableInteractionSource(),
+                indication = null,
+            ) {
+                onPasswordClick.invoke(password)
             }
     ) {
         Row(
@@ -84,7 +88,10 @@ fun PasswordItem(
                 Modifier
                     .width(40.dp)
                     .align(Alignment.CenterVertically)
-                    .clickable {
+                    .clickable(
+                        interactionSource = MutableInteractionSource(),
+                        indication = null
+                    ) {
                         onFavoriteClick.invoke()
                     }
             ) {
@@ -100,7 +107,10 @@ fun PasswordItem(
                 Modifier
                     .width(40.dp)
                     .align(Alignment.CenterVertically)
-                    .clickable {
+                    .clickable(
+                        interactionSource = MutableInteractionSource(),
+                        indication = null
+                    ) {
                         onCopyClick.invoke()
                     }
             ) {

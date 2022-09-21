@@ -1,28 +1,36 @@
 package com.gvelesiani.passworx.ui.overview
 
-import androidx.compose.foundation.gestures.Orientation
-import androidx.compose.foundation.gestures.scrollable
+import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
 import com.gvelesiani.passworx.R
+import com.gvelesiani.passworx.navGraph.Screen
 import com.gvelesiani.passworx.ui.components.OverviewItem
+import com.gvelesiani.passworx.ui.components.ToolbarView
+import com.gvelesiani.passworx.ui.composeTheme.bgColorDark
+import com.gvelesiani.passworx.ui.composeTheme.bgColorLight
 
 @Composable
-fun OverviewContent(navController: NavController) {
+fun OverviewScreen(
+    navController: NavController
+) {
     val scrollState = rememberScrollState()
     Column(
-        modifier = Modifier.scrollable(
-            state = scrollState,
-            orientation = Orientation.Vertical
-        )
+        modifier = Modifier
+            .verticalScroll(scrollState)
+            .background(color = if (isSystemInDarkTheme()) bgColorDark else bgColorLight)
     ) {
+        ToolbarView(true, screenTitle = LocalContext.current.getString(R.string.app_name)) {
+        }
         OverviewItem(
             onOverviewItemClick = {
-                navController.navigate(R.id.action_overviewFragment_to_navigation_passwords)
+                navController.navigate(Screen.Passwords.route)
             },
             image = R.drawable.ic_passwords,
             title = "Vault",
@@ -31,7 +39,7 @@ fun OverviewContent(navController: NavController) {
 
         OverviewItem(
             onOverviewItemClick = {
-                navController.navigate(R.id.action_overviewFragment_to_navigation_browse)
+                navController.navigate(Screen.Browse.route)
             },
             image = R.drawable.ic_browse,
             title = "Browse",
@@ -40,7 +48,7 @@ fun OverviewContent(navController: NavController) {
 
         OverviewItem(
             onOverviewItemClick = {
-                navController.navigate(R.id.action_overviewFragment_to_navigation_generate)
+                navController.navigate(Screen.UnderConstruction.route)
             },
             image = R.drawable.ic_generate,
             title = "Password Generator",
@@ -49,7 +57,7 @@ fun OverviewContent(navController: NavController) {
 
         OverviewItem(
             onOverviewItemClick = {
-                navController.navigate(R.id.action_overviewFragment_to_navigation_settings)
+                navController.navigate(Screen.UnderConstruction.route)
             },
             image = R.drawable.ic_settings,
             title = "Settings",
@@ -58,11 +66,12 @@ fun OverviewContent(navController: NavController) {
 
         OverviewItem(
             onOverviewItemClick = {
-                navController.navigate(R.id.action_overviewFragment_to_backupAndRestoreFragment)
+                navController.navigate(Screen.UnderConstruction.route)
             },
             image = R.drawable.ic_backup,
             title = "Backup and Restore",
             subTitle = "You can backup or restore passwords from generated files"
         )
+
     }
 }
