@@ -3,6 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../layout/compose-model-1663146473216.xml" value="0.36018518518518516" />
+        <entry key="../../../../layout/compose-model-1663155014888.xml" value="0.1" />
+        <entry key="../../../../layout/compose-model-1663167582150.xml" value="0.11481481481481481" />
+        <entry key="../../../../layout/compose-model-1663228166929.xml" value="0.335" />
+        <entry key="../../../../layout/compose-model-1663233125526.xml" value="0.3296296296296296" />
+        <entry key="../../../../layout/compose-model-1663236594392.xml" value="0.5" />
+        <entry key="../../../../layout/compose-model-1663245413542.xml" value="0.45" />
+        <entry key="../../../../layout/compose-model-1663246867935.xml" value="0.6590909090909091" />
+        <entry key="../../../../layout/compose-model-1663670432368.xml" value="0.32559121621621623" />
+        <entry key="../../../../layout/custom_preview.xml" value="0.19832826747720364" />
         <entry key="..\:/App/Android/Projects/secure_pass/app/src/main/res/drawable/button_background.xml" value="0.19166666666666668" />
         <entry key="..\:/App/Android/Projects/secure_pass/app/src/main/res/drawable/generated_password_background.xml" value="0.19166666666666668" />
         <entry key="..\:/App/Android/Projects/secure_pass/app/src/main/res/drawable/ic_add_new_password.xml" value="0.19166666666666668" />
@@ -137,6 +147,44 @@
         <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.3290676416819013" />
         <entry key="app/src/main/res/layout/password_item.xml" value="0.14537037037037037" />
         <entry key="app/src/main/res/layout/toolbar_view.xml" value="0.45" />
+        <entry key="presentation/src/main/res/drawable/airbnb.xml" value="0.2125" />
+        <entry key="presentation/src/main/res/drawable/amazon.xml" value="0.2125" />
+        <entry key="presentation/src/main/res/drawable/blogger.xml" value="0.2125" />
+        <entry key="presentation/src/main/res/drawable/button_background.xml" value="0.1" />
+        <entry key="presentation/src/main/res/drawable/button_background_selector.xml" value="0.2125" />
+        <entry key="presentation/src/main/res/drawable/coub.xml" value="0.2125" />
+        <entry key="presentation/src/main/res/drawable/creativemarket.xml" value="0.2125" />
+        <entry key="presentation/src/main/res/drawable/dailymotion.xml" value="0.2125" />
+        <entry key="presentation/src/main/res/drawable/digg.xml" value="0.2125" />
+        <entry key="presentation/src/main/res/drawable/dribbble.xml" value="0.2125" />
+        <entry key="presentation/src/main/res/drawable/ic_add_password.xml" value="0.1815" />
+        <entry key="presentation/src/main/res/drawable/ic_app_icon.xml" value="0.265" />
+        <entry key="presentation/src/main/res/drawable/ic_backup.xml" value="0.2265" />
+        <entry key="presentation/src/main/res/drawable/ic_browse.xml" value="0.2265" />
+        <entry key="presentation/src/main/res/drawable/ic_favorite.xml" value="0.329" />
+        <entry key="presentation/src/main/res/drawable/ic_overview_item_arrow.xml" value="0.2305" />
+        <entry key="presentation/src/main/res/drawable/ic_password_item_menu.xml" value="0.1185" />
+        <entry key="presentation/src/main/res/drawable/ic_search.xml" value="0.2305" />
+        <entry key="presentation/src/main/res/drawable/password_background.xml" value="0.2075" />
+        <entry key="presentation/src/main/res/drawable/password_item_logo_background.xml" value="0.1185" />
+        <entry key="presentation/src/main/res/drawable/search_background.xml" value="0.2305" />
+        <entry key="presentation/src/main/res/layout/activity_main.xml" value="0.39114583333333336" />
+        <entry key="presentation/src/main/res/layout/activity_master_password.xml" value="0.39114583333333336" />
+        <entry key="presentation/src/main/res/layout/autofill_item.xml" value="0.39010416666666664" />
+        <entry key="presentation/src/main/res/layout/bottom_sheet_password_details.xml" value="0.39114583333333336" />
+        <entry key="presentation/src/main/res/layout/fragment_add_password.xml" value="0.44256756756756754" />
+        <entry key="presentation/src/main/res/layout/fragment_backup_and_restore.xml" value="0.3787037037037037" />
+        <entry key="presentation/src/main/res/layout/fragment_browse.xml" value="0.4119791666666667" />
+        <entry key="presentation/src/main/res/layout/fragment_edit.xml" value="0.39114583333333336" />
+        <entry key="presentation/src/main/res/layout/fragment_master_password.xml" value="0.335" />
+        <entry key="presentation/src/main/res/layout/fragment_overview_container.xml" value="0.3246445497630332" />
+        <entry key="presentation/src/main/res/layout/fragment_password_generator.xml" value="0.3527777777777778" />
+        <entry key="presentation/src/main/res/layout/fragment_passwords.xml" value="0.21666666666666667" />
+        <entry key="presentation/src/main/res/layout/onboarding_view.xml" value="0.37604166666666666" />
+        <entry key="presentation/src/main/res/layout/overview_item.xml" value="0.4119791666666667" />
+        <entry key="presentation/src/main/res/layout/password_item.xml" value="0.5" />
+        <entry key="presentation/src/main/res/layout/toolbar_view.xml" value="0.39114583333333336" />
+        <entry key="presentation/src/main/res/xml/autofill_config.xml" value="0.39010416666666664" />
       </map>
     </option>
   </component>

@@ -1,15 +1,13 @@
 package com.gvelesiani.passworx.ui.addPassword
 
-import androidx.compose.foundation.gestures.Orientation
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
@@ -24,19 +22,24 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import com.gvelesiani.common.models.domain.PasswordModel
 import com.gvelesiani.passworx.R
+import com.gvelesiani.passworx.common.extensions.getVM
 import com.gvelesiani.passworx.ui.components.ToolbarView
 import com.gvelesiani.passworx.ui.composeTheme.accentColor
 import com.gvelesiani.passworx.ui.composeTheme.secondaryTextColor
 import com.gvelesiani.passworx.ui.composeTheme.textColorDark
 import com.gvelesiani.passworx.ui.composeTheme.textColorLight
 
-@Preview
 @Composable
-fun AddPasswordScreen() {
+fun AddPasswordScreen(
+    navController: NavController
+) {
+    val viewModel = getVM<AddPasswordVM>()
+
     var passwordVisible by rememberSaveable { mutableStateOf(false) }
     val focusedIndicatorColor = if (isSystemInDarkTheme()) textColorDark else textColorLight
     val textColor = if (isSystemInDarkTheme()) textColorDark else textColorLight
@@ -51,16 +54,16 @@ fun AddPasswordScreen() {
 
     Column(
         Modifier
-            .fillMaxSize()
-            .scrollable(scrollState, Orientation.Vertical)
+            .verticalScroll(scrollState)
+            .padding(bottom = 20.dp)
     ) {
         ToolbarView(screenTitle = "Add New Password") {
-//            findNavController().navigateUp()
+            navController.navigateUp()
         }
         OutlinedTextField(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 16.dp, end = 16.dp, top = 15.dp),
+                .padding(start = 16.dp, end = 16.dp, top = 20.dp),
             value = title,
             singleLine = true,
             onValueChange = {
@@ -88,7 +91,7 @@ fun AddPasswordScreen() {
         Text(
             color = textColor,
             text = "Password Details",
-            modifier = Modifier.padding(top = 18.dp, start = 16.dp),
+            modifier = Modifier.padding(top = 25.dp, start = 16.dp),
             fontFamily = FontFamily(Font(R.font.medium)),
             fontSize = 16.sp
         )
@@ -200,7 +203,7 @@ fun AddPasswordScreen() {
         Text(
             color = textColor,
             text = "Others",
-            modifier = Modifier.padding(top = 18.dp, start = 16.dp),
+            modifier = Modifier.padding(top = 25.dp, start = 16.dp),
             fontFamily = FontFamily(Font(R.font.medium)),
             fontSize = 16.sp
         )
@@ -239,22 +242,23 @@ fun AddPasswordScreen() {
                 .padding(
                     start = 16.dp,
                     end = 16.dp,
-                    top = 20.dp
+                    top = 35.dp
                 ),
             shape = RoundedCornerShape(5.dp),
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = accentColor
             ),
             onClick = {
-//                viewModel.addNewPassword(
-//                    PasswordModel(
-//                        password = viewModel.encryptPassword(password.text),
-//                        passwordTitle = title.text,
-//                        websiteOrAppName = websiteOrAppName,
-//                        emailOrUserName = emailOrUserName.text,
-//                        label = label.text
-//                    )
-//                )
+                viewModel.addNewPassword(
+                    PasswordModel(
+                        password = viewModel.encryptPassword(password.text),
+                        passwordTitle = title.text,
+                        websiteOrAppName = websiteOrAppName.text,
+                        emailOrUserName = emailOrUserName.text,
+                        label = label.text
+                    )
+                )
+                navController.navigateUp()
             }) {
             Text(
                 modifier = Modifier.padding(top = 7.dp, bottom = 7.dp),
