@@ -9,15 +9,14 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
@@ -28,9 +27,9 @@ import com.gvelesiani.passworx.common.extensions.copyToClipboard
 import com.gvelesiani.passworx.common.extensions.formatWebsite
 import com.gvelesiani.passworx.common.extensions.hideKeyboard
 import com.gvelesiani.passworx.databinding.FragmentPasswordsBinding
-import com.gvelesiani.passworx.ui.composables.PasswordItem
-import com.gvelesiani.passworx.ui.composables.SearchView
-import com.gvelesiani.passworx.ui.composables.ToolbarView
+import com.gvelesiani.passworx.ui.components.PasswordItem
+import com.gvelesiani.passworx.ui.components.SearchView
+import com.gvelesiani.passworx.ui.components.ToolbarView
 import com.gvelesiani.passworx.ui.composeTheme.accentColor
 import com.gvelesiani.passworx.ui.passwordDetails.PasswordDetailsBottomSheet
 
@@ -45,6 +44,9 @@ class PasswordsFragment :
         hideKeyboard()
         activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         viewModel.getPasswords()
+        binding.content.setContent {
+            PasswordsContent(viewModel.passwords.collectAsState().value)
+        }
     }
 
     @Composable
@@ -102,29 +104,9 @@ class PasswordsFragment :
         }
     }
 
-
-    @Preview
-    @Composable
-    fun PasswordsContentPreview() {
-        PasswordsContent(
-            passwords = listOf(
-                PasswordModel(
-                    0,
-                    "test",
-                    "test",
-                    "test",
-                    "bgvelesiani2@gmail.com",
-                    "test",
-                    true,
-                    true
-                )
-            )
-        )
-    }
-
     override fun setupObservers() {
         viewModel.viewState.observe(viewLifecycleOwner) {
-            observeViewState(it)
+//            observeViewState(it)
         }
         viewModel.decryptedPassword.observe(viewLifecycleOwner) {
             it.copyToClipboard(requireContext())
@@ -134,14 +116,6 @@ class PasswordsFragment :
                 Snackbar.LENGTH_SHORT
             )
             snackbar.show()
-        }
-    }
-
-    private fun observeViewState(viewState: PasswordsVM.ViewState) {
-        binding.content.setContent {
-            MaterialTheme {
-                PasswordsContent(passwords = viewState.passwords)
-            }
         }
     }
 }

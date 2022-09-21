@@ -1,4 +1,4 @@
-package com.gvelesiani.passworx.ui.composables
+package com.gvelesiani.passworx.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme

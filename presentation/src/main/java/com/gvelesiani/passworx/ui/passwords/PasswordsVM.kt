@@ -2,6 +2,7 @@ package com.gvelesiani.passworx.ui.passwords
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.gvelesiani.common.models.domain.PasswordModel
 import com.gvelesiani.domain.useCases.encryption.DecryptPasswordUseCase
 import com.gvelesiani.domain.useCases.passwords.GetPasswordsUseCase
 import com.gvelesiani.domain.useCases.passwords.SearchPasswordsUseCase
@@ -11,6 +12,7 @@ import com.gvelesiani.passworx.common.ActionLiveData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
 class PasswordsVM(
@@ -22,6 +24,7 @@ class PasswordsVM(
 ) : ViewModel() {
     val viewState: MutableLiveData<ViewState> = MutableLiveData()
     val decryptedPassword: ActionLiveData<String> = ActionLiveData()
+    val passwords = MutableStateFlow<List<PasswordModel>>(listOf())
 
     init {
         viewState.value = ViewState()
@@ -35,9 +38,9 @@ class PasswordsVM(
             try {
                 delay(100)
                 val result = getPasswordsUseCase(params = false)
+                passwords.value = result
                 viewState.postValue(
                     currentViewState().copy(
-                        passwords = result,
                         isLoading = false
                     )
                 )
@@ -55,8 +58,9 @@ class PasswordsVM(
     fun searchPasswords(query: String) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val passwords = searchPasswordsUseCase(Pair(query, false))
-                viewState.postValue(currentViewState().copy(passwords = passwords))
+                val result = searchPasswordsUseCase(Pair(query, false))
+                passwords.value = result
+                viewState.postValue(currentViewState().copy(passwords = result))
             } catch (e: Exception) {
             }
         }
@@ -67,12 +71,13 @@ class PasswordsVM(
             try {
                 delay(100)
                 updateFavoriteStateUseCase(Pair(isFavorite, passwordId))
-                val passwords = getPasswordsUseCase(false)
-                viewState.postValue(
-                    currentViewState().copy(
-                        passwords = passwords
-                    )
-                )
+                val result = getPasswordsUseCase(false)
+                passwords.value = result
+//                viewState.postValue(
+//                    currentViewState().copy(
+//                        passwords = passwords
+//                    )
+//                )
             } catch (e: Exception) {
                 viewState.postValue(currentViewState().copy(showUpdatePasswordError = "Couldn't update password... please try again"))
             }
@@ -114,7 +119,7 @@ class PasswordsVM(
         val showDecryptionError: String? = null,
         val isLoading: Boolean = false,
         val showGetPasswordsError: String? = null,
-        val passwords: List<com.gvelesiani.common.models.domain.PasswordModel> = listOf(),
+        val passwords: List<PasswordModel> = listOf(),
         val showUpdatePasswordError: String? = null,
         val showTrashingItemError: String? = null
     )
