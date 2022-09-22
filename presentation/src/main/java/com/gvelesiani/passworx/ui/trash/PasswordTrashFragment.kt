@@ -6,26 +6,21 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
 import android.widget.PopupMenu
 import androidx.annotation.MenuRes
-import androidx.core.view.isVisible
-import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.gvelesiani.base.BaseFragment
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.adapters.PasswordAdapter
-import com.gvelesiani.passworx.common.extensions.hideKeyboard
-import com.gvelesiani.passworx.common.extensions.onTextChanged
 import com.gvelesiani.passworx.databinding.FragmentPasswordsBinding
 import com.gvelesiani.passworx.ui.passwordDetails.PasswordDetailsBottomSheet
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 @Deprecated("Needs to be deleted soon")
 class PasswordTrashFragment :
-    BaseFragment<PasswordTrashVM, FragmentPasswordsBinding>(PasswordTrashVM::class) {
+    BaseFragment<FragmentPasswordsBinding>() {
+    val viewModel: PasswordTrashVM by viewModel()
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentPasswordsBinding =
         FragmentPasswordsBinding::inflate
 
@@ -156,7 +151,7 @@ class PasswordTrashFragment :
                     getString(R.string.password_copying_error),
                     Snackbar.LENGTH_SHORT
                 )
-       //         snackbar.anchorView = binding.btAddPassword
+                //         snackbar.anchorView = binding.btAddPassword
                 snackbar.show()
             }, { _, _ -> })
 //        binding.rvPasswords.adapter = adapter

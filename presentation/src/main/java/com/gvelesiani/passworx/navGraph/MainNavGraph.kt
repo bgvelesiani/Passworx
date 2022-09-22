@@ -8,7 +8,6 @@ import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.gvelesiani.passworx.ui.UnderConstructionScreen
 import com.gvelesiani.passworx.ui.addPassword.AddPasswordScreen
 import com.gvelesiani.passworx.ui.browse.BrowseScreen
-import com.gvelesiani.passworx.ui.masterPassword.MasterPasswordScreen
 import com.gvelesiani.passworx.ui.overview.OverviewScreen
 import com.gvelesiani.passworx.ui.passwords.PasswordsScreen
 
@@ -16,7 +15,7 @@ import com.gvelesiani.passworx.ui.passwords.PasswordsScreen
 @ExperimentalAnimationApi
 fun MainNavGraph() {
     val navController = rememberAnimatedNavController()
-    AnimatedNavHost(navController, startDestination = Screen.MasterPassword.route) {
+    AnimatedNavHost(navController, startDestination = Screen.Overview.route) {
         composable(route = Screen.Overview.route) {
             OverviewScreen(navController)
         }
@@ -36,9 +35,12 @@ fun MainNavGraph() {
         ) {
             PasswordsScreen(navController)
         }
-        composable(route = Screen.MasterPassword.route) {
-            MasterPasswordScreen(navController)
-        }
+//        composable(route = Screen.MasterPassword.route) {
+//            MasterPasswordScreen(navController)
+//        }
+//        composable(route = Screen.CreateMasterPassword.route) {
+//            CreateMasterPasswordScreen(navController)
+//        }
     }
 }
 
@@ -49,4 +51,5 @@ sealed class Screen(val route: String) {
     object Browse : Screen("browse")
     object UnderConstruction: Screen("underConstruction")
     object MasterPassword: Screen("masterPassword")
+    object CreateMasterPassword: Screen("createMasterPassword")
 }

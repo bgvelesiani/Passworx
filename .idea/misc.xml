@@ -12,6 +12,7 @@
         <entry key="../../../../layout/compose-model-1663245413542.xml" value="0.45" />
         <entry key="../../../../layout/compose-model-1663246867935.xml" value="0.6590909090909091" />
         <entry key="../../../../layout/compose-model-1663670432368.xml" value="0.32559121621621623" />
+        <entry key="../../../../layout/compose-model-1663850887767.xml" value="0.1" />
         <entry key="../../../../layout/custom_preview.xml" value="0.19832826747720364" />
         <entry key="..\:/App/Android/Projects/secure_pass/app/src/main/res/drawable/button_background.xml" value="0.19166666666666668" />
         <entry key="..\:/App/Android/Projects/secure_pass/app/src/main/res/drawable/generated_password_background.xml" value="0.19166666666666668" />
@@ -175,6 +176,7 @@
         <entry key="presentation/src/main/res/layout/fragment_add_password.xml" value="0.44256756756756754" />
         <entry key="presentation/src/main/res/layout/fragment_backup_and_restore.xml" value="0.3787037037037037" />
         <entry key="presentation/src/main/res/layout/fragment_browse.xml" value="0.4119791666666667" />
+        <entry key="presentation/src/main/res/layout/fragment_create_master_password.xml" value="0.39076923076923076" />
         <entry key="presentation/src/main/res/layout/fragment_edit.xml" value="0.39114583333333336" />
         <entry key="presentation/src/main/res/layout/fragment_master_password.xml" value="0.335" />
         <entry key="presentation/src/main/res/layout/fragment_overview_container.xml" value="0.3246445497630332" />

@@ -7,9 +7,12 @@ import androidx.navigation.fragment.NavHostFragment
 import com.gvelesiani.base.BaseActivity
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.databinding.ActivityMainBinding
+import com.gvelesiani.passworx.ui.masterPassword.MasterPasswordAVM
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 @Deprecated("Needs to be deleted soon")
-class MainActivity : BaseActivity<MainVM, ActivityMainBinding>(MainVM::class) {
+class MainActivity : BaseActivity<ActivityMainBinding>() {
+    val viewModel: MainVM by viewModel()
     private lateinit var navController: NavController
 
     override val bindingInflater: (LayoutInflater) -> ActivityMainBinding =

@@ -10,11 +10,12 @@ import com.gvelesiani.helpers.helpers.validateMasterPassword.MasterPasswordValid
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.common.extensions.onTextChanged
 import com.gvelesiani.passworx.databinding.FragmentChangeMasterPasswordBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ChangeMasterPasswordFragment :
-    BaseFragment<ChangeMasterPasswordVM, FragmentChangeMasterPasswordBinding>(
-        ChangeMasterPasswordVM::class
+    BaseFragment<FragmentChangeMasterPasswordBinding>(
     ) {
+    val viewModel: ChangeMasterPasswordVM by viewModel()
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentChangeMasterPasswordBinding =
         FragmentChangeMasterPasswordBinding::inflate
 

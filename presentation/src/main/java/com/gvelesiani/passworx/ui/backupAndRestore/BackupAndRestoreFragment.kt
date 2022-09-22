@@ -13,11 +13,13 @@ import com.gvelesiani.passworx.common.extensions.makeSnackBar
 import com.gvelesiani.passworx.common.extensions.readFileContent
 import com.gvelesiani.passworx.common.extensions.writeInFile
 import com.gvelesiani.passworx.databinding.FragmentBackupAndRestoreBinding
+import com.gvelesiani.passworx.ui.masterPassword.MasterPasswordAVM
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class BackupAndRestoreFragment :
-    BaseFragment<BackupAndRestoreVM, FragmentBackupAndRestoreBinding>(
-        BackupAndRestoreVM::class
+    BaseFragment<FragmentBackupAndRestoreBinding>(
     ) {
+    val viewModel: BackupAndRestoreVM by viewModel()
     private var passwordList: MutableList<PasswordModel> =
         mutableListOf()
 

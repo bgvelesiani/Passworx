@@ -29,7 +29,7 @@ fun GeneralButton(modifier: Modifier, text: String,onClick:()->Unit){
             modifier = Modifier.padding(top = 7.dp, bottom = 7.dp),
             text = text,
             color = Color.White,
-            fontFamily = FontFamily(Font(R.font.regular))
+            fontFamily = FontFamily(Font(R.font.medium))
         )
     }
 }

@@ -23,12 +23,13 @@ import com.gvelesiani.passworx.common.extensions.hideKeyboard
 import com.gvelesiani.passworx.common.extensions.onTextChanged
 import com.gvelesiani.passworx.databinding.FragmentPasswordsBinding
 import com.gvelesiani.passworx.ui.passwordDetails.PasswordDetailsBottomSheet
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 @Deprecated("Needs to be deleted soon")
 class PasswordFavoriteFragment :
-    BaseFragment<PasswordFavoritesVM, FragmentPasswordsBinding>(
-        PasswordFavoritesVM::class
+    BaseFragment<FragmentPasswordsBinding>(
     ) {
+    val viewModel: PasswordFavoritesVM by viewModel()
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentPasswordsBinding =
         FragmentPasswordsBinding::inflate
 

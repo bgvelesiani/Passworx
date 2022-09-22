@@ -24,7 +24,6 @@ import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.databinding.BottomSheetPasswordDetailsBinding
 import com.gvelesiani.passworx.ui.composeTheme.textColorDark
 import com.gvelesiani.passworx.ui.composeTheme.textColorLight
-import com.gvelesiani.passworx.ui.passwords.PasswordsFragmentDirections
 
 class PasswordDetailsBottomSheet :
     BaseBottomSheet<PasswordDetailsVM, BottomSheetPasswordDetailsBinding>(
@@ -70,11 +69,8 @@ class PasswordDetailsBottomSheet :
 
     private fun setOnClickListeners(password: PasswordModel) {
         binding.btUpdatePassword.setOnClickListener {
-            findNavController().navigate(
-                PasswordsFragmentDirections.actionNavigationPasswordsToUpdatePasswordFragment(
-                    password
-                )
-            )
+//            findNavController().navigate(
+//            )
             this.dismiss()
         }
     }
@@ -96,7 +92,7 @@ class PasswordDetailsBottomSheet :
         const val TAG = "PasswordDetailsBottomSheet"
         private const val PASSWORD = "PASSWORD"
         fun show(
-            password: com.gvelesiani.common.models.domain.PasswordModel,
+            password: PasswordModel,
             fragmentManager: FragmentManager,
             tag: String
         ) {

@@ -12,11 +12,11 @@ import com.gvelesiani.passworx.databinding.ActivityMasterPasswordBinding
 import com.gvelesiani.passworx.ui.intro.IntroFragment
 import com.gvelesiani.passworx.ui.masterPassword.fragments.MasterPasswordFragment
 import com.gvelesiani.passworx.ui.masterPassword.fragments.createMasterPassword.CreateMasterPasswordFragment
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MasterPasswordActivity :
-    BaseActivity<MasterPasswordAVM, ActivityMasterPasswordBinding>(
-        MasterPasswordAVM::class
-    ) {
+    BaseActivity<ActivityMasterPasswordBinding>() {
+    val viewModel: MasterPasswordAVM by viewModel()
     override val bindingInflater: (LayoutInflater) -> ActivityMasterPasswordBinding =
         ActivityMasterPasswordBinding::inflate
 

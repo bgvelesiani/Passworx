@@ -7,15 +7,16 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.gvelesiani.base.BaseFragment
+import com.gvelesiani.passworx.MainComposeActivity
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.databinding.FragmentMasterPasswordBinding
-import com.gvelesiani.passworx.ui.MainActivity
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 @Deprecated("Needs to be deleted soon")
 class MasterPasswordFragment :
-    BaseFragment<MasterPasswordVM, FragmentMasterPasswordBinding>(
-        MasterPasswordVM::class
+    BaseFragment<FragmentMasterPasswordBinding>(
     ) {
+    val viewModel: MasterPasswordVM by viewModel()
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentMasterPasswordBinding =
         FragmentMasterPasswordBinding::inflate
@@ -38,7 +39,7 @@ class MasterPasswordFragment :
             setupBiometricPrompt(this@MasterPasswordFragment, requireContext()) {
                 if (it) {
                     requireActivity().finish()
-                    startActivity(Intent(requireActivity(), MainActivity::class.java))
+                    startActivity(Intent(requireActivity(), MainComposeActivity::class.java))
                 }
             }
             authenticate()
@@ -46,20 +47,20 @@ class MasterPasswordFragment :
     }
 
     override fun setupObservers() {
-//        viewModel.viewState.observe(this) {
-//            if (it.passwordMatchError != null) {
-//                MaterialAlertDialogBuilder(requireContext())
-//                    .setTitle(resources.getString(R.string.generate_password_error_dialog_title))
-//                    .setMessage(it.passwordMatchError)
-//                    .setPositiveButton(resources.getString(R.string.generate_password_error_dialog_button_text)) { _, _ ->
-//                    }
-//                    .show()
-//            }
-//            if (it.passwordMatches) {
-//                requireActivity().finish()
-//                startActivity(Intent(requireActivity(), MainActivity::class.java))
-//            }
-//            binding.btFingerprintAuth.isVisible = it.biometricsAreAllowed
-//        }
+        viewModel.viewState.observe(this) {
+            if (it.passwordMatchError != null) {
+                MaterialAlertDialogBuilder(requireContext())
+                    .setTitle(resources.getString(R.string.generate_password_error_dialog_title))
+                    .setMessage(it.passwordMatchError)
+                    .setPositiveButton(resources.getString(R.string.generate_password_error_dialog_button_text)) { _, _ ->
+                    }
+                    .show()
+            }
+            if (it.passwordMatches) {
+                requireActivity().finish()
+                startActivity(Intent(requireActivity(), MainComposeActivity::class.java))
+            }
+            binding.btFingerprintAuth.isVisible = it.biometricsAreAllowed
+        }
     }
 }

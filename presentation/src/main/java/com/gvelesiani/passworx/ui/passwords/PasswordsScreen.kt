@@ -1,5 +1,9 @@
 package com.gvelesiani.passworx.ui.passwords
 
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
@@ -20,15 +24,22 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.NavController
+import com.google.android.material.snackbar.Snackbar
+import com.gvelesiani.base.BaseFragment
 import com.gvelesiani.common.models.domain.PasswordModel
+import com.gvelesiani.passworx.R
+import com.gvelesiani.passworx.common.extensions.copyToClipboard
 import com.gvelesiani.passworx.common.extensions.formatWebsite
+import com.gvelesiani.passworx.common.extensions.hideKeyboard
 import com.gvelesiani.passworx.common.util.OnLifecycleEvent
+import com.gvelesiani.passworx.databinding.FragmentPasswordsBinding
 import com.gvelesiani.passworx.navGraph.Screen
 import com.gvelesiani.passworx.ui.components.*
 import com.gvelesiani.passworx.ui.composeTheme.accentColor
 import com.gvelesiani.passworx.ui.composeTheme.bgColorDark
 import com.gvelesiani.passworx.ui.composeTheme.bgColorLight
 import org.koin.androidx.compose.getViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -133,3 +144,28 @@ fun PasswordContent(
         }
     }
 }
+
+//@Deprecated("Needs to be deleted soon")
+//class PasswordsFragment :
+//    BaseFragment<FragmentPasswordsBinding>() {
+//    val viewModel: PasswordsVM by viewModel()
+//    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentPasswordsBinding
+//        get() = FragmentPasswordsBinding::inflate
+//
+//    override fun setupView(savedInstanceState: Bundle?) {
+//        hideKeyboard()
+//        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+//    }
+//
+//    override fun setupObservers() {
+//        viewModel.decryptedPassword.observe(viewLifecycleOwner) {
+//            it.copyToClipboard(requireContext())
+//            val snackbar = Snackbar.make(
+//                requireView(),
+//                getString(R.string.password_copying_success),
+//                Snackbar.LENGTH_SHORT
+//            )
+//            snackbar.show()
+//        }
+//    }
+//}

@@ -8,12 +8,10 @@ import androidx.viewbinding.ViewBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.reflect.KClass
 
-abstract class BaseActivity<VM : ViewModel, B : ViewBinding>(klass: KClass<VM>) :
+abstract class BaseActivity<B : ViewBinding> :
     AppCompatActivity() {
 
     lateinit var binding: B
-
-    val viewModel: VM = klass.java as VM
 
     abstract val bindingInflater: (LayoutInflater) -> B
 

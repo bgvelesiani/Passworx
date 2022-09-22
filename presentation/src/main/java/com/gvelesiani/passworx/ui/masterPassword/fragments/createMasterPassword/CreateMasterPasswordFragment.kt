@@ -12,11 +12,13 @@ import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.common.extensions.onTextChanged
 import com.gvelesiani.passworx.databinding.FragmentCreateMasterPasswordBinding
 import com.gvelesiani.passworx.ui.masterPassword.fragments.MasterPasswordFragment
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
+@Deprecated("Needs to be deleted soon")
 class CreateMasterPasswordFragment :
-    BaseFragment<CreateMasterPasswordVM, FragmentCreateMasterPasswordBinding>(
-        CreateMasterPasswordVM::class
+    BaseFragment<FragmentCreateMasterPasswordBinding>(
     ) {
+    val viewModel: CreateMasterPasswordVM by viewModel()
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentCreateMasterPasswordBinding =
         FragmentCreateMasterPasswordBinding::inflate
 

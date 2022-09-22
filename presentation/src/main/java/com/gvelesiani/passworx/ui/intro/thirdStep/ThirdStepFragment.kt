@@ -5,9 +5,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.gvelesiani.base.BaseFragment
 import com.gvelesiani.passworx.databinding.FragmentThirdStepBinding
+import com.gvelesiani.passworx.ui.masterPassword.MasterPasswordAVM
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ThirdStepFragment :
-    BaseFragment<ThirdStepVM, FragmentThirdStepBinding>(ThirdStepVM::class) {
+    BaseFragment<FragmentThirdStepBinding>() {
+    val viewModel: ThirdStepVM by viewModel()
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentThirdStepBinding
         get() = FragmentThirdStepBinding::inflate
 

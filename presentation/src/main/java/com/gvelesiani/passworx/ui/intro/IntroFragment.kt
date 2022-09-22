@@ -14,11 +14,14 @@ import com.gvelesiani.passworx.constants.Steps.FIRST
 import com.gvelesiani.passworx.constants.Steps.SECOND
 import com.gvelesiani.passworx.constants.Steps.THIRD
 import com.gvelesiani.passworx.databinding.FragmentIntroBinding
+import com.gvelesiani.passworx.ui.masterPassword.MasterPasswordAVM
 import com.gvelesiani.passworx.ui.masterPassword.fragments.createMasterPassword.CreateMasterPasswordFragment
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class IntroFragment :
-    BaseFragment<IntroVM, FragmentIntroBinding>(IntroVM::class) {
+    BaseFragment<FragmentIntroBinding>() {
+    val viewModel: IntroVM by viewModel()
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentIntroBinding =
         FragmentIntroBinding::inflate
 

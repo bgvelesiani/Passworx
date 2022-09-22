@@ -11,9 +11,11 @@ import com.gvelesiani.common.models.domain.PasswordModel
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.common.extensions.onTextChanged
 import com.gvelesiani.passworx.databinding.FragmentUpdatePasswordBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class UpdatePasswordFragment :
-    BaseFragment<UpdatePasswordVM, FragmentUpdatePasswordBinding>(UpdatePasswordVM::class) {
+    BaseFragment<FragmentUpdatePasswordBinding>() {
+    val viewModel: UpdatePasswordVM by viewModel()
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentUpdatePasswordBinding
         get() = FragmentUpdatePasswordBinding::inflate
 

@@ -8,9 +8,12 @@ import androidx.navigation.fragment.findNavController
 import com.gvelesiani.base.BaseFragment
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.databinding.FragmentSettingsBinding
+import com.gvelesiani.passworx.ui.masterPassword.MasterPasswordAVM
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SettingsFragment :
-    BaseFragment<SettingsVM, FragmentSettingsBinding>(SettingsVM::class) {
+    BaseFragment<FragmentSettingsBinding>() {
+    val viewModel: SettingsVM by viewModel()
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentSettingsBinding
         get() = FragmentSettingsBinding::inflate
