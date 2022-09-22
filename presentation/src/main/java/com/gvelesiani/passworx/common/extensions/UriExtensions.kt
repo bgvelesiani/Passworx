@@ -2,6 +2,7 @@ package com.gvelesiani.passworx.common.extensions
 
 import android.content.Context
 import android.net.Uri
+import androidx.compose.runtime.Composable
 import java.io.*
 
 fun Uri.readFileContent(context: Context?): String {

@@ -50,12 +50,6 @@
     </fragment>
 
     <fragment
-        android:id="@+id/backupAndRestoreFragment"
-        android:name="com.gvelesiani.passworx.ui.backupAndRestore.BackupAndRestoreFragment"
-        android:label="BackupAndRestore">
-    </fragment>
-
-    <fragment
         android:id="@+id/updatePasswordFragment"
         android:name="com.gvelesiani.passworx.ui.updatePassword.UpdatePasswordFragment"
         android:label="UpdatePasswordFragment">

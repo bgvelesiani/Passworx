@@ -66,7 +66,7 @@ fun OverviewScreen(
 
         OverviewItem(
             onOverviewItemClick = {
-                navController.navigate(Screen.UnderConstruction.route)
+                navController.navigate(Screen.BackupAndRestore.route)
             },
             image = R.drawable.ic_backup,
             title = "Backup and Restore",

@@ -7,6 +7,7 @@ import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.gvelesiani.passworx.ui.UnderConstructionScreen
 import com.gvelesiani.passworx.ui.addPassword.AddPasswordScreen
+import com.gvelesiani.passworx.ui.backupAndRestore.BackupAndRestoreScreen
 import com.gvelesiani.passworx.ui.browse.BrowseScreen
 import com.gvelesiani.passworx.ui.overview.OverviewScreen
 import com.gvelesiani.passworx.ui.passwords.PasswordsScreen
@@ -29,18 +30,12 @@ fun MainNavGraph() {
         composable(route = Screen.Browse.route) {
             BrowseScreen(navController)
         }
-        composable(route = Screen.Passwords.route // ,
-//            enterTransition = {},
-//            exitTransition = {}
-        ) {
+        composable(route = Screen.Passwords.route) {
             PasswordsScreen(navController)
         }
-//        composable(route = Screen.MasterPassword.route) {
-//            MasterPasswordScreen(navController)
-//        }
-//        composable(route = Screen.CreateMasterPassword.route) {
-//            CreateMasterPasswordScreen(navController)
-//        }
+        composable(route = Screen.BackupAndRestore.route) {
+            BackupAndRestoreScreen(navController)
+        }
     }
 }
 
@@ -50,6 +45,5 @@ sealed class Screen(val route: String) {
     object Overview : Screen("overview")
     object Browse : Screen("browse")
     object UnderConstruction: Screen("underConstruction")
-    object MasterPassword: Screen("masterPassword")
-    object CreateMasterPassword: Screen("createMasterPassword")
+    object BackupAndRestore: Screen("backupAndRestore")
 }

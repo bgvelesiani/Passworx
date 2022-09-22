@@ -17,3 +17,6 @@ object Steps {
     const val SECOND = 1
     const val THIRD = 2
 }
+
+const val DATABASE_FILE_NAME = "db.txt"
+const val FILE_TYPE = "text/plain"
