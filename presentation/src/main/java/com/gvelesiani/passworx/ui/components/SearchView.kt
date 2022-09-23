@@ -27,7 +27,7 @@ fun SearchView(onValueChange: (String) -> Unit) {
     Row(
         Modifier
             .fillMaxWidth()
-            .padding(top = 16.dp, start = 16.dp, end = 16.dp)
+            .padding(start = 16.dp, end = 16.dp)
             .background(Color.Transparent),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {

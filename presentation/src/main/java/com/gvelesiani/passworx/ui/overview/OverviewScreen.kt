@@ -57,7 +57,7 @@ fun OverviewScreen(
 
         OverviewItem(
             onOverviewItemClick = {
-                navController.navigate(Screen.UnderConstruction.route)
+                navController.navigate(Screen.Settings.route)
             },
             image = R.drawable.ic_settings,
             title = "Settings",

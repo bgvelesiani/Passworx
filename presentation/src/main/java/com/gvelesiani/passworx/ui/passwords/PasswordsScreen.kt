@@ -109,7 +109,7 @@ fun PasswordContent(
     onFavorite: (PasswordModel) -> Unit,
     onPassword: (PasswordModel) -> Unit
 ) {
-    LazyColumn(contentPadding = PaddingValues(top = 15.dp, bottom = 80.dp)) {
+    LazyColumn(contentPadding = PaddingValues(bottom = 80.dp)) {
         items(passwords) { password ->
             val logoResource = LocalContext.current.resources.getIdentifier(
                 password.websiteOrAppName.formatWebsite(),

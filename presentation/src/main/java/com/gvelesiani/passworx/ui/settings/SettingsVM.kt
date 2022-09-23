@@ -1,12 +1,12 @@
 package com.gvelesiani.passworx.ui.settings
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gvelesiani.domain.useCases.biometrics.AllowBiometricsUseCase
 import com.gvelesiani.domain.useCases.biometrics.GetBiometricsAllowingStatusUserCase
 import com.gvelesiani.domain.useCases.screenshots.GetTakingScreenshotsStatusUseCase
 import com.gvelesiani.domain.useCases.screenshots.PreventTakingScreenshotsUseCase
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
 class SettingsVM(
@@ -16,9 +16,8 @@ class SettingsVM(
     private val getBiometricsAllowingStatusUserCase: GetBiometricsAllowingStatusUserCase
 ) :
     ViewModel() {
-
-    val takingScreenshotsArePrevented: MutableLiveData<Boolean> = MutableLiveData()
-    val biometricsAreAllowed: MutableLiveData<Boolean> = MutableLiveData()
+    val takingScreenshotsArePrevented: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    val biometricsAreAllowed: MutableStateFlow<Boolean> = MutableStateFlow(false)
 
     init {
         getTakingScreenshotsStatus()
@@ -29,7 +28,7 @@ class SettingsVM(
         viewModelScope.launch {
             try {
                 val result = getTakingScreenshotsStatusUseCase(Unit)
-                takingScreenshotsArePrevented.postValue(result)
+                takingScreenshotsArePrevented.value = result
             } catch (ignored: Exception) {
             }
         }
@@ -49,7 +48,7 @@ class SettingsVM(
         viewModelScope.launch {
             try {
                 val result = getBiometricsAllowingStatusUserCase(Unit)
-                biometricsAreAllowed.postValue(result)
+                biometricsAreAllowed.value = result
             } catch (e: Exception) {
             }
         }

@@ -12,19 +12,6 @@
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_settings"
-        android:name="com.gvelesiani.passworx.ui.settings.SettingsFragment"
-        android:label="@string/title_settings"
-        tools:layout="@layout/fragment_settings">
-        <action
-            android:id="@+id/action_navigation_settings_to_changeMasterPasswordFragment"
-            app:destination="@id/changeMasterPasswordFragment"
-            app:enterAnim="@anim/enter_end"
-            app:exitAnim="@anim/exit_start"
-            app:popEnterAnim="@anim/enter_start"
-            app:popExitAnim="@anim/exit_end" />
-    </fragment>
-    <fragment
         android:id="@+id/passwordTrashFragment"
         android:name="com.gvelesiani.passworx.ui.trash.PasswordTrashFragment"
         android:label="@string/title_trash" />

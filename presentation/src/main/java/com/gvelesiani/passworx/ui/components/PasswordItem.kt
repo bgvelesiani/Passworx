@@ -1,7 +1,10 @@
 package com.gvelesiani.passworx.ui.components
 
-import androidx.compose.foundation.*
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
@@ -41,7 +44,7 @@ fun PasswordItem(
         elevation = 0.dp,
         modifier = Modifier
             .padding(start = 16.dp, bottom = 15.dp, end = 16.dp)
-            .clickable (
+            .clickable(
                 interactionSource = MutableInteractionSource(),
                 indication = null,
             ) {

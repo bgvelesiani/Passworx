@@ -63,7 +63,6 @@ fun BackupAndRestoreScreen(
             .background(color = if (isSystemInDarkTheme()) bgColorDark else bgColorLight)
     ) {
         ToolbarView(
-            true,
             screenTitle = LocalContext.current.getString(R.string.title_backup_and_restore)
         ) {
             navController.navigateUp()

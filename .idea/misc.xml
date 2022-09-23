@@ -158,6 +158,7 @@
         <entry key="presentation/src/main/res/drawable/dailymotion.xml" value="0.2125" />
         <entry key="presentation/src/main/res/drawable/digg.xml" value="0.2125" />
         <entry key="presentation/src/main/res/drawable/dribbble.xml" value="0.2125" />
+        <entry key="presentation/src/main/res/drawable/generated_password_background.xml" value="0.127" />
         <entry key="presentation/src/main/res/drawable/ic_add_password.xml" value="0.1815" />
         <entry key="presentation/src/main/res/drawable/ic_app_icon.xml" value="0.265" />
         <entry key="presentation/src/main/res/drawable/ic_backup.xml" value="0.2265" />
@@ -182,10 +183,13 @@
         <entry key="presentation/src/main/res/layout/fragment_overview_container.xml" value="0.3246445497630332" />
         <entry key="presentation/src/main/res/layout/fragment_password_generator.xml" value="0.3527777777777778" />
         <entry key="presentation/src/main/res/layout/fragment_passwords.xml" value="0.21666666666666667" />
+        <entry key="presentation/src/main/res/layout/fragment_settings.xml" value="0.4119791666666667" />
+        <entry key="presentation/src/main/res/layout/fragment_update_password.xml" value="0.4119791666666667" />
         <entry key="presentation/src/main/res/layout/onboarding_view.xml" value="0.37604166666666666" />
         <entry key="presentation/src/main/res/layout/overview_item.xml" value="0.4119791666666667" />
         <entry key="presentation/src/main/res/layout/password_item.xml" value="0.5" />
         <entry key="presentation/src/main/res/layout/toolbar_view.xml" value="0.39114583333333336" />
+        <entry key="presentation/src/main/res/layout/tools_item.xml" value="0.4119791666666667" />
         <entry key="presentation/src/main/res/xml/autofill_config.xml" value="0.39010416666666664" />
       </map>
     </option>

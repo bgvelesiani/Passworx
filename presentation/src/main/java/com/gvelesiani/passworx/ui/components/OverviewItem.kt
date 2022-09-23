@@ -27,7 +27,7 @@ fun OverviewItem(onOverviewItemClick: () -> Unit, image: Int, title: String, sub
     Row(
         Modifier
             .fillMaxWidth()
-            .padding(all = 16.dp)
+            .padding(start = 16.dp, end = 16.dp, bottom = 25.dp)
             .clickable(
                 interactionSource = interactionSource,
                 indication = null
@@ -36,14 +36,18 @@ fun OverviewItem(onOverviewItemClick: () -> Unit, image: Int, title: String, sub
             },
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Icon(painterResource(image), "Overview Item", tint = if(isSystemInDarkTheme()) colorPrimaryDark else colorPrimaryLight)
+        Icon(
+            painterResource(image),
+            "Overview Item",
+            tint = if (isSystemInDarkTheme()) colorPrimaryDark else colorPrimaryLight
+        )
         Column(
             Modifier
                 .padding(start = 26.dp, end = 16.dp)
                 .weight(1f)
         ) {
             Text(
-                color = if(isSystemInDarkTheme()) textColorDark else textColorLight,
+                color = if (isSystemInDarkTheme()) textColorDark else textColorLight,
                 text = title,
                 fontSize = 18.sp,
                 fontFamily = FontFamily(Font(R.font.regular, FontWeight.Normal))
