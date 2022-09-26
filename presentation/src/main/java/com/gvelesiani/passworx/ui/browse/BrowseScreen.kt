@@ -21,7 +21,7 @@ fun BrowseScreen(
         }
         OverviewItem(
             onOverviewItemClick = {
-                navController.navigate(Screen.UnderConstruction.route)
+                navController.navigate(Screen.Favorites.route)
             },
             image = R.drawable.ic_not_favorite,
             title = "Favorites",

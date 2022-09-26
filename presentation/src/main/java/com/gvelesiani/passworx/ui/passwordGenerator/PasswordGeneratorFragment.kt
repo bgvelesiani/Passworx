@@ -8,7 +8,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.gvelesiani.base.BaseFragment
 import com.gvelesiani.passworx.R
-import com.gvelesiani.passworx.common.extensions.copyToClipboard
 import com.gvelesiani.passworx.databinding.FragmentPasswordGeneratorBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -48,7 +47,7 @@ class PasswordGeneratorFragment :
                 viewModel.generatePassword(value.toInt())
             }
             btCopyGeneratedPassword.setOnClickListener {
-                tvGeneratedPassword.text.toString().copyToClipboard(requireContext())
+//                tvGeneratedPassword.text.toString().copyToClipboard(requireContext())
                 setUpAndShowSnackBar()
             }
             smUseCapitalLetters.setOnCheckedChangeListener { _, isChecked ->

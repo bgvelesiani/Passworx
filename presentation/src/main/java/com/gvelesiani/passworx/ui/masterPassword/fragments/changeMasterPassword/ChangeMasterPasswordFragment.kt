@@ -12,6 +12,7 @@ import com.gvelesiani.passworx.common.extensions.onTextChanged
 import com.gvelesiani.passworx.databinding.FragmentChangeMasterPasswordBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+@Deprecated("Needs to be deleted soon")
 class ChangeMasterPasswordFragment :
     BaseFragment<FragmentChangeMasterPasswordBinding>(
     ) {

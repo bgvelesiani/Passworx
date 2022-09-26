@@ -12,18 +12,6 @@
     </fragment>
 
     <fragment
-        android:id="@+id/passwordTrashFragment"
-        android:name="com.gvelesiani.passworx.ui.trash.PasswordTrashFragment"
-        android:label="@string/title_trash" />
-    <fragment
-        android:id="@+id/passwordFavouritesFragment"
-        android:name="com.gvelesiani.passworx.ui.favorites.PasswordFavoriteFragment"
-        android:label="@string/title_favourites">
-        <action
-            android:id="@+id/action_passwordFavouritesFragment_to_updatePasswordFragment"
-            app:destination="@id/updatePasswordFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/changeMasterPasswordFragment"
         android:name="com.gvelesiani.passworx.ui.masterPassword.fragments.changeMasterPassword.ChangeMasterPasswordFragment"
         android:label="Change Master Password">

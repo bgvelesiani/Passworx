@@ -31,7 +31,7 @@ class PasswordTrashVM(
             try {
                 delay(100)
                 val result = getPasswordsUseCase(isInTrash)
-                viewState.postValue(currentViewState().copy(passwords = result, isLoading = false))
+//                viewState.postValue(currentViewState().copy(passwords = result, isLoading = false))
             } catch (e: Exception) {
                 viewState.postValue(
                     currentViewState().copy(
@@ -47,7 +47,7 @@ class PasswordTrashVM(
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val passwords = searchPasswordsUseCase.invoke(Pair(query, true))
-                viewState.postValue(currentViewState().copy(passwords = passwords))
+//                viewState.postValue(currentViewState().copy(passwords = passwords))
             } catch (e: Exception) {
             }
         }
@@ -58,7 +58,7 @@ class PasswordTrashVM(
             try {
                 deletePasswordUseCase(passwordId)
                 val result = getPasswordsUseCase(params = true)
-                viewState.postValue(currentViewState().copy(passwords = result))
+//                viewState.postValue(currentViewState().copy(passwords = result))
             } catch (e: Exception) {
                 viewState.postValue(
                     currentViewState().copy(
@@ -74,7 +74,7 @@ class PasswordTrashVM(
             try {
                 updateItemTrashStateUseCase(Pair(false, passwordId))
                 val result = getPasswordsUseCase(params = true)
-                viewState.postValue(currentViewState().copy(passwords = result))
+//                viewState.postValue(currentViewState().copy(passwords = result))
             } catch (e: Exception) {
                 viewState.postValue(
                     currentViewState().copy(

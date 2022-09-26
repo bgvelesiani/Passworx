@@ -32,7 +32,7 @@ class BackupAndRestoreVM(
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val result = getPasswordsUseCase(false)
-                _uiState.value = BackupAndRestoreUiState.Success(result)
+//                _uiState.value = BackupAndRestoreUiState.Success(result)
             } catch (e: Exception) {
                 e.printStackTrace()
             }

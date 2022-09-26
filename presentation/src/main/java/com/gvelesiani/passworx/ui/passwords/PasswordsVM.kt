@@ -7,10 +7,10 @@ import com.gvelesiani.domain.useCases.passwords.GetPasswordsUseCase
 import com.gvelesiani.domain.useCases.passwords.SearchPasswordsUseCase
 import com.gvelesiani.domain.useCases.passwords.UpdateFavoriteStateUseCase
 import com.gvelesiani.domain.useCases.passwords.UpdateItemTrashStateUseCase
-import com.gvelesiani.passworx.common.ActionLiveData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -22,9 +22,7 @@ class PasswordsVM(
     private val searchPasswordsUseCase: SearchPasswordsUseCase,
     private val decryptPasswordUseCase: DecryptPasswordUseCase,
 ) : ViewModel() {
-    val decryptedPassword: ActionLiveData<String> = ActionLiveData()
-    val passwords = MutableStateFlow<List<PasswordModel>>(listOf())
-    val isLoading = MutableStateFlow(false)
+    val decryptedPassword: MutableSharedFlow<String> = MutableSharedFlow()
 
     private val _uiState = MutableStateFlow<PasswordsUIState>(PasswordsUIState.Empty)
     val uiState: StateFlow<PasswordsUIState> = _uiState
@@ -32,48 +30,36 @@ class PasswordsVM(
     fun getPasswords() {
         _uiState.value = PasswordsUIState.Loading
         CoroutineScope(Dispatchers.IO).launch {
-            try {
-                delay(1000)
-                isLoading.value = false
-                val result = getPasswordsUseCase(params = false)
-                _uiState.value = if(result.isEmpty()) PasswordsUIState.Empty else PasswordsUIState.Success(result)
-            } catch (e: Exception) {
+            delay(1000)
+            getPasswordsUseCase(false).collect { response ->
+                _uiState.value =
+                    if (response.isEmpty()) PasswordsUIState.Empty else PasswordsUIState.Success(
+                        response
+                    )
             }
         }
     }
 
     fun searchPasswords(query: String) {
         CoroutineScope(Dispatchers.IO).launch {
-            try {
-                val result = searchPasswordsUseCase(Pair(query, false))
-                _uiState.value = PasswordsUIState.Success(result)
-            } catch (e: Exception) {
+            searchPasswordsUseCase(Pair(query, false)).collect { response ->
+                _uiState.value = PasswordsUIState.Success(response)
             }
         }
     }
 
     fun updateFavoriteState(isFavorite: Boolean, passwordId: Int) {
         CoroutineScope(Dispatchers.IO).launch {
-            try {
-                delay(100)
-                updateFavoriteStateUseCase(Pair(isFavorite, passwordId))
-                val result = getPasswordsUseCase(false)
-                _uiState.value = PasswordsUIState.Success(result)
-            } catch (e: Exception) {
-            }
+            updateFavoriteStateUseCase(Pair(isFavorite, passwordId))
         }
     }
 
     fun updateItemTrashState(isInTrash: Boolean, isFavorite: Boolean, passwordId: Int) {
+        _uiState.value = PasswordsUIState.Loading
         CoroutineScope(Dispatchers.IO).launch {
-            try {
-                delay(100)
-                updateItemTrashStateUseCase(Pair(isInTrash, passwordId))
-                if (isFavorite) {
-                    updateFavoriteStateUseCase(Pair(false, passwordId))
-                }
-                passwords.value = getPasswordsUseCase(false)
-            } catch (e: Exception) {
+            updateItemTrashStateUseCase(Pair(isInTrash, passwordId))
+            if (isFavorite) {
+                updateFavoriteStateUseCase(Pair(false, passwordId))
             }
         }
     }
@@ -82,7 +68,7 @@ class PasswordsVM(
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val password = decryptPasswordUseCase(encryptedPassword)
-                decryptedPassword.postValue(password)
+                decryptedPassword.emit(password)
             } catch (e: Exception) {
             }
         }
@@ -90,8 +76,8 @@ class PasswordsVM(
 }
 
 sealed class PasswordsUIState {
-    data class Success(val passwords: List<PasswordModel>): PasswordsUIState()
-    object Empty: PasswordsUIState()
-    object Loading: PasswordsUIState()
-    data class Error(val errorMsg: String): PasswordsUIState()
+    data class Success(val passwords: List<PasswordModel>) : PasswordsUIState()
+    object Empty : PasswordsUIState()
+    object Loading : PasswordsUIState()
+    data class Error(val errorMsg: String) : PasswordsUIState()
 }

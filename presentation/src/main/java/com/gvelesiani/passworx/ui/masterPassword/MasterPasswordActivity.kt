@@ -14,6 +14,7 @@ import com.gvelesiani.passworx.ui.masterPassword.fragments.MasterPasswordFragmen
 import com.gvelesiani.passworx.ui.masterPassword.fragments.createMasterPassword.CreateMasterPasswordFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+@Deprecated("Needs to be deleted soon")
 class MasterPasswordActivity :
     BaseActivity<ActivityMasterPasswordBinding>() {
     val viewModel: MasterPasswordAVM by viewModel()

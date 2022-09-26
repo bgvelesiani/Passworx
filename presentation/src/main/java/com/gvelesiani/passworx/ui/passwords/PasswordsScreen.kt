@@ -1,10 +1,12 @@
 package com.gvelesiani.passworx.ui.passwords
 
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -17,12 +19,14 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.NavController
 import com.gvelesiani.common.models.domain.PasswordModel
+import com.gvelesiani.passworx.R
+import com.gvelesiani.passworx.common.extensions.copyToClipboard
 import com.gvelesiani.passworx.common.extensions.formatWebsite
 import com.gvelesiani.passworx.common.util.OnLifecycleEvent
 import com.gvelesiani.passworx.navGraph.Screen
 import com.gvelesiani.passworx.ui.components.*
 import com.gvelesiani.passworx.ui.composeTheme.*
-import com.gvelesiani.passworx.ui.passwordDetails.BottomSheet
+import com.gvelesiani.passworx.ui.passwordDetails.PasswordDetailsScreen
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.getViewModel
 
@@ -37,64 +41,141 @@ fun PasswordsScreen(navController: NavController, viewModel: PasswordsVM = getVi
             else -> {}
         }
     }
+
     val uiState = remember { viewModel.uiState }.collectAsState()
 
-    Box(
-        Modifier
-            .fillMaxSize()
-            .background(if (isSystemInDarkTheme()) bgColorDark else bgColorLight)
+    val dialogState = remember {
+        mutableStateOf(false)
+    }
+
+    var chosenPassword by remember {
+        mutableStateOf(PasswordModel())
+    }
+    val sheetState = rememberModalBottomSheetState(
+        initialValue = ModalBottomSheetValue.Hidden
+    )
+
+    val scaffoldState = rememberScaffoldState()
+
+    val decryptedPassword by viewModel.decryptedPassword.collectAsState("")
+
+    val coroutineScope = rememberCoroutineScope()
+    val context = LocalContext.current
+
+    Scaffold(
+        modifier = Modifier,
+        scaffoldState = scaffoldState
     ) {
-        Column(Modifier.fillMaxSize()) {
-
-            ToolbarView(screenTitle = "Passwords") {
-                navController.navigateUp()
+        ModalBottomSheetLayout(
+            modifier = Modifier
+                .padding(it)
+                .fillMaxWidth(),
+            scrimColor = Color.Transparent,
+            sheetBackgroundColor = if (isSystemInDarkTheme()) bgSecondaryDark else bgSecondaryLight,
+            sheetShape = RoundedCornerShape(20.dp, 20.dp, 0.dp, 0.dp),
+            sheetState = sheetState,
+            sheetContent = {
+                PasswordDetailsScreen(
+                    navController = navController,
+                    password = chosenPassword
+                ) {
+                    dialogState.value = true
+                }
             }
+        ) {
+            Box(
+                Modifier
+                    .fillMaxSize()
+                    .background(if (isSystemInDarkTheme()) bgColorDark else bgColorLight)
+            ) {
+                Column(Modifier.fillMaxSize()) {
+                    ToolbarView(screenTitle = context.getString(R.string.title_passwords)) {
+                        navController.navigateUp()
+                    }
 
-            SearchView {
-                viewModel.searchPasswords(it)
-            }
+                    SearchView {
+                        viewModel.searchPasswords(it)
+                    }
 
-            Spacer(modifier = Modifier.height(15.dp))
+                    Spacer(modifier = Modifier.height(15.dp))
 
-            when (val state = uiState.value) {
-                is PasswordsUIState.Success -> {
-                    PasswordContent(
-                        passwords = state.passwords,
-                        onCopy = {
-                            viewModel.decryptPassword(it.password)
-                        },
-                        onFavorite = {
-                            viewModel.updateFavoriteState(
-                                !it.isFavorite,
-                                it.passwordId
+                    when (val state = uiState.value) {
+                        is PasswordsUIState.Success -> {
+                            PasswordContent(
+                                passwords = state.passwords,
+                                onCopy = {
+                                    viewModel.decryptPassword(it.password)
+                                    if (decryptedPassword != "") {
+                                        decryptedPassword.copyToClipboard(context)
+                                        coroutineScope.launch {
+//                                            val snackbarResult =
+                                                scaffoldState.snackbarHostState.showSnackbar(
+                                                    message = "Password has been copied successfully"
+                                                )
+//                                            when (snackbarResult) {
+//                                            SnackbarResult.Dismissed -> Log.d("SnackbarDemo", "Dismissed")
+//                                                SnackbarResult.ActionPerformed -> {
+
+//                                                }
+//                                                else -> {}
+//                                            }
+                                        }
+                                    }
+                                },
+                                onFavorite = {
+                                    viewModel.updateFavoriteState(
+                                        !it.isFavorite,
+                                        it.passwordId
+                                    )
+                                },
+                                onPassword = {
+                                    chosenPassword = it
+                                    coroutineScope.launch {
+                                        if (!sheetState.isVisible) sheetState.show()
+                                        else sheetState.hide()
+                                    }
+                                }
                             )
-                        },
-                        onPassword = {
+                        }
+                        is PasswordsUIState.Empty -> {
+                            EmptyListView()
+                        }
+                        is PasswordsUIState.Loading -> {
+                            ProgressIndicator(isDisplayed = true)
+                        }
+                        is PasswordsUIState.Error -> {}
+                    }
+                }
 
-                        },
-                        navController = navController
+                FloatingActionButton(
+                    backgroundColor = accentColor,
+                    modifier = Modifier
+                        .align(Alignment.BottomEnd)
+                        .padding(end = 16.dp, bottom = 16.dp)
+                        .size(56.dp),
+                    onClick = {
+                        navController.navigate(Screen.AddNewPassword.route)
+                    }) {
+                    Icon(
+                        imageVector = Icons.Filled.Add,
+                        contentDescription = "",
+                        tint = Color.White
                     )
                 }
-                is PasswordsUIState.Empty -> {
-                    EmptyListView()
-                }
-                is PasswordsUIState.Loading -> {
-                    ProgressIndicator(isDisplayed = true)
-                }
-                is PasswordsUIState.Error -> {}
             }
         }
-
-        FloatingActionButton(
-            backgroundColor = accentColor,
-            modifier = Modifier
-                .align(Alignment.BottomEnd)
-                .padding(end = 16.dp, bottom = 16.dp)
-                .size(56.dp),
-            onClick = {
-                navController.navigate(Screen.AddNewPassword.route)
-            }) {
-            Icon(imageVector = Icons.Filled.Add, contentDescription = "", tint = Color.White)
+    }
+    GeneralDialog(
+        msg = "Do you really want to delete this password?",
+        openDialog = dialogState
+    ) {
+        viewModel.updateItemTrashState(
+            isInTrash = true,
+            isFavorite = chosenPassword.isFavorite,
+            passwordId = chosenPassword.passwordId
+        )
+        coroutineScope.launch {
+            sheetState.hide()
         }
     }
 }
@@ -105,56 +186,31 @@ fun PasswordContent(
     passwords: List<PasswordModel>,
     onCopy: (PasswordModel) -> Unit,
     onFavorite: (PasswordModel) -> Unit,
-    onPassword: (PasswordModel) -> Unit,
-    navController: NavController
+    onPassword: (PasswordModel) -> Unit
 ) {
-    var clickedPassword by remember {
-        mutableStateOf(PasswordModel())
-    }
-    val sheetState = rememberBottomSheetState(
-        initialValue = BottomSheetValue.Collapsed
-    )
-    val scaffoldState = rememberBottomSheetScaffoldState(
-        bottomSheetState = sheetState
-    )
-    val coroutineScope = rememberCoroutineScope()
-
-    val bgColor = if (isSystemInDarkTheme()) bgColorDark else bgColorLight
-
-    BottomSheetScaffold(
-        scaffoldState = scaffoldState,
-        sheetContent = { BottomSheet(navController = navController, password = clickedPassword) },
-        modifier = Modifier.fillMaxWidth(),
-        sheetPeekHeight = 0.dp,
-        backgroundColor = bgColor
+    LazyColumn(
+        contentPadding = PaddingValues(bottom = 80.dp),
+        modifier = Modifier.animateContentSize()
     ) {
-        LazyColumn(contentPadding = PaddingValues(bottom = 80.dp)) {
-            items(passwords) { password ->
-                val logoResource = LocalContext.current.resources.getIdentifier(
-                    password.websiteOrAppName.formatWebsite(),
-                    "drawable",
-                    "com.gvelesiani.passworx"
-                )
-                PasswordItem(
-                    logoResource,
-                    password = password,
-                    onCopyClick = {
-                        onCopy.invoke(password)
-                    },
-                    onFavoriteClick = {
-                        onFavorite.invoke(password)
-                    },
-                    onPasswordClick = {
-                        onPassword.invoke(password)
-                        // TODO: Bottomsheet for password details
-                        clickedPassword = it
-                        coroutineScope.launch {
-                            if (sheetState.isCollapsed) sheetState.expand()
-                            else sheetState.collapse()
-                        }
-                    }
-                )
-            }
+        items(passwords) { password ->
+            val logoResource = LocalContext.current.resources.getIdentifier(
+                password.websiteOrAppName.formatWebsite(),
+                "drawable",
+                "com.gvelesiani.passworx"
+            )
+            PasswordItem(
+                logoResource,
+                password = password,
+                onCopyClick = {
+                    onCopy.invoke(password)
+                },
+                onFavoriteClick = {
+                    onFavorite.invoke(password)
+                },
+                onPasswordClick = {
+                    onPassword.invoke(password)
+                }
+            )
         }
     }
 }

@@ -9,10 +9,10 @@ import com.gvelesiani.passworx.ui.UnderConstructionScreen
 import com.gvelesiani.passworx.ui.addPassword.AddPasswordScreen
 import com.gvelesiani.passworx.ui.backupAndRestore.BackupAndRestoreScreen
 import com.gvelesiani.passworx.ui.browse.BrowseScreen
+import com.gvelesiani.passworx.ui.favorites.FavoritesScreen
 import com.gvelesiani.passworx.ui.overview.OverviewScreen
 import com.gvelesiani.passworx.ui.passwords.PasswordsScreen
 import com.gvelesiani.passworx.ui.settings.SettingsScreen
-import com.gvelesiani.passworx.ui.updatePassword.UpdatePasswordScreen
 
 @Composable
 @ExperimentalAnimationApi
@@ -41,8 +41,8 @@ fun MainNavGraph() {
         composable(route = Screen.Settings.route) {
             SettingsScreen(navController)
         }
-        composable(route = Screen.UpdatePassword.route) {
-            UpdatePasswordScreen(navController = navController)
+        composable(route = Screen.Favorites.route) {
+            FavoritesScreen(navController)
         }
     }
 }
@@ -52,8 +52,8 @@ sealed class Screen(val route: String) {
     object AddNewPassword : Screen("addNewPassword")
     object Overview : Screen("overview")
     object Browse : Screen("browse")
-    object UnderConstruction : Screen("underConstruction")
-    object BackupAndRestore : Screen("backupAndRestore")
-    object Settings : Screen("settings")
-    object UpdatePassword : Screen("updatePassword")
+    object UnderConstruction: Screen("underConstruction")
+    object BackupAndRestore: Screen("backupAndRestore")
+    object Settings: Screen("settings")
+    object Favorites: Screen("favorites")
 }
