@@ -5,14 +5,10 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.FloatingActionButton
-import androidx.compose.material.Icon
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,9 +21,9 @@ import com.gvelesiani.passworx.common.extensions.formatWebsite
 import com.gvelesiani.passworx.common.util.OnLifecycleEvent
 import com.gvelesiani.passworx.navGraph.Screen
 import com.gvelesiani.passworx.ui.components.*
-import com.gvelesiani.passworx.ui.composeTheme.accentColor
-import com.gvelesiani.passworx.ui.composeTheme.bgColorDark
-import com.gvelesiani.passworx.ui.composeTheme.bgColorLight
+import com.gvelesiani.passworx.ui.composeTheme.*
+import com.gvelesiani.passworx.ui.passwordDetails.BottomSheet
+import kotlinx.coroutines.launch
 import org.koin.androidx.compose.getViewModel
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -75,7 +71,8 @@ fun PasswordsScreen(navController: NavController, viewModel: PasswordsVM = getVi
                         },
                         onPassword = {
 
-                        }
+                        },
+                        navController = navController
                     )
                 }
                 is PasswordsUIState.Empty -> {
@@ -102,34 +99,62 @@ fun PasswordsScreen(navController: NavController, viewModel: PasswordsVM = getVi
     }
 }
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun PasswordContent(
     passwords: List<PasswordModel>,
     onCopy: (PasswordModel) -> Unit,
     onFavorite: (PasswordModel) -> Unit,
-    onPassword: (PasswordModel) -> Unit
+    onPassword: (PasswordModel) -> Unit,
+    navController: NavController
 ) {
-    LazyColumn(contentPadding = PaddingValues(bottom = 80.dp)) {
-        items(passwords) { password ->
-            val logoResource = LocalContext.current.resources.getIdentifier(
-                password.websiteOrAppName.formatWebsite(),
-                "drawable",
-                "com.gvelesiani.passworx"
-            )
-            PasswordItem(
-                logoResource,
-                password = password,
-                onCopyClick = {
-                    onCopy.invoke(password)
-                },
-                onFavoriteClick = {
-                    onFavorite.invoke(password)
-                },
-                onPasswordClick = {
-                    onPassword.invoke(password)
-                    // TODO: Bottomsheet for password details
-                }
-            )
+    var clickedPassword by remember {
+        mutableStateOf(PasswordModel())
+    }
+    val sheetState = rememberBottomSheetState(
+        initialValue = BottomSheetValue.Collapsed
+    )
+    val scaffoldState = rememberBottomSheetScaffoldState(
+        bottomSheetState = sheetState
+    )
+    val coroutineScope = rememberCoroutineScope()
+
+    val bgColor = if (isSystemInDarkTheme()) bgColorDark else bgColorLight
+
+    BottomSheetScaffold(
+        scaffoldState = scaffoldState,
+        sheetContent = { BottomSheet(navController = navController, password = clickedPassword) },
+        modifier = Modifier.fillMaxWidth(),
+        sheetPeekHeight = 0.dp,
+        backgroundColor = bgColor
+    ) {
+        LazyColumn(contentPadding = PaddingValues(bottom = 80.dp)) {
+            items(passwords) { password ->
+                val logoResource = LocalContext.current.resources.getIdentifier(
+                    password.websiteOrAppName.formatWebsite(),
+                    "drawable",
+                    "com.gvelesiani.passworx"
+                )
+                PasswordItem(
+                    logoResource,
+                    password = password,
+                    onCopyClick = {
+                        onCopy.invoke(password)
+                    },
+                    onFavoriteClick = {
+                        onFavorite.invoke(password)
+                    },
+                    onPasswordClick = {
+                        onPassword.invoke(password)
+                        // TODO: Bottomsheet for password details
+                        clickedPassword = it
+                        coroutineScope.launch {
+                            if (sheetState.isCollapsed) sheetState.expand()
+                            else sheetState.collapse()
+                        }
+                    }
+                )
+            }
         }
     }
 }
