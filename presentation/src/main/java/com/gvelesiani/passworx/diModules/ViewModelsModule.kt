@@ -1,21 +1,20 @@
 package com.gvelesiani.passworx.diModules
 
-import com.gvelesiani.passworx.ui.MainVM
-import com.gvelesiani.passworx.ui.addPassword.AddPasswordVM
-import com.gvelesiani.passworx.ui.backupAndRestore.BackupAndRestoreVM
-import com.gvelesiani.passworx.ui.updatePassword.UpdatePasswordVM
-import com.gvelesiani.passworx.ui.favorites.PasswordFavoritesVM
-import com.gvelesiani.passworx.ui.intro.IntroVM
-import com.gvelesiani.passworx.ui.intro.thirdStep.ThirdStepVM
-import com.gvelesiani.passworx.ui.masterPassword.MasterPasswordAVM
-import com.gvelesiani.passworx.ui.masterPassword.fragments.MasterPasswordVM
-import com.gvelesiani.passworx.ui.masterPassword.fragments.changeMasterPassword.ChangeMasterPasswordVM
-import com.gvelesiani.passworx.ui.masterPassword.fragments.createMasterPassword.CreateMasterPasswordVM
-import com.gvelesiani.passworx.ui.passwordDetails.PasswordDetailsVM
-import com.gvelesiani.passworx.ui.passwordGenerator.PasswordGeneratorVM
-import com.gvelesiani.passworx.ui.passwords.PasswordsVM
-import com.gvelesiani.passworx.ui.settings.SettingsVM
-import com.gvelesiani.passworx.ui.trash.PasswordTrashVM
+import com.gvelesiani.passworx.uiCompose.updatePassword.UpdatePasswordVM
+import com.gvelesiani.passworx.uiCompose.MainVM
+import com.gvelesiani.passworx.uiCompose.addPassword.AddPasswordVM
+import com.gvelesiani.passworx.uiCompose.backupAndRestore.BackupAndRestoreVM
+import com.gvelesiani.passworx.uiCompose.favorites.PasswordFavoritesVM
+import com.gvelesiani.passworx.uiCompose.intro.IntroVM
+import com.gvelesiani.passworx.uiCompose.intro.thirdStep.ThirdStepVM
+import com.gvelesiani.passworx.uiCompose.masterPassword.MasterPasswordVM
+import com.gvelesiani.passworx.uiCompose.masterPassword.changeMasterPassword.ChangeMasterPasswordVM
+import com.gvelesiani.passworx.uiCompose.masterPassword.createMasterPassword.CreateMasterPasswordVM
+import com.gvelesiani.passworx.uiCompose.passwordDetails.PasswordDetailsVM
+import com.gvelesiani.passworx.uiCompose.passwordGenerator.PasswordGeneratorVM
+import com.gvelesiani.passworx.uiCompose.passwords.PasswordsVM
+import com.gvelesiani.passworx.uiCompose.settings.SettingsVM
+import com.gvelesiani.passworx.uiCompose.trash.PasswordTrashVM
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.module.Module
 import org.koin.dsl.module
@@ -39,11 +38,11 @@ object ViewModelsModule {
         }
 
         viewModel {
-            PasswordsVM(get(), get(), get(), get(), get())
+            PasswordsVM(get(), get(), get(), get()) //, get())
         }
 
         viewModel {
-            PasswordGeneratorVM(get(), get())
+            PasswordGeneratorVM(get())
         }
 
         viewModel {
@@ -71,11 +70,7 @@ object ViewModelsModule {
         }
 
         viewModel {
-            MasterPasswordAVM(get(), get())
-        }
-
-        viewModel {
-            MainVM(get())
+            MainVM(get(), get(), get())
         }
 
         viewModel {
@@ -83,7 +78,7 @@ object ViewModelsModule {
         }
 
         viewModel {
-            UpdatePasswordVM(get(), get(), get())
+            UpdatePasswordVM(get(), get())
         }
 
         viewModel {

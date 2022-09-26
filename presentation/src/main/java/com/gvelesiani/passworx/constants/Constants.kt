@@ -12,7 +12,7 @@ object PasswordGeneratorProperties {
     const val COMPLEX_PASSWORD = CAPITAL_LETTERS + LOWERCASE_LETTERS + NUMBERS + SYMBOLS
 }
 
-object Steps {
+object IntroPage {
     const val FIRST = 0
     const val SECOND = 1
     const val THIRD = 2

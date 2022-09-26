@@ -70,16 +70,17 @@ dependencies {
 
     implementation "com.google.code.gson:gson:$gson_version"
 
-    def compose_activity_version = '1.5.1'
+    def compose_activity_version = '1.6.0'
     def compose_version = '1.2.1'
+    def compose_beta_version = '1.3.0-beta03'
     def lifecycle_viewmodel_compose_version = '2.5.1'
     implementation "io.insert-koin:koin-androidx-compose:$koin_version"
     // Integration with activities
     implementation "androidx.activity:activity-compose:$compose_activity_version"
     // Compose Material Design
-    implementation "androidx.compose.material:material:$compose_version"
+    implementation "androidx.compose.material:material:$compose_beta_version"
     // Animations
-    implementation "androidx.compose.animation:animation:$compose_version"
+    implementation "androidx.compose.animation:animation:$compose_beta_version"
     // Tooling support (Previews, etc.)
     implementation "androidx.compose.ui:ui-tooling:$compose_version"
     // Integration with ViewModels
@@ -87,4 +88,6 @@ dependencies {
 
     implementation "androidx.compose.material:material-icons-extended:$compose_version"
     implementation "com.google.accompanist:accompanist-navigation-animation:0.26.3-beta"
+    implementation "com.google.accompanist:accompanist-pager:0.26.3-beta"
+    implementation "com.google.accompanist:accompanist-flowlayout:0.26.3-beta"
 }

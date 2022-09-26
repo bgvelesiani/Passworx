@@ -1,7 +1,5 @@
 package com.gvelesiani.passworx.autofill
 
-import android.service.autofill.AutofillService
-
 import android.app.assist.AssistStructure
 import android.content.Intent
 import android.os.Build
@@ -11,6 +9,7 @@ import android.view.View.AUTOFILL_TYPE_TEXT
 import android.view.autofill.AutofillValue
 import android.widget.RemoteViews
 import androidx.annotation.RequiresApi
+import com.gvelesiani.common.models.domain.PasswordModel
 import com.gvelesiani.domain.useCases.passwords.GetPasswordsUseCase
 import com.gvelesiani.helpers.helpers.encryptPassword.PasswordEncryptionHelper
 import com.gvelesiani.passworx.R
@@ -42,7 +41,10 @@ class PassworxAutofillService : AutofillService() {
             val passwordFields: MutableList<AssistStructure.ViewNode?> = ArrayList()
             val appName = structure.activityComponent.packageName
 
-            val passwords = getPasswordsUseCase(false)
+            var passwords: List<PasswordModel> = listOf()
+            getPasswordsUseCase(false).collect {
+                passwords = it
+            }
 
             identifyEmailFields(structure.getWindowNodeAt(0).rootViewNode, emailFields)
             identifyPasswordFields(structure.getWindowNodeAt(0).rootViewNode, passwordFields)

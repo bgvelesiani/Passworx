@@ -3,6 +3,7 @@ package com.gvelesiani.data.repositories.local
 import com.gvelesiani.common.models.data.PasswordDto
 import com.gvelesiani.data.database.database.PasswordDatabase
 import com.gvelesiani.domain.repositories.PasswordsRepository
+import kotlinx.coroutines.flow.Flow
 
 class PasswordsRepositoryImpl constructor(
     private val database: PasswordDatabase
@@ -11,7 +12,7 @@ class PasswordsRepositoryImpl constructor(
         database.getPasswordDao.addNewPassword(pass)
     }
 
-    override fun getPasswords(isInTrash: Boolean): List<PasswordDto> {
+    override fun getPasswords(isInTrash: Boolean): Flow<List<PasswordDto>> {
         return database.getPasswordDao.getPasswords(isInTrash)
     }
 
@@ -19,7 +20,7 @@ class PasswordsRepositoryImpl constructor(
         database.getPasswordDao.updateFavoriteState(isFavorite, id)
     }
 
-    override fun getFavoritePasswords(): List<PasswordDto> {
+    override fun getFavoritePasswords(): Flow<List<PasswordDto>> {
         return database.getPasswordDao.getFavorites()
     }
 
@@ -31,7 +32,7 @@ class PasswordsRepositoryImpl constructor(
         database.getPasswordDao.deletePassword(passwordId)
     }
 
-    override fun searchPasswords(query: String, isInTrash: Boolean): List<PasswordDto> {
+    override fun searchPasswords(query: String, isInTrash: Boolean): Flow<List<PasswordDto>> {
         return database.getPasswordDao.searchPasswords(query, isInTrash)
     }
 
