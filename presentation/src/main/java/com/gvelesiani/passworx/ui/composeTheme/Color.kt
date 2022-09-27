@@ -7,7 +7,9 @@ import com.gvelesiani.passworx.R
 val secondaryTextColor = Color(0xFF848484)
 val accentColor = Color(0xFFF04137)
 val favoriteIconColor = Color(0xFFFFC107)
-val generatePassBgColor = Color(0xFFECECEC)
+val generatePassBgColor = Color(0xFFF4F1EC)
+val uncheckedThumbColor = Color(0xFF9E9E9E)
+val uncheckedTrackColor = Color(0xFF9E9E9E)
 
 // light colors
 val textColorLight = Color(0xFF050507)

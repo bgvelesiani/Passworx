@@ -20,7 +20,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.navigation.NavController
 import com.gvelesiani.common.models.domain.PasswordModel
 import com.gvelesiani.passworx.R
-import com.gvelesiani.passworx.common.extensions.copyToClipboard
 import com.gvelesiani.passworx.common.extensions.formatWebsite
 import com.gvelesiani.passworx.common.util.OnLifecycleEvent
 import com.gvelesiani.passworx.navGraph.Screen
@@ -57,13 +56,12 @@ fun PasswordsScreen(navController: NavController, viewModel: PasswordsVM = getVi
 
     val scaffoldState = rememberScaffoldState()
 
-    val decryptedPassword by viewModel.decryptedPassword.collectAsState("")
+//    val decryptedPassword by viewModel.decryptedPassword.collectAsState("")
 
     val coroutineScope = rememberCoroutineScope()
     val context = LocalContext.current
 
     Scaffold(
-        modifier = Modifier,
         scaffoldState = scaffoldState
     ) {
         ModalBottomSheetLayout(
@@ -104,32 +102,23 @@ fun PasswordsScreen(navController: NavController, viewModel: PasswordsVM = getVi
                             PasswordContent(
                                 passwords = state.passwords,
                                 onCopy = {
-                                    viewModel.decryptPassword(it.password)
-                                    if (decryptedPassword != "") {
-                                        decryptedPassword.copyToClipboard(context)
-                                        coroutineScope.launch {
-//                                            val snackbarResult =
-                                                scaffoldState.snackbarHostState.showSnackbar(
-                                                    message = "Password has been copied successfully"
-                                                )
-//                                            when (snackbarResult) {
-//                                            SnackbarResult.Dismissed -> Log.d("SnackbarDemo", "Dismissed")
-//                                                SnackbarResult.ActionPerformed -> {
-
-//                                                }
-//                                                else -> {}
-//                                            }
-                                        }
+//                                    viewModel.decryptPassword(it.password)
+//                                    if (decryptedPassword != "") {
+//                                        decryptedPassword.copyToClipboard(context)
+                                    coroutineScope.launch {
+                                        scaffoldState.snackbarHostState.showSnackbar(
+                                            message = "Needs work"
+                                        )
                                     }
                                 },
-                                onFavorite = {
+                                onFavorite = { passwordModel ->
                                     viewModel.updateFavoriteState(
-                                        !it.isFavorite,
-                                        it.passwordId
+                                        !passwordModel.isFavorite,
+                                        passwordModel.passwordId
                                     )
                                 },
-                                onPassword = {
-                                    chosenPassword = it
+                                onPassword = { passwordModel ->
+                                    chosenPassword = passwordModel
                                     coroutineScope.launch {
                                         if (!sheetState.isVisible) sheetState.show()
                                         else sheetState.hide()
@@ -170,7 +159,6 @@ fun PasswordsScreen(navController: NavController, viewModel: PasswordsVM = getVi
         openDialog = dialogState
     ) {
         viewModel.updateItemTrashState(
-            isInTrash = true,
             isFavorite = chosenPassword.isFavorite,
             passwordId = chosenPassword.passwordId
         )

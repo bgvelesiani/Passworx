@@ -48,7 +48,7 @@ fun OverviewScreen(
 
         OverviewItem(
             onOverviewItemClick = {
-                navController.navigate(Screen.UnderConstruction.route)
+                navController.navigate(Screen.Generate.route)
             },
             image = R.drawable.ic_generate,
             title = "Password Generator",

@@ -11,6 +11,7 @@ import com.gvelesiani.passworx.ui.backupAndRestore.BackupAndRestoreScreen
 import com.gvelesiani.passworx.ui.browse.BrowseScreen
 import com.gvelesiani.passworx.ui.favorites.FavoritesScreen
 import com.gvelesiani.passworx.ui.overview.OverviewScreen
+import com.gvelesiani.passworx.ui.passwordGenerator.PasswordGeneratorScreen
 import com.gvelesiani.passworx.ui.passwords.PasswordsScreen
 import com.gvelesiani.passworx.ui.settings.SettingsScreen
 
@@ -25,7 +26,6 @@ fun MainNavGraph() {
         composable(route = Screen.AddNewPassword.route) {
             AddPasswordScreen(navController)
         }
-
         composable(route = Screen.UnderConstruction.route) {
             UnderConstructionScreen(navController)
         }
@@ -44,6 +44,9 @@ fun MainNavGraph() {
         composable(route = Screen.Favorites.route) {
             FavoritesScreen(navController)
         }
+        composable(route = Screen.Generate.route) {
+            PasswordGeneratorScreen(navController)
+        }
     }
 }
 
@@ -52,8 +55,9 @@ sealed class Screen(val route: String) {
     object AddNewPassword : Screen("addNewPassword")
     object Overview : Screen("overview")
     object Browse : Screen("browse")
-    object UnderConstruction: Screen("underConstruction")
-    object BackupAndRestore: Screen("backupAndRestore")
-    object Settings: Screen("settings")
-    object Favorites: Screen("favorites")
+    object UnderConstruction : Screen("underConstruction")
+    object BackupAndRestore : Screen("backupAndRestore")
+    object Settings : Screen("settings")
+    object Favorites : Screen("favorites")
+    object Generate : Screen("generatePassword")
 }

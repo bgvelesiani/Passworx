@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.gvelesiani.passworx.R
-import com.gvelesiani.passworx.ui.components.SettingSwitch
+import com.gvelesiani.passworx.ui.components.Switch
 import com.gvelesiani.passworx.ui.components.ToolbarView
 import com.gvelesiani.passworx.ui.composeTheme.textColorDark
 import com.gvelesiani.passworx.ui.composeTheme.textColorLight
@@ -51,7 +51,7 @@ fun SettingsScreen(
 
         Spacer(modifier = Modifier.height(15.dp))
 
-        SettingSwitch(
+        Switch(
             shouldBeChecked = screenshotSwitchState.value,
             text = context.getString(R.string.settings_take_screenshots),
             description = context.getString(R.string.take_in_app_screenshots_info)
@@ -59,7 +59,7 @@ fun SettingsScreen(
             viewModel.allowTakingScreenshots(it)
         }
 
-        SettingSwitch(
+        Switch(
             shouldBeChecked = biometricsSwitchState.value,
             text = context.getString(R.string.settings_unlock_with_biometrics),
             description = context.getString(R.string.unlock_with_biometrics_info)

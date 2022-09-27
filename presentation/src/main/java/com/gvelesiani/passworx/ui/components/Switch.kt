@@ -18,10 +18,10 @@ import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.ui.composeTheme.*
 
 @Composable
-fun SettingSwitch(
-    shouldBeChecked: Boolean,
+fun Switch(
+    shouldBeChecked: Boolean = false,
     text: String,
-    description: String,
+    description: String = "",
     onCheck: (Boolean) -> Unit
 ) {
     var checked by remember { mutableStateOf(shouldBeChecked) }
@@ -54,15 +54,19 @@ fun SettingSwitch(
                 },
                 colors = SwitchDefaults.colors(
                     checkedThumbColor = accentColor,
-                    checkedTrackColor = if (isSystemInDarkTheme()) accentTransparentDark else accentTransparentLight
+                    checkedTrackColor = if (isSystemInDarkTheme()) accentTransparentDark else accentTransparentLight,
+                    uncheckedThumbColor = uncheckedThumbColor,
+                    uncheckedTrackColor = uncheckedTrackColor
                 )
             )
         }
-        Text(
-            color = secondaryTextColor,
-            text = description,
-            fontSize = 15.sp,
-            fontFamily = FontFamily(Font(R.font.regular, FontWeight.Normal))
-        )
+        if (description.isNotEmpty()) {
+            Text(
+                color = secondaryTextColor,
+                text = description,
+                fontSize = 15.sp,
+                fontFamily = FontFamily(Font(R.font.regular, FontWeight.Normal))
+            )
+        }
     }
 }
