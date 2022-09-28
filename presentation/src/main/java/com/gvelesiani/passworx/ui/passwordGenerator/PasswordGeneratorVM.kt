@@ -1,25 +1,18 @@
 package com.gvelesiani.passworx.ui.passwordGenerator
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gvelesiani.domain.useCases.generate.GeneratePasswordUseCase
 import com.gvelesiani.domain.useCases.generate.Password
-import com.gvelesiani.helpers.helpers.resourceProvider.ResourceHelper
-import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.constants.INITIAL_GENERATED_PASSWORD_LENGTH
 import com.gvelesiani.passworx.constants.PasswordGeneratorProperties
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
 class PasswordGeneratorVM(
-    private val generatePasswordUseCase: GeneratePasswordUseCase,
-    private val resourceHelper: ResourceHelper
+    private val generatePasswordUseCase: GeneratePasswordUseCase
 ) : ViewModel() {
-    private var _generatePasswordError: MutableLiveData<String> = MutableLiveData()
-    val generatePasswordError: LiveData<String> = _generatePasswordError
-
     private var _passwordProperties: MutableLiveData<String> = MutableLiveData()
 
     private var _generatedPassword: MutableStateFlow<String> = MutableStateFlow("")
@@ -40,18 +33,14 @@ class PasswordGeneratorVM(
 
     fun generatePassword(length: Int) {
         viewModelScope.launch {
-            try {
-                val result = generatePasswordUseCase.invoke(
-                    Password(
-                        length,
-                        _passwordProperties.value!!
-                    )
+            val result = generatePasswordUseCase.invoke(
+                Password(
+                    length,
+                    _passwordProperties.value!!
                 )
-                _generatedPassword.value = result
-            } catch (e: Exception) {
-                _generatePasswordError.value =
-                    resourceHelper.getString(R.string.generate_password_error_Text)
-            }
+            )
+            _generatedPassword.value = result
+
         }
     }
 

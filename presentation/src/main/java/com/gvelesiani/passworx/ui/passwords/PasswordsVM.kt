@@ -55,6 +55,7 @@ class PasswordsVM(
     fun updateItemTrashState(isInTrash: Boolean = true, isFavorite: Boolean, passwordId: Int) {
         _uiState.value = PasswordsUIState.Loading
         CoroutineScope(Dispatchers.IO).launch {
+            delay(1000)
             updateItemTrashStateUseCase(Pair(isInTrash, passwordId))
             if (isFavorite) {
                 updateFavoriteStateUseCase(Pair(false, passwordId))

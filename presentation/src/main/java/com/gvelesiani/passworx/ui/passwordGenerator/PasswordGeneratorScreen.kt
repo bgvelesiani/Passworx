@@ -11,9 +11,12 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -60,13 +63,25 @@ fun PasswordGeneratorScreen(
                         .height(150.dp)
                         .background(if (isSystemInDarkTheme()) generatePassBgColorDark else generatePassBgColorLight)
                 ) {
+                    val annotatedString = buildAnnotatedString {
+                        for (char in generatedPassword) {
+                            if (char.isDigit()) {
+                                withStyle(style = SpanStyle(accentColor)) {
+                                    append(char)
+                                }
+                            } else {
+                                append(char)
+                            }
+                        }
+                    }
+
                     Text(
                         modifier = Modifier.padding(15.dp),
                         fontFamily = FontFamily(Font(R.font.medium)),
-                        text = generatedPassword,
+                        text = annotatedString,
                         fontSize = 22.sp,
                         color = if (isSystemInDarkTheme()) textColorDark else textColorLight,
-                        textAlign = TextAlign.Start
+                        textAlign = TextAlign.Left
                     )
                 }
 
@@ -82,23 +97,23 @@ fun PasswordGeneratorScreen(
                 Switch(
                     shouldBeChecked = true,
                     text = context.getString(R.string.generate_password_use_capital_letters_setting),
-                    onCheck = {
-                        viewModel.useCapitalLetters(it, selectedLength.toInt())
+                    onCheck = { useCapitalLetters ->
+                        viewModel.useCapitalLetters(useCapitalLetters, selectedLength.toInt())
                     })
                 Divider()
                 Switch(
                     shouldBeChecked = true,
                     text = context.getString(R.string.generate_password_use_numbers_setting),
-                    onCheck = {
-                        viewModel.useNumbers(it, selectedLength.toInt())
+                    onCheck = { useNumbers ->
+                        viewModel.useNumbers(useNumbers, selectedLength.toInt())
                     })
                 Divider()
 
                 Switch(
                     shouldBeChecked = true,
                     text = context.getString(R.string.generate_password_use_capital_symbols_setting),
-                    onCheck = {
-                        viewModel.useSymbols(it, selectedLength.toInt())
+                    onCheck = { useSymbols ->
+                        viewModel.useSymbols(useSymbols, selectedLength.toInt())
                     })
             }
         }

@@ -43,7 +43,7 @@ object ViewModelsModule {
         }
 
         viewModel {
-            PasswordGeneratorVM(get(), get())
+            PasswordGeneratorVM(get())
         }
 
         viewModel {

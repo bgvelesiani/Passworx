@@ -15,12 +15,18 @@ import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.ui.composeTheme.accentColor
 
 @Composable
-fun GeneralButton(modifier: Modifier, text: String,onClick:()->Unit){
+fun GeneralButton(
+    modifier: Modifier,
+    backgroundColor: Color = accentColor,
+    textColor: Color = Color.White,
+    text: String,
+    onClick: () -> Unit
+) {
     Button(
         modifier = modifier,
-        shape = RoundedCornerShape(5.dp),
+        shape = RoundedCornerShape(8.dp),
         colors = ButtonDefaults.buttonColors(
-            backgroundColor = accentColor
+            backgroundColor = backgroundColor
         ),
         onClick = {
             onClick.invoke()
@@ -28,7 +34,7 @@ fun GeneralButton(modifier: Modifier, text: String,onClick:()->Unit){
         Text(
             modifier = Modifier.padding(top = 7.dp, bottom = 7.dp),
             text = text,
-            color = Color.White,
+            color = textColor,
             fontFamily = FontFamily(Font(R.font.medium))
         )
     }

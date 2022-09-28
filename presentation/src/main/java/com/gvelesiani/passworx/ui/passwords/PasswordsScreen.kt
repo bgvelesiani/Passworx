@@ -155,7 +155,8 @@ fun PasswordsScreen(navController: NavController, viewModel: PasswordsVM = getVi
         }
     }
     GeneralDialog(
-        msg = "Do you really want to delete this password?",
+        title = "Delete password",
+        text = "Do you really want to delete this password?",
         openDialog = dialogState
     ) {
         viewModel.updateItemTrashState(

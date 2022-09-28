@@ -22,7 +22,7 @@ import com.gvelesiani.passworx.ui.composeTheme.*
 
 @Composable
 fun GeneratorSlider(modifier: Modifier, selectedLength: Float, onValueChange: (Float) -> Unit){
-    val trackColor = if(isSystemInDarkTheme()) accentTransparentDark else accentTransparentLight
+    val inactiveColor = if(isSystemInDarkTheme()) inactiveTrackColorDark else inactiveTrackColorLight
 
     Row(verticalAlignment = Alignment.CenterVertically, modifier = modifier){
         Spacer(modifier = Modifier.width(16.dp))
@@ -40,23 +40,25 @@ fun GeneratorSlider(modifier: Modifier, selectedLength: Float, onValueChange: (F
             onValueChange = {
                 onValueChange.invoke(it)
             },
-            valueRange = 8f..32f,
-            steps = 23,
+            valueRange = 8f..50f,
+            steps = 41,
             colors = SliderDefaults.colors(
                 thumbColor = accentColor,
-                activeTrackColor = trackColor,
-                activeTickColor = trackColor
+                activeTrackColor = accentColor,
+                activeTickColor = accentColor,
+                inactiveTrackColor = inactiveColor,
+                inactiveTickColor = inactiveColor
             )
         )
 
         Text(
-            text = "32",
+            text = "50",
             textAlign = TextAlign.Center,
             color = if (isSystemInDarkTheme()) textColorDark else textColorLight,
             fontSize = 20.sp,
             fontFamily = FontFamily(Font(R.font.medium, FontWeight.Normal))
         )
-        Spacer(modifier = Modifier.width(16.dp))
 
+        Spacer(modifier = Modifier.width(16.dp))
     }
 }

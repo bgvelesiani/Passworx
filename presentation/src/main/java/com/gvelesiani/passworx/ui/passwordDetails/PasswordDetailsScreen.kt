@@ -25,8 +25,8 @@ import androidx.navigation.NavController
 import com.gvelesiani.common.models.domain.PasswordModel
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.ui.components.GeneralButton
-import com.gvelesiani.passworx.ui.composeTheme.bgSecondaryDark
-import com.gvelesiani.passworx.ui.composeTheme.bgSecondaryLight
+import com.gvelesiani.passworx.ui.composeTheme.bottomSheetBgDark
+import com.gvelesiani.passworx.ui.composeTheme.bottomSheetBgLight
 import com.gvelesiani.passworx.ui.composeTheme.textColorDark
 import com.gvelesiani.passworx.ui.composeTheme.textColorLight
 import org.koin.androidx.compose.getViewModel
@@ -40,7 +40,7 @@ fun PasswordDetailsScreen(
 ) {
     var passwordVisible by rememberSaveable { mutableStateOf(false) }
     val textColor = if (isSystemInDarkTheme()) textColorDark else textColorLight
-    val bgColor = if (isSystemInDarkTheme()) bgSecondaryDark else bgSecondaryLight
+    val bgColor = if (isSystemInDarkTheme()) bottomSheetBgDark else bottomSheetBgLight
 
     if (password.password != "") {
         viewModel.decryptPassword(password.password)
