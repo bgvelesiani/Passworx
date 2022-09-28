@@ -24,13 +24,13 @@
 //import androidx.navigation.NavController
 //import com.gvelesiani.passworx.R
 //import com.gvelesiani.passworx.navGraph.Screen
-//import com.gvelesiani.passworx.ui.components.ErrorDialog
-//import com.gvelesiani.passworx.ui.components.GeneralButton
-//import com.gvelesiani.passworx.ui.components.ProgressIndicator
-//import com.gvelesiani.passworx.ui.composeTheme.accentColor
-//import com.gvelesiani.passworx.ui.composeTheme.secondaryTextColor
-//import com.gvelesiani.passworx.ui.composeTheme.textColorDark
-//import com.gvelesiani.passworx.ui.composeTheme.textColorLight
+//import com.gvelesiani.passworx.uiCompose.components.ErrorDialog
+//import com.gvelesiani.passworx.uiCompose.components.GeneralButton
+//import com.gvelesiani.passworx.uiCompose.components.ProgressIndicator
+//import com.gvelesiani.passworx.uiCompose.composeTheme.accentColor
+//import com.gvelesiani.passworx.uiCompose.composeTheme.secondaryTextColor
+//import com.gvelesiani.passworx.uiCompose.composeTheme.textColorDark
+//import com.gvelesiani.passworx.uiCompose.composeTheme.textColorLight
 //import org.koin.androidx.compose.getViewModel
 //
 //@Composable

@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.gvelesiani.base.BaseFragment
-import com.gvelesiani.passworx.MainComposeActivity
+import com.gvelesiani.passworx.uiCompose.MainComposeActivity
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.databinding.FragmentMasterPasswordBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel

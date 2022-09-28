@@ -5,15 +5,15 @@ import androidx.compose.runtime.Composable
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
-import com.gvelesiani.passworx.ui.UnderConstructionScreen
-import com.gvelesiani.passworx.ui.addPassword.AddPasswordScreen
-import com.gvelesiani.passworx.ui.backupAndRestore.BackupAndRestoreScreen
-import com.gvelesiani.passworx.ui.browse.BrowseScreen
-import com.gvelesiani.passworx.ui.favorites.FavoritesScreen
-import com.gvelesiani.passworx.ui.overview.OverviewScreen
-import com.gvelesiani.passworx.ui.passwordGenerator.PasswordGeneratorScreen
-import com.gvelesiani.passworx.ui.passwords.PasswordsScreen
-import com.gvelesiani.passworx.ui.settings.SettingsScreen
+import com.gvelesiani.passworx.uiCompose.UnderConstructionScreen
+import com.gvelesiani.passworx.uiCompose.addPassword.AddPasswordScreen
+import com.gvelesiani.passworx.uiCompose.backupAndRestore.BackupAndRestoreScreen
+import com.gvelesiani.passworx.uiCompose.browse.BrowseScreen
+import com.gvelesiani.passworx.uiCompose.favorites.FavoritesScreen
+import com.gvelesiani.passworx.uiCompose.overview.OverviewScreen
+import com.gvelesiani.passworx.uiCompose.passwordGenerator.PasswordGeneratorScreen
+import com.gvelesiani.passworx.uiCompose.passwords.PasswordsScreen
+import com.gvelesiani.passworx.uiCompose.settings.SettingsScreen
 
 @Composable
 @ExperimentalAnimationApi

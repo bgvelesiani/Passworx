@@ -1,17 +1,16 @@
 package com.gvelesiani.passworx.ui
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gvelesiani.domain.useCases.screenshots.GetTakingScreenshotsStatusUseCase
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
-@Deprecated("Needs to be deleted soon")
 class MainVM(
     private val getTakingScreenshotsStatusUseCase: GetTakingScreenshotsStatusUseCase
 ) :
     ViewModel() {
-    val takingScreenshotsArePrevented: MutableLiveData<Boolean> = MutableLiveData()
+    val takingScreenshotsArePrevented: MutableStateFlow<Boolean> = MutableStateFlow(false)
 
     init {
         getTakingScreenshotsStatus()
@@ -21,7 +20,7 @@ class MainVM(
         viewModelScope.launch {
             try {
                 val result = getTakingScreenshotsStatusUseCase.invoke(Unit)
-                takingScreenshotsArePrevented.postValue(result)
+                takingScreenshotsArePrevented.value = result
             } catch (ignored: Exception) {
             }
         }

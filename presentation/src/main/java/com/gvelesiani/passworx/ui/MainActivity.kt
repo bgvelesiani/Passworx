@@ -1,13 +1,11 @@
 package com.gvelesiani.passworx.ui
 
 import android.view.LayoutInflater
-import android.view.WindowManager
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.gvelesiani.base.BaseActivity
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.databinding.ActivityMainBinding
-import com.gvelesiani.passworx.ui.masterPassword.MasterPasswordAVM
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 @Deprecated("Needs to be deleted soon")
@@ -35,20 +33,20 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     private fun setupObservers() {
-        viewModel.takingScreenshotsArePrevented.observe(this) { prevented ->
-            if (prevented == true) {
-                /**
-                 * With FLAG_SECURE, Users will be prevented from taking screenshots of the application,
-                 * */
-                window.setFlags(
-                    WindowManager.LayoutParams.FLAG_SECURE,
-                    WindowManager.LayoutParams.FLAG_SECURE
-                )
-            } else {
-                window.clearFlags(
-                    WindowManager.LayoutParams.FLAG_SECURE
-                )
-            }
-        }
+//        viewModel.takingScreenshotsArePrevented.observe(this) { prevented ->
+//            if (prevented == true) {
+//                /**
+//                 * With FLAG_SECURE, Users will be prevented from taking screenshots of the application,
+//                 * */
+//                window.setFlags(
+//                    WindowManager.LayoutParams.FLAG_SECURE,
+//                    WindowManager.LayoutParams.FLAG_SECURE
+//                )
+//            } else {
+//                window.clearFlags(
+//                    WindowManager.LayoutParams.FLAG_SECURE
+//                )
+//            }
+//        }
     }
 }
