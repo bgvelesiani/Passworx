@@ -25,6 +25,9 @@ fun Switch(
     onCheck: (Boolean) -> Unit
 ) {
     var checked by remember { mutableStateOf(shouldBeChecked) }
+    val checkedTrackColor = if (isSystemInDarkTheme()) accentTransparentDark else accentTransparentLight
+    val uncheckedThumbColor = if(isSystemInDarkTheme()) uncheckedThumbColorDark else uncheckedThumbColorLight
+    val uncheckedTrackColor = if(isSystemInDarkTheme()) uncheckedTrackColorDark else uncheckedTrackColorLight
 
     Column(
         Modifier
@@ -54,7 +57,7 @@ fun Switch(
                 },
                 colors = SwitchDefaults.colors(
                     checkedThumbColor = accentColor,
-                    checkedTrackColor = if (isSystemInDarkTheme()) accentTransparentDark else accentTransparentLight,
+                    checkedTrackColor = checkedTrackColor,
                     uncheckedThumbColor = uncheckedThumbColor,
                     uncheckedTrackColor = uncheckedTrackColor
                 )

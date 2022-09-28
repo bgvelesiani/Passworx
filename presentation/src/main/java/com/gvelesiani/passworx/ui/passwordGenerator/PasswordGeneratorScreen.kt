@@ -23,10 +23,7 @@ import com.gvelesiani.passworx.ui.components.GeneralButton
 import com.gvelesiani.passworx.ui.components.GeneratorSlider
 import com.gvelesiani.passworx.ui.components.Switch
 import com.gvelesiani.passworx.ui.components.ToolbarView
-import com.gvelesiani.passworx.ui.composeTheme.bgColorDark
-import com.gvelesiani.passworx.ui.composeTheme.bgColorLight
-import com.gvelesiani.passworx.ui.composeTheme.textColorDark
-import com.gvelesiani.passworx.ui.composeTheme.textColorLight
+import com.gvelesiani.passworx.ui.composeTheme.*
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.getViewModel
 
@@ -44,7 +41,11 @@ fun PasswordGeneratorScreen(
 
 
     Box(modifier = Modifier.fillMaxSize()) {
-        Scaffold(scaffoldState = scaffoldState, modifier = Modifier.padding(bottom = 90.dp), backgroundColor = if(isSystemInDarkTheme()) bgColorDark else bgColorLight) {
+        Scaffold(
+            scaffoldState = scaffoldState,
+            modifier = Modifier.padding(bottom = 90.dp),
+            backgroundColor = if (isSystemInDarkTheme()) bgColorDark else bgColorLight
+        ) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -57,14 +58,14 @@ fun PasswordGeneratorScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(150.dp)
-                        .background(if (isSystemInDarkTheme()) bgColorLight else bgColorDark)
+                        .background(if (isSystemInDarkTheme()) generatePassBgColorDark else generatePassBgColorLight)
                 ) {
                     Text(
                         modifier = Modifier.padding(15.dp),
                         fontFamily = FontFamily(Font(R.font.medium)),
                         text = generatedPassword,
                         fontSize = 22.sp,
-                        color = if(isSystemInDarkTheme()) textColorLight else textColorDark,
+                        color = if (isSystemInDarkTheme()) textColorDark else textColorLight,
                         textAlign = TextAlign.Start
                     )
                 }

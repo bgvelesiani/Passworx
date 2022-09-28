@@ -7,9 +7,6 @@ import com.gvelesiani.passworx.R
 val secondaryTextColor = Color(0xFF848484)
 val accentColor = Color(0xFFF04137)
 val favoriteIconColor = Color(0xFFFFC107)
-val generatePassBgColor = Color(0xFFF4F1EC)
-val uncheckedThumbColor = Color(0xFF9E9E9E)
-val uncheckedTrackColor = Color(0xFF9E9E9E)
 
 // light colors
 val textColorLight = Color(0xFF050507)
@@ -28,6 +25,9 @@ val chipTextColorLight = Color(0xFF3F3F5E)
 val chipTextColorCheckedLight = Color(0xFF01863A)
 val searchViewBgLight = Color(0xFFF7F6F9)
 val passwordBgColorLight = Color(0xFFF9FAFC)
+val uncheckedThumbColorLight = Color(0xFFF5F5F7)
+val uncheckedTrackColorLight = Color(0xFF9E9EA2)
+val generatePassBgColorLight = Color(0xFFF0F0F4)
 
 // dark colors
 val textColorDark = Color(0xFFFFFFFF)
@@ -46,3 +46,6 @@ val chipTextColorDark = Color(0xFFECECFF)
 val chipTextColorCheckedDark = Color(0xFF01863A)
 val searchViewBgDark = Color(0xFF222222)
 val passwordBgColorDark = Color(0xFF141414)
+val uncheckedThumbColorDark = Color(0xFFE7E7EC)
+val uncheckedTrackColorDark = Color(0xFF616164)
+val generatePassBgColorDark = Color(0xFF262628)
