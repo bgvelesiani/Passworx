@@ -42,7 +42,6 @@ fun PasswordGeneratorScreen(
     val selectedLength by remember { viewModel.selectedLength }.collectAsState()
     val generatedPassword by remember { viewModel.generatedPassword }.collectAsState()
 
-
     Box(modifier = Modifier.fillMaxSize()) {
         Scaffold(
             scaffoldState = scaffoldState,
@@ -100,13 +99,16 @@ fun PasswordGeneratorScreen(
                     onCheck = { useCapitalLetters ->
                         viewModel.useCapitalLetters(useCapitalLetters, selectedLength.toInt())
                     })
+
                 Divider()
+
                 Switch(
                     shouldBeChecked = true,
                     text = context.getString(R.string.generate_password_use_numbers_setting),
                     onCheck = { useNumbers ->
                         viewModel.useNumbers(useNumbers, selectedLength.toInt())
                     })
+
                 Divider()
 
                 Switch(

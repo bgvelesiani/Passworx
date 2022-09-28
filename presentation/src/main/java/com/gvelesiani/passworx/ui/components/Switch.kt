@@ -1,6 +1,5 @@
 package com.gvelesiani.passworx.ui.components
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Switch
@@ -36,10 +35,7 @@ fun Switch(
     ) {
         Row(
             Modifier
-                .fillMaxWidth()
-                .clickable {
-                    checked = !checked
-                },
+                .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
