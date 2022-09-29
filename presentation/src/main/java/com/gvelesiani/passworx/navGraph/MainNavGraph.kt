@@ -10,6 +10,8 @@ import com.gvelesiani.passworx.uiCompose.addPassword.AddPasswordScreen
 import com.gvelesiani.passworx.uiCompose.backupAndRestore.BackupAndRestoreScreen
 import com.gvelesiani.passworx.uiCompose.browse.BrowseScreen
 import com.gvelesiani.passworx.uiCompose.favorites.FavoritesScreen
+import com.gvelesiani.passworx.uiCompose.intro.IntroScreen
+import com.gvelesiani.passworx.uiCompose.masterPassword.createMasterPassword.CreateMasterPasswordScreen
 import com.gvelesiani.passworx.uiCompose.overview.OverviewScreen
 import com.gvelesiani.passworx.uiCompose.passwordGenerator.PasswordGeneratorScreen
 import com.gvelesiani.passworx.uiCompose.passwords.PasswordsScreen
@@ -17,9 +19,9 @@ import com.gvelesiani.passworx.uiCompose.settings.SettingsScreen
 
 @Composable
 @ExperimentalAnimationApi
-fun MainNavGraph() {
+fun MainNavGraph(isIntroFinished: Boolean = false) {
     val navController = rememberAnimatedNavController()
-    AnimatedNavHost(navController, startDestination = Screen.Overview.route) {
+    AnimatedNavHost(navController, startDestination = if(!isIntroFinished) Screen.Intro.route else Screen.CreateMasterPassword.route) {
         composable(route = Screen.Overview.route) {
             OverviewScreen(navController)
         }
@@ -47,6 +49,12 @@ fun MainNavGraph() {
         composable(route = Screen.Generate.route) {
             PasswordGeneratorScreen(navController)
         }
+        composable(route = Screen.Intro.route) {
+            IntroScreen(navController)
+        }
+        composable(route = Screen.CreateMasterPassword.route) {
+            CreateMasterPasswordScreen(navController)
+        }
     }
 }
 
@@ -60,4 +68,6 @@ sealed class Screen(val route: String) {
     object Settings : Screen("settings")
     object Favorites : Screen("favorites")
     object Generate : Screen("generatePassword")
+    object Intro: Screen("introScreen")
+    object CreateMasterPassword: Screen("createMasterPassword")
 }

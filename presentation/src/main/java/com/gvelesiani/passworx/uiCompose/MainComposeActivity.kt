@@ -29,12 +29,13 @@ class MainComposeActivity : ComponentActivity() {
         hideKeyboard()
         window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         setContent {
+            val isIntroFinished = viewModel.isIntroIsFinished.collectAsState()
             MaterialTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = if (isSystemInDarkTheme()) bgColorDark else bgColorLight
                 ) {
-                    MainNavGraph()
+                    MainNavGraph(true)
                 }
             }
             SetupObservers()

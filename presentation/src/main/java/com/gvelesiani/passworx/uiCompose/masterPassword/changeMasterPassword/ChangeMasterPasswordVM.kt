@@ -1,4 +1,4 @@
-package com.gvelesiani.passworx.ui.masterPassword.fragments.changeMasterPassword
+package com.gvelesiani.passworx.uiCompose.masterPassword.changeMasterPassword
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

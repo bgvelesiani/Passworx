@@ -9,9 +9,7 @@ import com.google.android.material.color.MaterialColors
 import com.gvelesiani.base.BaseActivity
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.databinding.ActivityMasterPasswordBinding
-import com.gvelesiani.passworx.ui.intro.IntroFragment
 import com.gvelesiani.passworx.ui.masterPassword.fragments.MasterPasswordFragment
-import com.gvelesiani.passworx.ui.masterPassword.fragments.createMasterPassword.CreateMasterPasswordFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 @Deprecated("Needs to be deleted soon")
@@ -35,7 +33,7 @@ class MasterPasswordActivity :
             if (!it) {
                 supportFragmentManager.commit {
                     setReorderingAllowed(true)
-                    replace<IntroFragment>(R.id.fContainer)
+//                    replace<IntroFragment>(R.id.fContainer)
                 }
             } else {
                 viewModel.getMasterPassword()
@@ -46,7 +44,7 @@ class MasterPasswordActivity :
             if (it == "") {
                 supportFragmentManager.commit {
                     setReorderingAllowed(true)
-                    replace<CreateMasterPasswordFragment>(R.id.fContainer)
+//                    replace<CreateMasterPasswordFragment>(R.id.fContainer)
                 }
             } else {
                 supportFragmentManager.commit {

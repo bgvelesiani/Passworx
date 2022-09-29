@@ -1,10 +1,7 @@
-package com.gvelesiani.passworx.ui.masterPassword.fragments.createMasterPassword
+package com.gvelesiani.passworx.uiCompose.masterPassword
 
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -12,6 +9,7 @@ import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.Font
@@ -20,38 +18,61 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.gvelesiani.passworx.R
+import com.gvelesiani.passworx.navGraph.Screen
+import com.gvelesiani.passworx.ui.masterPassword.fragments.MasterPasswordUiState
+import com.gvelesiani.passworx.ui.masterPassword.fragments.MasterPasswordVM
+import com.gvelesiani.passworx.uiCompose.components.ErrorDialog
 import com.gvelesiani.passworx.uiCompose.components.GeneralButton
+import com.gvelesiani.passworx.uiCompose.components.ProgressIndicator
 import com.gvelesiani.passworx.uiCompose.composeTheme.accentColor
 import com.gvelesiani.passworx.uiCompose.composeTheme.secondaryTextColor
 import com.gvelesiani.passworx.uiCompose.composeTheme.textColorDark
 import com.gvelesiani.passworx.uiCompose.composeTheme.textColorLight
 import org.koin.androidx.compose.getViewModel
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun CreateMasterPasswordScreen(
+fun MasterPasswordScreen(
     navController: NavController,
-    viewModel: CreateMasterPasswordVM = getViewModel()
+    viewModel: MasterPasswordVM = getViewModel()
 ) {
-    var masterPassword by remember { mutableStateOf(TextFieldValue("")) }
     var passwordVisible by rememberSaveable { mutableStateOf(false) }
     val focusedIndicatorColor = if (isSystemInDarkTheme()) textColorDark else textColorLight
     val textColor = if (isSystemInDarkTheme()) textColorDark else textColorLight
+    var masterPassword by remember { mutableStateOf(TextFieldValue("")) }
 
-    Column(Modifier.fillMaxSize()) {
+    val uiState = remember { viewModel.uiState }.collectAsState()
+
+    Column(
+        Modifier
+            .fillMaxSize()
+            .padding(start = 20.dp, end = 20.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Spacer(modifier = Modifier.height(150.dp))
+
+        Text(
+            modifier = Modifier
+                .fillMaxWidth(),
+            text = "Access vault with your master Password",
+            fontFamily = FontFamily(Font(R.font.medium)),
+            fontSize = 26.sp,
+            textAlign = TextAlign.Center
+        )
+
+        Spacer(modifier = Modifier.height(20.dp))
+
         OutlinedTextField(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = 16.dp, end = 16.dp, top = 18.dp),
+                .fillMaxWidth(),
             value = masterPassword,
             singleLine = true,
             onValueChange = {
                 masterPassword = it
-                viewModel.validate(masterPassword = it.text)
             },
             visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
@@ -80,14 +101,38 @@ fun CreateMasterPasswordScreen(
                     color = textColor,
                     fontFamily = FontFamily(Font(R.font.regular)),
                     fontSize = 16.sp,
-                    text = "Master password"
+                    text = "Master Password"
                 )
             }
         )
 
-        GeneralButton(modifier = Modifier.fillMaxWidth(), text = "Create master password") {
+        Spacer(modifier = Modifier.height(20.dp))
 
+        GeneralButton(
+            modifier = Modifier
+                .fillMaxWidth(),
+            text = "Go to vault"
+        ) {
+            viewModel.doesPasswordMatch(masterPassword.text)
         }
-    }
 
+        Spacer(modifier = Modifier.height(30.dp))
+
+        when (val state = uiState.value) {
+            is MasterPasswordUiState.Loading -> {
+                ProgressIndicator(isDisplayed = true)
+            }
+            is MasterPasswordUiState.PasswordMatchSuccess -> {
+                navController.navigate(Screen.Overview.route) {
+                    popUpTo(0)
+                }
+            }
+            is MasterPasswordUiState.BiometricsAreAllowed -> {}
+            is MasterPasswordUiState.Empty -> {}
+            is MasterPasswordUiState.Error -> {
+                ErrorDialog(errorMsg = state.errorMsg)
+            }
+        }
+        Spacer(modifier = Modifier.height(100.dp))
+    }
 }

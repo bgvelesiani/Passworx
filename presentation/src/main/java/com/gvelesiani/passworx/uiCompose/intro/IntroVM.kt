@@ -1,4 +1,4 @@
-package com.gvelesiani.passworx.ui.intro
+package com.gvelesiani.passworx.uiCompose.intro
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

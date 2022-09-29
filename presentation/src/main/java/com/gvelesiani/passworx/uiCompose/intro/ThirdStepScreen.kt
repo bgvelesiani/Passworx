@@ -18,8 +18,8 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.gvelesiani.passworx.R
-import com.gvelesiani.passworx.ui.intro.thirdStep.ThirdStepVM
 import com.gvelesiani.passworx.uiCompose.components.Switch
 import com.gvelesiani.passworx.uiCompose.composeTheme.secondaryTextColor
 import com.gvelesiani.passworx.uiCompose.composeTheme.textColorDark
@@ -27,7 +27,7 @@ import com.gvelesiani.passworx.uiCompose.composeTheme.textColorLight
 import org.koin.androidx.compose.getViewModel
 
 @Composable
-fun ThirdStepScreen(viewModel: ThirdStepVM = getViewModel()) {
+fun ThirdStepScreen(viewModel: ThirdStepVM = getViewModel(), navController: NavController) {
     val context = LocalContext.current
     val textColor = if (isSystemInDarkTheme()) textColorDark else textColorLight
     val scrollState = rememberScrollState()

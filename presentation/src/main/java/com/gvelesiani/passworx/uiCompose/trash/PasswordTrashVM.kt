@@ -1,4 +1,4 @@
-package com.gvelesiani.passworx.ui.trash
+package com.gvelesiani.passworx.uiCompose.trash
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

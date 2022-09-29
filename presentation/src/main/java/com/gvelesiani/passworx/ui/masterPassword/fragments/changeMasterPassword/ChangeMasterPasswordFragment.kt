@@ -10,6 +10,7 @@ import com.gvelesiani.helpers.helpers.validateMasterPassword.MasterPasswordValid
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.common.extensions.onTextChanged
 import com.gvelesiani.passworx.databinding.FragmentChangeMasterPasswordBinding
+import com.gvelesiani.passworx.uiCompose.masterPassword.changeMasterPassword.ChangeMasterPasswordVM
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 @Deprecated("Needs to be deleted soon")

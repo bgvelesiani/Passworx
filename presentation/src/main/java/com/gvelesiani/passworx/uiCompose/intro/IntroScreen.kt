@@ -14,19 +14,21 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
 import com.gvelesiani.passworx.R
+import com.gvelesiani.passworx.navGraph.Screen
 import com.gvelesiani.passworx.uiCompose.composeTheme.*
 import kotlinx.coroutines.launch
+import org.koin.androidx.compose.getViewModel
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun IntroScreen() {
+fun IntroScreen(navController: NavController, viewModel: IntroVM = getViewModel()) {
     val context = LocalContext.current
     val pagerState = rememberPagerState()
     val scope = rememberCoroutineScope()
@@ -57,7 +59,11 @@ fun IntroScreen() {
                 Text(
                     modifier = Modifier
                         .align(Alignment.TopEnd)
-                        .padding(top = 16.dp, end = 16.dp),
+                        .padding(top = 16.dp, end = 16.dp)
+                        .clickable {
+                            viewModel.finishIntro()
+                            navController.navigate(Screen.CreateMasterPassword.route)
+                        },
                     text = context.getString(R.string.skip_intro_button_text),
                     fontFamily = FontFamily(Font(R.font.medium)),
                     color = if (isSystemInDarkTheme()) textColorDark else textColorLight,
@@ -77,7 +83,7 @@ fun IntroScreen() {
                             SecondStepScreen()
                         }
                         2 -> {
-                            ThirdStepScreen()
+                            ThirdStepScreen(navController = navController)
                         }
                     }
                 }
@@ -113,8 +119,13 @@ fun IntroScreen() {
                     elevation = FloatingActionButtonDefaults.elevation(0.dp, 0.dp),
                     backgroundColor = accentColor,
                     onClick = {
-                        scope.launch {
-                            pagerState.animateScrollToPage(pagerState.currentPage + 1)
+                        if (pagerState.currentPage == 2) {
+                            viewModel.finishIntro()
+                            navController.navigate(Screen.CreateMasterPassword.route)
+                        } else {
+                            scope.launch {
+                                pagerState.animateScrollToPage(pagerState.currentPage + 1)
+                            }
                         }
                     }) {
                     Icon(
@@ -128,10 +139,4 @@ fun IntroScreen() {
             }
         }
     }
-}
-
-@Preview
-@Composable
-fun IntroPreview() {
-    IntroScreen()
 }
