@@ -1,21 +1,20 @@
 package com.gvelesiani.passworx.diModules
 
-import com.gvelesiani.passworx.ui.MainVM
-import com.gvelesiani.passworx.uiCompose.intro.IntroVM
-import com.gvelesiani.passworx.uiCompose.intro.ThirdStepVM
-import com.gvelesiani.passworx.ui.masterPassword.MasterPasswordAVM
-import com.gvelesiani.passworx.ui.masterPassword.fragments.MasterPasswordVM
-import com.gvelesiani.passworx.uiCompose.masterPassword.changeMasterPassword.ChangeMasterPasswordVM
-import com.gvelesiani.passworx.uiCompose.masterPassword.createMasterPassword.CreateMasterPasswordVM
-import com.gvelesiani.passworx.uiCompose.trash.PasswordTrashVM
 import com.gvelesiani.passworx.ui.updatePassword.UpdatePasswordVM
+import com.gvelesiani.passworx.uiCompose.MainVM
 import com.gvelesiani.passworx.uiCompose.addPassword.AddPasswordVM
 import com.gvelesiani.passworx.uiCompose.backupAndRestore.BackupAndRestoreVM
 import com.gvelesiani.passworx.uiCompose.favorites.PasswordFavoritesVM
+import com.gvelesiani.passworx.uiCompose.intro.IntroVM
+import com.gvelesiani.passworx.uiCompose.intro.thirdStep.ThirdStepVM
+import com.gvelesiani.passworx.uiCompose.masterPassword.MasterPasswordVM
+import com.gvelesiani.passworx.uiCompose.masterPassword.changeMasterPassword.ChangeMasterPasswordVM
+import com.gvelesiani.passworx.uiCompose.masterPassword.createMasterPassword.CreateMasterPasswordVM
 import com.gvelesiani.passworx.uiCompose.passwordDetails.PasswordDetailsVM
 import com.gvelesiani.passworx.uiCompose.passwordGenerator.PasswordGeneratorVM
 import com.gvelesiani.passworx.uiCompose.passwords.PasswordsVM
 import com.gvelesiani.passworx.uiCompose.settings.SettingsVM
+import com.gvelesiani.passworx.uiCompose.trash.PasswordTrashVM
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.module.Module
 import org.koin.dsl.module
@@ -71,11 +70,7 @@ object ViewModelsModule {
         }
 
         viewModel {
-            MasterPasswordAVM(get(), get())
-        }
-
-        viewModel {
-            MainVM(get(), get())
+            MainVM(get(), get(), get())
         }
 
         viewModel {

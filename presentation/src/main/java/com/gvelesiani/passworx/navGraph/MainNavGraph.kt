@@ -11,17 +11,28 @@ import com.gvelesiani.passworx.uiCompose.backupAndRestore.BackupAndRestoreScreen
 import com.gvelesiani.passworx.uiCompose.browse.BrowseScreen
 import com.gvelesiani.passworx.uiCompose.favorites.FavoritesScreen
 import com.gvelesiani.passworx.uiCompose.intro.IntroScreen
+import com.gvelesiani.passworx.uiCompose.masterPassword.MasterPasswordScreen
+import com.gvelesiani.passworx.uiCompose.masterPassword.changeMasterPassword.ChangeMasterPasswordScreen
 import com.gvelesiani.passworx.uiCompose.masterPassword.createMasterPassword.CreateMasterPasswordScreen
 import com.gvelesiani.passworx.uiCompose.overview.OverviewScreen
 import com.gvelesiani.passworx.uiCompose.passwordGenerator.PasswordGeneratorScreen
 import com.gvelesiani.passworx.uiCompose.passwords.PasswordsScreen
 import com.gvelesiani.passworx.uiCompose.settings.SettingsScreen
+import com.gvelesiani.passworx.uiCompose.trash.TrashScreen
 
+sealed class StartScreen {
+    object Create: StartScreen()
+    object Intro: StartScreen()
+    object Master: StartScreen()
+    object None: StartScreen()
+}
 @Composable
 @ExperimentalAnimationApi
-fun MainNavGraph(isIntroFinished: Boolean = false) {
+fun MainNavGraph(startScreen: String) {
+
     val navController = rememberAnimatedNavController()
-    AnimatedNavHost(navController, startDestination = if(!isIntroFinished) Screen.Intro.route else Screen.CreateMasterPassword.route) {
+    AnimatedNavHost(navController,
+        startDestination = startScreen) {
         composable(route = Screen.Overview.route) {
             OverviewScreen(navController)
         }
@@ -55,6 +66,15 @@ fun MainNavGraph(isIntroFinished: Boolean = false) {
         composable(route = Screen.CreateMasterPassword.route) {
             CreateMasterPasswordScreen(navController)
         }
+        composable(route = Screen.ChangeMasterPassword.route) {
+            ChangeMasterPasswordScreen(navController)
+        }
+        composable(route = Screen.MasterPassword.route) {
+            MasterPasswordScreen(navController)
+        }
+        composable(route = Screen.Trash.route) {
+            TrashScreen(navController)
+        }
     }
 }
 
@@ -70,4 +90,7 @@ sealed class Screen(val route: String) {
     object Generate : Screen("generatePassword")
     object Intro: Screen("introScreen")
     object CreateMasterPassword: Screen("createMasterPassword")
+    object ChangeMasterPassword: Screen("changeMasterPassword")
+    object MasterPassword: Screen("masterPassword")
+    object Trash: Screen("trash")
 }

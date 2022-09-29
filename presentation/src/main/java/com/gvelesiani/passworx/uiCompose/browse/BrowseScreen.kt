@@ -29,7 +29,7 @@ fun BrowseScreen(
         )
         OverviewItem(
             onOverviewItemClick = {
-                navController.navigate(Screen.UnderConstruction.route)
+                navController.navigate(Screen.Trash.route)
             },
             image = R.drawable.ic_passwords,
             title = "Trash",

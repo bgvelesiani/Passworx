@@ -141,9 +141,10 @@ fun CreateMasterPasswordScreen(
             }
 
             if (passwordCreated.value) {
-                navController.navigate(Screen.Overview.route)
+                navController.navigate(Screen.MasterPassword.route) {
+                    popUpTo(0)
+                }
             }
         }
     }
-
 }

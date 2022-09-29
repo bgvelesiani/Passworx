@@ -1,4 +1,4 @@
-package com.gvelesiani.passworx.uiCompose.intro
+package com.gvelesiani.passworx.uiCompose.intro.thirdStep
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.isSystemInDarkTheme

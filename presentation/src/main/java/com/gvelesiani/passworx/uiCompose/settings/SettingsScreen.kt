@@ -3,6 +3,7 @@ package com.gvelesiani.passworx.uiCompose.settings
 import android.app.Activity
 import android.view.WindowManager
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
@@ -16,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.gvelesiani.passworx.R
+import com.gvelesiani.passworx.navGraph.Screen
 import com.gvelesiani.passworx.uiCompose.components.Switch
 import com.gvelesiani.passworx.uiCompose.components.ToolbarView
 import com.gvelesiani.passworx.uiCompose.composeTheme.bgSecondaryDark
@@ -29,7 +31,6 @@ fun SettingsScreen(
     navController: NavController,
     viewModel: SettingsVM = getViewModel()
 ) {
-    // TODO: Change master password navigation
     val context = LocalContext.current
     val activity = LocalContext.current as Activity
     val screenshots = viewModel.takingScreenshotsArePrevented.collectAsState()
@@ -45,7 +46,11 @@ fun SettingsScreen(
         Spacer(modifier = Modifier.height(16.dp))
 
         Text(
-            modifier = Modifier.padding(start = 16.dp, end = 16.dp),
+            modifier = Modifier
+                .padding(start = 16.dp, end = 16.dp)
+                .clickable {
+                    navController.navigate(Screen.ChangeMasterPassword.route)
+                },
             color = if (isSystemInDarkTheme()) textColorDark else textColorLight,
             text = context.getString(R.string.settings_change_master_password_text),
             fontSize = 16.sp,
@@ -54,7 +59,11 @@ fun SettingsScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Box(modifier = Modifier.fillMaxWidth().background(if(isSystemInDarkTheme()) bgSecondaryDark else bgSecondaryLight)) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(if (isSystemInDarkTheme()) bgSecondaryDark else bgSecondaryLight)
+        ) {
             Text(
                 modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 8.dp, bottom = 8.dp),
                 color = if (isSystemInDarkTheme()) textColorDark else textColorLight,

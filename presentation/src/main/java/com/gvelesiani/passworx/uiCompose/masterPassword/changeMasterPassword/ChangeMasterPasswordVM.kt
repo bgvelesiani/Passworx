@@ -1,6 +1,5 @@
 package com.gvelesiani.passworx.uiCompose.masterPassword.changeMasterPassword
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.gvelesiani.domain.useCases.masterPassword.CreateOrChangeMasterPasswordUseCase
 import com.gvelesiani.domain.useCases.masterPassword.GetMasterPasswordUseCase
@@ -9,6 +8,7 @@ import com.gvelesiani.helpers.helpers.validateMasterPassword.MasterPasswordValid
 import com.gvelesiani.helpers.helpers.validateMasterPassword.MasterPasswordValidatorHelperImpl
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
 class ChangeMasterPasswordVM(
@@ -17,10 +17,9 @@ class ChangeMasterPasswordVM(
     private val getMasterPasswordUseCase: GetMasterPasswordUseCase,
     private val masterPasswordValidatorHelper: MasterPasswordValidatorHelper
 ) : ViewModel() {
-    val viewState: MutableLiveData<ViewState> = MutableLiveData()
+    val viewState: MutableStateFlow<ViewState> = MutableStateFlow(ViewState())
 
     init {
-        viewState.value = ViewState()
         viewState.value =
             currentViewState().copy(validationErrors = masterPasswordValidatorHelper.getMasterPasswordErrors())
     }
@@ -32,14 +31,12 @@ class ChangeMasterPasswordVM(
             try {
                 val masterPasswordModel = passwordHashHelper.hash(newMasterPassword)
                 createOrChangeMasterPassword(masterPasswordModel)
-                viewState.postValue(
-                    currentViewState().copy(
+                viewState.value = currentViewState().copy(
                         validationErrors = null,
                         changeSuccess = true
-                    )
                 )
             } catch (ignored: Exception) {
-                viewState.postValue(currentViewState().copy(showChangeMasterPasswordError = "Couldn't change master password, please try again"))
+                viewState.value = currentViewState().copy(showChangeMasterPasswordError = "Couldn't change master password, please try again")
             }
         }
     }
@@ -50,9 +47,9 @@ class ChangeMasterPasswordVM(
         CoroutineScope(Dispatchers.IO).launch {
             val masterPass = getMasterPasswordUseCase.invoke(Unit)
             if (!passwordHashHelper.verify(masterPassword, masterPass)) {
-                viewState.postValue(currentViewState().copy(showPasswordVerifyError = "Please enter correct master password"))
+                viewState.value = currentViewState().copy(showPasswordVerifyError = "Please enter correct master password")
             } else {
-                viewState.postValue(currentViewState().copy(showPasswordVerifyError = null))
+                viewState.value = currentViewState().copy(showPasswordVerifyError = null)
             }
 
             val isValid = passwordHashHelper.verify(

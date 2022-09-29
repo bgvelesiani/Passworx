@@ -19,7 +19,7 @@ import com.gvelesiani.passworx.uiCompose.composeTheme.accentTransparentLight
 
 @Composable
 fun GeneralButton(
-    enabled: Boolean = false,
+    enabled: Boolean = true,
     modifier: Modifier,
     backgroundColor: Color = accentColor,
     textColor: Color = Color.White,

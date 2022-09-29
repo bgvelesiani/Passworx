@@ -24,8 +24,6 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.navGraph.Screen
-import com.gvelesiani.passworx.ui.masterPassword.fragments.MasterPasswordUiState
-import com.gvelesiani.passworx.ui.masterPassword.fragments.MasterPasswordVM
 import com.gvelesiani.passworx.uiCompose.components.ErrorDialog
 import com.gvelesiani.passworx.uiCompose.components.GeneralButton
 import com.gvelesiani.passworx.uiCompose.components.ProgressIndicator

@@ -1,7 +1,7 @@
 package com.gvelesiani.passworx.uiCompose.trash
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.gvelesiani.common.models.domain.PasswordModel
 import com.gvelesiani.domain.useCases.passwords.DeletePasswordUseCase
 import com.gvelesiani.domain.useCases.passwords.GetPasswordsUseCase
 import com.gvelesiani.domain.useCases.passwords.SearchPasswordsUseCase
@@ -9,6 +9,8 @@ import com.gvelesiani.domain.useCases.passwords.UpdateItemTrashStateUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class PasswordTrashVM(
@@ -17,78 +19,44 @@ class PasswordTrashVM(
     private val searchPasswordsUseCase: SearchPasswordsUseCase,
     private val updateItemTrashStateUseCase: UpdateItemTrashStateUseCase
 ) : ViewModel() {
-    val viewState: MutableLiveData<ViewState> = MutableLiveData()
+    private val _uiState = MutableStateFlow<TrashUIState>(TrashUIState.Empty)
+    val uiState: StateFlow<TrashUIState> = _uiState
 
-    init {
-        viewState.value = ViewState()
-        getPasswords()
-    }
 
-    private fun currentViewState(): ViewState = viewState.value!!
     fun getPasswords(isInTrash: Boolean = true) {
-        viewState.value = currentViewState().copy(isLoading = true)
+        _uiState.value = TrashUIState.Loading
         CoroutineScope(Dispatchers.IO).launch {
-            try {
-                delay(100)
-                val result = getPasswordsUseCase(isInTrash)
-//                viewState.postValue(currentViewState().copy(passwords = result, isLoading = false))
-            } catch (e: Exception) {
-                viewState.postValue(
-                    currentViewState().copy(
-                        showGetPasswordsError = "Couldn't get passwords",
-                        isLoading = false
-                    )
-                )
+            delay(1000)
+            getPasswordsUseCase(isInTrash).collect {
+                _uiState.value = TrashUIState.Success(it)
             }
         }
     }
 
     fun searchPasswords(query: String) {
         CoroutineScope(Dispatchers.IO).launch {
-            try {
-                val passwords = searchPasswordsUseCase.invoke(Pair(query, true))
-//                viewState.postValue(currentViewState().copy(passwords = passwords))
-            } catch (e: Exception) {
+            searchPasswordsUseCase(Pair(query, true)).collect {
+                _uiState.value = TrashUIState.Success(it)
             }
         }
     }
 
     fun deletePassword(passwordId: Int) {
         CoroutineScope(Dispatchers.IO).launch {
-            try {
-                deletePasswordUseCase(passwordId)
-                val result = getPasswordsUseCase(params = true)
-//                viewState.postValue(currentViewState().copy(passwords = result))
-            } catch (e: Exception) {
-                viewState.postValue(
-                    currentViewState().copy(
-                        showDeletePasswordsError = "Couldn't delete passwords",
-                    )
-                )
-            }
+            deletePasswordUseCase(passwordId)
         }
     }
 
     fun restorePassword(passwordId: Int) {
         CoroutineScope(Dispatchers.IO).launch {
-            try {
-                updateItemTrashStateUseCase(Pair(false, passwordId))
-                val result = getPasswordsUseCase(params = true)
-//                viewState.postValue(currentViewState().copy(passwords = result))
-            } catch (e: Exception) {
-                viewState.postValue(
-                    currentViewState().copy(
-                        showDeletePasswordsError = "Couldn't delete passwords",
-                    )
-                )
-            }
+            updateItemTrashStateUseCase(Pair(false, passwordId))
         }
     }
+}
 
-    data class ViewState(
-        val isLoading: Boolean = false,
-        val showGetPasswordsError: String? = null,
-        val showDeletePasswordsError: String? = null,
-        val passwords: List<com.gvelesiani.common.models.domain.PasswordModel> = listOf()
-    )
+sealed class TrashUIState {
+    data class Success(val passwords: List<PasswordModel>) : TrashUIState()
+    object Empty : TrashUIState()
+    object Loading : TrashUIState()
+    data class Error(val errorMsg: String) : TrashUIState()
 }

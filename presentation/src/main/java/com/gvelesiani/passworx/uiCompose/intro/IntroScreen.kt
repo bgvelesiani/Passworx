@@ -23,6 +23,9 @@ import com.google.accompanist.pager.rememberPagerState
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.navGraph.Screen
 import com.gvelesiani.passworx.uiCompose.composeTheme.*
+import com.gvelesiani.passworx.uiCompose.intro.firstStep.FirstStepScreen
+import com.gvelesiani.passworx.uiCompose.intro.secondStep.SecondStepScreen
+import com.gvelesiani.passworx.uiCompose.intro.thirdStep.ThirdStepScreen
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.getViewModel
 
@@ -62,7 +65,9 @@ fun IntroScreen(navController: NavController, viewModel: IntroVM = getViewModel(
                         .padding(top = 16.dp, end = 16.dp)
                         .clickable {
                             viewModel.finishIntro()
-                            navController.navigate(Screen.CreateMasterPassword.route)
+                            navController.navigate(Screen.CreateMasterPassword.route) {
+                                popUpTo(0)
+                            }
                         },
                     text = context.getString(R.string.skip_intro_button_text),
                     fontFamily = FontFamily(Font(R.font.medium)),
@@ -121,7 +126,9 @@ fun IntroScreen(navController: NavController, viewModel: IntroVM = getViewModel(
                     onClick = {
                         if (pagerState.currentPage == 2) {
                             viewModel.finishIntro()
-                            navController.navigate(Screen.CreateMasterPassword.route)
+                            navController.navigate(Screen.CreateMasterPassword.route) {
+                                popUpTo(0)
+                            }
                         } else {
                             scope.launch {
                                 pagerState.animateScrollToPage(pagerState.currentPage + 1)

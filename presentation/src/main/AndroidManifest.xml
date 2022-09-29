@@ -11,16 +11,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Passworx"
         tools:replace="android:theme">
-        <meta-data
-            android:name="com.google.android.backup.api_key"
-            android:value="unused" />
-
-        <activity
-            android:name="com.gvelesiani.passworx.ui.MainActivity"
-            android:exported="true"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustResize"
-            tools:ignore="LockedOrientationActivity" />
 
         <activity
             android:name=".uiCompose.MainComposeActivity"
@@ -30,14 +20,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".ui.masterPassword.MasterPasswordActivity"
-            android:exported="true"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|adjustResize"
-            tools:ignore="LockedOrientationActivity">
-
         </activity>
 
         <service

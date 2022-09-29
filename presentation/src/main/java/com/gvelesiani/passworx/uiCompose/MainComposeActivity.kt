@@ -1,5 +1,7 @@
 package com.gvelesiani.passworx.uiCompose
 
+import android.annotation.SuppressLint
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.activity.ComponentActivity
@@ -11,10 +13,13 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import com.gvelesiani.passworx.common.extensions.hideKeyboard
 import com.gvelesiani.passworx.navGraph.MainNavGraph
-import com.gvelesiani.passworx.ui.MainVM
+import com.gvelesiani.passworx.navGraph.Screen
+import com.gvelesiani.passworx.navGraph.StartScreen
+import com.gvelesiani.passworx.uiCompose.components.LoadingScreen
 import com.gvelesiani.passworx.uiCompose.composeTheme.bgColorDark
 import com.gvelesiani.passworx.uiCompose.composeTheme.bgColorLight
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -23,19 +28,44 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class MainComposeActivity : ComponentActivity() {
     val viewModel: MainVM by viewModel()
 
+    @SuppressLint("SourceLockedOrientationActivity")
     @OptIn(ExperimentalAnimationApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         hideKeyboard()
         window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         setContent {
-            val isIntroFinished = viewModel.isIntroIsFinished.collectAsState()
+            val startingScreen = remember {
+                viewModel.startingScreenState
+            }.collectAsState()
+
             MaterialTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = if (isSystemInDarkTheme()) bgColorDark else bgColorLight
                 ) {
-                    MainNavGraph(true)
+                    when (startingScreen.value) {
+                        is StartScreen.Intro -> {
+                            MainNavGraph(
+                                Screen.Intro.route
+                            )
+                        }
+                        is StartScreen.Create -> {
+                            MainNavGraph(
+                                Screen.CreateMasterPassword.route
+                            )
+                        }
+                        is StartScreen.Master -> {
+                            MainNavGraph(
+                                Screen.MasterPassword.route
+                            )
+                        }
+                        StartScreen.None -> {
+                            LoadingScreen()
+                        }
+                    }
+
                 }
             }
             SetupObservers()
