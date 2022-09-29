@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.WindowManager
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -15,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.fragment.app.FragmentActivity
 import com.gvelesiani.passworx.common.extensions.hideKeyboard
 import com.gvelesiani.passworx.navGraph.MainNavGraph
 import com.gvelesiani.passworx.navGraph.Screen
@@ -25,7 +25,7 @@ import com.gvelesiani.passworx.uiCompose.composeTheme.bgColorLight
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class MainComposeActivity : ComponentActivity() {
+class MainComposeActivity : FragmentActivity() {
     val viewModel: MainVM by viewModel()
 
     @SuppressLint("SourceLockedOrientationActivity")

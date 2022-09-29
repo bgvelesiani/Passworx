@@ -1,5 +1,7 @@
 package com.gvelesiani.passworx.uiCompose.masterPassword
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
@@ -12,6 +14,8 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.KeyboardType
@@ -21,6 +25,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.fragment.app.FragmentActivity
 import androidx.navigation.NavController
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.navGraph.Screen
@@ -45,6 +50,10 @@ fun MasterPasswordScreen(
 
     val uiState = remember { viewModel.uiState }.collectAsState()
 
+    val fragmentActivity = LocalContext.current as FragmentActivity
+    val context = LocalContext.current
+    val biometrics = viewModel.getBiometrics()
+
     Column(
         Modifier
             .fillMaxSize()
@@ -56,6 +65,7 @@ fun MasterPasswordScreen(
         Text(
             modifier = Modifier
                 .fillMaxWidth(),
+            color = textColor,
             text = "Access vault with your master Password",
             fontFamily = FontFamily(Font(R.font.medium)),
             fontSize = 26.sp,
@@ -125,7 +135,21 @@ fun MasterPasswordScreen(
                     popUpTo(0)
                 }
             }
-            is MasterPasswordUiState.BiometricsAreAllowed -> {}
+            is MasterPasswordUiState.BiometricsAreAllowed -> {
+                Image(
+                    painter = painterResource(id = R.drawable.ic_fingerprint),
+                    contentDescription = "",
+                    modifier = Modifier.clickable {
+                        biometrics.setupBiometricPrompt(fragmentActivity, context) {
+                            if (it) {
+                                navController.navigate(Screen.Overview.route) {
+                                    popUpTo(0)
+                                }
+                            }
+                        }
+                        biometrics.authenticate()
+                    })
+            }
             is MasterPasswordUiState.Empty -> {}
             is MasterPasswordUiState.Error -> {
                 ErrorDialog(errorMsg = state.errorMsg)

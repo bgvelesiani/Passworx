@@ -1,5 +1,6 @@
 package com.gvelesiani.passworx.uiCompose.masterPassword.createMasterPassword
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
@@ -57,7 +58,7 @@ fun CreateMasterPasswordScreen(
         viewModel.isValid
     }.collectAsState()
 
-    Scaffold {
+    Scaffold(Modifier.background(if(isSystemInDarkTheme()) bgColorDark else bgColorLight)) {
         Column(
             Modifier
                 .padding(it)
