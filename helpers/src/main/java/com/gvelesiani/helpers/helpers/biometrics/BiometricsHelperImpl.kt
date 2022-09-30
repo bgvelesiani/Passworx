@@ -3,7 +3,7 @@ package com.gvelesiani.helpers.helpers.biometrics
 import android.content.Context
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import com.gvelesiani.helpers.R
 import com.gvelesiani.helpers.helpers.resourceProvider.ResourceHelper
 import java.util.concurrent.Executor
@@ -26,7 +26,7 @@ class BiometricsHelperImpl(
     }
 
     override fun setupBiometricPrompt(
-        fragment: Fragment,
+        fragment: FragmentActivity,
         context: Context,
         success: (Boolean) -> Unit
     ) {
