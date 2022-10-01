@@ -8,20 +8,23 @@ import androidx.activity.compose.setContent
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.dynamicDarkColorScheme
+import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.platform.LocalContext
 import androidx.fragment.app.FragmentActivity
 import com.gvelesiani.passworx.common.extensions.hideKeyboard
 import com.gvelesiani.passworx.navGraph.MainNavGraph
 import com.gvelesiani.passworx.navGraph.Screen
 import com.gvelesiani.passworx.navGraph.StartScreen
+import com.gvelesiani.passworx.ui.theme.PassworxTheme
+import com.gvelesiani.passworx.ui.theme.supportsDynamic
 import com.gvelesiani.passworx.uiCompose.components.LoadingScreen
-import com.gvelesiani.passworx.uiCompose.composeTheme.bgColorDark
-import com.gvelesiani.passworx.uiCompose.composeTheme.bgColorLight
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -36,14 +39,20 @@ class MainComposeActivity : FragmentActivity() {
         hideKeyboard()
         window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         setContent {
+            val context = LocalContext.current
+            if(supportsDynamic()){
+                window?.statusBarColor = if(isSystemInDarkTheme()) dynamicDarkColorScheme(context).surface.toArgb() else dynamicLightColorScheme(context).surface.toArgb()
+            } else {
+                window?.statusBarColor = MaterialTheme.colorScheme.surface.toArgb()
+            }
+
             val startingScreen = remember {
                 viewModel.startingScreenState
             }.collectAsState()
 
-            MaterialTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = if (isSystemInDarkTheme()) bgColorDark else bgColorLight
+            PassworxTheme {
+                androidx.compose.material3.Surface(
+                    modifier = Modifier.fillMaxSize()
                 ) {
                     when (startingScreen.value) {
                         is StartScreen.Intro -> {

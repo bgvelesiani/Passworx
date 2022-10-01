@@ -2,14 +2,12 @@ package com.gvelesiani.passworx.uiCompose.intro
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
@@ -23,7 +21,6 @@ import com.google.accompanist.pager.rememberPagerState
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.constants.IntroPage
 import com.gvelesiani.passworx.navGraph.Screen
-import com.gvelesiani.passworx.uiCompose.composeTheme.*
 import com.gvelesiani.passworx.uiCompose.intro.firstStep.FirstStepScreen
 import com.gvelesiani.passworx.uiCompose.intro.secondStep.SecondStepScreen
 import com.gvelesiani.passworx.uiCompose.intro.thirdStep.ThirdStepScreen
@@ -72,7 +69,6 @@ fun IntroScreen(navController: NavController, viewModel: IntroVM = getViewModel(
                         },
                     text = context.getString(R.string.skip_intro_button_text),
                     fontFamily = FontFamily(Font(R.font.medium)),
-                    color = if (isSystemInDarkTheme()) textColorDark else textColorLight,
                     fontSize = 16.sp
                 )
 
@@ -107,8 +103,6 @@ fun IntroScreen(navController: NavController, viewModel: IntroVM = getViewModel(
 
                 LinearProgressIndicator(
                     modifier = Modifier.width(150.dp),
-                    color = accentColor,
-                    backgroundColor = if (isSystemInDarkTheme()) accentTransparentDark else accentTransparentLight,
                     progress = when (pagerState.currentPage) {
                         IntroPage.FIRST -> 0.3f
                         IntroPage.SECOND -> 0.7f
@@ -123,7 +117,6 @@ fun IntroScreen(navController: NavController, viewModel: IntroVM = getViewModel(
                     modifier = Modifier
                         .size(56.dp),
                     elevation = FloatingActionButtonDefaults.elevation(0.dp, 0.dp),
-                    backgroundColor = accentColor,
                     onClick = {
                         if (pagerState.currentPage == IntroPage.THIRD) {
                             viewModel.finishIntro()
@@ -140,8 +133,7 @@ fun IntroScreen(navController: NavController, viewModel: IntroVM = getViewModel(
                         painterResource(
                             id = R.drawable.ic_overview_item_arrow
                         ),
-                        contentDescription = "",
-                        tint = Color.White
+                        contentDescription = ""
                     )
                 }
             }

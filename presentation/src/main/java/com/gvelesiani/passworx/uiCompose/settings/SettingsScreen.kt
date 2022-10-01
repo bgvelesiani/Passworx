@@ -2,11 +2,9 @@ package com.gvelesiani.passworx.uiCompose.settings
 
 import android.app.Activity
 import android.view.WindowManager
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Text
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -20,10 +18,6 @@ import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.navGraph.Screen
 import com.gvelesiani.passworx.uiCompose.components.Switch
 import com.gvelesiani.passworx.uiCompose.components.ToolbarView
-import com.gvelesiani.passworx.uiCompose.composeTheme.bgSecondaryDark
-import com.gvelesiani.passworx.uiCompose.composeTheme.bgSecondaryLight
-import com.gvelesiani.passworx.uiCompose.composeTheme.textColorDark
-import com.gvelesiani.passworx.uiCompose.composeTheme.textColorLight
 import org.koin.androidx.compose.getViewModel
 
 @Composable
@@ -51,7 +45,6 @@ fun SettingsScreen(
                 .clickable {
                     navController.navigate(Screen.ChangeMasterPassword.route)
                 },
-            color = if (isSystemInDarkTheme()) textColorDark else textColorLight,
             text = context.getString(R.string.settings_change_master_password_text),
             fontSize = 16.sp,
             fontFamily = FontFamily(Font(R.font.regular, FontWeight.Normal))
@@ -62,11 +55,9 @@ fun SettingsScreen(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(if (isSystemInDarkTheme()) bgSecondaryDark else bgSecondaryLight)
         ) {
             Text(
                 modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 8.dp, bottom = 8.dp),
-                color = if (isSystemInDarkTheme()) textColorDark else textColorLight,
                 text = context.getString(R.string.settings_preferences_header),
                 fontSize = 19.sp,
                 fontFamily = FontFamily(Font(R.font.medium, FontWeight.Normal))

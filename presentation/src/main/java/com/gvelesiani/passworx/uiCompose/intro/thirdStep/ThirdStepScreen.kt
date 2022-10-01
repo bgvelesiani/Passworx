@@ -1,7 +1,6 @@
 package com.gvelesiani.passworx.uiCompose.intro.thirdStep
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -21,14 +20,11 @@ import androidx.compose.ui.unit.sp
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.uiCompose.components.Switch
 import com.gvelesiani.passworx.uiCompose.composeTheme.secondaryTextColor
-import com.gvelesiani.passworx.uiCompose.composeTheme.textColorDark
-import com.gvelesiani.passworx.uiCompose.composeTheme.textColorLight
 import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun ThirdStepScreen(viewModel: ThirdStepVM = getViewModel()) {
     val context = LocalContext.current
-    val textColor = if (isSystemInDarkTheme()) textColorDark else textColorLight
     val scrollState = rememberScrollState()
 
     Column(
@@ -44,7 +40,6 @@ fun ThirdStepScreen(viewModel: ThirdStepVM = getViewModel()) {
             modifier = Modifier.padding(top = 15.dp, start = 30.dp, end = 30.dp),
             text = context.getString(R.string.intro_third_step_title),
             fontFamily = FontFamily(Font(R.font.medium)),
-            color = textColor,
             fontSize = 26.sp
         )
         Text(

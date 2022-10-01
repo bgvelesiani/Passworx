@@ -1,10 +1,7 @@
 package com.gvelesiani.passworx.uiCompose.components
 
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Switch
-import androidx.compose.material.SwitchDefaults
-import androidx.compose.material.Text
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -14,7 +11,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.gvelesiani.passworx.R
-import com.gvelesiani.passworx.uiCompose.composeTheme.*
+import com.gvelesiani.passworx.uiCompose.composeTheme.secondaryTextColor
 
 @Composable
 fun Switch(
@@ -24,9 +21,6 @@ fun Switch(
     onCheck: (Boolean) -> Unit
 ) {
     var checked by remember { mutableStateOf(shouldBeChecked) }
-    val checkedTrackColor = if (isSystemInDarkTheme()) accentTransparentDark else accentTransparentLight
-    val uncheckedThumbColor = if(isSystemInDarkTheme()) uncheckedThumbColorDark else uncheckedThumbColorLight
-    val uncheckedTrackColor = if(isSystemInDarkTheme()) uncheckedTrackColorDark else uncheckedTrackColorLight
 
     Column(
         Modifier
@@ -40,23 +34,16 @@ fun Switch(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
-                color = if (isSystemInDarkTheme()) textColorDark else textColorLight,
                 text = text,
                 fontSize = 16.sp,
                 fontFamily = FontFamily(Font(R.font.regular, FontWeight.Normal))
             )
-            Switch(
+            androidx.compose.material3.Switch(
                 checked = checked,
                 onCheckedChange = {
                     checked = it
                     onCheck.invoke(it)
-                },
-                colors = SwitchDefaults.colors(
-                    checkedThumbColor = accentColor,
-                    checkedTrackColor = checkedTrackColor,
-                    uncheckedThumbColor = uncheckedThumbColor,
-                    uncheckedTrackColor = uncheckedTrackColor
-                )
+                }
             )
         }
         if (description.isNotEmpty()) {

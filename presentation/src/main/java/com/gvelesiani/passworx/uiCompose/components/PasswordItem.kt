@@ -4,12 +4,12 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.gvelesiani.common.models.domain.PasswordModel
 import com.gvelesiani.passworx.R
-import com.gvelesiani.passworx.uiCompose.composeTheme.*
+import com.gvelesiani.passworx.uiCompose.composeTheme.secondaryTextColor
 import java.util.*
 
 
@@ -34,14 +34,9 @@ fun PasswordItem(
     onFavoriteClick: () -> Unit,
     onCopyClick: () -> Unit
 ) {
-    val textAndIconColor = if (isSystemInDarkTheme()) textColorDark else textColorLight
     Card(
-        backgroundColor = if (isSystemInDarkTheme())
-            passwordBgColorDark
-        else
-            passwordBgColorLight,
         shape = RoundedCornerShape(20.dp),
-        elevation = 0.dp,
+        elevation = CardDefaults.cardElevation(0.dp),
         modifier = Modifier
             .padding(start = 16.dp, bottom = 15.dp, end = 16.dp)
             .clickable(
@@ -70,7 +65,6 @@ fun PasswordItem(
             ) {
                 Spacer(modifier = Modifier.height(20.dp))
                 Text(
-                    color = textAndIconColor,
                     text = password.passwordTitle.lowercase().replaceFirstChar {
                         if (it.isLowerCase()) it.titlecase(
                             Locale.getDefault()
@@ -103,8 +97,7 @@ fun PasswordItem(
                         painterResource(
                             id = if (password.isFavorite) R.drawable.ic_favorite else R.drawable.ic_not_favorite
                         ),
-                        "",
-                        tint = if (password.isFavorite) favoriteIconColor else textAndIconColor
+                        ""
                     )
                 }
                 Column(
@@ -120,8 +113,7 @@ fun PasswordItem(
                 ) {
                     Icon(
                         painterResource(id = R.drawable.ic_copy_password),
-                        "",
-                        tint = textAndIconColor
+                        ""
                     )
                 }
             }

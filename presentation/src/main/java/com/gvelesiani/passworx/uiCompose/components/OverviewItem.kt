@@ -2,13 +2,12 @@ package com.gvelesiani.passworx.uiCompose.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,7 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.gvelesiani.passworx.R
-import com.gvelesiani.passworx.uiCompose.composeTheme.*
+import com.gvelesiani.passworx.uiCompose.composeTheme.secondaryTextColor
 
 @Composable
 fun OverviewItem(onOverviewItemClick: () -> Unit, image: Int, title: String, subTitle: String) {
@@ -38,8 +37,7 @@ fun OverviewItem(onOverviewItemClick: () -> Unit, image: Int, title: String, sub
     ) {
         Icon(
             painterResource(image),
-            "Overview Item",
-            tint = if (isSystemInDarkTheme()) colorPrimaryDark else colorPrimaryLight
+            "Overview Item"
         )
         Column(
             Modifier
@@ -47,7 +45,6 @@ fun OverviewItem(onOverviewItemClick: () -> Unit, image: Int, title: String, sub
                 .weight(1f)
         ) {
             Text(
-                color = if (isSystemInDarkTheme()) textColorDark else textColorLight,
                 text = title,
                 fontSize = 18.sp,
                 fontFamily = FontFamily(Font(R.font.regular, FontWeight.Normal))

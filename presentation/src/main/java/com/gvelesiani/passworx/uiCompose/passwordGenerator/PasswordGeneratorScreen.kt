@@ -3,10 +3,8 @@ package com.gvelesiani.passworx.uiCompose.passwordGenerator
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Divider
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
 import androidx.compose.material.rememberScaffoldState
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -15,6 +13,7 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
@@ -22,14 +21,14 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.common.extensions.copyToClipboard
+import com.gvelesiani.passworx.ui.theme.supportsDynamic
 import com.gvelesiani.passworx.uiCompose.components.GeneralButton
-import com.gvelesiani.passworx.uiCompose.components.GeneratorSlider
 import com.gvelesiani.passworx.uiCompose.components.Switch
 import com.gvelesiani.passworx.uiCompose.components.ToolbarView
-import com.gvelesiani.passworx.uiCompose.composeTheme.*
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.getViewModel
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PasswordGeneratorScreen(
     navController: NavController,
@@ -42,11 +41,26 @@ fun PasswordGeneratorScreen(
     val selectedLength by remember { viewModel.selectedLength }.collectAsState()
     val generatedPassword by remember { viewModel.generatedPassword }.collectAsState()
 
+    val spannedColor = if (supportsDynamic()) {
+        if (isSystemInDarkTheme()) dynamicDarkColorScheme(context).primary else dynamicLightColorScheme(
+            context
+        ).primary
+    } else {
+        MaterialTheme.colorScheme.primary
+    }
+
+    val generatedPasswordBg = if (supportsDynamic()) {
+        if (isSystemInDarkTheme()) dynamicDarkColorScheme(context).surfaceVariant else dynamicLightColorScheme(
+            context
+        ).surfaceVariant
+    } else {
+        MaterialTheme.colorScheme.surfaceVariant
+    }
+
     Box(modifier = Modifier.fillMaxSize()) {
         Scaffold(
-            scaffoldState = scaffoldState,
-            modifier = Modifier.padding(bottom = 90.dp),
-            backgroundColor = if (isSystemInDarkTheme()) bgColorDark else bgColorLight
+//            scaffoldState = scaffoldState,
+            modifier = Modifier.padding(bottom = 90.dp)
         ) {
             Column(
                 modifier = Modifier
@@ -60,12 +74,12 @@ fun PasswordGeneratorScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(150.dp)
-                        .background(if (isSystemInDarkTheme()) generatePassBgColorDark else generatePassBgColorLight)
+                        .background(generatedPasswordBg)
                 ) {
                     val annotatedString = buildAnnotatedString {
                         for (char in generatedPassword) {
                             if (char.isDigit()) {
-                                withStyle(style = SpanStyle(accentColor)) {
+                                withStyle(style = SpanStyle(color = spannedColor)) {
                                     append(char)
                                 }
                             } else {
@@ -79,18 +93,35 @@ fun PasswordGeneratorScreen(
                         fontFamily = FontFamily(Font(R.font.medium)),
                         text = annotatedString,
                         fontSize = 22.sp,
-                        color = if (isSystemInDarkTheme()) textColorDark else textColorLight,
                         textAlign = TextAlign.Left
                     )
                 }
 
-                GeneratorSlider(
-                    modifier = Modifier.padding(top = 10.dp),
-                    selectedLength = selectedLength,
+                val passwordLengthSpan = buildAnnotatedString {
+                    append("Generated password length: ")
+                    withStyle(style = SpanStyle(color = spannedColor)) {
+                        append(selectedLength.toInt().toString())
+                    }
+                }
+                Text(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 16.dp, end = 16.dp, top = 16.dp),
+                    text = passwordLengthSpan,
+                    textAlign = TextAlign.Start,
+                    fontSize = 20.sp,
+                    fontFamily = FontFamily(Font(R.font.medium, FontWeight.Normal))
+                )
+
+                Slider(
+                    modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 10.dp),
+                    value = selectedLength,
                     onValueChange = {
                         viewModel.onValueChanged(it)
                         viewModel.generatePassword(it.toInt())
-                    }
+                    },
+                    valueRange = 8f..50f,
+                    steps = 41
                 )
 
                 Switch(

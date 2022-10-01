@@ -1,7 +1,5 @@
 package com.gvelesiani.passworx.uiCompose.trash
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -17,8 +15,6 @@ import com.gvelesiani.common.models.domain.PasswordModel
 import com.gvelesiani.passworx.common.extensions.formatWebsite
 import com.gvelesiani.passworx.common.util.OnLifecycleEvent
 import com.gvelesiani.passworx.uiCompose.components.*
-import com.gvelesiani.passworx.uiCompose.composeTheme.bgColorDark
-import com.gvelesiani.passworx.uiCompose.composeTheme.bgColorLight
 import org.koin.androidx.compose.getViewModel
 
 @Composable
@@ -39,7 +35,6 @@ fun TrashScreen(
     Box(
         Modifier
             .fillMaxSize()
-            .background(if (isSystemInDarkTheme()) bgColorDark else bgColorLight)
     ) {
         Column(Modifier.fillMaxSize()) {
 

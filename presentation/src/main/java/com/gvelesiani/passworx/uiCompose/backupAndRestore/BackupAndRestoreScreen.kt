@@ -3,8 +3,6 @@ package com.gvelesiani.passworx.uiCompose.backupAndRestore
 import android.content.Intent
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.background
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -22,8 +20,6 @@ import com.gvelesiani.passworx.constants.DATABASE_FILE_NAME
 import com.gvelesiani.passworx.constants.FILE_TYPE
 import com.gvelesiani.passworx.uiCompose.components.BackupAndRestoreInfoCard
 import com.gvelesiani.passworx.uiCompose.components.ToolbarView
-import com.gvelesiani.passworx.uiCompose.composeTheme.bgColorDark
-import com.gvelesiani.passworx.uiCompose.composeTheme.bgColorLight
 import org.koin.androidx.compose.getViewModel
 
 @Composable
@@ -60,7 +56,6 @@ fun BackupAndRestoreScreen(
 
     Column(
         modifier = Modifier
-            .background(color = if (isSystemInDarkTheme()) bgColorDark else bgColorLight)
     ) {
         ToolbarView(
             screenTitle = LocalContext.current.getString(R.string.title_backup_and_restore)

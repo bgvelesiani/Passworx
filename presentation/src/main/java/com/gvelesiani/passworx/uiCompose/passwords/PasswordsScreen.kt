@@ -1,8 +1,6 @@
 package com.gvelesiani.passworx.uiCompose.passwords
 
 import androidx.compose.animation.animateContentSize
-import androidx.compose.foundation.background
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -10,6 +8,9 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,12 +25,13 @@ import com.gvelesiani.passworx.common.extensions.formatWebsite
 import com.gvelesiani.passworx.common.util.OnLifecycleEvent
 import com.gvelesiani.passworx.navGraph.Screen
 import com.gvelesiani.passworx.uiCompose.components.*
-import com.gvelesiani.passworx.uiCompose.composeTheme.*
 import com.gvelesiani.passworx.uiCompose.passwordDetails.PasswordDetailsScreen
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.getViewModel
 
-@OptIn(ExperimentalMaterialApi::class)
+@OptIn(ExperimentalMaterialApi::class, ExperimentalMaterialApi::class,
+    ExperimentalMaterial3Api::class
+)
 @Composable
 fun PasswordsScreen(navController: NavController, viewModel: PasswordsVM = getViewModel()) {
     OnLifecycleEvent { _, event ->
@@ -61,15 +63,14 @@ fun PasswordsScreen(navController: NavController, viewModel: PasswordsVM = getVi
     val coroutineScope = rememberCoroutineScope()
     val context = LocalContext.current
 
-    Scaffold(
-        scaffoldState = scaffoldState
+    androidx.compose.material3.Scaffold(
+        //scaffoldState = scaffoldState
     ) {
         ModalBottomSheetLayout(
             modifier = Modifier
                 .padding(it)
                 .fillMaxWidth(),
             scrimColor = Color.Transparent,
-            sheetBackgroundColor = if (isSystemInDarkTheme()) bgSecondaryDark else bgSecondaryLight,
             sheetShape = RoundedCornerShape(20.dp, 20.dp, 0.dp, 0.dp),
             sheetState = sheetState,
             sheetContent = {
@@ -89,7 +90,6 @@ fun PasswordsScreen(navController: NavController, viewModel: PasswordsVM = getVi
             Box(
                 Modifier
                     .fillMaxSize()
-                    .background(if (isSystemInDarkTheme()) bgColorDark else bgColorLight)
             ) {
                 Column(Modifier.fillMaxSize()) {
                     ToolbarView(screenTitle = context.getString(R.string.title_passwords)) {
@@ -142,7 +142,6 @@ fun PasswordsScreen(navController: NavController, viewModel: PasswordsVM = getVi
                 }
 
                 FloatingActionButton(
-                    backgroundColor = accentColor,
                     modifier = Modifier
                         .align(Alignment.BottomEnd)
                         .padding(end = 16.dp, bottom = 16.dp)
@@ -152,8 +151,8 @@ fun PasswordsScreen(navController: NavController, viewModel: PasswordsVM = getVi
                     }) {
                     Icon(
                         imageVector = Icons.Filled.Add,
-                        contentDescription = "",
-                        tint = Color.White
+                        contentDescription = ""
+                        //tint = Color.White
                     )
                 }
             }

@@ -1,6 +1,5 @@
 package com.gvelesiani.passworx.uiCompose.addPassword
 
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -8,14 +7,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -30,12 +28,10 @@ import com.gvelesiani.common.models.domain.PasswordModel
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.uiCompose.components.GeneralButton
 import com.gvelesiani.passworx.uiCompose.components.ToolbarView
-import com.gvelesiani.passworx.uiCompose.composeTheme.accentColor
 import com.gvelesiani.passworx.uiCompose.composeTheme.secondaryTextColor
-import com.gvelesiani.passworx.uiCompose.composeTheme.textColorDark
-import com.gvelesiani.passworx.uiCompose.composeTheme.textColorLight
 import org.koin.androidx.compose.getViewModel
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddPasswordScreen(
     navController: NavController,
@@ -43,8 +39,6 @@ fun AddPasswordScreen(
 ) {
     val context = LocalContext.current
     var passwordVisible by rememberSaveable { mutableStateOf(false) }
-    val focusedIndicatorColor = if (isSystemInDarkTheme()) textColorDark else textColorLight
-    val textColor = if (isSystemInDarkTheme()) textColorDark else textColorLight
 
     var title by remember { mutableStateOf(TextFieldValue("")) }
     var emailOrUserName by remember { mutableStateOf(TextFieldValue("")) }
@@ -72,18 +66,8 @@ fun AddPasswordScreen(
                 onValueChange = {
                     title = it
                 },
-                colors = TextFieldDefaults.textFieldColors(
-                    errorIndicatorColor = accentColor,
-                    focusedIndicatorColor = focusedIndicatorColor,
-                    unfocusedIndicatorColor = secondaryTextColor,
-                    cursorColor = accentColor,
-                    textColor = if (isSystemInDarkTheme()) textColorDark else textColorLight,
-                    placeholderColor = secondaryTextColor,
-                    backgroundColor = Color.Transparent
-                ),
                 label = {
                     Text(
-                        color = textColor,
                         fontFamily = FontFamily(Font(R.font.regular)),
                         fontSize = 16.sp,
                         text = "Title"
@@ -92,7 +76,6 @@ fun AddPasswordScreen(
             )
 
             Text(
-                color = textColor,
                 text = "Password Details",
                 modifier = Modifier.padding(top = 25.dp, start = 16.dp),
                 fontFamily = FontFamily(Font(R.font.medium)),
@@ -108,18 +91,8 @@ fun AddPasswordScreen(
                 onValueChange = {
                     emailOrUserName = it
                 },
-                colors = TextFieldDefaults.textFieldColors(
-                    errorIndicatorColor = accentColor,
-                    focusedIndicatorColor = focusedIndicatorColor,
-                    unfocusedIndicatorColor = secondaryTextColor,
-                    cursorColor = accentColor,
-                    textColor = if (isSystemInDarkTheme()) textColorDark else textColorLight,
-                    placeholderColor = secondaryTextColor,
-                    backgroundColor = Color.Transparent
-                ),
                 label = {
                     Text(
-                        color = textColor,
                         fontFamily = FontFamily(Font(R.font.regular)),
                         fontSize = 16.sp,
                         text = "Email or UserName*"
@@ -138,15 +111,6 @@ fun AddPasswordScreen(
                 },
                 visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-                colors = TextFieldDefaults.textFieldColors(
-                    errorIndicatorColor = accentColor,
-                    focusedIndicatorColor = focusedIndicatorColor,
-                    unfocusedIndicatorColor = secondaryTextColor,
-                    cursorColor = accentColor,
-                    textColor = if (isSystemInDarkTheme()) textColorDark else textColorLight,
-                    placeholderColor = secondaryTextColor,
-                    backgroundColor = Color.Transparent
-                ),
                 trailingIcon = {
                     val image = if (passwordVisible)
                         Icons.Filled.Visibility
@@ -155,12 +119,11 @@ fun AddPasswordScreen(
                     val description = if (passwordVisible) "Hide password" else "Show password"
 
                     IconButton(onClick = { passwordVisible = !passwordVisible }) {
-                        Icon(imageVector = image, description, tint = textColor)
+                        Icon(imageVector = image, description)
                     }
                 },
                 label = {
                     Text(
-                        color = textColor,
                         fontFamily = FontFamily(Font(R.font.regular)),
                         fontSize = 16.sp,
                         text = "Password*"
@@ -177,18 +140,8 @@ fun AddPasswordScreen(
                 onValueChange = {
                     websiteOrAppName = it
                 },
-                colors = TextFieldDefaults.textFieldColors(
-                    errorIndicatorColor = accentColor,
-                    focusedIndicatorColor = focusedIndicatorColor,
-                    unfocusedIndicatorColor = secondaryTextColor,
-                    cursorColor = accentColor,
-                    textColor = if (isSystemInDarkTheme()) textColorDark else textColorLight,
-                    placeholderColor = secondaryTextColor,
-                    backgroundColor = Color.Transparent
-                ),
                 label = {
                     Text(
-                        color = textColor,
                         fontFamily = FontFamily(Font(R.font.regular)),
                         fontSize = 16.sp,
                         text = "Website or App Name*"
@@ -204,7 +157,6 @@ fun AddPasswordScreen(
             )
 
             Text(
-                color = textColor,
                 text = "Others",
                 modifier = Modifier.padding(top = 25.dp, start = 16.dp),
                 fontFamily = FontFamily(Font(R.font.medium)),
@@ -220,18 +172,8 @@ fun AddPasswordScreen(
                 onValueChange = {
                     label = it
                 },
-                colors = TextFieldDefaults.textFieldColors(
-                    errorIndicatorColor = accentColor,
-                    focusedIndicatorColor = focusedIndicatorColor,
-                    unfocusedIndicatorColor = secondaryTextColor,
-                    cursorColor = accentColor,
-                    textColor = if (isSystemInDarkTheme()) textColorDark else textColorLight,
-                    placeholderColor = secondaryTextColor,
-                    backgroundColor = Color.Transparent
-                ),
                 label = {
                     Text(
-                        color = textColor,
                         fontFamily = FontFamily(Font(R.font.regular)),
                         fontSize = 16.sp,
                         text = "Label"

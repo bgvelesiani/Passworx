@@ -1,7 +1,5 @@
 package com.gvelesiani.passworx.uiCompose.overview
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -13,8 +11,6 @@ import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.navGraph.Screen
 import com.gvelesiani.passworx.uiCompose.components.OverviewItem
 import com.gvelesiani.passworx.uiCompose.components.ToolbarView
-import com.gvelesiani.passworx.uiCompose.composeTheme.bgColorDark
-import com.gvelesiani.passworx.uiCompose.composeTheme.bgColorLight
 
 @Composable
 fun OverviewScreen(
@@ -24,7 +20,6 @@ fun OverviewScreen(
     Column(
         modifier = Modifier
             .verticalScroll(scrollState)
-            .background(color = if (isSystemInDarkTheme()) bgColorDark else bgColorLight)
     ) {
         ToolbarView(true, screenTitle = LocalContext.current.getString(R.string.app_name)) {
         }

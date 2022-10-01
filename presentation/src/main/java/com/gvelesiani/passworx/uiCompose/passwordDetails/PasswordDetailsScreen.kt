@@ -1,18 +1,15 @@
 package com.gvelesiani.passworx.uiCompose.passwordDetails
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -26,12 +23,9 @@ import com.gvelesiani.common.models.domain.PasswordModel
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.navGraph.Screen
 import com.gvelesiani.passworx.uiCompose.components.GeneralButton
-import com.gvelesiani.passworx.uiCompose.composeTheme.bottomSheetBgDark
-import com.gvelesiani.passworx.uiCompose.composeTheme.bottomSheetBgLight
-import com.gvelesiani.passworx.uiCompose.composeTheme.textColorDark
-import com.gvelesiani.passworx.uiCompose.composeTheme.textColorLight
 import org.koin.androidx.compose.getViewModel
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PasswordDetailsScreen(
     navController: NavController,
@@ -41,8 +35,8 @@ fun PasswordDetailsScreen(
     onUpdate: () -> Unit
 ) {
     var passwordVisible by rememberSaveable { mutableStateOf(false) }
-    val textColor = if (isSystemInDarkTheme()) textColorDark else textColorLight
-    val bgColor = if (isSystemInDarkTheme()) bottomSheetBgDark else bottomSheetBgLight
+//    val textColor = if (isSystemInDarkTheme()) textColorDark else textColorLight
+//    val bgColor = if (isSystemInDarkTheme()) bottomSheetBgDark else bottomSheetBgLight
 
     if (password.password != "") {
         viewModel.decryptPassword(password.password)
@@ -52,7 +46,6 @@ fun PasswordDetailsScreen(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .background(bgColor)
     ) {
         Row(
             modifier = Modifier
@@ -68,7 +61,6 @@ fun PasswordDetailsScreen(
                 fontSize = 22.sp,
                 fontFamily = FontFamily(Font(R.font.medium)),
                 textAlign = TextAlign.Center,
-                color = textColor
             )
             Column(
                 Modifier
@@ -83,8 +75,7 @@ fun PasswordDetailsScreen(
                     painterResource(
                         id = R.drawable.ic_trash
                     ),
-                    "",
-                    tint = textColor
+                    ""
                 )
             }
         }
@@ -92,21 +83,18 @@ fun PasswordDetailsScreen(
             modifier = Modifier.padding(top = 15.dp, start = 30.dp, end = 30.dp),
             text = "Email or Username*",
             fontFamily = FontFamily(Font(R.font.medium)),
-            color = textColor,
             fontSize = 15.sp
         )
         Text(
             modifier = Modifier.padding(top = 8.dp, start = 30.dp, end = 30.dp),
             text = password.emailOrUserName,
             fontFamily = FontFamily(Font(R.font.regular)),
-            color = textColor,
             fontSize = 14.sp
         )
         Text(
             modifier = Modifier.padding(top = 15.dp, start = 30.dp, end = 30.dp),
             text = "Password*",
             fontFamily = FontFamily(Font(R.font.medium)),
-            color = textColor,
             fontSize = 15.sp
         )
         TextField(
@@ -117,11 +105,11 @@ fun PasswordDetailsScreen(
             enabled = false,
             onValueChange = {},
             visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
-            colors = TextFieldDefaults.textFieldColors(
-                textColor = if (isSystemInDarkTheme()) textColorDark else textColorLight,
-                backgroundColor = Color.Transparent,
-                disabledIndicatorColor = Color.Transparent
-            ),
+//            colors = TextFieldDefaults.textFieldColors(
+//                textColor = if (isSystemInDarkTheme()) textColorDark else textColorLight,
+//                backgroundColor = Color.Transparent,
+//                disabledIndicatorColor = Color.Transparent
+//            ),
             trailingIcon = {
                 val image = if (passwordVisible)
                     Icons.Filled.Visibility
@@ -130,7 +118,7 @@ fun PasswordDetailsScreen(
                 val description = if (passwordVisible) "Hide password" else "Show password"
 
                 IconButton(onClick = { passwordVisible = !passwordVisible }) {
-                    Icon(imageVector = image, description, tint = textColor)
+                    Icon(imageVector = image, description)
                 }
             }
         )
@@ -138,14 +126,12 @@ fun PasswordDetailsScreen(
             modifier = Modifier.padding(top = 15.dp, start = 30.dp, end = 30.dp),
             text = "Website or App Name*",
             fontFamily = FontFamily(Font(R.font.medium)),
-            color = textColor,
             fontSize = 15.sp
         )
         Text(
             modifier = Modifier.padding(top = 8.dp, start = 30.dp, end = 30.dp),
             text = password.websiteOrAppName,
             fontFamily = FontFamily(Font(R.font.regular)),
-            color = textColor,
             fontSize = 14.sp
         )
         GeneralButton(

@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.*
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -18,8 +18,10 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.gvelesiani.passworx.R
-import com.gvelesiani.passworx.uiCompose.composeTheme.*
+import com.gvelesiani.passworx.uiCompose.composeTheme.searchViewBgDark
+import com.gvelesiani.passworx.uiCompose.composeTheme.searchViewBgLight
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchView(onValueChange: (String) -> Unit) {
     var text by remember { mutableStateOf(TextFieldValue("")) }
@@ -36,14 +38,11 @@ fun SearchView(onValueChange: (String) -> Unit) {
             maxLines = 1,
             shape = CircleShape,
             colors = TextFieldDefaults.textFieldColors(
-                backgroundColor = if (isSystemInDarkTheme()) searchViewBgDark else searchViewBgLight,
+                containerColor = if (isSystemInDarkTheme()) searchViewBgDark else searchViewBgLight,
                 disabledIndicatorColor = Color.Transparent,
                 errorIndicatorColor = Color.Transparent,
                 focusedIndicatorColor = Color.Transparent,
-                unfocusedIndicatorColor = Color.Transparent,
-                cursorColor = accentColor,
-                textColor = if(isSystemInDarkTheme()) textColorDark else textColorLight,
-                placeholderColor = secondaryTextColor
+                unfocusedIndicatorColor = Color.Transparent
             ),
             value = text,
             onValueChange = {
@@ -57,15 +56,15 @@ fun SearchView(onValueChange: (String) -> Unit) {
                     text = "Search Passwords"
                 )
             })
-        FloatingActionButton(
+        androidx.compose.material3.FloatingActionButton(
             elevation = FloatingActionButtonDefaults.elevation(0.dp, 0.dp),
-            backgroundColor = accentColor,
             onClick = {}) {
             Icon(
                 painterResource(
                 id = R.drawable.ic_search),
-                contentDescription = "",
-                tint = Color.White)
+                contentDescription = ""
+                //tint = Color.White
+            )
         }
     }
 }

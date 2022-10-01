@@ -3,14 +3,16 @@ package com.gvelesiani.passworx.uiCompose.masterPassword.changeMasterPassword
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.*
+import androidx.compose.material.ChipDefaults
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
+import androidx.compose.material.rememberScaffoldState
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.KeyboardType
@@ -30,7 +32,7 @@ import com.gvelesiani.passworx.uiCompose.composeTheme.*
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.getViewModel
 
-@OptIn(ExperimentalMaterialApi::class)
+@OptIn(ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun ChangeMasterPasswordScreen(
     navController: NavController,
@@ -50,9 +52,6 @@ fun ChangeMasterPasswordScreen(
     var masterPasswordVisible by rememberSaveable { mutableStateOf(false) }
     var newMasterPasswordVisible by rememberSaveable { mutableStateOf(false) }
 
-    val focusedIndicatorColor = if (isSystemInDarkTheme()) textColorDark else textColorLight
-    val textColor = if (isSystemInDarkTheme()) textColorDark else textColorLight
-
     val chipBgColor = if (isSystemInDarkTheme()) chipBgColorDark else chipBgColorLight
     val chipTextColor = if (isSystemInDarkTheme()) chipTextColorDark else chipTextColorLight
     val chipCheckedBgColor =
@@ -60,7 +59,7 @@ fun ChangeMasterPasswordScreen(
     val chipCheckedTextColor =
         if (isSystemInDarkTheme()) chipTextColorCheckedDark else chipTextColorCheckedLight
 
-    Scaffold(scaffoldState = scaffoldState) {
+    Scaffold {
         Column(
             Modifier
                 .padding(it)
@@ -71,7 +70,6 @@ fun ChangeMasterPasswordScreen(
             }
             Column(Modifier.padding(top = 16.dp, start = 16.dp, end = 16.dp)) {
                 Text(
-                    color = textColor,
                     modifier = Modifier
                         .fillMaxWidth(),
                     text = "Create new password",
@@ -100,15 +98,6 @@ fun ChangeMasterPasswordScreen(
                     },
                     visualTransformation = if (masterPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-                    colors = TextFieldDefaults.textFieldColors(
-                        errorIndicatorColor = accentColor,
-                        focusedIndicatorColor = focusedIndicatorColor,
-                        unfocusedIndicatorColor = secondaryTextColor,
-                        cursorColor = accentColor,
-                        textColor = if (isSystemInDarkTheme()) textColorDark else textColorLight,
-                        placeholderColor = secondaryTextColor,
-                        backgroundColor = Color.Transparent
-                    ),
                     trailingIcon = {
                         val image = if (masterPasswordVisible)
                             Icons.Filled.Visibility
@@ -118,12 +107,11 @@ fun ChangeMasterPasswordScreen(
                             if (masterPasswordVisible) "Hide password" else "Show password"
 
                         IconButton(onClick = { masterPasswordVisible = !masterPasswordVisible }) {
-                            Icon(imageVector = image, description, tint = textColor)
+                            Icon(imageVector = image, description)//, tint = textColor)
                         }
                     },
                     label = {
                         Text(
-                            color = textColor,
                             fontFamily = FontFamily(Font(R.font.regular)),
                             fontSize = 16.sp,
                             text = "Master password"
@@ -143,15 +131,6 @@ fun ChangeMasterPasswordScreen(
                     },
                     visualTransformation = if (newMasterPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-                    colors = TextFieldDefaults.textFieldColors(
-                        errorIndicatorColor = accentColor,
-                        focusedIndicatorColor = focusedIndicatorColor,
-                        unfocusedIndicatorColor = secondaryTextColor,
-                        cursorColor = accentColor,
-                        textColor = if (isSystemInDarkTheme()) textColorDark else textColorLight,
-                        placeholderColor = secondaryTextColor,
-                        backgroundColor = Color.Transparent
-                    ),
                     trailingIcon = {
                         val image = if (newMasterPasswordVisible)
                             Icons.Filled.Visibility
@@ -163,12 +142,11 @@ fun ChangeMasterPasswordScreen(
                         IconButton(onClick = {
                             newMasterPasswordVisible = !newMasterPasswordVisible
                         }) {
-                            Icon(imageVector = image, description, tint = textColor)
+                            Icon(imageVector = image, description)
                         }
                     },
                     label = {
                         Text(
-                            color = textColor,
                             fontFamily = FontFamily(Font(R.font.regular)),
                             fontSize = 16.sp,
                             text = "New Master password"
@@ -181,7 +159,7 @@ fun ChangeMasterPasswordScreen(
 
                 FlowRow(modifier = Modifier.fillMaxWidth()) {
                     validationErrors.value.forEach { masterPasswordError ->
-                        Chip(modifier = Modifier.padding(end = 16.dp),
+                        androidx.compose.material.Chip(modifier = Modifier.padding(end = 16.dp),
                             colors = ChipDefaults.chipColors(
                                 backgroundColor = if (!masterPasswordError.isValid) chipBgColor else chipCheckedBgColor,
                             ), onClick = {}) {

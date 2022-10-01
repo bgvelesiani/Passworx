@@ -2,18 +2,16 @@ package com.gvelesiani.passworx.uiCompose.masterPassword
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
@@ -32,20 +30,15 @@ import com.gvelesiani.passworx.navGraph.Screen
 import com.gvelesiani.passworx.uiCompose.components.ErrorDialog
 import com.gvelesiani.passworx.uiCompose.components.GeneralButton
 import com.gvelesiani.passworx.uiCompose.components.ProgressIndicator
-import com.gvelesiani.passworx.uiCompose.composeTheme.accentColor
-import com.gvelesiani.passworx.uiCompose.composeTheme.secondaryTextColor
-import com.gvelesiani.passworx.uiCompose.composeTheme.textColorDark
-import com.gvelesiani.passworx.uiCompose.composeTheme.textColorLight
 import org.koin.androidx.compose.getViewModel
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MasterPasswordScreen(
     navController: NavController,
     viewModel: MasterPasswordVM = getViewModel()
 ) {
     var passwordVisible by rememberSaveable { mutableStateOf(false) }
-    val focusedIndicatorColor = if (isSystemInDarkTheme()) textColorDark else textColorLight
-    val textColor = if (isSystemInDarkTheme()) textColorDark else textColorLight
     var masterPassword by remember { mutableStateOf(TextFieldValue("")) }
 
     val uiState = remember { viewModel.uiState }.collectAsState()
@@ -72,7 +65,6 @@ fun MasterPasswordScreen(
         Text(
             modifier = Modifier
                 .fillMaxWidth(),
-            color = textColor,
             text = "Access vault with your master Password",
             fontFamily = FontFamily(Font(R.font.medium)),
             fontSize = 26.sp,
@@ -91,15 +83,6 @@ fun MasterPasswordScreen(
             },
             visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-            colors = TextFieldDefaults.textFieldColors(
-                errorIndicatorColor = accentColor,
-                focusedIndicatorColor = focusedIndicatorColor,
-                unfocusedIndicatorColor = secondaryTextColor,
-                cursorColor = accentColor,
-                textColor = if (isSystemInDarkTheme()) textColorDark else textColorLight,
-                placeholderColor = secondaryTextColor,
-                backgroundColor = Color.Transparent
-            ),
             trailingIcon = {
                 val image = if (passwordVisible)
                     Icons.Filled.Visibility
@@ -108,12 +91,11 @@ fun MasterPasswordScreen(
                 val description = if (passwordVisible) "Hide password" else "Show password"
 
                 IconButton(onClick = { passwordVisible = !passwordVisible }) {
-                    Icon(imageVector = image, description, tint = textColor)
+                    Icon(imageVector = image, description)
                 }
             },
             label = {
                 Text(
-                    color = textColor,
                     fontFamily = FontFamily(Font(R.font.regular)),
                     fontSize = 16.sp,
                     text = "Master Password"

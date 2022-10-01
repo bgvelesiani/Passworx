@@ -1,6 +1,9 @@
 package com.gvelesiani.passworx.navGraph
 
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.runtime.Composable
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
@@ -36,7 +39,9 @@ fun MainNavGraph(startScreen: String) {
     val navController = rememberAnimatedNavController()
     AnimatedNavHost(
         navController,
-        startDestination = startScreen
+        startDestination = startScreen,
+        enterTransition = { fadeIn(animationSpec = tween(800)) },
+        exitTransition = { fadeOut(animationSpec = tween(800)) }
     ) {
         composable(route = Screen.Overview.route) {
             OverviewScreen(navController)
