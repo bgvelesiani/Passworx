@@ -9,21 +9,21 @@ import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.gvelesiani.common.models.domain.PasswordModel
-import com.gvelesiani.passworx.uiCompose.UnderConstructionScreen
-import com.gvelesiani.passworx.uiCompose.addPassword.AddPasswordScreen
-import com.gvelesiani.passworx.uiCompose.backupAndRestore.BackupAndRestoreScreen
-import com.gvelesiani.passworx.uiCompose.browse.BrowseScreen
-import com.gvelesiani.passworx.uiCompose.favorites.FavoritesScreen
-import com.gvelesiani.passworx.uiCompose.intro.IntroScreen
-import com.gvelesiani.passworx.uiCompose.masterPassword.MasterPasswordScreen
-import com.gvelesiani.passworx.uiCompose.masterPassword.changeMasterPassword.ChangeMasterPasswordScreen
-import com.gvelesiani.passworx.uiCompose.masterPassword.createMasterPassword.CreateMasterPasswordScreen
-import com.gvelesiani.passworx.uiCompose.overview.OverviewScreen
-import com.gvelesiani.passworx.uiCompose.passwordGenerator.PasswordGeneratorScreen
-import com.gvelesiani.passworx.uiCompose.passwords.PasswordsScreen
-import com.gvelesiani.passworx.uiCompose.settings.SettingsScreen
-import com.gvelesiani.passworx.uiCompose.trash.TrashScreen
-import com.gvelesiani.passworx.uiCompose.updatePassword.UpdatePasswordScreen
+import com.gvelesiani.passworx.ui.UnderConstructionScreen
+import com.gvelesiani.passworx.ui.addPassword.AddPasswordScreen
+import com.gvelesiani.passworx.ui.backupAndRestore.BackupAndRestoreScreen
+import com.gvelesiani.passworx.ui.browse.BrowseScreen
+import com.gvelesiani.passworx.ui.favorites.FavoritesScreen
+import com.gvelesiani.passworx.ui.intro.IntroScreen
+import com.gvelesiani.passworx.ui.masterPassword.MasterPasswordScreen
+import com.gvelesiani.passworx.ui.masterPassword.changeMasterPassword.ChangeMasterPasswordScreen
+import com.gvelesiani.passworx.ui.masterPassword.createMasterPassword.CreateMasterPasswordScreen
+import com.gvelesiani.passworx.ui.overview.OverviewScreen
+import com.gvelesiani.passworx.ui.passwordGenerator.PasswordGeneratorScreen
+import com.gvelesiani.passworx.ui.passwords.PasswordsScreen
+import com.gvelesiani.passworx.ui.settings.SettingsScreen
+import com.gvelesiani.passworx.ui.trash.TrashScreen
+import com.gvelesiani.passworx.ui.updatePassword.UpdatePasswordScreen
 
 sealed class StartScreen {
     object Create : StartScreen()
