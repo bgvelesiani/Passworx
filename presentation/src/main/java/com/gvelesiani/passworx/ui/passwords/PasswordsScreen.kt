@@ -4,17 +4,19 @@ import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
@@ -25,11 +27,11 @@ import com.gvelesiani.passworx.common.extensions.formatWebsite
 import com.gvelesiani.passworx.common.util.OnLifecycleEvent
 import com.gvelesiani.passworx.navGraph.Screen
 import com.gvelesiani.passworx.ui.components.*
-import com.gvelesiani.passworx.ui.passwordDetails.PasswordDetailsScreen
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.getViewModel
 
-@OptIn(ExperimentalMaterialApi::class, ExperimentalMaterialApi::class,
+@OptIn(
+    ExperimentalMaterialApi::class, ExperimentalMaterialApi::class,
     ExperimentalMaterial3Api::class
 )
 @Composable
@@ -45,47 +47,16 @@ fun PasswordsScreen(navController: NavController, viewModel: PasswordsVM = getVi
 
     val uiState = remember { viewModel.uiState }.collectAsState()
 
-    val dialogState = remember {
-        mutableStateOf(false)
-    }
-
-    var chosenPassword by remember {
-        mutableStateOf(PasswordModel())
-    }
-    val sheetState = rememberModalBottomSheetState(
-        initialValue = ModalBottomSheetValue.Hidden
-    )
-
     val scaffoldState = rememberScaffoldState()
-
-//    val decryptedPassword by viewModel.decryptedPassword.collectAsState("")
 
     val coroutineScope = rememberCoroutineScope()
     val context = LocalContext.current
 
-    androidx.compose.material3.Scaffold(
-        //scaffoldState = scaffoldState
-    ) {
-        ModalBottomSheetLayout(
+    androidx.compose.material3.Scaffold {
+        Column(
             modifier = Modifier
                 .padding(it)
                 .fillMaxWidth(),
-            scrimColor = Color.Transparent,
-            sheetShape = RoundedCornerShape(20.dp, 20.dp, 0.dp, 0.dp),
-            sheetState = sheetState,
-            sheetContent = {
-                PasswordDetailsScreen(
-                    navController = navController,
-                    password = chosenPassword,
-                    onDelete = {
-                        dialogState.value = true
-                    },
-                    onUpdate = {
-                        coroutineScope.launch {
-                            sheetState.hide()
-                        }
-                    })
-            }
         ) {
             Box(
                 Modifier
@@ -123,11 +94,11 @@ fun PasswordsScreen(navController: NavController, viewModel: PasswordsVM = getVi
                                     )
                                 },
                                 onPassword = { passwordModel ->
-                                    chosenPassword = passwordModel
-                                    coroutineScope.launch {
-                                        if (!sheetState.isVisible) sheetState.show()
-                                        else sheetState.hide()
-                                    }
+                                    navController.currentBackStackEntry?.savedStateHandle?.set(
+                                        key = "password",
+                                        value = passwordModel
+                                    )
+                                    navController.navigate(Screen.Details.route)
                                 }
                             )
                         }
@@ -152,23 +123,9 @@ fun PasswordsScreen(navController: NavController, viewModel: PasswordsVM = getVi
                     Icon(
                         imageVector = Icons.Filled.Add,
                         contentDescription = ""
-                        //tint = Color.White
                     )
                 }
             }
-        }
-    }
-    GeneralDialog(
-        title = "Delete password",
-        text = "Do you really want to delete this password?",
-        openDialog = dialogState
-    ) {
-        viewModel.updateItemTrashState(
-            isFavorite = chosenPassword.isFavorite,
-            passwordId = chosenPassword.passwordId
-        )
-        coroutineScope.launch {
-            sheetState.hide()
         }
     }
 }

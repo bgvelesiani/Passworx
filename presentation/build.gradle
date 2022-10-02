@@ -41,8 +41,8 @@ android {
         jvmTarget = JavaVersion.VERSION_1_8
     }
     buildFeatures {
-        viewBinding true
         compose true
+        viewBinding true
     }
 
     composeOptions {

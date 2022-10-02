@@ -1,6 +1,5 @@
 package com.gvelesiani.passworx.diModules
 
-import com.gvelesiani.passworx.ui.updatePassword.UpdatePasswordVM
 import com.gvelesiani.passworx.ui.MainVM
 import com.gvelesiani.passworx.ui.addPassword.AddPasswordVM
 import com.gvelesiani.passworx.ui.backupAndRestore.BackupAndRestoreVM
@@ -15,6 +14,7 @@ import com.gvelesiani.passworx.ui.passwordGenerator.PasswordGeneratorVM
 import com.gvelesiani.passworx.ui.passwords.PasswordsVM
 import com.gvelesiani.passworx.ui.settings.SettingsVM
 import com.gvelesiani.passworx.ui.trash.PasswordTrashVM
+import com.gvelesiani.passworx.ui.updatePassword.UpdatePasswordVM
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.module.Module
 import org.koin.dsl.module
@@ -38,7 +38,7 @@ object ViewModelsModule {
         }
 
         viewModel {
-            PasswordsVM(get(), get(), get(), get()) //, get())
+            PasswordsVM(get(), get(), get())
         }
 
         viewModel {
@@ -50,7 +50,7 @@ object ViewModelsModule {
         }
 
         viewModel {
-            PasswordDetailsVM(get())
+            PasswordDetailsVM(get(), get(), get())
         }
 
         viewModel {

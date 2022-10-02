@@ -5,7 +5,6 @@ import com.gvelesiani.common.models.domain.PasswordModel
 import com.gvelesiani.domain.useCases.passwords.GetPasswordsUseCase
 import com.gvelesiani.domain.useCases.passwords.SearchPasswordsUseCase
 import com.gvelesiani.domain.useCases.passwords.UpdateFavoriteStateUseCase
-import com.gvelesiani.domain.useCases.passwords.UpdateItemTrashStateUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -16,11 +15,8 @@ import kotlinx.coroutines.launch
 class PasswordsVM(
     private val getPasswordsUseCase: GetPasswordsUseCase,
     private val updateFavoriteStateUseCase: UpdateFavoriteStateUseCase,
-    private val updateItemTrashStateUseCase: UpdateItemTrashStateUseCase,
-    private val searchPasswordsUseCase: SearchPasswordsUseCase,
-//    private val decryptPasswordUseCase: DecryptPasswordUseCase,
+    private val searchPasswordsUseCase: SearchPasswordsUseCase
 ) : ViewModel() {
-//    val decryptedPassword: MutableSharedFlow<String> = MutableSharedFlow()
 
     private val _uiState = MutableStateFlow<PasswordsUIState>(PasswordsUIState.Empty)
     val uiState: StateFlow<PasswordsUIState> = _uiState
@@ -51,27 +47,6 @@ class PasswordsVM(
             updateFavoriteStateUseCase(Pair(isFavorite, passwordId))
         }
     }
-
-    fun updateItemTrashState(isInTrash: Boolean = true, isFavorite: Boolean, passwordId: Int) {
-        _uiState.value = PasswordsUIState.Loading
-        CoroutineScope(Dispatchers.IO).launch {
-            delay(1000)
-            updateItemTrashStateUseCase(Pair(isInTrash, passwordId))
-            if (isFavorite) {
-                updateFavoriteStateUseCase(Pair(false, passwordId))
-            }
-        }
-    }
-
-//    fun decryptPassword(encryptedPassword: String) {
-//        CoroutineScope(Dispatchers.IO).launch {
-//            try {
-//                val password = decryptPasswordUseCase(encryptedPassword)
-//                decryptedPassword.emit(password)
-//            } catch (e: Exception) {
-//            }
-//        }
-//    }
 }
 
 sealed class PasswordsUIState {

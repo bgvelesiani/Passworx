@@ -192,6 +192,8 @@ fun UpdatePasswordScreen(
                     ),
                 text = "Update Password"
             ) {
+                navController.popBackStack()
+
                 viewModel.updatePassword(
                     PasswordModel(
                         passwordId = passwordModel.passwordId,

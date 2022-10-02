@@ -21,7 +21,7 @@ fun OverviewScreen(
         modifier = Modifier
             .verticalScroll(scrollState)
     ) {
-        ToolbarView(true, screenTitle = LocalContext.current.getString(R.string.app_name)) {
+        ToolbarView(isHomeScreen = true, screenTitle = LocalContext.current.getString(R.string.app_name)) {
         }
         OverviewItem(
             onOverviewItemClick = {

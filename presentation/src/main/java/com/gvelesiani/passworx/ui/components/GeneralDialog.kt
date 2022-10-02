@@ -23,7 +23,7 @@ fun GeneralDialog(
     onConfirm: () -> Unit
 ) {
     if (openDialog.value) {
-        androidx.compose.material.AlertDialog(
+        androidx.compose.material3.AlertDialog(
             shape = RoundedCornerShape(16.dp),
             onDismissRequest = {
                 openDialog.value = false
@@ -45,11 +45,11 @@ fun GeneralDialog(
                     color = secondaryTextColor
                 )
             },
-            buttons = {
+            confirmButton = {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(start = 20.dp, end = 20.dp, bottom = 16.dp),
+                        .padding(bottom = 16.dp),
                 ) {
                     GeneralButton(
                         modifier = Modifier

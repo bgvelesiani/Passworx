@@ -1,5 +1,6 @@
 package com.gvelesiani.passworx.navGraph
 
+import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
@@ -19,6 +20,7 @@ import com.gvelesiani.passworx.ui.masterPassword.MasterPasswordScreen
 import com.gvelesiani.passworx.ui.masterPassword.changeMasterPassword.ChangeMasterPasswordScreen
 import com.gvelesiani.passworx.ui.masterPassword.createMasterPassword.CreateMasterPasswordScreen
 import com.gvelesiani.passworx.ui.overview.OverviewScreen
+import com.gvelesiani.passworx.ui.passwordDetails.PasswordDetailsScreen
 import com.gvelesiani.passworx.ui.passwordGenerator.PasswordGeneratorScreen
 import com.gvelesiani.passworx.ui.passwords.PasswordsScreen
 import com.gvelesiani.passworx.ui.settings.SettingsScreen
@@ -90,6 +92,23 @@ fun MainNavGraph(startScreen: String) {
                 navController.previousBackStackEntry?.savedStateHandle?.get<PasswordModel>("password")
             UpdatePasswordScreen(passwordModel ?: PasswordModel(), navController)
         }
+        composable(route = Screen.Details.route,
+            enterTransition = {
+                slideIntoContainer(
+                    animationSpec = tween(800),
+                    towards = AnimatedContentScope.SlideDirection.Up
+                )
+            },
+            exitTransition = {
+                slideOutOfContainer(
+                    animationSpec = tween(800),
+                    towards = AnimatedContentScope.SlideDirection.Down
+                )
+            }) {
+            val passwordModel =
+                navController.previousBackStackEntry?.savedStateHandle?.get<PasswordModel>("password")
+            PasswordDetailsScreen(navController, password = passwordModel ?: PasswordModel())
+        }
     }
 }
 
@@ -109,4 +128,5 @@ sealed class Screen(val route: String) {
     object ChangeMasterPassword : Screen("changeMasterPassword")
     object MasterPassword : Screen("masterPassword")
     object Trash : Screen("trash")
+    object Details : Screen("passwordDetails")
 }
