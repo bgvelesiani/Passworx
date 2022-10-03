@@ -20,7 +20,7 @@ class ThemeSharedVM(
             val themeColors: PassworxColors = when (getAppColorsUseCase(supportsDynamic)) {
                 "Blue" -> PassworxColors.Blue
                 "Red" -> PassworxColors.Red
-                "Orange" -> PassworxColors.Orange
+                "Green" -> PassworxColors.Green
                 "Dynamic" -> PassworxColors.Dynamic
                 else -> {
                     PassworxColors.Red

@@ -13,8 +13,8 @@ import androidx.compose.ui.platform.LocalContext
 import com.gvelesiani.common.models.PassworxColors
 import com.gvelesiani.passworx.ui.theme.blue.BlueThemeDarkColors
 import com.gvelesiani.passworx.ui.theme.blue.BlueThemeLightColors
-import com.gvelesiani.passworx.ui.theme.orange.OrangeThemeDarkColors
-import com.gvelesiani.passworx.ui.theme.orange.OrangeThemeLightColors
+import com.gvelesiani.passworx.ui.theme.green.GreenThemeDarkColors
+import com.gvelesiani.passworx.ui.theme.green.GreenThemeLightColors
 
 
 val RedThemeLightColors = lightColorScheme(
@@ -99,8 +99,8 @@ fun PassworxTheme(themeColors: PassworxColors, content: @Composable() () -> Unit
             if(inDarkMode) RedThemeDarkColors else RedThemeLightColors
         }
 
-        PassworxColors.Orange -> {
-            if(inDarkMode) OrangeThemeDarkColors else OrangeThemeLightColors
+        PassworxColors.Green -> {
+            if(inDarkMode) GreenThemeDarkColors else GreenThemeLightColors
         }
 
         PassworxColors.Dynamic -> {

@@ -28,8 +28,8 @@ import com.gvelesiani.passworx.ui.theme.RedThemeDarkColors
 import com.gvelesiani.passworx.ui.theme.RedThemeLightColors
 import com.gvelesiani.passworx.ui.theme.blue.BlueThemeDarkColors
 import com.gvelesiani.passworx.ui.theme.blue.BlueThemeLightColors
-import com.gvelesiani.passworx.ui.theme.orange.OrangeThemeDarkColors
-import com.gvelesiani.passworx.ui.theme.orange.OrangeThemeLightColors
+import com.gvelesiani.passworx.ui.theme.green.GreenThemeDarkColors
+import com.gvelesiani.passworx.ui.theme.green.GreenThemeLightColors
 import com.gvelesiani.passworx.ui.theme.supportsDynamic
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -68,8 +68,8 @@ class MainComposeActivity : FragmentActivity() {
                 PassworxColors.Red -> {
                     window?.statusBarColor = if(isSystemInDarkTheme()) RedThemeDarkColors.surface.toArgb() else RedThemeLightColors.surface.toArgb()
                 }
-                PassworxColors.Orange -> {
-                    window?.statusBarColor = if(isSystemInDarkTheme()) OrangeThemeDarkColors.surface.toArgb() else OrangeThemeLightColors.surface.toArgb()
+                PassworxColors.Green -> {
+                    window?.statusBarColor = if(isSystemInDarkTheme()) GreenThemeDarkColors.surface.toArgb() else GreenThemeLightColors.surface.toArgb()
                 }
                 PassworxColors.Blue -> {
                     window?.statusBarColor = if(isSystemInDarkTheme()) BlueThemeDarkColors.surface.toArgb() else BlueThemeLightColors.surface.toArgb()
