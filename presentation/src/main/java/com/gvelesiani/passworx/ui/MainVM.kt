@@ -6,7 +6,6 @@ import com.gvelesiani.domain.useCases.intro.CheckIfIntroIsFinishedUseCase
 import com.gvelesiani.domain.useCases.masterPassword.GetMasterPasswordUseCase
 import com.gvelesiani.domain.useCases.screenshots.GetTakingScreenshotsStatusUseCase
 import com.gvelesiani.passworx.navGraph.StartScreen
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
@@ -33,7 +32,6 @@ class MainVM(
 
     private fun checkStatuses() {
         viewModelScope.launch {
-            delay(1000)
             val introFinished = introIsFinishedUseCase.invoke(Unit)
             val masterPassword = getMasterPasswordUseCase.invoke(Unit)
 

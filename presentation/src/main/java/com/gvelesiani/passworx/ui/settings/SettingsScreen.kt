@@ -1,29 +1,56 @@
 package com.gvelesiani.passworx.ui.settings
 
 import android.app.Activity
+import android.content.Context
+import android.content.Intent
 import android.view.WindowManager
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Text
-import androidx.compose.runtime.*
+import androidx.compose.material3.dynamicLightColorScheme
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.fragment.app.FragmentActivity
 import androidx.navigation.NavController
+import com.google.accompanist.flowlayout.FlowRow
+import com.gvelesiani.common.models.PassworxColors
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.navGraph.Screen
+import com.gvelesiani.passworx.ui.MainComposeActivity
+import com.gvelesiani.passworx.ui.ThemeSharedVM
 import com.gvelesiani.passworx.ui.components.Switch
 import com.gvelesiani.passworx.ui.components.ToolbarView
+import com.gvelesiani.passworx.ui.theme.RedThemeLightColors
+import com.gvelesiani.passworx.ui.theme.blue.BlueThemeLightColors
+import com.gvelesiani.passworx.ui.theme.brown.OrangeThemeLightColors
+import com.gvelesiani.passworx.ui.theme.supportsDynamic
 import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun SettingsScreen(
     navController: NavController,
-    viewModel: SettingsVM = getViewModel()
+    viewModel: SettingsVM = getViewModel(),
+    sharedViewModel: ThemeSharedVM = getViewModel()
 ) {
     val context = LocalContext.current
     val activity = LocalContext.current as Activity
@@ -80,6 +107,69 @@ fun SettingsScreen(
             viewModel.allowBiometrics(it)
         }
 
+        Text(
+            modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 18.dp, bottom = 8.dp),
+            text = "Change app colors",
+            fontSize = 19.sp,
+            fontFamily = FontFamily(Font(R.font.medium, FontWeight.Normal))
+        )
+
+        FlowRow(
+            mainAxisSpacing = 16.dp,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 16.dp, end = 16.dp, top = 16.dp)
+        ) {
+            Box(
+                modifier = Modifier
+                    .size(50.dp)
+                    .clip(CircleShape)
+                    .background(RedThemeLightColors.primary)
+                    .clickable {
+                        sharedViewModel.setThemeColors(PassworxColors.Red)
+                        restart(context)
+                    }
+            )
+
+            Box(
+                modifier = Modifier
+                    .size(50.dp)
+                    .clip(CircleShape)
+                    .background(OrangeThemeLightColors.primary)
+                    .clickable {
+                        sharedViewModel.setThemeColors(PassworxColors.Orange)
+                        restart(context)
+                    }
+            )
+
+
+            Box(
+                modifier = Modifier
+                    .size(50.dp)
+                    .clip(CircleShape)
+                    .background(BlueThemeLightColors.primary)
+                    .clickable {
+                        sharedViewModel.setThemeColors(PassworxColors.Blue)
+                        restart(context)
+                    }
+            )
+
+
+            if (supportsDynamic())
+                Box(
+                    modifier = Modifier
+                        .size(50.dp)
+                        .clip(CircleShape)
+                        .background(
+                            dynamicLightColorScheme(context).primary
+                        )
+                        .clickable {
+                            sharedViewModel.setThemeColors(PassworxColors.Dynamic)
+                            restart(context)
+                        }
+                )
+        }
+
         if (screenshots.value) {
             /**
              * With FLAG_SECURE, Users will be prevented from taking screenshots of the application,
@@ -94,4 +184,11 @@ fun SettingsScreen(
             )
         }
     }
+}
+
+fun restart(context: Context) {
+    val intent = Intent(context, MainComposeActivity::class.java)
+    (context as FragmentActivity).finish()
+    context.startActivity(intent)
+    context.finishAffinity()
 }

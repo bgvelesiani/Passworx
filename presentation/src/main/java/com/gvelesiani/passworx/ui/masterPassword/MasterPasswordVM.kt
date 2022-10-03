@@ -19,6 +19,8 @@ class MasterPasswordVM(
     private val _uiState = MutableStateFlow<MasterPasswordUiState>(MasterPasswordUiState.Empty)
     val uiState: StateFlow<MasterPasswordUiState> = _uiState
 
+    val biometricsAreAllowed: MutableStateFlow<Boolean> = MutableStateFlow(false)
+
     init {
         getBiometricsAllowingStatus()
     }
@@ -41,7 +43,7 @@ class MasterPasswordVM(
     private fun getBiometricsAllowingStatus() {
         viewModelScope.launch {
             val result = getBiometricsAllowingStatusUserCase(Unit)
-            _uiState.value = MasterPasswordUiState.BiometricsAreAllowed(result)
+            biometricsAreAllowed.value = result
         }
     }
 }
@@ -50,6 +52,5 @@ sealed class MasterPasswordUiState {
     object Empty : MasterPasswordUiState()
     object Loading : MasterPasswordUiState()
     data class Error(val errorMsg: String) : MasterPasswordUiState()
-    data class BiometricsAreAllowed(val allowed: Boolean) : MasterPasswordUiState()
     object PasswordMatchSuccess : MasterPasswordUiState()
 }

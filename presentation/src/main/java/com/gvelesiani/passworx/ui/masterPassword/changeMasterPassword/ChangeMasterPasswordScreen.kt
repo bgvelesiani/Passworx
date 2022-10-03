@@ -1,7 +1,12 @@
 package com.gvelesiani.passworx.ui.masterPassword.changeMasterPassword
 
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.ChipDefaults
 import androidx.compose.material.ExperimentalMaterialApi
@@ -9,9 +14,21 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material.rememberScaffoldState
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -28,7 +45,15 @@ import com.gvelesiani.passworx.ui.components.ErrorDialog
 import com.gvelesiani.passworx.ui.components.GeneralButton
 import com.gvelesiani.passworx.ui.components.ProgressIndicator
 import com.gvelesiani.passworx.ui.components.ToolbarView
-import com.gvelesiani.passworx.ui.composeTheme.*
+import com.gvelesiani.passworx.ui.composeTheme.chipBgColorCheckedDark
+import com.gvelesiani.passworx.ui.composeTheme.chipBgColorCheckedLight
+import com.gvelesiani.passworx.ui.composeTheme.chipBgColorDark
+import com.gvelesiani.passworx.ui.composeTheme.chipBgColorLight
+import com.gvelesiani.passworx.ui.composeTheme.chipTextColorCheckedDark
+import com.gvelesiani.passworx.ui.composeTheme.chipTextColorCheckedLight
+import com.gvelesiani.passworx.ui.composeTheme.chipTextColorDark
+import com.gvelesiani.passworx.ui.composeTheme.chipTextColorLight
+import com.gvelesiani.passworx.ui.composeTheme.secondaryTextColor
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.getViewModel
 

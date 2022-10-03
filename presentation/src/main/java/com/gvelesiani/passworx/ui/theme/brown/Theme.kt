@@ -1,23 +1,10 @@
-package com.gvelesiani.passworx.ui.theme
+package com.gvelesiani.passworx.ui.theme.brown
 
-import android.os.Build
-import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material3.ColorScheme
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
-import com.gvelesiani.common.models.PassworxColors
-import com.gvelesiani.passworx.ui.theme.blue.BlueThemeDarkColors
-import com.gvelesiani.passworx.ui.theme.blue.BlueThemeLightColors
-import com.gvelesiani.passworx.ui.theme.brown.OrangeThemeDarkColors
-import com.gvelesiani.passworx.ui.theme.brown.OrangeThemeLightColors
 
 
-val RedThemeLightColors = lightColorScheme(
+val OrangeThemeLightColors = lightColorScheme(
     primary = md_theme_light_primary,
     onPrimary = md_theme_light_onPrimary,
     primaryContainer = md_theme_light_primaryContainer,
@@ -48,7 +35,7 @@ val RedThemeLightColors = lightColorScheme(
 )
 
 
-val RedThemeDarkColors = darkColorScheme(
+val OrangeThemeDarkColors = darkColorScheme(
     primary = md_theme_dark_primary,
     onPrimary = md_theme_dark_onPrimary,
     primaryContainer = md_theme_dark_primaryContainer,
@@ -77,40 +64,3 @@ val RedThemeDarkColors = darkColorScheme(
     inversePrimary = md_theme_dark_inversePrimary,
     surfaceTint = md_theme_dark_surfaceTint,
 )
-
-// For checking API support, we could do a simple build SDK version check
-fun supportsDynamic(): Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
-
-/**
- * App-wide dynamic theme
- * @param content [Composable] UI
- */
-@Composable
-fun PassworxTheme(themeColors: PassworxColors, content: @Composable() () -> Unit) {
-
-    val inDarkMode: Boolean = isSystemInDarkTheme()
-
-    val colors: ColorScheme = when (themeColors) {
-        PassworxColors.Blue -> {
-            if(inDarkMode) BlueThemeDarkColors else BlueThemeLightColors
-        }
-
-        PassworxColors.Red -> {
-            if(inDarkMode) RedThemeDarkColors else RedThemeLightColors
-        }
-
-        PassworxColors.Orange -> {
-            if(inDarkMode) OrangeThemeDarkColors else OrangeThemeLightColors
-        }
-
-        PassworxColors.Dynamic -> {
-            val context = LocalContext.current
-            if (inDarkMode) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-        }
-    }
-
-    MaterialTheme(
-        colorScheme = colors,
-        content = content
-    )
-}

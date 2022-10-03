@@ -1,6 +1,7 @@
 package com.gvelesiani.passworx.diModules
 
 import com.gvelesiani.passworx.ui.MainVM
+import com.gvelesiani.passworx.ui.ThemeSharedVM
 import com.gvelesiani.passworx.ui.addPassword.AddPasswordVM
 import com.gvelesiani.passworx.ui.backupAndRestore.BackupAndRestoreVM
 import com.gvelesiani.passworx.ui.favorites.PasswordFavoritesVM
@@ -83,6 +84,10 @@ object ViewModelsModule {
 
         viewModel {
             BackupAndRestoreVM(get(), get(), get(), get(), get())
+        }
+
+        viewModel {
+            ThemeSharedVM(get(), get())
         }
     }
 }
