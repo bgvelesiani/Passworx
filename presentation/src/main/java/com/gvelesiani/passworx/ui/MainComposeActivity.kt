@@ -28,8 +28,8 @@ import com.gvelesiani.passworx.ui.theme.RedThemeDarkColors
 import com.gvelesiani.passworx.ui.theme.RedThemeLightColors
 import com.gvelesiani.passworx.ui.theme.blue.BlueThemeDarkColors
 import com.gvelesiani.passworx.ui.theme.blue.BlueThemeLightColors
-import com.gvelesiani.passworx.ui.theme.brown.OrangeThemeDarkColors
-import com.gvelesiani.passworx.ui.theme.brown.OrangeThemeLightColors
+import com.gvelesiani.passworx.ui.theme.orange.OrangeThemeDarkColors
+import com.gvelesiani.passworx.ui.theme.orange.OrangeThemeLightColors
 import com.gvelesiani.passworx.ui.theme.supportsDynamic
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

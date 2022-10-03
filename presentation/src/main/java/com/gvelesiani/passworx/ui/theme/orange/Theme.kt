@@ -1,4 +1,4 @@
-package com.gvelesiani.passworx.ui.theme.brown
+package com.gvelesiani.passworx.ui.theme.orange
 
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme

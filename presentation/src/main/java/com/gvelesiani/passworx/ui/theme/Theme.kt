@@ -13,8 +13,8 @@ import androidx.compose.ui.platform.LocalContext
 import com.gvelesiani.common.models.PassworxColors
 import com.gvelesiani.passworx.ui.theme.blue.BlueThemeDarkColors
 import com.gvelesiani.passworx.ui.theme.blue.BlueThemeLightColors
-import com.gvelesiani.passworx.ui.theme.brown.OrangeThemeDarkColors
-import com.gvelesiani.passworx.ui.theme.brown.OrangeThemeLightColors
+import com.gvelesiani.passworx.ui.theme.orange.OrangeThemeDarkColors
+import com.gvelesiani.passworx.ui.theme.orange.OrangeThemeLightColors
 
 
 val RedThemeLightColors = lightColorScheme(

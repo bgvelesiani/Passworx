@@ -1,4 +1,4 @@
-package com.gvelesiani.passworx.ui.theme.brown
+package com.gvelesiani.passworx.ui.theme.orange
 import androidx.compose.ui.graphics.Color
 
 val md_theme_light_primary = Color(0xFFA53C00)

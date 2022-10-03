@@ -42,7 +42,7 @@ import com.gvelesiani.passworx.ui.components.Switch
 import com.gvelesiani.passworx.ui.components.ToolbarView
 import com.gvelesiani.passworx.ui.theme.RedThemeLightColors
 import com.gvelesiani.passworx.ui.theme.blue.BlueThemeLightColors
-import com.gvelesiani.passworx.ui.theme.brown.OrangeThemeLightColors
+import com.gvelesiani.passworx.ui.theme.orange.OrangeThemeLightColors
 import com.gvelesiani.passworx.ui.theme.supportsDynamic
 import org.koin.androidx.compose.getViewModel
 

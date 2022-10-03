@@ -20,7 +20,7 @@ class ThemeSharedVM(
             val themeColors: PassworxColors = when (getAppColorsUseCase(supportsDynamic)) {
                 "Blue" -> PassworxColors.Blue
                 "Red" -> PassworxColors.Red
-                "Brown" -> PassworxColors.Orange
+                "Orange" -> PassworxColors.Orange
                 "Dynamic" -> PassworxColors.Dynamic
                 else -> {
                     PassworxColors.Red
@@ -32,7 +32,6 @@ class ThemeSharedVM(
 
     fun setThemeColors(passworxColors: PassworxColors) {
         CoroutineScope(Dispatchers.IO).launch {
-            currentThemeColors.value = passworxColors
             setAppColorsUseCase(passworxColors)
         }
     }
