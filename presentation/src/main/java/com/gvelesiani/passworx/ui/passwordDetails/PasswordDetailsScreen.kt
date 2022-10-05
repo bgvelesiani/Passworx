@@ -78,7 +78,7 @@ fun PasswordDetailsScreen(
                 "com.gvelesiani.passworx"
             )
 
-            if(logoResource != 0){
+            if (logoResource != 0) {
                 Image(
                     painter = painterResource(id = logoResource),
                     contentDescription = "",

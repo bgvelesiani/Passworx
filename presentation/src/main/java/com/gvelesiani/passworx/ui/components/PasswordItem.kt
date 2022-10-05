@@ -4,13 +4,16 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -19,6 +22,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -35,6 +39,7 @@ import java.util.Locale
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun PasswordItem(
+    titleContainerColor: Color = Color(0),
     logoResource: Int = 0,
     password: PasswordModel,
     onPasswordClick: (PasswordModel) -> Unit,
@@ -59,11 +64,30 @@ fun PasswordItem(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Spacer(modifier = Modifier.width(15.dp))
-            Image(
-                painter = painterResource(id = if (logoResource != 0) logoResource else R.drawable.facebook),
-                contentDescription = "",
-                Modifier.height(38.dp)
-            )
+            if (logoResource == 0) {
+                Card(
+                    modifier = Modifier.height(38.dp).width(38.dp),
+                    shape = CircleShape,
+                    elevation = CardDefaults.cardElevation(0.dp),
+                    colors = CardDefaults.cardColors(containerColor = titleContainerColor)
+                ) {
+                    Box(modifier = Modifier.fillMaxSize()) {
+                        Text(
+                            modifier = Modifier.align(Alignment.Center),
+                            text = password.passwordTitle.replaceRange(
+                                2 until password.passwordTitle.length,
+                                ""
+                            ).uppercase()
+                        )
+                    }
+                }
+            } else {
+                Image(
+                    painter = painterResource(id = logoResource),
+                    contentDescription = "",
+                    Modifier.height(38.dp)
+                )
+            }
 
             Column(
                 Modifier
@@ -105,7 +129,7 @@ fun PasswordItem(
                             id = if (password.isFavorite) R.drawable.ic_favorite else R.drawable.ic_not_favorite,
                         ),
                         "",
-                        tint = if(password.isFavorite) favoriteIconColor else secondaryTextColor
+                        tint = if (password.isFavorite) favoriteIconColor else secondaryTextColor
                     )
                 }
                 Column(
