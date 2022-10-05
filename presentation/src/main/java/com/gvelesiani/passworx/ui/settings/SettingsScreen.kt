@@ -1,8 +1,6 @@
 package com.gvelesiani.passworx.ui.settings
 
 import android.app.Activity
-import android.content.Context
-import android.content.Intent
 import android.view.WindowManager
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.Image
@@ -18,6 +16,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.FloatingActionButton
@@ -28,7 +27,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -40,14 +38,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.fragment.app.FragmentActivity
+import androidx.core.app.ActivityCompat.recreate
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.NavController
+import com.gvelesiani.common.models.PassworxColors
 import com.gvelesiani.passworx.R
+import com.gvelesiani.passworx.common.util.OnLifecycleEvent
 import com.gvelesiani.passworx.navGraph.Screen
-import com.gvelesiani.passworx.ui.MainComposeActivity
 import com.gvelesiani.passworx.ui.ThemeSharedVM
 import com.gvelesiani.passworx.ui.components.Switch
 import com.gvelesiani.passworx.ui.components.ToolbarView
+import com.gvelesiani.passworx.ui.theme.supportsDynamic
 import org.koin.androidx.compose.getViewModel
 
 @Composable
@@ -60,6 +61,20 @@ fun SettingsScreen(
     val activity = LocalContext.current as Activity
     val screenshots = viewModel.takingScreenshotsArePrevented.collectAsState()
     val biometrics = viewModel.biometricsAreAllowed.collectAsState()
+
+    OnLifecycleEvent { _, event ->
+        when (event) {
+            Lifecycle.Event.ON_CREATE -> {
+                sharedViewModel.getCurrentAppTheme(supportsDynamic())
+            }
+
+            else -> {}
+        }
+    }
+
+    val currentThemeColors = remember {
+        sharedViewModel.currentThemeColors
+    }.collectAsState()
 
     val screenshotSwitchState by remember { mutableStateOf(screenshots) }
     val biometricsSwitchState by remember { mutableStateOf(biometrics) }
@@ -118,110 +133,54 @@ fun SettingsScreen(
             fontFamily = FontFamily(Font(R.font.medium, FontWeight.Normal))
         )
 
-//        FlowRow(
-//            mainAxisSpacing = 16.dp,
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .padding(start = 16.dp, end = 16.dp, top = 16.dp)
-//        ) {
-//            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-//                Box(
-//                    modifier = Modifier
-//                        .size(50.dp)
-//                        .clip(CircleShape)
-//                        .background(RedThemeLightColors.primary)
-//                        .clickable {
-//                            sharedViewModel.setThemeColors(PassworxColors.Red)
-//                            restart(context)
-//                        }
-//                )
-//                Text(
-//                    textAlign = TextAlign.Center,
-//                    text = "Red",
-//                    fontSize = 14.sp,
-//                    fontFamily = FontFamily(Font(R.font.regular, FontWeight.Normal))
-//                )
-//            }
-//
-//            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-//                Box(
-//                    modifier = Modifier
-//                        .size(50.dp)
-//                        .clip(CircleShape)
-//                        .background(OrangeThemeLightColors.primary)
-//                        .clickable {
-//                            sharedViewModel.setThemeColors(PassworxColors.Orange)
-//                            restart(context)
-//                        }
-//                )
-//
-//                Text(
-//                    textAlign = TextAlign.Center,
-//                    text = "Orange",
-//                    fontSize = 14.sp,
-//                    fontFamily = FontFamily(Font(R.font.regular, FontWeight.Normal))
-//                )
-//
-//            }
-//
-//            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-//                Box(
-//                    modifier = Modifier
-//                        .size(50.dp)
-//                        .clip(CircleShape)
-//                        .background(BlueThemeLightColors.primary)
-//                        .clickable {
-//                            sharedViewModel.setThemeColors(PassworxColors.Blue)
-//                            restart(context)
-//                        }
-//                )
-//                Text(
-//                    textAlign = TextAlign.Center,
-//                    text = "Blue",
-//                    fontSize = 14.sp,
-//                    fontFamily = FontFamily(Font(R.font.regular, FontWeight.Normal))
-//                )
-//            }
-//
-//
-//            if (supportsDynamic())
-//                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-//                    Box(
-//                        modifier = Modifier
-//                            .size(50.dp)
-//                            .clip(CircleShape)
-//                            .background(
-//                                Brush.horizontalGradient(
-//                                    colors = listOf(
-//                                        Color(0xffc5f9d7),
-//                                        Color(0xFFF7D486),
-//                                        Color(0xfff27a7d)
-//                                    )
-//                                )
-//                            )
-//                            .clickable {
-//                                sharedViewModel.setThemeColors(PassworxColors.Dynamic)
-//                                restart(context)
-//                            }
-//                    )
-//                    Text(
-//                        textAlign = TextAlign.Center,
-//                        text = "Dynamic",
-//                        fontSize = 14.sp,
-//                        fontFamily = FontFamily(Font(R.font.medium, FontWeight.Normal))
-//                    )
-//                }
-//        }
 
         LazyRow(
             modifier = Modifier.animateContentSize(),
             contentPadding = PaddingValues(16.dp)
         ) {
-            items(4) { index ->
-                ThemeComposable(
-                    index
-                ){
+            val themes = mutableListOf(
+                Theme(
+                    name = "Red",
+                    isCurrent = currentThemeColors.value == PassworxColors.Red,
+                    designId = R.drawable.red_theme
+                ),
+                Theme(
+                    name = "Green",
+                    isCurrent = currentThemeColors.value == PassworxColors.Green,
+                    designId = R.drawable.green_theme
+                ),
+                Theme(
+                    name = "Blue",
+                    isCurrent = currentThemeColors.value == PassworxColors.Blue,
+                    designId = R.drawable.blue_theme
+                )
+            )
 
+            if (supportsDynamic())
+                themes.add(
+                    1,
+                    Theme(
+                        name = "Dynamic",
+                        isCurrent = currentThemeColors.value == PassworxColors.Dynamic,
+                        designId = R.drawable.dynamic_theme
+                    )
+                )
+
+            items(themes) { theme ->
+                ThemeComposable(
+                    theme
+                ) {
+                    sharedViewModel.setThemeColors(
+                        when (theme.name) {
+                            "Red" -> PassworxColors.Red
+                            "Blue" -> PassworxColors.Blue
+                            "Green" -> PassworxColors.Green
+                            else -> {
+                                PassworxColors.Dynamic
+                            }
+                        }
+                    )
+                    recreate(context as Activity)
                 }
             }
         }
@@ -242,45 +201,26 @@ fun SettingsScreen(
     }
 }
 
-fun restart(context: Context) {
-    val intent = Intent(context, MainComposeActivity::class.java)
-    (context as FragmentActivity).finish()
-    context.startActivity(intent)
-    context.finishAffinity()
-}
-
 @Composable
-fun ThemeComposable(index: Int, onClick: () -> Unit) {
-    var chosenTheme by remember {
-        mutableStateOf(false)
-    }
-    val image = when (index) {
-        0 -> R.drawable.red_theme
-        1 -> R.drawable.dynamic_theme
-        2 -> R.drawable.green_theme
-        else -> {
-            R.drawable.blue_theme
-        }
-    }
-
-    Column {
+fun ThemeComposable(theme: Theme, onClick: () -> Unit) {
+    Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Box(
             Modifier
                 .padding(end = 6.dp)
-                .height(250.dp)
+                .height(230.dp)
                 .clickable(
                     interactionSource = MutableInteractionSource(),
                     indication = null
-                ) { chosenTheme = true }) {
-            Image(painter = painterResource(id = image), contentDescription = "")
+                ) { onClick.invoke() }) {
+            Image(painter = painterResource(id = theme.designId), contentDescription = "")
 
-            if (chosenTheme) {
+            if (theme.isCurrent) {
                 FloatingActionButton(
                     containerColor = Color.Black,
                     modifier = Modifier
                         .align(Alignment.TopEnd)
                         .padding(top = 10.dp, end = 10.dp)
-                        .size(30.dp),
+                        .size(23.dp),
                     onClick = {
                         onClick.invoke()
                     }) {
@@ -293,6 +233,17 @@ fun ThemeComposable(index: Int, onClick: () -> Unit) {
             }
         }
 
-        Text(text = "Red", textAlign = TextAlign.Center)
+        Text(
+            text = theme.name,
+            textAlign = TextAlign.Center,
+            fontFamily = FontFamily(Font(R.font.medium)),
+            fontSize = 16.sp
+        )
     }
 }
+
+data class Theme(
+    val name: String = "Red",
+    val isCurrent: Boolean = false,
+    val designId: Int = 0
+)

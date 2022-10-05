@@ -21,7 +21,10 @@ class PasswordsVM(
     private val _uiState = MutableStateFlow<PasswordsUIState>(PasswordsUIState.Empty)
     val uiState: StateFlow<PasswordsUIState> = _uiState
 
-    fun getPasswords() {
+    init {
+        getPasswords()
+    }
+    private fun getPasswords() {
         _uiState.value = PasswordsUIState.Loading
         CoroutineScope(Dispatchers.IO).launch {
             delay(1000)
