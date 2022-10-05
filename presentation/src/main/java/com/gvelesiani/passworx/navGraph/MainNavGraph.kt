@@ -1,26 +1,31 @@
 package com.gvelesiani.passworx.navGraph
 
+import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.runtime.Composable
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.gvelesiani.common.models.domain.PasswordModel
-import com.gvelesiani.passworx.uiCompose.UnderConstructionScreen
-import com.gvelesiani.passworx.uiCompose.addPassword.AddPasswordScreen
-import com.gvelesiani.passworx.uiCompose.backupAndRestore.BackupAndRestoreScreen
-import com.gvelesiani.passworx.uiCompose.browse.BrowseScreen
-import com.gvelesiani.passworx.uiCompose.favorites.FavoritesScreen
-import com.gvelesiani.passworx.uiCompose.intro.IntroScreen
-import com.gvelesiani.passworx.uiCompose.masterPassword.MasterPasswordScreen
-import com.gvelesiani.passworx.uiCompose.masterPassword.changeMasterPassword.ChangeMasterPasswordScreen
-import com.gvelesiani.passworx.uiCompose.masterPassword.createMasterPassword.CreateMasterPasswordScreen
-import com.gvelesiani.passworx.uiCompose.overview.OverviewScreen
-import com.gvelesiani.passworx.uiCompose.passwordGenerator.PasswordGeneratorScreen
-import com.gvelesiani.passworx.uiCompose.passwords.PasswordsScreen
-import com.gvelesiani.passworx.uiCompose.settings.SettingsScreen
-import com.gvelesiani.passworx.uiCompose.trash.TrashScreen
-import com.gvelesiani.passworx.uiCompose.updatePassword.UpdatePasswordScreen
+import com.gvelesiani.passworx.ui.UnderConstructionScreen
+import com.gvelesiani.passworx.ui.addPassword.AddPasswordScreen
+import com.gvelesiani.passworx.ui.backupAndRestore.BackupAndRestoreScreen
+import com.gvelesiani.passworx.ui.browse.BrowseScreen
+import com.gvelesiani.passworx.ui.favorites.FavoritesScreen
+import com.gvelesiani.passworx.ui.intro.IntroScreen
+import com.gvelesiani.passworx.ui.masterPassword.MasterPasswordScreen
+import com.gvelesiani.passworx.ui.masterPassword.changeMasterPassword.ChangeMasterPasswordScreen
+import com.gvelesiani.passworx.ui.masterPassword.createMasterPassword.CreateMasterPasswordScreen
+import com.gvelesiani.passworx.ui.overview.OverviewScreen
+import com.gvelesiani.passworx.ui.passwordDetails.PasswordDetailsScreen
+import com.gvelesiani.passworx.ui.passwordGenerator.PasswordGeneratorScreen
+import com.gvelesiani.passworx.ui.passwords.PasswordsScreen
+import com.gvelesiani.passworx.ui.settings.SettingsScreen
+import com.gvelesiani.passworx.ui.trash.TrashScreen
+import com.gvelesiani.passworx.ui.updatePassword.UpdatePasswordScreen
 
 sealed class StartScreen {
     object Create : StartScreen()
@@ -36,7 +41,9 @@ fun MainNavGraph(startScreen: String) {
     val navController = rememberAnimatedNavController()
     AnimatedNavHost(
         navController,
-        startDestination = startScreen
+        startDestination = startScreen,
+        enterTransition = { fadeIn(animationSpec = tween(800)) },
+        exitTransition = { fadeOut(animationSpec = tween(800)) }
     ) {
         composable(route = Screen.Overview.route) {
             OverviewScreen(navController)
@@ -85,6 +92,23 @@ fun MainNavGraph(startScreen: String) {
                 navController.previousBackStackEntry?.savedStateHandle?.get<PasswordModel>("password")
             UpdatePasswordScreen(passwordModel ?: PasswordModel(), navController)
         }
+        composable(route = Screen.Details.route,
+            enterTransition = {
+                slideIntoContainer(
+                    animationSpec = tween(800),
+                    towards = AnimatedContentScope.SlideDirection.Up
+                )
+            },
+            exitTransition = {
+                slideOutOfContainer(
+                    animationSpec = tween(800),
+                    towards = AnimatedContentScope.SlideDirection.Down
+                )
+            }) {
+            val passwordModel =
+                navController.previousBackStackEntry?.savedStateHandle?.get<PasswordModel>("password")
+            PasswordDetailsScreen(navController, password = passwordModel ?: PasswordModel())
+        }
     }
 }
 
@@ -104,4 +128,5 @@ sealed class Screen(val route: String) {
     object ChangeMasterPassword : Screen("changeMasterPassword")
     object MasterPassword : Screen("masterPassword")
     object Trash : Screen("trash")
+    object Details : Screen("passwordDetails")
 }
