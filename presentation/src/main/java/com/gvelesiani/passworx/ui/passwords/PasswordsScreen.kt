@@ -1,6 +1,7 @@
 package com.gvelesiani.passworx.ui.passwords
 
 import androidx.compose.animation.animateContentSize
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -12,31 +13,43 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.dynamicDarkColorScheme
+import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.fragment.app.FragmentActivity
 import androidx.navigation.NavController
+import com.gvelesiani.common.models.PassworxColors
 import com.gvelesiani.common.models.domain.PasswordModel
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.common.extensions.formatWebsite
 import com.gvelesiani.passworx.navGraph.Screen
+import com.gvelesiani.passworx.ui.ThemeSharedVM
 import com.gvelesiani.passworx.ui.components.EmptyListView
 import com.gvelesiani.passworx.ui.components.PasswordItem
 import com.gvelesiani.passworx.ui.components.ProgressIndicator
 import com.gvelesiani.passworx.ui.components.SearchView
 import com.gvelesiani.passworx.ui.components.ToolbarView
+import com.gvelesiani.passworx.ui.theme.RedThemeDarkColors
+import com.gvelesiani.passworx.ui.theme.RedThemeLightColors
+import com.gvelesiani.passworx.ui.theme.blue.BlueThemeDarkColors
+import com.gvelesiani.passworx.ui.theme.blue.BlueThemeLightColors
+import com.gvelesiani.passworx.ui.theme.green.GreenThemeDarkColors
+import com.gvelesiani.passworx.ui.theme.green.GreenThemeLightColors
+import com.gvelesiani.passworx.ui.theme.supportsDynamic
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.getViewModel
 
@@ -44,13 +57,37 @@ import org.koin.androidx.compose.getViewModel
     ExperimentalMaterial3Api::class
 )
 @Composable
-fun PasswordsScreen(navController: NavController, viewModel: PasswordsVM = getViewModel()) {
+fun PasswordsScreen(
+    navController: NavController,
+    viewModel: PasswordsVM = getViewModel(),
+    sharedVM: ThemeSharedVM = getViewModel()
+) {
+    sharedVM.getCurrentAppTheme(supportsDynamic())
     val uiState = remember { viewModel.uiState }.collectAsState()
 
     val scaffoldState = rememberScaffoldState()
 
     val coroutineScope = rememberCoroutineScope()
     val context = LocalContext.current
+    val fragmentActivity = LocalContext.current as FragmentActivity
+    val password = remember {
+        mutableStateOf(PasswordModel())
+    }
+
+    val biometrics = viewModel.getBiometrics()
+    biometrics.setupBiometricPrompt(fragmentActivity, context) {
+        if (password.value != PasswordModel() && it) {
+            navController.currentBackStackEntry?.savedStateHandle?.set(
+                key = "password",
+                value = password.value
+            )
+            navController.navigate(Screen.Details.route)
+        }
+    }
+
+    val currentThemeColors = remember {
+        sharedVM.currentThemeColors
+    }.collectAsState()
 
     androidx.compose.material3.Scaffold {
         Column(
@@ -76,6 +113,7 @@ fun PasswordsScreen(navController: NavController, viewModel: PasswordsVM = getVi
                     when (val state = uiState.value) {
                         is PasswordsUIState.Success -> {
                             PasswordContent(
+                                passworxColors = currentThemeColors.value,
                                 passwords = state.passwords,
                                 onCopy = {
 //                                    viewModel.decryptPassword(it.password)
@@ -94,20 +132,20 @@ fun PasswordsScreen(navController: NavController, viewModel: PasswordsVM = getVi
                                     )
                                 },
                                 onPassword = { passwordModel ->
-                                    navController.currentBackStackEntry?.savedStateHandle?.set(
-                                        key = "password",
-                                        value = passwordModel
-                                    )
-                                    navController.navigate(Screen.Details.route)
+                                    password.value = passwordModel
+                                    biometrics.authenticate()
                                 }
                             )
                         }
+
                         is PasswordsUIState.Empty -> {
                             EmptyListView()
                         }
+
                         is PasswordsUIState.Loading -> {
                             ProgressIndicator(isDisplayed = true)
                         }
+
                         is PasswordsUIState.Error -> {}
                     }
                 }
@@ -130,14 +168,35 @@ fun PasswordsScreen(navController: NavController, viewModel: PasswordsVM = getVi
     }
 }
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun PasswordContent(
+    passworxColors: PassworxColors,
     passwords: List<PasswordModel>,
     onCopy: (PasswordModel) -> Unit,
     onFavorite: (PasswordModel) -> Unit,
     onPassword: (PasswordModel) -> Unit
 ) {
+    val context = LocalContext.current
+    val titleContainerColor = when (passworxColors) {
+        PassworxColors.Dynamic -> {
+            if (isSystemInDarkTheme()) dynamicDarkColorScheme(context).primary else dynamicLightColorScheme(
+                context
+            ).primary
+        }
+
+        PassworxColors.Red -> {
+            if (isSystemInDarkTheme()) RedThemeDarkColors.primary else RedThemeLightColors.primary
+        }
+
+        PassworxColors.Green -> {
+            if (isSystemInDarkTheme()) GreenThemeDarkColors.primary else GreenThemeLightColors.primary
+        }
+
+        PassworxColors.Blue -> {
+            if (isSystemInDarkTheme()) BlueThemeDarkColors.primary else BlueThemeLightColors.primary
+        }
+    }
+
     LazyColumn(
         contentPadding = PaddingValues(bottom = 80.dp),
         modifier = Modifier.animateContentSize()
@@ -149,7 +208,8 @@ fun PasswordContent(
                 "com.gvelesiani.passworx"
             )
             PasswordItem(
-                logoResource,
+                titleContainerColor = titleContainerColor,
+                logoResource = logoResource,
                 password = password,
                 onCopyClick = {
                     onCopy.invoke(password)

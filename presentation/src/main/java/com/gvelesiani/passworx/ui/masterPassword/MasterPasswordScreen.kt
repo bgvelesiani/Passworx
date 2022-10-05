@@ -65,7 +65,7 @@ fun MasterPasswordScreen(
     val fragmentActivity = LocalContext.current as FragmentActivity
     val context = LocalContext.current
     val biometrics = viewModel.getBiometrics()
-    biometrics.setupBiometricPrompt(fragmentActivity, context) {
+    biometrics.setupBiometricPrompt(fragmentActivity, context){
         if (it) {
             navController.navigate(Screen.Overview.route) {
                 popUpTo(0)

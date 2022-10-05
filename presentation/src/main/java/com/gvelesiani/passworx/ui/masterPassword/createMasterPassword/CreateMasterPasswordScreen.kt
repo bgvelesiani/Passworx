@@ -146,7 +146,6 @@ fun CreateMasterPasswordScreen(
                             id = R.drawable.ic_overview_item_arrow
                         ),
                         contentDescription = ""
-//                        tint = Color.White
                     )
                 }
             }

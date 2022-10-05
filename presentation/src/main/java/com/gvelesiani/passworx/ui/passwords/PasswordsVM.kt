@@ -5,6 +5,7 @@ import com.gvelesiani.common.models.domain.PasswordModel
 import com.gvelesiani.domain.useCases.passwords.GetPasswordsUseCase
 import com.gvelesiani.domain.useCases.passwords.SearchPasswordsUseCase
 import com.gvelesiani.domain.useCases.passwords.UpdateFavoriteStateUseCase
+import com.gvelesiani.helpers.helpers.biometrics.BiometricsHelper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -15,7 +16,8 @@ import kotlinx.coroutines.launch
 class PasswordsVM(
     private val getPasswordsUseCase: GetPasswordsUseCase,
     private val updateFavoriteStateUseCase: UpdateFavoriteStateUseCase,
-    private val searchPasswordsUseCase: SearchPasswordsUseCase
+    private val searchPasswordsUseCase: SearchPasswordsUseCase,
+    private val biometricsHelper: BiometricsHelper
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<PasswordsUIState>(PasswordsUIState.Empty)
@@ -24,6 +26,8 @@ class PasswordsVM(
     init {
         getPasswords()
     }
+
+    fun getBiometrics(): BiometricsHelper = biometricsHelper
     private fun getPasswords() {
         _uiState.value = PasswordsUIState.Loading
         CoroutineScope(Dispatchers.IO).launch {

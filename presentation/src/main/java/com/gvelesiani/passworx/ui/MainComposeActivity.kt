@@ -35,8 +35,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class MainComposeActivity : FragmentActivity() {
-    val viewModel: MainVM by viewModel()
-    val sharedViewModel: ThemeSharedVM by viewModel()
+    private val viewModel: MainVM by viewModel()
+    private val sharedViewModel: ThemeSharedVM by viewModel()
 
     @SuppressLint("SourceLockedOrientationActivity")
     @OptIn(ExperimentalAnimationApi::class)

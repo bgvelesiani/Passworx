@@ -1,6 +1,11 @@
 package com.gvelesiani.passworx.ui.favorites
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
@@ -14,7 +19,11 @@ import androidx.navigation.NavController
 import com.gvelesiani.common.models.domain.PasswordModel
 import com.gvelesiani.passworx.common.extensions.formatWebsite
 import com.gvelesiani.passworx.common.util.OnLifecycleEvent
-import com.gvelesiani.passworx.ui.components.*
+import com.gvelesiani.passworx.ui.components.EmptyListView
+import com.gvelesiani.passworx.ui.components.PasswordItem
+import com.gvelesiani.passworx.ui.components.ProgressIndicator
+import com.gvelesiani.passworx.ui.components.SearchView
+import com.gvelesiani.passworx.ui.components.ToolbarView
 import org.koin.androidx.compose.getViewModel
 
 @Composable
@@ -92,7 +101,7 @@ fun FavoritePasswordsContent(
                 "com.gvelesiani.passworx"
             )
             PasswordItem(
-                logoResource,
+                logoResource = logoResource,
                 password = password,
                 onCopyClick = {
                     onCopy.invoke(password)
