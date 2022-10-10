@@ -23,7 +23,6 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -35,7 +34,6 @@ import androidx.navigation.NavController
 import com.gvelesiani.common.models.PassworxColors
 import com.gvelesiani.common.models.domain.PasswordModel
 import com.gvelesiani.passworx.R
-import com.gvelesiani.passworx.common.extensions.formatWebsite
 import com.gvelesiani.passworx.navGraph.Screen
 import com.gvelesiani.passworx.ui.ThemeSharedVM
 import com.gvelesiani.passworx.ui.components.EmptyListView
@@ -70,16 +68,14 @@ fun PasswordsScreen(
     val coroutineScope = rememberCoroutineScope()
     val context = LocalContext.current
     val fragmentActivity = LocalContext.current as FragmentActivity
-    val password = remember {
-        mutableStateOf(PasswordModel())
-    }
+    var password = PasswordModel()
 
     val biometrics = viewModel.getBiometrics()
     biometrics.setupBiometricPrompt(fragmentActivity, context) {
-        if (password.value != PasswordModel() && it) {
+        if (password != PasswordModel() && it) {
             navController.currentBackStackEntry?.savedStateHandle?.set(
                 key = "password",
-                value = password.value
+                value = password
             )
             navController.navigate(Screen.Details.route)
         }
@@ -132,7 +128,7 @@ fun PasswordsScreen(
                                     )
                                 },
                                 onPassword = { passwordModel ->
-                                    password.value = passwordModel
+                                    password = passwordModel
                                     biometrics.authenticate()
                                 }
                             )
@@ -202,14 +198,8 @@ fun PasswordContent(
         modifier = Modifier.animateContentSize()
     ) {
         items(passwords) { password ->
-            val logoResource = LocalContext.current.resources.getIdentifier(
-                password.websiteOrAppName.formatWebsite(),
-                "drawable",
-                "com.gvelesiani.passworx"
-            )
             PasswordItem(
                 titleContainerColor = titleContainerColor,
-                logoResource = logoResource,
                 password = password,
                 onCopyClick = {
                     onCopy.invoke(password)

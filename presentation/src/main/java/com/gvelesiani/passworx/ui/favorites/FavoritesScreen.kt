@@ -12,12 +12,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.NavController
 import com.gvelesiani.common.models.domain.PasswordModel
-import com.gvelesiani.passworx.common.extensions.formatWebsite
 import com.gvelesiani.passworx.common.util.OnLifecycleEvent
 import com.gvelesiani.passworx.ui.components.EmptyListView
 import com.gvelesiani.passworx.ui.components.PasswordItem
@@ -95,13 +93,7 @@ fun FavoritePasswordsContent(
 ) {
     LazyColumn(contentPadding = PaddingValues(bottom = 80.dp)) {
         items(passwords) { password ->
-            val logoResource = LocalContext.current.resources.getIdentifier(
-                password.websiteOrAppName.formatWebsite(),
-                "drawable",
-                "com.gvelesiani.passworx"
-            )
             PasswordItem(
-                logoResource = logoResource,
                 password = password,
                 onCopyClick = {
                     onCopy.invoke(password)

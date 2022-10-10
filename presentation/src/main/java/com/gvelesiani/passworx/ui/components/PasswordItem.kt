@@ -23,6 +23,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -31,6 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.gvelesiani.common.models.domain.PasswordModel
 import com.gvelesiani.passworx.R
+import com.gvelesiani.passworx.common.extensions.formatWebsite
 import com.gvelesiani.passworx.ui.composeTheme.favoriteIconColor
 import com.gvelesiani.passworx.ui.composeTheme.secondaryTextColor
 import java.util.Locale
@@ -39,13 +41,18 @@ import java.util.Locale
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun PasswordItem(
-    titleContainerColor: Color = Color(0),
-    logoResource: Int = 0,
+    titleContainerColor: Color = Color.White,
     password: PasswordModel,
     onPasswordClick: (PasswordModel) -> Unit,
     onFavoriteClick: () -> Unit,
     onCopyClick: () -> Unit
 ) {
+    val logoResource = LocalContext.current.resources.getIdentifier(
+        password.websiteOrAppName.formatWebsite(),
+        "drawable",
+        "com.gvelesiani.passworx"
+    )
+
     Card(
         shape = RoundedCornerShape(20.dp),
         elevation = CardDefaults.cardElevation(0.dp),
