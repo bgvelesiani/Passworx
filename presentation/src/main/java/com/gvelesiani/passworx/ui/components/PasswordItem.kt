@@ -1,6 +1,5 @@
 package com.gvelesiani.passworx.ui.components
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -38,7 +37,6 @@ import com.gvelesiani.passworx.ui.composeTheme.secondaryTextColor
 import java.util.Locale
 
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun PasswordItem(
     titleContainerColor: Color = Color.White,

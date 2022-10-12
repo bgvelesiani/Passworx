@@ -52,7 +52,7 @@ class BackupAndRestoreVM(
                         R.string.restorePasswordsSuccess
                     ).format(passwords.size)
                 )
-            } catch (e: Exception) {
+            } catch (_: Exception) {
             }
         }
     }

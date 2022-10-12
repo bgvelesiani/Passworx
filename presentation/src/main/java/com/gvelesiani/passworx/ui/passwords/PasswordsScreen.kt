@@ -1,5 +1,6 @@
 package com.gvelesiani.passworx.ui.passwords
 
+import android.content.Context
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
@@ -33,6 +34,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.navigation.NavController
 import com.gvelesiani.common.models.PassworxColors
 import com.gvelesiani.common.models.domain.PasswordModel
+import com.gvelesiani.helpers.helpers.biometrics.BiometricsHelper
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.navGraph.Screen
 import com.gvelesiani.passworx.ui.ThemeSharedVM
@@ -68,18 +70,7 @@ fun PasswordsScreen(
     val coroutineScope = rememberCoroutineScope()
     val context = LocalContext.current
     val fragmentActivity = LocalContext.current as FragmentActivity
-    var password = PasswordModel()
-
     val biometrics = viewModel.getBiometrics()
-    biometrics.setupBiometricPrompt(fragmentActivity, context) {
-        if (password != PasswordModel() && it) {
-            navController.currentBackStackEntry?.savedStateHandle?.set(
-                key = "password",
-                value = password
-            )
-            navController.navigate(Screen.Details.route)
-        }
-    }
 
     val currentThemeColors = remember {
         sharedVM.currentThemeColors
@@ -128,8 +119,14 @@ fun PasswordsScreen(
                                     )
                                 },
                                 onPassword = { passwordModel ->
-                                    password = passwordModel
                                     biometrics.authenticate()
+                                    setupBiometricAuthentication(
+                                        biometricsHelper = biometrics,
+                                        fragmentActivity = fragmentActivity,
+                                        context = context,
+                                        model = passwordModel,
+                                        navController = navController
+                                    )
                                 }
                             )
                         }
@@ -159,6 +156,26 @@ fun PasswordsScreen(
                         contentDescription = ""
                     )
                 }
+            }
+        }
+    }
+}
+
+fun setupBiometricAuthentication(
+    biometricsHelper: BiometricsHelper,
+    fragmentActivity: FragmentActivity,
+    context: Context,
+    model: PasswordModel,
+    navController: NavController
+) {
+    biometricsHelper.setupBiometricPrompt(fragmentActivity, context) {
+        model.let { model ->
+            if (it) {
+                navController.currentBackStackEntry?.savedStateHandle?.set(
+                    key = "password",
+                    value = model
+                )
+                navController.navigate(Screen.Details.route)
             }
         }
     }

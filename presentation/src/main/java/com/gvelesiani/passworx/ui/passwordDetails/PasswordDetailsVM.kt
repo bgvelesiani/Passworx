@@ -22,7 +22,6 @@ class PasswordDetailsVM(
         CoroutineScope(Dispatchers.IO).launch {
             decryptedPassword.value = encryptionHelper.decrypt(password)
         }
-        return
     }
 
     fun deletePassword(isInTrash: Boolean = true, isFavorite: Boolean, passwordId: Int) {
