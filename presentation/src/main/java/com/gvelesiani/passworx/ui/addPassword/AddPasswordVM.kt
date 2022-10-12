@@ -2,6 +2,7 @@ package com.gvelesiani.passworx.ui.addPassword
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.gvelesiani.common.models.domain.PasswordModel
 import com.gvelesiani.domain.useCases.passwords.AddNewPasswordUseCase
 import com.gvelesiani.helpers.helpers.encryptPassword.PasswordEncryptionHelper
 import com.gvelesiani.helpers.helpers.resourceProvider.ResourceHelper
@@ -24,7 +25,7 @@ class AddPasswordVM(
 
     private fun currentViewState(): ViewState = viewState.value!!
 
-    fun addNewPassword(password: com.gvelesiani.common.models.domain.PasswordModel) {
+    fun addNewPassword(password: PasswordModel) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 addNewPasswordUseCase(password)

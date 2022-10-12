@@ -1,5 +1,6 @@
 package com.gvelesiani.passworx.ui.passwords
 
+import android.content.Context
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
@@ -23,7 +24,6 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -34,8 +34,8 @@ import androidx.fragment.app.FragmentActivity
 import androidx.navigation.NavController
 import com.gvelesiani.common.models.PassworxColors
 import com.gvelesiani.common.models.domain.PasswordModel
+import com.gvelesiani.helpers.helpers.biometrics.BiometricsHelper
 import com.gvelesiani.passworx.R
-import com.gvelesiani.passworx.common.extensions.formatWebsite
 import com.gvelesiani.passworx.navGraph.Screen
 import com.gvelesiani.passworx.ui.ThemeSharedVM
 import com.gvelesiani.passworx.ui.components.EmptyListView
@@ -70,20 +70,7 @@ fun PasswordsScreen(
     val coroutineScope = rememberCoroutineScope()
     val context = LocalContext.current
     val fragmentActivity = LocalContext.current as FragmentActivity
-    val password = remember {
-        mutableStateOf(PasswordModel())
-    }
-
     val biometrics = viewModel.getBiometrics()
-    biometrics.setupBiometricPrompt(fragmentActivity, context) {
-        if (password.value != PasswordModel() && it) {
-            navController.currentBackStackEntry?.savedStateHandle?.set(
-                key = "password",
-                value = password.value
-            )
-            navController.navigate(Screen.Details.route)
-        }
-    }
 
     val currentThemeColors = remember {
         sharedVM.currentThemeColors
@@ -132,8 +119,14 @@ fun PasswordsScreen(
                                     )
                                 },
                                 onPassword = { passwordModel ->
-                                    password.value = passwordModel
                                     biometrics.authenticate()
+                                    setupBiometricAuthentication(
+                                        biometricsHelper = biometrics,
+                                        fragmentActivity = fragmentActivity,
+                                        context = context,
+                                        model = passwordModel,
+                                        navController = navController
+                                    )
                                 }
                             )
                         }
@@ -163,6 +156,26 @@ fun PasswordsScreen(
                         contentDescription = ""
                     )
                 }
+            }
+        }
+    }
+}
+
+fun setupBiometricAuthentication(
+    biometricsHelper: BiometricsHelper,
+    fragmentActivity: FragmentActivity,
+    context: Context,
+    model: PasswordModel,
+    navController: NavController
+) {
+    biometricsHelper.setupBiometricPrompt(fragmentActivity, context) {
+        model.let { model ->
+            if (it) {
+                navController.currentBackStackEntry?.savedStateHandle?.set(
+                    key = "password",
+                    value = model
+                )
+                navController.navigate(Screen.Details.route)
             }
         }
     }
@@ -202,14 +215,8 @@ fun PasswordContent(
         modifier = Modifier.animateContentSize()
     ) {
         items(passwords) { password ->
-            val logoResource = LocalContext.current.resources.getIdentifier(
-                password.websiteOrAppName.formatWebsite(),
-                "drawable",
-                "com.gvelesiani.passworx"
-            )
             PasswordItem(
                 titleContainerColor = titleContainerColor,
-                logoResource = logoResource,
                 password = password,
                 onCopyClick = {
                     onCopy.invoke(password)

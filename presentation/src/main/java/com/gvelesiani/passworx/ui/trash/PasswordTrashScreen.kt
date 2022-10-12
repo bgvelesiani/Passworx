@@ -93,7 +93,6 @@ fun TrashedPasswordsContent(
                 "com.gvelesiani.passworx"
             )
             PasswordItem(
-                logoResource = logoResource,
                 password = password,
                 onCopyClick = {
                     onCopy.invoke(password)

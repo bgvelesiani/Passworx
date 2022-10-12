@@ -4,12 +4,17 @@ import android.app.assist.AssistStructure
 import android.content.Intent
 import android.os.Build
 import android.os.CancellationSignal
-import android.service.autofill.*
+import android.service.autofill.AutofillService
+import android.service.autofill.Dataset
+import android.service.autofill.FillCallback
+import android.service.autofill.FillRequest
+import android.service.autofill.FillResponse
+import android.service.autofill.SaveCallback
+import android.service.autofill.SaveRequest
 import android.view.View.AUTOFILL_TYPE_TEXT
 import android.view.autofill.AutofillValue
 import android.widget.RemoteViews
 import androidx.annotation.RequiresApi
-import com.gvelesiani.common.models.domain.PasswordModel
 import com.gvelesiani.domain.useCases.passwords.GetPasswordsUseCase
 import com.gvelesiani.helpers.helpers.encryptPassword.PasswordEncryptionHelper
 import com.gvelesiani.passworx.R
@@ -18,7 +23,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
-import java.util.*
+import java.util.Locale
 
 @RequiresApi(Build.VERSION_CODES.O)
 class PassworxAutofillService : AutofillService() {
@@ -41,10 +46,10 @@ class PassworxAutofillService : AutofillService() {
             val passwordFields: MutableList<AssistStructure.ViewNode?> = ArrayList()
             val appName = structure.activityComponent.packageName
 
-            var passwords: List<PasswordModel> = listOf()
-            getPasswordsUseCase(false).collect {
-                passwords = it
-            }
+//            var passwords: List<PasswordModel> = listOf()
+//            getPasswordsUseCase(false).collect {
+//                passwords = it
+//            }
 
             identifyEmailFields(structure.getWindowNodeAt(0).rootViewNode, emailFields)
             identifyPasswordFields(structure.getWindowNodeAt(0).rootViewNode, passwordFields)
@@ -53,48 +58,52 @@ class PassworxAutofillService : AutofillService() {
 
             if (emailFields.isNotEmpty() && passwordFields.isNotEmpty()) {
                 var i = 0
-                for (password in passwords) {
-                    val websiteOrAppName = password.websiteOrAppName.formatWebsite()
-                    if (appName.contains(websiteOrAppName)) {
-                        passwords[i].websiteOrAppName.split("\\s".toRegex()).forEach { partName ->
-                            if ((password.emailOrUserName.contains("@")) or (partName.lowercase(
-                                    Locale.ROOT
-                                ).contains(
-                                    appName.lowercase(
+                getPasswordsUseCase.invoke(false).collect {
+                    for (password in it) {
+                        val websiteOrAppName = password.websiteOrAppName.formatWebsite()
+                        if (appName.contains(websiteOrAppName)) {
+                            it[i].websiteOrAppName.split("\\s".toRegex()).forEach { partName ->
+                                if ((password.emailOrUserName.contains("@")) or (partName.lowercase(
                                         Locale.ROOT
+                                    ).contains(
+                                        appName.lowercase(
+                                            Locale.ROOT
+                                        )
+                                    )) or (appName.lowercase(Locale.ROOT)
+                                        .contains(partName.lowercase(Locale.ROOT)))
+                                ) {
+                                    val remoteView =
+                                        RemoteViews(packageName, R.layout.autofill_item)
+                                    remoteView.setTextViewText(
+                                        R.id.emailOrUserName,
+                                        password.emailOrUserName
                                     )
-                                )) or (appName.lowercase(Locale.ROOT)
-                                    .contains(partName.lowercase(Locale.ROOT)))
-                            ) {
-                                val remoteView = RemoteViews(packageName, R.layout.autofill_item)
-                                remoteView.setTextViewText(
-                                    R.id.emailOrUserName,
-                                    password.emailOrUserName
-                                )
-                                remoteView.setTextViewText(R.id.passwordLabel,
-                                    password.websiteOrAppName.formatWebsite().replaceFirstChar {
-                                        if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString()
-                                    })
-                                autofillDatasets.add(
-                                    Dataset.Builder(remoteView).setValue(
-                                        emailFields.first()?.autofillId!!,
-                                        AutofillValue.forText(password.emailOrUserName)
-                                    ).setValue(
-                                        passwordFields.first()?.autofillId!!,
-                                        AutofillValue.forText(encryptionHelper.decrypt(password.password))
-                                    ).build()
-                                )
+                                    remoteView.setTextViewText(R.id.passwordLabel,
+                                        password.websiteOrAppName.formatWebsite().replaceFirstChar {
+                                            if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString()
+                                        })
+                                    autofillDatasets.add(
+                                        Dataset.Builder(remoteView).setValue(
+                                            emailFields.first()?.autofillId!!,
+                                            AutofillValue.forText(password.emailOrUserName)
+                                        ).setValue(
+                                            passwordFields.first()?.autofillId!!,
+                                            AutofillValue.forText(encryptionHelper.decrypt(password.password))
+                                        ).build()
+                                    )
+                                }
                             }
+                            i += 1
                         }
-                        i += 1
                     }
                 }
             } else if (passwordFields.isEmpty()) {
                 var i = 0
-                for (password in passwords) {
+                getPasswordsUseCase.invoke(false).collect {
+                    for(password in it) {
                     val websiteOrAppName = password.websiteOrAppName.formatWebsite()
                     if (appName.contains(websiteOrAppName)) {
-                        passwords[i].websiteOrAppName.split("\\s".toRegex()).forEach { partName ->
+                        it[i].websiteOrAppName.split("\\s".toRegex()).forEach { partName ->
                             if ((password.emailOrUserName.contains("@")) or (partName.lowercase(
                                     Locale.ROOT
                                 ).contains(
@@ -120,6 +129,7 @@ class PassworxAutofillService : AutofillService() {
                         i += 1
                     }
                 }
+            }
             }
 
             if (autofillDatasets.size != 0) {
