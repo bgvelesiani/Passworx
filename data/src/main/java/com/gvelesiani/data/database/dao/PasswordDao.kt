@@ -1,6 +1,10 @@
 package com.gvelesiani.data.database.dao
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import androidx.room.Update
 import com.gvelesiani.common.constants.TABLE_NAME
 import com.gvelesiani.common.models.data.PasswordDto
 import kotlinx.coroutines.flow.Flow
@@ -34,4 +38,7 @@ interface PasswordDao {
 
     @Query("SELECT * FROM $TABLE_NAME WHERE passwordTitle LIKE '%' || :query || '%' AND isInTrash=:isInTrash")
     fun searchPasswords(query: String, isInTrash: Boolean): Flow<List<PasswordDto>>
+
+    @Query("SELECT * FROM $TABLE_NAME WHERE isInTrash=:inTrash")
+    fun getPasswordsNoFlow(inTrash: Boolean): List<PasswordDto>
 }

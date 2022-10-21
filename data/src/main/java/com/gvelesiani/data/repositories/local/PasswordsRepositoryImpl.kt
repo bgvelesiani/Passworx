@@ -16,6 +16,10 @@ class PasswordsRepositoryImpl constructor(
         return database.getPasswordDao.getPasswords(isInTrash)
     }
 
+    override fun getPasswordsNoFlow(isInTrash: Boolean): List<PasswordDto> {
+        return database.getPasswordDao.getPasswordsNoFlow(isInTrash)
+    }
+
     override fun updateFavoriteState(isFavorite: Boolean, id: Int) {
         database.getPasswordDao.updateFavoriteState(isFavorite, id)
     }

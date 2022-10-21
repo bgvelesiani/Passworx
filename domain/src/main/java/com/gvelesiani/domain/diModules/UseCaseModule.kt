@@ -14,6 +14,7 @@ import com.gvelesiani.domain.useCases.masterPassword.GetMasterPasswordUseCase
 import com.gvelesiani.domain.useCases.passwords.AddNewPasswordUseCase
 import com.gvelesiani.domain.useCases.passwords.DeletePasswordUseCase
 import com.gvelesiani.domain.useCases.passwords.GetFavoritePasswordsUseCase
+import com.gvelesiani.domain.useCases.passwords.GetPasswordsNoFlowUseCase
 import com.gvelesiani.domain.useCases.passwords.GetPasswordsUseCase
 import com.gvelesiani.domain.useCases.passwords.SearchPasswordsUseCase
 import com.gvelesiani.domain.useCases.passwords.UpdateFavoriteStateUseCase
@@ -112,6 +113,10 @@ object UseCaseModule {
 
         factory {
             SetAppColorsUseCase(get())
+        }
+
+        factory {
+            GetPasswordsNoFlowUseCase(get())
         }
     }
 }

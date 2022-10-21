@@ -7,6 +7,7 @@ interface PasswordsRepository {
     fun updatePassword(pass: PasswordDto)
     fun addNewPassword(pass: PasswordDto)
     fun getPasswords(isInTrash: Boolean): Flow<List<PasswordDto>>
+    fun getPasswordsNoFlow(isInTrash: Boolean): List<PasswordDto>
     fun updateFavoriteState(isFavorite: Boolean, id: Int)
     fun getFavoritePasswords(): Flow<List<PasswordDto>>
     fun updateItemTrashState(isInTrash: Boolean, id: Int)
