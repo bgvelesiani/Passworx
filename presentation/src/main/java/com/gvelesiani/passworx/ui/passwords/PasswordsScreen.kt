@@ -14,9 +14,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.SnackbarHost
+import androidx.compose.material.SnackbarHostState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.rememberScaffoldState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -36,6 +37,7 @@ import com.gvelesiani.common.models.PassworxColors
 import com.gvelesiani.common.models.domain.PasswordModel
 import com.gvelesiani.helpers.helpers.biometrics.BiometricsHelper
 import com.gvelesiani.passworx.R
+import com.gvelesiani.passworx.common.extensions.copyToClipboard
 import com.gvelesiani.passworx.navGraph.Screen
 import com.gvelesiani.passworx.ui.ThemeSharedVM
 import com.gvelesiani.passworx.ui.components.EmptyListView
@@ -65,7 +67,7 @@ fun PasswordsScreen(
     sharedVM.getCurrentAppTheme(supportsDynamic())
     val uiState = remember { viewModel.uiState }.collectAsState()
 
-    val scaffoldState = rememberScaffoldState()
+    val snackbarHostState = remember { SnackbarHostState() }
 
     val coroutineScope = rememberCoroutineScope()
     val context = LocalContext.current
@@ -76,7 +78,7 @@ fun PasswordsScreen(
         sharedVM.currentThemeColors
     }.collectAsState()
 
-    androidx.compose.material3.Scaffold {
+    androidx.compose.material3.Scaffold(snackbarHost = { SnackbarHost(hostState = snackbarHostState)}) {
         Column(
             modifier = Modifier
                 .padding(it)
@@ -103,14 +105,22 @@ fun PasswordsScreen(
                                 passworxColors = currentThemeColors.value,
                                 passwords = state.passwords,
                                 onCopy = {
-//                                    viewModel.decryptPassword(it.password)
-//                                    if (decryptedPassword != "") {
-//                                        decryptedPassword.copyToClipboard(context)
-                                    coroutineScope.launch {
-                                        scaffoldState.snackbarHostState.showSnackbar(
-                                            message = "Needs work"
-                                        )
-                                    }
+                                    biometrics.authenticate(
+                                        subTitle = "Copy Password",
+                                        negativeButtonText = "Cancel"
+                                    )
+                                    setupBiometricAuthentication(
+                                        biometricsHelper = biometrics,
+                                        fragmentActivity = fragmentActivity,
+                                        context = context,
+                                        onSuccess = {
+                                            coroutineScope.launch {
+                                                val password = viewModel.decryptPassword(it.password)
+                                                password.copyToClipboard(context)
+                                                snackbarHostState.showSnackbar("Password copied successfully")
+                                            }
+                                        }
+                                    )
                                 },
                                 onFavorite = { passwordModel ->
                                     viewModel.updateFavoriteState(
@@ -119,13 +129,21 @@ fun PasswordsScreen(
                                     )
                                 },
                                 onPassword = { passwordModel ->
-                                    biometrics.authenticate()
+                                    biometrics.authenticate(
+                                        subTitle = "Update Password",
+                                        negativeButtonText = "Cancel"
+                                    )
                                     setupBiometricAuthentication(
                                         biometricsHelper = biometrics,
                                         fragmentActivity = fragmentActivity,
                                         context = context,
-                                        model = passwordModel,
-                                        navController = navController
+                                        onSuccess = {
+                                                    navController.currentBackStackEntry?.savedStateHandle?.set(
+                                                        key = "password",
+                                                        value = passwordModel
+                                                    )
+                                                    navController.navigate(Screen.Details.route)
+                                        }
                                     )
                                 }
                             )
@@ -165,18 +183,11 @@ fun setupBiometricAuthentication(
     biometricsHelper: BiometricsHelper,
     fragmentActivity: FragmentActivity,
     context: Context,
-    model: PasswordModel,
-    navController: NavController
+    onSuccess: () -> Unit
 ) {
     biometricsHelper.setupBiometricPrompt(fragmentActivity, context) {
-        model.let { model ->
-            if (it) {
-                navController.currentBackStackEntry?.savedStateHandle?.set(
-                    key = "password",
-                    value = model
-                )
-                navController.navigate(Screen.Details.route)
-            }
+        if(it) {
+            onSuccess.invoke()
         }
     }
 }

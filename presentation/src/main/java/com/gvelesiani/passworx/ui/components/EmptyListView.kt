@@ -21,7 +21,7 @@ import com.gvelesiani.passworx.ui.composeTheme.textColorLight
 
 @Composable
 fun EmptyListView() {
-    val textColor = if(isSystemInDarkTheme()) textColorDark else textColorLight
+    val textColor = if (isSystemInDarkTheme()) textColorDark else textColorLight
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -30,12 +30,14 @@ fun EmptyListView() {
         verticalArrangement = Arrangement.Center
     ) {
         Text(
+            color = textColor,
             textAlign = TextAlign.Center,
             text = "\uD83E\uDD77\uD83C\uDFFB",
             fontSize = 30.sp
         )
 
         Text(
+            color = textColor,
             modifier = Modifier.padding(top = 15.dp),
             textAlign = TextAlign.Center,
             text = "Nothing yet...",

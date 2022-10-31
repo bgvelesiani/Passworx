@@ -156,7 +156,10 @@ fun MasterPasswordScreen(
                 painter = painterResource(id = R.drawable.ic_fingerprint),
                 contentDescription = "",
                 modifier = Modifier.clickable {
-                    biometrics.authenticate()
+                    biometrics.authenticate(
+                        context.getString(com.gvelesiani.helpers.R.string.biometric_auth_subtitle),
+                        context.getString(com.gvelesiani.helpers.R.string.biometric_auth_negative_button_text)
+                    )
                 })
         }
 

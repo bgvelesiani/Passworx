@@ -14,13 +14,13 @@ class BiometricsHelperImpl(
     private lateinit var executor: Executor
     private lateinit var biometricPrompt: BiometricPrompt
 
-    override fun authenticate() {
+    override fun authenticate(subTitle: String, negativeButtonText: String) {
         val promptInfo = BiometricPrompt.PromptInfo.Builder()
             .setTitle(
                 resourceHelper.getString(R.string.biometric_auth_title)
             )
-            .setSubtitle(resourceHelper.getString(R.string.biometric_auth_subtitle))
-            .setNegativeButtonText(resourceHelper.getString(R.string.biometric_auth_negative_button_text))
+            .setSubtitle(subTitle)
+            .setNegativeButtonText(negativeButtonText)
             .build()
         biometricPrompt.authenticate(promptInfo)
     }

@@ -39,7 +39,7 @@ object ViewModelsModule {
         }
 
         viewModel {
-            PasswordsVM(get(), get(), get(), get())
+            PasswordsVM(get(), get(), get(), get(), get())
         }
 
         viewModel {
