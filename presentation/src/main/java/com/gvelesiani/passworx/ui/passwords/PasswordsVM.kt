@@ -2,6 +2,7 @@ package com.gvelesiani.passworx.ui.passwords
 
 import androidx.lifecycle.ViewModel
 import com.gvelesiani.common.models.domain.PasswordModel
+import com.gvelesiani.domain.useCases.biometrics.GetBiometricsAllowingStatusUserCase
 import com.gvelesiani.domain.useCases.passwords.GetPasswordsUseCase
 import com.gvelesiani.domain.useCases.passwords.SearchPasswordsUseCase
 import com.gvelesiani.domain.useCases.passwords.UpdateFavoriteStateUseCase
@@ -20,14 +21,33 @@ class PasswordsVM(
     private val updateFavoriteStateUseCase: UpdateFavoriteStateUseCase,
     private val searchPasswordsUseCase: SearchPasswordsUseCase,
     private val biometricsHelper: BiometricsHelper,
-    private val passwordEncryptionHelper: PasswordEncryptionHelper
+    private val passwordEncryptionHelper: PasswordEncryptionHelper,
+    private val getBiometricsAllowingStatusUserCase: GetBiometricsAllowingStatusUserCase,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<PasswordsUIState>(PasswordsUIState.Empty)
     val uiState: StateFlow<PasswordsUIState> = _uiState
 
+    private val _biometricsAreAllowed = MutableStateFlow(false)
+    val biometricsAreAllowed: StateFlow<Boolean> = _biometricsAreAllowed
+
+    private val _passwordModel = MutableStateFlow(PasswordModel())
+    val passwodModel: StateFlow<PasswordModel> = _passwordModel
+
     init {
+        getBiometricsAllowedStatus()
         getPasswords()
+    }
+
+    fun setPasswordModel(model: PasswordModel) {
+        _passwordModel.value = model
+    }
+
+    private fun getBiometricsAllowedStatus(){
+        CoroutineScope(Dispatchers.IO).launch {
+            val result = getBiometricsAllowingStatusUserCase.invoke(Unit)
+            _biometricsAreAllowed.value = result
+        }
     }
 
     suspend fun decryptPassword(password: String) = withContext(Dispatchers.IO) {

@@ -46,6 +46,10 @@ class MasterPasswordVM(
             biometricsAreAllowed.value = result
         }
     }
+
+    fun setEmptyUiState() {
+        _uiState.value = MasterPasswordUiState.Empty
+    }
 }
 
 sealed class MasterPasswordUiState {

@@ -147,7 +147,9 @@ fun MasterPasswordScreen(
 
             is MasterPasswordUiState.Empty -> {}
             is MasterPasswordUiState.Error -> {
-                ErrorDialog(errorMsg = state.errorMsg)
+                ErrorDialog(errorMsg = state.errorMsg){
+                    viewModel.setEmptyUiState()
+                }
             }
         }
 

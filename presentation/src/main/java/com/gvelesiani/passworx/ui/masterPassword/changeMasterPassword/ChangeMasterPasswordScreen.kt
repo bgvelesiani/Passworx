@@ -225,7 +225,7 @@ fun ChangeMasterPasswordScreen(
                         enabled.value = true
                     }
                     is ChangePasswordUIState.Error -> {
-                        ErrorDialog(errorMsg = state.errorMsg)
+                        ErrorDialog(errorMsg = state.errorMsg){}
                     }
                     is ChangePasswordUIState.Empty -> {}
                 }

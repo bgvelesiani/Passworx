@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.sp
 import com.gvelesiani.passworx.R
 
 @Composable
-fun ErrorDialog(errorMsg: String) {
+fun ErrorDialog(errorMsg: String, onDismiss: () -> Unit) {
     Column {
         val openDialog = remember { mutableStateOf(true) }
 
@@ -38,6 +38,7 @@ fun ErrorDialog(errorMsg: String) {
                 confirmButton = {},
                 dismissButton = {
                     GeneralButton(modifier = Modifier.fillMaxWidth().padding(15.dp), text = "Dismiss") {
+                        onDismiss.invoke()
                         openDialog.value = false
                     }
                 }
