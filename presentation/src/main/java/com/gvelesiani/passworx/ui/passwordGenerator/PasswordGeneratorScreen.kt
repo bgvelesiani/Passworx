@@ -1,7 +1,6 @@
 package com.gvelesiani.passworx.ui.passwordGenerator
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.material3.*
@@ -21,7 +20,9 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.gvelesiani.passworx.R
 import com.gvelesiani.passworx.common.extensions.copyToClipboard
-import com.gvelesiani.passworx.ui.theme.supportsDynamic
+import com.gvelesiani.passworx.common.util.getPrimaryColorByTheme
+import com.gvelesiani.passworx.common.util.getSurfaceVariantColorByTheme
+import com.gvelesiani.passworx.ui.ThemeSharedVM
 import com.gvelesiani.passworx.ui.components.GeneralButton
 import com.gvelesiani.passworx.ui.components.Switch
 import com.gvelesiani.passworx.ui.components.ToolbarView
@@ -32,7 +33,8 @@ import org.koin.androidx.compose.getViewModel
 @Composable
 fun PasswordGeneratorScreen(
     navController: NavController,
-    viewModel: PasswordGeneratorVM = getViewModel()
+    viewModel: PasswordGeneratorVM = getViewModel(),
+    themeVM: ThemeSharedVM = getViewModel()
 ) {
     val context = LocalContext.current
     val scaffoldState = rememberScaffoldState()
@@ -41,21 +43,9 @@ fun PasswordGeneratorScreen(
     val selectedLength by remember { viewModel.selectedLength }.collectAsState()
     val generatedPassword by remember { viewModel.generatedPassword }.collectAsState()
 
-    val spannedColor = if (supportsDynamic()) {
-        if (isSystemInDarkTheme()) dynamicDarkColorScheme(context).primary else dynamicLightColorScheme(
-            context
-        ).primary
-    } else {
-        MaterialTheme.colorScheme.primary
-    }
-
-    val generatedPasswordBg = if (supportsDynamic()) {
-        if (isSystemInDarkTheme()) dynamicDarkColorScheme(context).surfaceVariant else dynamicLightColorScheme(
-            context
-        ).surfaceVariant
-    } else {
-        MaterialTheme.colorScheme.surfaceVariant
-    }
+    val currentThemeColors = remember {
+        themeVM.currentThemeColors
+    }.collectAsState()
 
     Box(modifier = Modifier.fillMaxSize()) {
         Scaffold(
@@ -74,12 +64,18 @@ fun PasswordGeneratorScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(150.dp)
-                        .background(generatedPasswordBg)
+                        .background(getSurfaceVariantColorByTheme(
+                            colors = currentThemeColors.value,
+                            context = context
+                        ))
                 ) {
                     val annotatedString = buildAnnotatedString {
                         for (char in generatedPassword) {
                             if (char.isDigit()) {
-                                withStyle(style = SpanStyle(color = spannedColor)) {
+                                withStyle(style = SpanStyle(color = getPrimaryColorByTheme(
+                                    context = context,
+                                    colors = currentThemeColors.value
+                                ))) {
                                     append(char)
                                 }
                             } else {
@@ -99,7 +95,10 @@ fun PasswordGeneratorScreen(
 
                 val passwordLengthSpan = buildAnnotatedString {
                     append("Generated password length: ")
-                    withStyle(style = SpanStyle(color = spannedColor)) {
+                    withStyle(style = SpanStyle(color = getPrimaryColorByTheme(
+                        context = context,
+                        colors = currentThemeColors.value
+                    ))) {
                         append(selectedLength.toInt().toString())
                     }
                 }

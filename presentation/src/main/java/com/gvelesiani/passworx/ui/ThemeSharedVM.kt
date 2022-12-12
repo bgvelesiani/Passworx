@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.gvelesiani.common.models.PassworxColors
 import com.gvelesiani.domain.useCases.appColors.GetAppColorsUseCase
 import com.gvelesiani.domain.useCases.appColors.SetAppColorsUseCase
+import com.gvelesiani.passworx.ui.theme.supportsDynamic
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,6 +15,10 @@ class ThemeSharedVM(
     private val setAppColorsUseCase: SetAppColorsUseCase
 ) : ViewModel() {
     val currentThemeColors: MutableStateFlow<PassworxColors> = MutableStateFlow(PassworxColors.Red)
+
+    init {
+        getCurrentAppTheme(supportsDynamic())
+    }
 
     fun getCurrentAppTheme(supportsDynamic: Boolean) {
         CoroutineScope(Dispatchers.IO).launch {
